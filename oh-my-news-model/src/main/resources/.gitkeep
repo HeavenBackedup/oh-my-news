@@ -1,6 +1,3 @@
 # Ignore everything in this directory
-/main
-/test
+*
 # Except this file !.gitkeep
-
-
