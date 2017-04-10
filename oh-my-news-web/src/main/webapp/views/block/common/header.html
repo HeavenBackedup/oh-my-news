@@ -1,0 +1,65 @@
+<!--<div class="navbar bg-info">-->
+  <!--<div class="col-sm-9">-->
+    <!--<h1>ohmyNews</h1>-->
+  <!--</div>-->
+  <!--<div class="col-sm-1 bottom">-->
+    <!--<a><h5>发新闻</h5></a>-->
+  <!--</div>-->
+  <!--<div class="col-sm-2">-->
+
+    <!--&lt;!&ndash;<ul class="uib-dropdown-toggle" role="menu">&ndash;&gt;-->
+      <!--&lt;!&ndash;<li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<a href="#">操作</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;</li>&ndash;&gt;-->
+      <!--&lt;!&ndash;<li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<a href="#">另一操作</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;</li>&ndash;&gt;-->
+      <!--&lt;!&ndash;<li>&ndash;&gt;-->
+      <!--&lt;!&ndash;</li>&ndash;&gt;-->
+      <!--&lt;!&ndash;<li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<a href="#">其它</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;</li>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+    <!--<ul class="nav navbar-nav">-->
+      <!--<li class="dropdown open">-->
+        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Dropdown <span class="caret"></span></a>-->
+        <!--<ul class="dropdown-menu">-->
+          <!--<li><a href="#">Action</a></li>-->
+          <!--<li><a href="#">Another action</a></li>-->
+          <!--<li><a href="#">Something else here</a></li>-->
+          <!--<li role="separator" class="divider"></li>-->
+          <!--<li><a href="#">Separated link</a></li>-->
+          <!--<li role="separator" class="divider"></li>-->
+          <!--<li><a href="#">One more separated link</a></li>-->
+        <!--</ul>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</div>-->
+
+
+<!--</div>-->
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" ui-sref="main">ohmyNews</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a ui-sref="app.edit"><span class="navbar-brand"></span> 发新闻</a></li>
+      <li><a ui-sref="app.template"><span class="navbar-brand"></span> 模板(生产环境删除)</a></li>
+      <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          xxx的账号 <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a ui-sref="app.personalHomepage.hpTabset.myHomePage">我的主页</a></li>
+          <li><a ui-sref="app.assetHomepage.myReward">我的打赏</a></li>
+          <li><a ui-sref="app.assetHomepage.myWallet">我的钱包</a></li>
+          <li><a ui-sref="app.accountManage">账号管理</a></li>
+          <li><a href="#">退出</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
