@@ -165,6 +165,12 @@ var app =angular
               templateUrl: 'views/block/template/template.html',
               controller: 'templateController'
           })
+          .state('error',{
+              url: '/error',
+              templateUrl: 'views/error.html',
+              controller: 'errorController'
+          })
+
       ;
 
   }]);

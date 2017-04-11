@@ -1,9 +1,76 @@
-<ul>
-    <li>
-        <div class="row">
-            <input placeholder="此处随意输入信息" ng-model="input">
-            <button ng-click="inputCommit()">提交</button>
-            <span>{{inputRes}}</span>
-        </div>
-    </li>
-</ul>
+<div ng-init="init()">
+    <ul>
+        <li>
+            <div class="row">
+                <input placeholder="此处随意输入信息" ng-model="input">
+                <button ng-click="inputCommit()">提交</button>
+                <span>{{inputRes}}</span>
+            </div>
+        </li>
+        <li>
+            <div class="row">
+                分页
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <td>id</td>
+                    <td>name</td>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="p in pageItems">
+                        <td>{{p.id}}</td>
+                        <td>{{p.name}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="row">
+                <pagination ng-change="pageChange()" total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页" class="pagination-sm" boundary-links="true" rotate="false" ></pagination>
+            </div>
+        </li>
+        <li>
+            <div class="row">
+                时间选择控件
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right">
+                        <label for="start_time" class="form-control" style="border: none">查询起始日期：</label>
+                    </div>
+                    <div class="col-md-4 dropdown">
+                        <a class="dropdown-toggle" id="start" role="button" data-toggle="dropdown" href="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="start_time" data-ng-model="start_time" datepicker-popup="yyyy-MM-dd HH:mm:ss" placeholder="请选择起始日期">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="start_time"
+                                            data-datetimepicker-config="{ dropdownSelector: '#start' }">
+                            </datetimepicker>
+                        </ul>
+                    </div>
+                    <div class="col-md-2" style="text-align: right">
+                        <label for="end_time" class="form-control" style="border: none">查询截止日期：</label>
+                    </div>
+                    <div class="col-md-4 dropdown">
+                        <a class="dropdown-toggle" id="end" role="button" data-toggle="dropdown" href="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="end_time" data-ng-model="end_time" datepicker-popup="yyyy-MM-dd HH:mm:ss" placeholder="请选择截止日期" date>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="end_time"
+                                            data-datetimepicker-config="{ dropdownSelector: '#end' }">
+                            </datetimepicker>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>

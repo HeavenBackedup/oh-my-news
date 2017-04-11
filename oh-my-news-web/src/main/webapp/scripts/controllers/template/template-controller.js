@@ -8,6 +8,12 @@ app.controller('templateController',['$scope','templateService',function ($scope
     $scope.init = function () {
         $scope.input = "";
         $scope.inputRes = "";
+        $scope.pagination = {};
+        $scope.pageItems = {};
+        $scope.pagination.totalItems = 200;
+        $scope.pagination.currentPage = 2;
+        $scope.pagination.maxSize = 5;
+        moment.locale("zh-cn");
     }
 
 
@@ -21,20 +27,20 @@ app.controller('templateController',['$scope','templateService',function ($scope
        })
     }
 
-    $scope.paramTest = function () {
-        $scope.inputCommitTest(1);
-        $scope.inputCommitTest(2,'yes');
-        $scope.inputCommitTest($scope.testFunciont);
-        $scope.inputCommitTest(1,2,3,4,5,6);
+    $scope.pageChange = function () {
+        var param = {};
+        param.currentPage = $scope.pagination.currentPage;
+        templateService.pageChange(param,function (data) {
+            $scope.pagination.totalItems = data.pagination.totalItems;
+            $scope.pagination.currentPage = data.pagination.currentPage;
+            $scope.pageItems = data.items;
+        },function (data) {
+            console.info("error: "+data)
+        });
     }
 
-    $scope.testFunciont = function () {
-        alert('function exec');
-    }
-    $scope.inputCommitTest = function (p1,p2,p3) {
-        alert('p1'+p1);
-        alert('p2'+p2);
-        alert('p3'+p3);
-    }
+
+
+
 
 }])
