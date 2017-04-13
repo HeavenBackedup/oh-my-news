@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by shj on 2017/4/11.
  */
 @Controller
-@RequestMapping(value = "/com/oh/my/news/model/template")
+@RequestMapping(value = "/template")
 public class templateAction extends BaseAction {
 
 
