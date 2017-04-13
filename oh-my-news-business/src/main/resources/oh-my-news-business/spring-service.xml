@@ -25,6 +25,7 @@
             <list>
                 <value>file:${global.config.path}/oh-my-news/oh-my-news-business/jdbc.write.properties</value>
                 <value>file:${global.config.path}/oh-my-news/oh-my-news-business/jdbc.read.properties</value>
+                <value>file:${global.config.path}/oh-my-news/oh-my-news-business/fileUpload.properties</value>
             </list>
         </property>
     </bean>

@@ -1,4 +1,4 @@
-package template;
+package com.oh.my.news.model.template;
 
 /**
  * Created by shj on 2017/4/12.

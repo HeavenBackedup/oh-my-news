@@ -27,7 +27,7 @@
   </div>
   <uib-accordion close-others="oneAtATime">
     <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-      This content is straight in the template.
+        This content is straight in the com.oh.my.news.model.template.
     </div>
     <div uib-accordion-group class="panel-default" heading="{{group.title}}" ng-repeat="group in groups">
       {{group.content}}
@@ -37,10 +37,10 @@
       <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
       <div ng-repeat="item in items">{{item}}</div>
     </div>
-    <div uib-accordion-group class="panel-default" heading="Custom template" template-url="group-template.html">
+    <div uib-accordion-group class="panel-default" heading="Custom template" template-url="group-com.oh.my.news.model.template.html">
       Hello
     </div>
-    <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" template-url="group-template.html">
+    <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" template-url="group-com.oh.my.news.model.template.html">
       <uib-accordion-heading>
         Custom template with custom header template <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
       </uib-accordion-heading>

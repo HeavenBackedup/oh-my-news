@@ -11,4 +11,5 @@
               maxSessions="100"
               useStatementNamespaces="true"/>
     <sqlMap resource="ibatis/template_sqlMap.xml"></sqlMap>
+    <sqlMap resource="ibatis/image_sqlMap.xml"></sqlMap>
 </sqlMapConfig>

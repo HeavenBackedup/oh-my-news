@@ -1,4 +1,4 @@
-app.factory('routeUtil', function ($location, $timeout, $http) {
+app.factory('routeUtil', function ($location, $timeout, $http,Upload) {
 	var util = {};
 
 	//重定向 需要参数解析 参数传递需注意顺序
@@ -127,7 +127,31 @@ app.factory('routeUtil', function ($location, $timeout, $http) {
                 failed(err);
             }
         },prefix)};
+
+    util.fileUpload = function (url,file,success,failed,progress) {
+		 Upload.upload({
+			url:bootPATH+url+'.do',
+			data:{file:file}
+		}).then(function (result) {
+			 $timeout(function () {
+			 	// alert(angular.toJson(result));
+				success(angular.fromJson(result).data);
+             })
+         },function (err) {
+			 if(failed){
+			 	failed(err);
+			 }
+         },function (evt) {
+			if(angular.isFunction(progress)){
+                progress(evt)
+			}
+
+
+         });
+    }
 	return util;
+
+
 });
 
 

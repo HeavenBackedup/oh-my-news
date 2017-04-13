@@ -1,13 +1,11 @@
 package com.oh.my.news.web.controller;
 
+import com.oh.my.news.model.template.Item;
 import com.oh.my.news.web.util.BaseAction;
+import javafx.scene.control.Pagination;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import template.Item;
-import template.Pagination;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +16,7 @@ import java.util.Map;
  * Created by shj on 2017/4/11.
  */
 @Controller
-@RequestMapping(value = "/template")
+@RequestMapping(value = "/com/oh/my/news/model/template")
 public class templateAction extends BaseAction {
 
 
@@ -45,5 +43,14 @@ public class templateAction extends BaseAction {
         map.put("items",itemList);
         return successReturnObject(map);
     }
+
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    public @ResponseBody Object fileUpload(@RequestParam(value = "file")MultipartFile file){
+        String path="../../../../../../webapp/images/";
+        System.out.println(file.getOriginalFilename());
+
+        return successReturnObject("file get");
+    }
+
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="image_sqlMap">
+    <resultMap id="image_resultMap" class="com.oh.my.news.model.po.File">
+        <result property="id" column="id" jdbcType="INTEGER"></result>
+        <result property="key" column="key" jdbcType="VARCHAR"></result>
+        <result property="url" column="url" jdbcType="VARCHAR"></result>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <select id="query_image" parameterClass="Integer" resultMap="image_resultMap">
+        select `id`,`key`,`url`,`is_delete` from image where `id` = #id# and is_delete = 0;
+    </select>
+
+    <insert id="insert_image" parameterClass="com.oh.my.news.model.po.File">
+        insert into image (`key`,`url`,`is_delete`) values (#key#,#url#,0)
+        <selectKey keyProperty="id" resultClass="Integer">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        ;
+    </insert>
+</sqlMap>
