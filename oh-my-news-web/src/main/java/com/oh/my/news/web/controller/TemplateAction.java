@@ -2,11 +2,10 @@ package com.oh.my.news.web.controller;
 
 import com.oh.my.news.model.template.Item;
 import com.oh.my.news.web.util.BaseAction;
-import javafx.scene.control.Pagination;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.oh.my.news.model.template.Pagination;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/template")
-public class templateAction extends BaseAction {
+public class TemplateAction extends BaseAction {
 
 
     @RequestMapping(value = "/getInput",consumes = APPLICATION_JSON, method = RequestMethod.POST)

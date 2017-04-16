@@ -14,7 +14,6 @@ var app =angular
     'ngCookies',
     'ngMessages',
     'ngResource',
-    // 'ngRoute',
     'ngSanitize',
     'ngTouch',
     'ui.router',
@@ -24,7 +23,9 @@ var app =angular
     'ui.validate',
     'ngFileUpload',
     'ui.bootstrap.pagination',
-    'ui.bootstrap.datetimepicker'
+    'ui.bootstrap.datetimepicker',
+      'textAngular',
+      'ngClipboard'
   ])
   .run(
   [  '$rootScope', '$state', '$stateParams',
@@ -34,8 +35,8 @@ var app =angular
     }
   ]
 )
-  .config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide) {
+  .config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide','ngClipProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide,ngClipProvider) {
       app.controller = $controllerProvider.register;
       app.directive  = $compileProvider.directive;
       app.filter     = $filterProvider.register;
@@ -43,7 +44,7 @@ var app =angular
       app.service    = $provide.service;
       app.constant   = $provide.constant;
       app.value      = $provide.value;
-
+      ngClipProvider.setPath(bootPATH+'/bower_components/zeroclipboard/dist/ZeroClipboard.swf');
       $urlRouterProvider.otherwise('/app/personal_home_page/hp_tabset/my_home_page');
 
       $stateProvider

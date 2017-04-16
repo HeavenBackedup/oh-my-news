@@ -10,6 +10,9 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+    <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+    <link rel="icon" href="favicon.ico">
     <!--<link rel="stylesheet" href="bower_components/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">-->
     <!-- endbower -->
     <!-- endbuild -->
@@ -37,6 +40,7 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
+
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -63,6 +67,12 @@
     <script type="text/javascript" src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
     <script type="text/javascript" src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
     <script type="text/javascript" src="bower_components/angular-date-time-input/src/dateTimeInput.js"></script>
+    <script type="text/javascript" src="bower_components/textAngular/dist/textAngular-rangy.min.js"></script>
+    <script type="text/javascript" src="bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>
+    <script type="text/javascript" src="bower_components/textAngular/dist/textAngular.min.js"></script>
+    <script type="text/javascript" src="bower_components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
+    <script type="text/javascript" src="bower_components/ng-clip/src/ngClip.js"></script>
+
     <!--<script type="text/javascript" src="bower_components/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>-->
     <!--<script type="text/javascript" src="bower_components/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>-->
     <!-- endbower -->
@@ -95,10 +105,14 @@
     <!--service-->
     <script src="scripts/service/template/template-service.js"></script>
     <script src="scripts/service/util/file-service.js"></script>
+    <script src="scripts/service/common/common-service.js"></script>
+    <script src="scripts/service/edit/editService.js"></script>
 
 
     <!--message-->
     <script src="scripts/message/error.js"></script>
+    <script src="scripts/message/user.js"></script>
+    <script src="scripts/message/content.js"></script>
   <!-- endbuild -->
 </body>
 </html>

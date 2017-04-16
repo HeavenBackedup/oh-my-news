@@ -3,16 +3,16 @@
  */
 app.factory('error',function () {
     var error = {};
-    error.data = "";
+    var data = "";
     error.setData = function (data) {
-        error.data = data;
+        this.data = data;
     }
 
     error.getData = function () {
-        return error.data;
+        return this.data;
     }
     error.clearData = function () {
-        error.data = "";
+        this.data = "";
     }
     return error;
 })

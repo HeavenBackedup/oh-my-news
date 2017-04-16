@@ -25,10 +25,6 @@ public class aliyunPutTestCase {
         try {
             PutObjectResult putObjectResult = ossClient.putObject(new PutObjectRequest(bucketName, key, createSampleFile()));
             System.out.println(putObjectResult.getETag());
-            System.out.println(putObjectResult.getClientCRC());
-            System.out.println(putObjectResult.getRequestId());
-            System.out.println(putObjectResult.getResponse());
-            System.out.println(putObjectResult.getServerCRC());
             Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 10);
             System.out.println(ossClient.generatePresignedUrl(bucketName,key,expiration));
         }catch (Exception e){

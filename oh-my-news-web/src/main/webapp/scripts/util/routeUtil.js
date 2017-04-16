@@ -83,7 +83,7 @@ app.factory('routeUtil', function ($location, $timeout, $http,Upload) {
 		if(!prefix){
 			prefix = '.do';
 		}
-		$http.post(bootPATH+url+prefix, angular.toJson(param)).then(function(response) {
+		$http.post(bootPATH+url+prefix,angular.toJson(param)).then(function(response) {
 			if($.isFunction(success)){
 			success(response.data);
 			}
