@@ -23,12 +23,13 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
 
 
     $scope.EditContentInit = function () {
-        var editContent = content.getEditContent();
+        var editContent = content.getTemplate();
         if(editContent.id == -1){
             $scope.articleId = -1;
             $scope.categorySelected = $scope.categories[0];
             return;
         }
+        $scope.articleId = editContent.id;
         $scope.topic = editContent.topic;
         $scope.htmlContent = editContent.htmlContent;
         $scope.labels = editContent.labels;
