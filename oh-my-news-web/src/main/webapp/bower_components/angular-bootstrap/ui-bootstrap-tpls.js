@@ -621,7 +621,6 @@ angular.module('ui.bootstrap.carousel', [])
     if (destroyed) {
       return;
     }
-
     angular.extend(slide, {direction: direction});
     angular.extend(slides[currentIndex].slide || {}, {direction: direction});
     if ($animate.enabled($element) && !$scope.$currentTransition &&
