@@ -18,8 +18,7 @@ app.controller('templateController',['$scope','templateService','Upload','fileSe
         $scope.fileName="";
         moment.locale("zh-cn");
         $scope.path;
-    }
-
+    };
     // 输入框值处理逻辑
     $scope.inputCommit = function () {
         var param = {};
