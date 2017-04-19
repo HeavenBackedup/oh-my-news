@@ -57,6 +57,7 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
     }
 
 
+
     $scope.getCategories = function (isInit) {
 
         commonService.getCategories(function (data) {
@@ -79,9 +80,10 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
         var param = {userId:$scope.userId,articleId:$scope.articleId};
         // console.info(angular.toJson(param));
         editService.getPics(param,function (data) {
+
             angular.forEach(data,function (item,index,array) {
                 item.isChosen = false;
-            })
+            });
             $scope.allPics = data;
             // console.info(angular.toJson(data));
             $scope.openModal();

@@ -34,7 +34,7 @@ app.factory('content',function () {
             labels: c_labels,
             categoryId: c_categoryId
         }
-    }
+    };
 
     content.destroy = function () {
         c_id = -1;
@@ -43,7 +43,7 @@ app.factory('content',function () {
         c_labels = undefined;
         c_categoryId = -1;
 
-    }
+    };
 
     content.getTemplate = function () {
         return {
@@ -53,7 +53,7 @@ app.factory('content',function () {
             labels: '政治',
             categoryId: 3
         }
-    }
+    };
 
 
 

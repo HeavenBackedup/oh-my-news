@@ -17,23 +17,24 @@ import java.util.Map;
  */
 @RequestMapping(value = "/edit")
 @Controller
-public class EditController extends BaseAction{
+public class EditAction extends BaseAction{
 
 
     @RequestMapping(value = "/getPics")
     public @ResponseBody Object getPics(@RequestBody  Map picMap){
         int userId =  (Integer) picMap.get("userId");
-        int article =  (Integer) picMap.get("articleId");
+        int articleId =  (Integer) picMap.get("articleId");
         if(userId==-1)
             return failReturnObject("userId is missing");
-        if(article==-1){
+        System.out.println(articleId);
+        if(articleId==-1){
             List<Image> images = new ArrayList<Image>();
             images.add(new Image(3,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492101116270_1?Expires=1807461113&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=6RGGw112mdxa4QdT534b%2F0ul6vQ%3D"));
             images.add(new Image(4,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492105228958_1?Expires=2122825175&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=3gA%2BJohAw18jKqhHSCoyhgMj9MQ%3D"));
             images.add(new Image(5,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492105281826_2?Expires=2122825175&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=%2B3Q2dKk8KlxgAwkEkh8yAFxQq1o%3D"));
             return successReturnObject(images);
         }else {
-            return null;
+            return successReturnObject(null);
         }
     }
 
