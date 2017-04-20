@@ -4,6 +4,7 @@
 app.factory('user',function () {
     var user = {};
     var userId = 1;
+    alert(userId);
     user.setId = function (id) {
         userId = id;
     }
