@@ -1,7 +1,7 @@
 /**
  * Created by shj on 2017/4/11.
  */
-app.controller('templateController',['$scope','templateService','Upload','fileService','$timeout','content','htmlParseService',function ($scope,templateService,Upload,fileService,$timeout,content,htmlParseService) {
+app.controller('templateController',['$scope','templateService','Upload','fileService','$timeout','content','htmlParseService','$location','$anchorScroll',function ($scope,templateService,Upload,fileService,$timeout,content,htmlParseService,$location,$anchorScroll) {
 
 
 
@@ -120,6 +120,12 @@ app.controller('templateController',['$scope','templateService','Upload','fileSe
             console.error(data);
         })
     }
+
+
+    $scope.goto = function (id) {
+        $location.hash(id);
+        $anchorScroll();
+    };
 
 
 
