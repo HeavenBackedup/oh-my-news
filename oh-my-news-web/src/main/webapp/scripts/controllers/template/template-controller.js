@@ -1,7 +1,7 @@
 /**
  * Created by shj on 2017/4/11.
  */
-app.controller('templateController',['$scope','templateService','Upload','fileService','$timeout','content','htmlParseService','$location',function ($scope,templateService,Upload,fileService,$timeout,content,htmlParseService,$location) {
+app.controller('templateController',['$scope','templateService','Upload','fileService','$timeout','content','htmlParseService','$location','$anchorScroll',function ($scope,templateService,Upload,fileService,$timeout,content,htmlParseService,$location,$anchorScroll) {
 
 
 
