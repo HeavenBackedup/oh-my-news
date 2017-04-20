@@ -50,7 +50,7 @@
     <servlet-mapping>
         <servlet-name>web</servlet-name>
         <url-pattern>*.do</url-pattern>
-        <url-pattern>*.json</url-pattern>
+        <!--<url-pattern>*.json</url-pattern>-->
     </servlet-mapping>
 
     <!-- <filter>

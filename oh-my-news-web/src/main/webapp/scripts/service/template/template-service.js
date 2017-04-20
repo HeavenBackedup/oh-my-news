@@ -13,6 +13,11 @@ app.service('templateService',['$http','routeUtil','ajaxRollback',function($http
         routeUtil.postUrl(PAGE_REQ,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
     }
 
+    templateService.getTemplateJson = function (success,failed) {
+        routeUtil.getResource('template.json',success,failed);
+
+    }
+
 
 
     return templateService;

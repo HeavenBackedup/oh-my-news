@@ -1,7 +1,7 @@
 /**
  * Created by shj on 2017/4/11.
  */
-app.controller('templateController',['$scope','templateService','Upload','fileService','$timeout',function ($scope,templateService,Upload,fileService,$timeout) {
+app.controller('templateController',['$scope','templateService','Upload','fileService','$timeout','content','htmlParseService','$location',function ($scope,templateService,Upload,fileService,$timeout,content,htmlParseService,$location) {
 
 
 
@@ -108,6 +108,24 @@ app.controller('templateController',['$scope','templateService','Upload','fileSe
     $scope.addSlide();
 
 
+    $scope.parse = function () {
+        alert(angular.toJson(htmlParseService.parseHtml(content.getTemplate().htmlContent)));
+    };
+
+
+    $scope.getResource = function () {
+        templateService.getTemplateJson(function (data) {
+            alert(angular.toJson(data));
+        },function (data) {
+            console.error(data);
+        })
+    }
+
+
+    $scope.goto = function (id) {
+        $location.hash(id);
+        $anchorScroll();
+    };
 
 
 

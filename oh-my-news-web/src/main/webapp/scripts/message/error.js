@@ -15,4 +15,4 @@ app.factory('error',function () {
         this.data = "";
     }
     return error;
-})
+});

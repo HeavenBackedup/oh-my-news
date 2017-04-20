@@ -1,6 +1,6 @@
 app.factory('routeUtil', function ($location, $timeout, $http,Upload) {
 	var util = {};
-
+	var resourceUrl = '/resource';
 	//重定向 需要参数解析 参数传递需注意顺序
 	util.redirectTo=function(path, params, prefix){
 		var urlParam = '';
@@ -148,6 +148,14 @@ app.factory('routeUtil', function ($location, $timeout, $http,Upload) {
 
 
          });
+    }
+    
+    util.getResource = function (fileName,success,fail) {
+		$http.get(bootPATH+resourceUrl+'/'+fileName).then(function (data) {
+			success(data);
+        },function (data) {
+			fail(data);
+        })
     }
 	return util;
 

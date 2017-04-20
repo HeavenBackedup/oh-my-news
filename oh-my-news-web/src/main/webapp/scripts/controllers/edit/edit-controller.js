@@ -2,6 +2,8 @@
  * Created by shj on 2017/4/10.
  */
 app.controller('editController',['$scope','$state','textAngularManager','commonService','user','editService','fileService','content',function ($scope,$state,textAngular,commonService,user,editService,fileService,content) {
+
+    //初始化函数
     $scope.init = function () {
 
         $scope.userId = user.getId();
@@ -22,6 +24,8 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
     }
 
 
+
+    //初始化文章，判断是否是新增还是修改
     $scope.EditContentInit = function () {
         var editContent = content.getTemplate();
         if(editContent.id == -1){
@@ -42,21 +46,20 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
 
     }
 
+    //判断用户是否已登录
     $scope.userValidation = function () {
         if($scope.userId==-1){
             $state.go('login');
         }
     }
 
-    $scope.userInit = function () {
-
-    }
-
+    //初始化分类选项
     $scope.categoriesInIt = function (isInit) {
         $scope.getCategories(isInit);
     }
 
 
+    //向服务器请求获取分类选项
     $scope.getCategories = function (isInit) {
 
         commonService.getCategories(function (data) {
@@ -74,14 +77,15 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
         })
 
     }
-
+    //向服务器请求获取该用户的所有图片
     $scope.picManage = function () {
         var param = {userId:$scope.userId,articleId:$scope.articleId};
         // console.info(angular.toJson(param));
         editService.getPics(param,function (data) {
+
             angular.forEach(data,function (item,index,array) {
                 item.isChosen = false;
-            })
+            });
             $scope.allPics = data;
             // console.info(angular.toJson(data));
             $scope.openModal();
@@ -90,7 +94,7 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
         })
     }
 
-
+    //粘贴板函数
     $scope.copyClipboard = function (pic) {
         console.info(angular.toJson(pic))
         pic.isChosen = true;
@@ -103,15 +107,15 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
         }
 
     }
-
+    //点击预览触发事件
     $scope.preview = function () {
         $scope.isPreview =true;
     }
-
+    //点击编辑触发事件
     $scope.returnEdit = function () {
         $scope.isPreview = false;
     }
-
+    //文件上传函数
     $scope.fileUpload = function (file,errfile) {
         console.info('file: '+file);
         fileService.fileUpload(file,function (data) {
@@ -129,6 +133,7 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
     }
 
 
+    //点击提交上传函数，0为保存草稿箱，1为直接发布
     $scope.commit = function (index) {
         var param = {
             topic: $scope.topic,
@@ -154,15 +159,16 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
 
     };
 
-
+    //显示模板函数
     $scope.openModal = function () {
         $('#myModal').modal('show');
     };
-
+    //隐藏模板函数
     $scope.closeModal = function () {
         $('#myModal').modal('hide');
     };
 
+    //清空缓存，当脱离该页面时，执行该方法
     $scope.$on("$destroy",function(){
         console.info("error destroyed");
         content.destroy();
