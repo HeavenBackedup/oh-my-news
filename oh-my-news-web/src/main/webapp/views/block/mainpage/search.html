@@ -1,0 +1,49 @@
+<div class="container-fluid" ng-init="init()">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand col-md-offset-6" ui-sref="main" style="font-weight: bold;font-size: x-large;color: #0f0f0f">OhmyNews!</a>
+        </div>
+        <input class="col-md-offset-1 col-md-4" style="height: 45px;" ng-model="searchText">
+        <button class="btn btn-primary  col-md-1" style="height: 45px;"ng-click="search()">Search</button>
+
+    <!--单选按钮组件-->
+        <div class="col-md-offset-6 radio radio-inline">
+            <label>
+                <input style="font-weight:bolder" type="radio" ng-value="true" name="option" ng-model="radioValue">新闻全文
+            </label>
+            <label>
+                <input style="font-weight: bolder" type="radio" ng-value="false" name="option" ng-model="radioValue">新闻标题
+            </label>
+
+        </div>
+    </nav>
+ <!--搜索结果显示-->
+<div class="container-fluid">
+    <div class="row">
+        <div ng-show="radioValue">
+            <ol>
+                <li  data-ng-repeat="item in searchItems">
+                    <a ui-sref="app.detail"><h4 style="color: #0f0f0f;text-decoration: underline">{{item.title}}</h4></a>
+                    <div style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;width: 700px">
+                        {{item.content}}
+
+                    </div>
+                    <br>
+                </li>
+
+            </ol>
+        </div>
+        <div ng-hide="radioValue">
+            <ol>
+                <li  data-ng-repeat="item in searchItems">
+                    <a ui-sref="app.detail"><h5 style="color: #0f0f0f;text-decoration: underline">{{item.title}}</h5></a>
+
+                </li>
+
+            </ol>
+        </div>
+
+
+    </div>
+</div>
+</div>

@@ -23,6 +23,7 @@ public class TemplateAction extends BaseAction {
     public @ResponseBody Object getInput(@RequestBody Map inputMap){
         System.out.println(inputMap);
         String input = inputMap.get("value").toString();
+
         String res = "data is recieved,repeat the data: "+input;
         return successReturnObject(res);
     }
