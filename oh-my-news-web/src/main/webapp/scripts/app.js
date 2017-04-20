@@ -136,6 +136,13 @@ var app =angular
           templateUrl: 'views/block/mainpage/main.html',
             controller: 'mainController'
         })
+          //新闻搜索模块
+          .state('search',{
+              url:'/search',
+              templateUrl: 'views/block/mainpage/search.html',
+              controller: 'searchController',
+              params:{'search':{}}
+          })
         // 新闻编辑页面模块
         .state('app.edit',{
           url: '/edit',
