@@ -55,6 +55,7 @@ var app =angular
           templateUrl: 'views/app.html',
             controller: 'personalHomePageController'
         })
+
         // 个人主页模块根路由
         .state('app.personalHomepage',{
           abstract: true,
@@ -80,8 +81,10 @@ var app =angular
         .state('app.personalHomepage.hpTabset.myHomePage',{
           url: '/my_home_page',
           templateUrl: 'views/block/homepage/my_home_page.html',
-            controller: 'myHomePageController'
+            controller: 'myHomePageController',
+            params:{"userId":null}
         })
+
         // 草稿箱模块
         .state('app.personalHomepage.hpTabset.draft',{
           url: '/draft',
@@ -159,7 +162,8 @@ var app =angular
         .state('login',{
           url: '/login',
           templateUrl: 'views/block/common/login.html',
-            controller: 'loginController'
+            controller: 'loginController',
+
         })
         // 注册模块
         .state('register',{
@@ -178,7 +182,6 @@ var app =angular
               templateUrl: 'views/error.html',
               controller: 'errorController'
           })
-
       ;
 
   }]);

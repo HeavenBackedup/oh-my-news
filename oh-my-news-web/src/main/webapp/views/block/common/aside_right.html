@@ -1,39 +1,24 @@
 <div class="row">
   <div class="col-sm-6">
-    <img class="img-responsive" src="images/hpic.jpeg" style="width: auto" />
+    <img class="img-responsive" ng-src="{{avatarPath}}" style="width: auto" />
   </div>
   <div class="col-sm-6">
-    <div class="row"><span>关注了</span>16&nbsp;&nbsp;&nbsp;<span>被关注</span>18</div>
-    <div class="row"><span>常居:</span>&nbsp;&nbsp;西安</div>
-    <div class="row"><span>2011-05-17加入</span></div>
+    <div class="row"><span>关注</span>{{followers}}&nbsp;&nbsp;&nbsp;<span>粉丝</span>{{fans}}</div>
+
+    <div class="row"><span>{{date}}加入</span></div>
     <div class="row">
-      <div class="col-sm-6">
-        <a>发私信</a>
-      </div>
-      <div class="col-sm-6">
-        <div class="dropdown">
-          <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            关注
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">取消关注</a></li>
-            <li><a href="#">拉黑</a></li>
-          </ul>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>
 <br/>
 <div class="row">
-  个人声明，公告
+  随口一说
 </div>
 <br/>
 <div class="row">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
+  <textarea ng-show="personal" class="form-control" rows="10" ng-mouseover="changeShowForA()" ng-class="{'in':showForA,'out':!showForA}" ng-mouseleave="changeShowForA()" ng-blur="sendAnnouncement(announcement)" data-ng-model="announcement" placeholder="多说点吧！">{{announcement}}</textarea>
+<div ng-show="others">{{announcement}}</div>
 </div>
 <br/>
-<div class="row">
-  <button>编辑</button>
-</div>
+
