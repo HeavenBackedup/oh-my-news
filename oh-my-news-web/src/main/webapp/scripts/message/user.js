@@ -7,6 +7,7 @@ app.factory('user',function () {
     alert(userId);
     user.setId = function (id) {
         userId = id;
+        console.info(userId);
     }
 
     user.getId = function () {
