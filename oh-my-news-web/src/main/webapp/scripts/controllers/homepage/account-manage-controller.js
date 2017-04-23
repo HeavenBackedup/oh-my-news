@@ -1,54 +1,173 @@
 /**
  * Created by wangyan on 2017/4/10.
  */
-app.controller('accountManageController',['$scope','accountManageService',function ($scope,accountManageService) {
+app.controller('accountManageController',['$scope','accountManageService','Upload','fileService',function ($scope,accountManageService,Upload,fileService) {
 
     $scope.init = function () {
-        $scope.all=true;
-        $scope.isTrue=false;
-        $scope.myaddrCtrl="未设置";
-        $scope.address=[];
-        $scope.User={
-            username:"wangyan",
+        $scope.userId="123";
+        $scope.isExitUsername=false;//判断用户名是否存在
+        $scope.isAddressConserve=false;  //是否点击地址保存按钮(由于地址是以数组形式传送，以字符形式显示)
+        $scope.isTrue=false;  //保存信息后的返回值
+        $scope.all=true;   //控制输入框是否可编辑
+        $scope.address=[];   //传地址的json数据
+        $scope.myprovince="";
+        $scope.myrepwd="";
+        $scope.myemailaddr="";
+        var myaddrCtrlInput=[];//数组，用来接收地址和上传地址
 
+        $scope.User= {
+            username: "",     //刷新姓名
+            path:"",   //刷新图片
+            myaddrCtrl:"",          //刷新地址
+            myemCtrl:"",   //刷新邮箱
+            mypwd:"",
+        }
+        $scope.getUserList();
+
+
+    }
+
+    //判断用户是否已登录
+    $scope.userValidation = function () {
+        if($scope.userId==-1){
+            $state.go('login');
+        }
+    }
+    //刷新地址
+    $scope.RefreshAddress=function (myaddrCtrlInput) {
+        if (myaddrCtrlInput[0]==myaddrCtrlInput[1]){
+            return myaddrCtrlInput[0]+myaddrCtrlInput[2];
+        }else{
+           return myaddrCtrlInput[0]+myaddrCtrlInput[1]+myaddrCtrlInput[2];
+        }
+    }
+
+    //数据请求
+    $scope.getUserList=function () {
+        var userIdMap = {};
+         userIdMap.userId = $scope.userId;
+         accountManageService.getUser(userIdMap,function(data){
+             alert("success:"+angular.toJson(data));
+             for (var key in data){
+                 console.log(key+"..."+data[key]);
+             }
+             myaddrCtrlInput = data["address"];
+
+             console.log(myaddrCtrlInput[0]);
+             $scope.User= {
+                 username: data["username"],     //刷新姓名
+                 path:data["url"],   //刷新图片
+                  myaddrCtrl:$scope.RefreshAddress(myaddrCtrlInput),          //刷新地址
+                 myemCtrl:data["email"],   //刷新邮箱
+                 // mypwd:"123",
+             }
+             // $scope.User.myaddrCtrlInput =  data.address;
+         },function (data) {
+             alert("error:"+angular.toJson(data));
+         })
+
+    }
+
+    //判断用户名是否存在
+    $scope.verifyInfo=function () {
+        if ($scope.User.username != null){
+            var usernameMap={};
+            usernameMap.username = $scope.User.username;
+            accountManageService.getVerifyInfo(usernameMap,function (data) {
+                $scope.isExitUsername = data;
+                if ($scope.isExitUsername==false){
+                    alert("该用户名已存在！");
+                }else {
+                }
+
+            },function (data) {
+
+            })
+        }else {
+            alert("用户名不能为空！");
         }
 
     }
 
-
-    $scope.rename = function () {
-        $scope.all = false;
-    }
-
+   // 用户修改后信息上传
     $scope.inputCommit=function(){
-        $scope.all=true;
-        var User = {
+        var User={
             username:"",
-        };
-        User.username = $scope.User.username;
-        accountManageService.getInputUsername(User,function (data) {
+            photoid:"",
+            address:[],
+            email:"",
+            password:"",
+
+        }
+        $scope.all=true;
+        //需要进行判断，如果没有输入内容，默认将接收的数组复制给它
+        if ($scope.isAddressConserve == true){
+            myaddrCtrlInput = [$scope.myprovince.name, $scope.mycity.name, $scope.myarea.value];
+            User.address = myaddrCtrlInput;
+        }else {
+            User.address = myaddrCtrlInput;
+        }
+            User.username = $scope.User.username;
+            User.photoid = $scope.User.photoid;
+            User.email = $scope.User.myemCtrl;
+            User.password = $scope.User.mypwd;
+        accountManageService.getInputUser(User,function (data) {
             $scope.isTrue = data;
            if($scope.isTrue==true){
                alert("保存成功！");
            }else {
                alert("保存失败！");
            }
-
         },function(data){
             console.log("error:  "+data);
         })
-        console.log($scope.inputusername);
-        // console.log($scope.myaddrCtrl);
-        // console.log($scope.myemailaddr);
-        // console.log($scope.mypwd);
+        console.log($scope.User.username);
+        console.log($scope.User.photoid);
+        console.log(myaddrCtrlInput);
+        // console.log($scope.User.myaddrCtrl);
+        console.log($scope.User.myemCtrl);
+        console.log($scope.User.mypwd);
     }
 
-
-    $scope.updateAddress= function(){
-        accountManageService.updateAddress(function(data){
-            $scope.address=data;
-        });
+    // 修改控制标签input
+    $scope.rename = function () {
+        $scope.all = false;
     }
+    // 图片上传
+    $scope.uploadFiles = function(file, errFiles) {
+        fileService.fileUpload(file,
+            // 图片上传成功处理逻辑，data包含两个属性，id，数据库存储id,url图片访问的url
+            function (data) {
+                var name= file.name;
+                console.info("file data: "+angular.toJson(data));
+                $scope.fileName = name;
+                $scope.User.path = data.url;
+                $scope.User.photoid=data.id;
+
+            },
+            //图片上传失败树立逻辑
+            function (data) {
+                alert(angular.toJson(data));
+            });
+    }
+    // 修改地址
+    $scope.updateAddress = function () {
+
+        accountManageService.getAddressJson(function (data) {
+            // console.log(angular.toJson(data));
+            $scope.address=data.data;
+        },function (data) {
+            console.error(data);
+            console.log("error......");
+        })
+    }
+
+// 访问静态资源
+    // $scope.updateAddress= function(){
+    //     accountManageService.updateAddress(function(data){
+    //         $scope.address=data;
+    //     });
+    // }
     $scope.province=function(){
         $scope.mycity="";
         $scope.myarea="";
@@ -58,29 +177,19 @@ app.controller('accountManageController',['$scope','accountManageService',functi
     }
     $scope.area=function(){}
     $scope.dataConserve=function(){
+        $scope.isAddressConserve = true;
         if($scope.myprovince.name==$scope.mycity.name){
-
-            $scope.myaddrCtrl=$scope.myprovince.name+$scope.myarea.value;
+            $scope.User.myaddrCtrl=$scope.myprovince.name+$scope.myarea.value;
         }
         else{
-            $scope.myaddrCtrl=$scope.myprovince.name+$scope.mycity.name+$scope.myarea.value;
+            $scope.User.myaddrCtrl=$scope.myprovince.name+$scope.mycity.name+$scope.myarea.value;
         }
-        console.log($scope.myprovince);
-        console.log($scope.mycity);
-        console.log($scope.myarea);
+        console.log($scope.User.myaddrCtrl);
     }
 
-
-
+    // 修改邮箱
+    $scope.dataConserve2=function(){
+        $scope.User.myemCtrl=$scope.myemailaddr;
+    }
 
 }])
-app.directive("myaddress",function(){
-    return{
-        restrict:'AE',
-        scope:{
-            myaddr:'@'
-        },
-        template:'<p ng-bind="myaddr"><div ng-transclude></div></p>',
-        transclude:true
-    }
-});

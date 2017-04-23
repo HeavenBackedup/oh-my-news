@@ -5,38 +5,43 @@
     <div class="container">
 
         <div class="raw">
-            <div class="col-sm-12">
-                <img src="images\title.PNG" alt="" class="img-responsive" style="margin-top: 10px">
+            <div class="col-dm-12">
+                <img src="images\title.PNG" alt="" class="img-responsive" style="margin-top: 0px">
             </div>
         </div>
 
         <!--用户名设置     -->
         <div style="margin-top:20px">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="inputName" class="col-sm-1 control-label">昵称:</label>
-                <div class="col-sm-6" style="width: 20%" >
-                    <input type="text" class="form-control" id="inputName" ng-model="User.username" ng-disabled="all" ng-readonly="all" style="width:100%" required>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-1 control-label">昵称:</label>
+                    <div class="col-sm-6" style="width: 20%">
+                        <input type="text" class="form-control" id="inputName" ng-model="User.username"
+                               ng-disabled="all" ng-readonly="all" style="width:100%" ng-blur="verifyInfo()" required>
+                    </div>
+                    <div class="col-sm-5" style="padding-top: 8px">
+                        <a ng-click="rename()" ng-model="all">修改</a>
+                    </div>
                 </div>
-                <div class="col-sm-5">
-                    <a ng-click="rename()" ng-model="all" style="margin-top: 6px">修改</a>
-                </div>
-            </div>
-        </form>
+            </form>
         </div>
 
-<!--上传图片-->
+        <!--上传图片-->
         <div class="row" style="margin-left: 20px;margin-top: 15px">
             <div class="col-md-1">
-                <p >图像:</p>
+                <p>图像:</p>
             </div>
 
             <div class="col-md-11">
                 <div class="=row">
 
                     <a href="#" class="thumbnail col-md-2" style="margin-top: 15px">
-                        <img ng-src="images/example.jpg" style="height: 120px; width: 100%; display: block;" ></a>
-                    <div class="col-md-10">  <button style="margin-top: 95px" class="btn btn-primary" ng-click="photoConserve()">上传</button></div>
+                        <img ng-src="{{User.path}}" style="height: 120px; width: 100%; display: block;"></a>
+                    <div class="col-md-10">
+                        <button type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="*"
+                                style="margin-top: 95px" class="btn btn-primary" ng-click="photoConserve()">上传
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -46,35 +51,50 @@
         <div class="raw" style="margin-top: 20px;margin-left: 10px">
             <p class="col-sm-1">居住地:</p>
             <div class="col-sm-10">
-                <myaddress myaddr="{{myaddrCtrl}}"><a class="a1" data-toggle="modal" data-target="#mymodal" ng-click="updateAddress()">修改</a></myaddress>
+                <p ng-bind="User.myaddrCtrl">
+                   <div>
+                      <a class="a1" data-toggle="modal" data-target="#mymodal" ng-click="updateAddress()">修改</a>
+                   </div>
+                </p>
 
             </div>
         </div>
-                     <!--地址弹出框-->
+        <!--地址弹出框-->
         <div class="modal" id="mymodal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
                         <h5 class="modal-title">省>市>区</h5>
                     </div>
 
                     <div class="modal-body">
                         <form class="form-inline" role="form">
                             <div class="form-group">
-                                <label class="sr-only" for="myprovince">省</label>
-                                <select class="form-control" ng-model="myprovince" ng-change="province()" ng-options="province.name for province in address" style="width: 110px">
-                                    <option value="1">请选择：</option>
+                                <label class="sr-only" for="myProvince">省</label>
+                                <select class="form-control" id="myProvince" ng-model="myprovince"
+                                        ng-change="province()" ng-options="province.name
+                                        for
+                                        province in address"
+                                        style="width: 120px">
+                                    <option value="">--请选择--</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select class="form-control" ng-model="mycity" ng-change="city()" ng-options="province.name for province in myprovince.city" style="width: 110px">
-                                    <option value="1">请选择：</option>
+                                <select class="form-control" ng-model="mycity" ng-change="city()"
+                                        ng-options="province.name
+                                        for
+                                        province in myprovince.city" style="width: 120px">
+                                    <option value="">--请选择--</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select class="form-control" ng-model="myarea" ng-change="area()" ng-options="city.value for city in mycity.area" style="width: 110px">
-                                    <option value="1">请选择：</option>
+                                <select class="form-control" ng-model="myarea" ng-change="area()"
+                                        ng-options="city.value
+                                         for
+                                         city in mycity.area" style="width: 120px">
+                                    <option value="">--请选择--</option>
                                 </select>
                             </div>
                         </form>
@@ -82,16 +102,126 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" ng-click="dataConserve()" data-dismiss="modal">保存</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="myprovince.name==null||mycity.name==null||myarea.value==null" ng-click="dataConserve()" data-dismiss="modal">
+                            保存
+                        </button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
 
-        <div class="raw" style="margin-left: 10px">
+        <!--修改邮箱-->
+        <div class="raw">
+            <p class="col-sm-1" style="margin-left: 10px">登陆邮箱:</p>
+            <div class="col-sm-10">
+
+                <p ng-bind="User.myemCtrl">
+                <div><a data-toggle="modal" data-target="#mymodal2">修改</a></div>
+                </p>
+            </div>
+        </div>
+        <div class="modal" id="mymodal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
+                        <h5 class="modal-title">电子邮件</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="emailForm" novalidate>
+                            <div class="input-prepend form-group">
+                                <div class="input-group" style="width: 75%">
+                                    <input type="email" class="form-control" ng-model="myemailaddr" name="email"
+                                           ng-pattern="/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/"
+                                           placeholder="Email address" aria-describedby="basic-addon2" required
+                                           style="width: 100%">
+                                    <span class="input-group-addon" id="basic-addon2">@example.com</span>
+
+                                </div>
+                                <div>
+  <span style="color:red" ng-show="emailForm.email.$dirty && emailForm.email.$invalid">
+<span ng-show="emailForm.email.$error.required"><small>*请输入邮箱</small></span>
+<span ng-show="emailForm.email.$error.pattern"><small>*非法的邮箱地址</small></span>
+
+</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="emailForm.email.$invalid"
+                                ng-click="dataConserve2()" data-dismiss="modal">保存
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!--修改密码-->
+        <div class="raw">
+            <p class="col-sm-1" style="margin-left: 10px">登陆密码:</p>
+            <div class="col-sm-6">
+                <a data-toggle="modal" data-target="#mymodal3">修改</a>
+            </div>
+        </div>
+        <div class="modal" id="mymodal3">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
+                        <h5 class="modal-title">修改密码</h5>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <form class="form-horizontal" name="pwdForm" novalidate>
+
+                            <div class="form-group">
+                                <!--  <span class="glyphicon glyphicon-lock form-control-feedback"></span> -->
+                                <label for="pwd" class="col-sm-4 control-label">请输入密码：</label>
+                                <div class="col-sm-7" style="width: 50%">
+                                    <input type="password" id="pwd" style="width: 100%" class="form-control" name="pwd"
+                                           ng-model="User.mypwd" placeholder="密码" ng-minlength="6" required>
+                                    <span style="color:red" ng-show="pwdForm.pwd.$dirty&& pwdForm.pwd.$invalid">
+            <span ng-show="pwdForm.pwd.$error.required"><small>*请输入密码</small></span>
+            <span ng-show="pwdForm.pwd.$error.minlength"><small>*密码至少六位</small></span></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!-- <span class="glyphicon glyphicon-lock form-control-feedback"></span> -->
+                                <label for="repwd" class="col-sm-4 control-label">请确认密码：</label>
+                                <div class="col-sm-7" style="width: 50%">
+                                    <input type="password" id="repwd" style="width: 100%" class="form-control"
+                                           name="repwd" ng-model="myrepwd" placeholder="请确认密码" required>
+                                    <span style="color:red" ng-show="pwdForm.repwd.$dirty&& pwdForm.repwd.$invalid">
+                <span ng-show="pwdForm.repwd.$error.required"><small>*请再次输入密码</small></span>
+                </span>
+                                    <span style="color:red" ng-show="pwdForm.repwd.$dirty&& pwdForm.repwd.$valid">
+
+                <span ng-show="User.mypwd!=myrepwd"><small>*两次密码输入不一致</small></span></span>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="pwdForm.pwd.$invalid||User.mypwd!=myrepwd||isExitUsername==false||User.username==null" ng-click="dataConserve3()" data-dismiss="modal">保存</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+        <div class="raw" style="margin-left: 10px;margin-bottom: 20px">
             <div class="col-sm-offset-2 col-sm-11">
-                <button class="btn btn-default" type="button" style="margin-top: 20px" ng-click="inputCommit()">保存设置</button>
+                <button class="btn btn-default" type="button" style="margin-top: 20px" ng-click="inputCommit()">保存设置
+                </button>
             </div>
         </div>
 
