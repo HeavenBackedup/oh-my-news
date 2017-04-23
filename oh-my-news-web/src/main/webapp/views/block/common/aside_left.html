@@ -1,23 +1,25 @@
-<div>
+<div >
   <div class="row">
     <div class="col-sm-3">
-      <img class="img-responsive" src="images/hpic.jpeg" style="width: auto" />
+      <img class="img-responsive" ng-src="{{avatarPath}}" style="width: auto" />
     </div>
     <div class="col-sm-8">
-      <div class="row">dongzhao84</div>
-      <br/>
       <div class="row">
-        <div class="col-sm-2">
-          <span>签名档</span>
+        <div col-sm-offset-2 col-sm-6>{{nickName}}</div>
+        <br/>
+
+        <br/>
+        <div>
+          <input ng-show="personal" type="text" class="form-control"  ng-mouseover="changeShowForS()" ng-class="{'in':showForS,'out':!showForS}" ng-mouseleave="changeShowForS()"
+                 ng-model="signature" ng-blur="sendSignature(signature)" placeholder="一句个性标签介绍一下自己吧!" >
+          <div ng-show="others">{{signature}}</div>
         </div>
-        <div class="col-sm-2">
-          <button>编辑</button>
-        </div>
+
       </div>
-      <br/>
-      <div class="row">
-        今天天气不错!
-      </div>
+
+
+
+
     </div>
   </div>
   <br/>

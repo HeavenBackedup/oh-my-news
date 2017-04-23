@@ -1,5 +1,136 @@
-<div>
-  新闻主页
+<div class="container-fluid" ng-init="init()">
+<nav class="navbar navbar-default" role="navigation">
+  <!--头模块-->
+    <div class="navbar-header">
+      <a class="navbar-brand" ui-sref="main" style="font-weight: bolder;font-size: xx-large;color: #0f0f0f">OhmyNews!</a>
+    </div>
+  <div class="col-md-offset-10">
+    <ul class="nav navbar-nav ">
+      <li><a class="navbar-brand" ui-sref="login" style="color: #0f0f0f"><small>登录<span class="glyphicon glyphicon-log-in"></span> </small></a> </li>
+    </ul>
+  </div>
+
+  <div  class="col-md-offset-8 col-md-4">
+      <form role="form" class="form-inline">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">搜索</span>
+            <input type="text" class="form-control" ng-model="searchContent" >
+          </div>
+          <button type="button" class="btn" ng-click="search()"><span class="glyphicon glyphicon-search"></span> </button>
+        </div>
+      </form>
+<hr>
+  </div>
+
+  <div  class="navbar navbar-inverse col-md-offset-1 col-md-10" role="navigation">
+    <ul class="nav navbar-nav">
+      <li><a class="navbar-brand" ng-click="showOtherPage(0)">首页</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(1)">文化</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(2)">时尚</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(3)">娱乐</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(4)">房产</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(5)">科技</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(6)">汽车</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(7)">财经</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(8)">游戏</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(9)">体育</a> </li>
+      <li><a class="navbar-brand" ng-click="showOtherPage(10)">书城</a> </li>
+
+    </ul>
+  </div>
+</nav>
 </div>
+
+<!--正文模块-->
+<div class="container-fluid">
+
+  <!--左侧部分-->
+<div class="col-md-3">
+<button class="btn btn-primary col-md-offset-2 btn-block" ng-click="collectList()">收藏排行</button>
+  <ol>
+    <li ng-repeat="item in collectItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside; margin: 10px;"><a  ui-sref="app.detail">{{item.title}}</a> </li>
+  </ol>
+
+  <button class="btn btn-primary col-md-offset-2 btn-block" ng-click="markList()">评论排行</button>
+  <ol>
+    <li ng-repeat="item in markItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside;margin: 10px;"><a ui-sref="app.detail">{{item.title}}</a> </li>
+  </ol>
+
+  <button class="btn btn-primary col-md-offset-2 btn-block" ng-click="lastList()">最新动态</button>
+  <ol>
+    <li ng-repeat="item in lastItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside;margin: 10px;"><a ui-sref="app.detail">{{item.title}}</a> </li>
+  </ol>
+
+  <button class="btn btn-primary glyphicon glyphicon-refresh col-md-offset-2 btn-block" ng-click="refreshAll()">点击刷新</button>
+</div>
+
+<!--右侧正文部分-->
+  <div class="col-md-offset-1 col-md-7">
+      <div class="row" data-ng-repeat="p in newsItems">
+        <h3 style="font-weight: bolder;text-align: center" >{{p.title}}</h3>
+        <div class="col-md-offset-7">作者：{{p.author}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{p.date}}</div>
+        <!--根据该新闻是否带有图片来进行相应的样式选择-->
+        <div ng-show=" p.picUrls!=null">
+          <!--图片轮播插件-->
+            <div uib-carousel style="width: 200px;height: 170px; margin-right: 20px; margin-bottom: 20px"class="pull-left" interval="myInterval" no-wrap="noWrapSlides" active="true" >
+              <div uib-slide ng-repeat="pic in p.picUrls" active="pic.active" index="$index">
+                <img ng-src="{{pic}}" style="width: 200px;height: 170px;margin:auto;">
+              </div>
+            </div>
+
+          <!--正文显示部分 当正文文本超过8行时剩余部分显示省略号-->
+          <div style="display: -webkit-box;-webkit-line-clamp: 8;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;">
+            {{p.content}}
+          </div>
+          <!--跳转新闻显示页面-->
+          <a class="pull-right" ui-sref="app.detail">
+              点击查看全文>>
+          </a>
+        </div>
+
+        <!--当新闻不带图片时的显示模块-->
+        <div ng-hide="p.picUrls!=null" style="display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">
+          {{p.content}}
+          <a class="pull-right" ui-sref="app.detail">
+            点击查看全文>>
+
+          </a>
+        </div>
+        <hr>
+      </div>
+
+</div>
+</div>
+
+<!--分页模块-->
+<div class="col-md-offset-4">
+  <div uib-pagination ng-change="pageChange()" total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页" class="pagination-sm" boundary-links="true" rotate="false" ></divpagination>
+</div>
+</div>
+
+
+<nav class="navbar navbar-default " role="navigation">
+  <div class="container-fluid col-md-offset-4">
+    <div class="navbar-header">
+      <a class="navbar-brand" ui-sref="main">返回首页</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a class="navbar-brand">联系我们</a> </li>
+        <li><a class="navbar-brand">投稿须知</a> </li>
+        <li ><a class="navbar-brand">版权声明</a> </li>
+      </ul>
+    </div>
+  </div>
+
+</nav>
+
+
+
+
+
+
+
 
 
