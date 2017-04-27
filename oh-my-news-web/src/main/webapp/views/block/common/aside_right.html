@@ -1,12 +1,56 @@
-<div class="row">
+<div class="row" ng-init="init()">
   <div class="col-sm-6">
-    <img class="img-responsive" ng-src="{{avatarPath}}" style="width: auto" />
+    <img class="img-responsive" ng-src="{{userInfo.avatarPath}}" style="width: auto" />
   </div>
   <div class="col-sm-6">
-    <div class="row"><span>关注</span>{{followers}}&nbsp;&nbsp;&nbsp;<span>粉丝</span>{{fans}}</div>
+    <div class="row"><span ng-click="linkToConcern()">关注{{userInfo.followers}}</span >&nbsp;&nbsp;&nbsp;<span ng-click="linkToFans()">粉丝{{userInfo.fans}}</span></div>
 
-    <div class="row"><span>{{date}}加入</span></div>
-    <div class="row">
+    <div class="row"><span>{{userInfo.date}}加入</span></div>
+    <div class="row" ng-show="!show.editable">
+      <br>
+     <div class="row">
+       <div class="col-xs-8">
+         <div class="dropdown" ng-show="confirmTurn.showForLogin">
+           <button  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{confirmTurn.turnOfCode}}
+             <span class="caret"></span>
+           </button>
+           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+             <li ng-show="confirmTurn.showForY" ng-click="follow()"><a >关注</a></li>
+             <li ng-show="!confirmTurn.showForY" ng-click="unfollow()"><a >取消关注</a></li>
+             <li role="separator" class="divider"></li>
+             <li ng-click="showMsg()"><a>私信</a></li>
+           </ul>
+         </div>
+         <div class="dropdown" ng-show="!confirmTurn.showForLogin">
+           <button  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             关注／私信
+             <span class="caret"></span>
+           </button>
+           <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" >
+             <li ><a ui-sref="login">关注</a></li>
+             <li role="separator" class="divider"></li>
+             <li><a ui-sref="login">私信</a></li>
+           </ul>
+         </div>
+       </div>
+
+       <div ng-show="show.privateMsg"  class="panel ">
+
+         <textarea rows="3" data-ng-model="private.privateLetter">
+
+         </textarea>
+         <br>
+         <button  class="btn btn-default" ng-click="sendPrivateMsg()">
+           发送
+         </button>
+         <button  class="btn btn-default" ng-click="showMsg()">
+           关闭
+         </button>
+       </div>
+
+     </div>
+
 
     </div>
   </div>
@@ -17,8 +61,8 @@
 </div>
 <br/>
 <div class="row">
-  <textarea ng-show="personal" class="form-control" rows="10" ng-mouseover="changeShowForA()" ng-class="{'in':showForA,'out':!showForA}" ng-mouseleave="changeShowForA()" ng-blur="sendAnnouncement(announcement)" data-ng-model="announcement" placeholder="多说点吧！">{{announcement}}</textarea>
-<div ng-show="others">{{announcement}}</div>
+  <textarea ng-show="show.editable" class="form-control" rows="10" ng-class="{'in':!show.editable,'out':show.editable}" ng-blur="sendAnnouncement(userInfo.announcement)" data-ng-model="userInfo.announcement" placeholder="多说点吧！">{{userInfo.announcement}}</textarea>
+<div ng-show="!show.editable">{{userInfo.announcement}}</div>
 </div>
 <br/>
 

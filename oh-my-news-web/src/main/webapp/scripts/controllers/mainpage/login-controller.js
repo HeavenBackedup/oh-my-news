@@ -3,9 +3,8 @@
  */
 app.controller('loginController',['$scope','$state',function ($scope,$state) {
     $scope.go=function () {
-        alert('fuck');
-        $state.go('app.personalHomepage.hpTabset.myHomePage',{userId:1});
-    }
 
+        $state.go('app.personalHomepage.hpTabset.myHomePage',{userId:2});
+    }
 
 }])

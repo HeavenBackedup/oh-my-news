@@ -1,94 +1,89 @@
 /**
  * Created by fanfan on 2017/4/15.
  */
-app.controller('personalHomePageController',['$scope','homeService','user','$stateParams','$state',function ($scope,homeService,user,$stateParams,$state) {
+app.controller('personalHomePageController',['$scope','homeService','user','$stateParams','$state','$controller',function ($scope,homeService,user,$stateParams,$state,$controller) {
+    $controller('appController', {$scope: $scope});
+
     $scope.init=function () {
 
-        $scope.userId = user.getId();
-        alert($scope.userId +"fanfan");
-        // $scope.userId=1;
-        $scope.userInfo={};
-        $scope.avatarPath="";
-        $scope.nickName="";
-        $scope.signature="";
-        $scope.announcement="";
-        $scope.followers=undefined;
-        $scope.fans=undefined;
-        $scope.date="";
-        $scope.showForS=false;
-        $scope.showForA=false;
-
-        $scope.paramsUserId=$state.params.userId;
-        alert($state.params.userId+"fadjkdfaierajfldfg")
-        alert($scope.paramsUserId+"fanfafanfafa");
-        // alert($state.params.userId+$scope.userId);
-        // alert($scope.userId);
-        $scope.uploadInformation($scope.paramsUserId);
-    if ($scope.userId!=-1){
-        $scope.login=true;
-        if($scope.userId==$scope.paramsUserId){
-
-            $scope.personal=true;
-            $scope.others=false;
-
-        }else {
-
-            $scope.personal=false;
-            $scope.others=true;
+        $scope.id={
+            // user.getId()
+            userId:user.getId(),
+            paramsUserId:$state.params.userId
         }
 
-    }else {
+        $scope.confirmInfo={
+            code:null
+        }
+        $scope.confirmTurn={
+            turnOfCode:null,
+            showForY:null,
+            showForLogin:null
 
-        $scope.personal=false;
-        $scope.others=true;
-        $scope.login=false;
+        }
 
+        $scope.index={
+            curIndex:null
+        }
 
-    }
-
-
-
-
-        // if ($state.params.code==0){
-        //
-        // }else {
-        //
+        // $scope.indexOfTab={
+        //     index:0
         // }
 
+        $scope.infoCache={
+            signature:null,
+            announcement:null,
 
-    };
+
+        }
+
+        $scope.userInfo={};
+        $scope.show={
+            editable:null,
+            privateMsg:false
+        }
+        $scope.private={
+            privateLetter:''
+        }
 
 
-    $scope.changeShowForS=function(){
-        console.info('get');
-        $scope.showForS=!$scope.showForS;
+        $scope.uploadInformation($scope.id.paramsUserId);
 
-    };
 
-    $scope.changeShowForA=function () {
-        $scope.showForA=!$scope.showForA;
+
+
+
+
+    if ($scope.id.userId!=-1){
+        $scope.confirmTurn.showForLogin=true;
+        if ($scope.id.userId==$scope.id.paramsUserId){
+            $scope.show.editable=true;
+        }else {
+            $scope.show.editable=false;
+            $scope.getConfirmInfo();
+        }
+    }else {
+        $scope.confirmTurn.showForLogin=false;
+        $scope.show.editable=false;
 
     }
+
+
+    };
+
+
+
     $scope.uploadInformation=function (userId) {
-        console.log($scope.userId);
+        console.log(userId+"test");
         var param = {
             userId:userId
         };
-        alert(angular.toJson(param)+"fafjdfjhdhf")
+
         homeService.getInfo(param,function (data) {
 
-
-            $scope.userInfo=data[0];
-            $scope.avatarPath=$scope.userInfo.avatarPath;
-
-
-            $scope.nickName=$scope.userInfo.nickName;
-
-            $scope.signature=$scope.userInfo.signature;
-            $scope.announcement=$scope.userInfo.announcement;
-            $scope.followers=$scope.userInfo.followers;
-            $scope.fans=$scope.userInfo.fans;
-            $scope.date=$scope.userInfo.date;
+                    $scope.infoCache.signature=data.signature;
+                    $scope.infoCache.announcement=data.announcement;
+           $scope.userInfo=data;
 
        },function (data) {
             console.info("error:  "+data)
@@ -97,38 +92,133 @@ app.controller('personalHomePageController',['$scope','homeService','user','$sta
 
     }
 
-    $scope.sendSignature=function (signature) {
+    $scope.sendSignature=function () {
         var param={
-            userId:$scope.userId,
-            signature:signature
-        }
-        if(signature!=$scope.signature){
-            homeService.confirmInformation(param,function(data){
-                alert(signature)
-            },function(data){
-                alert("请重新编辑")
-            })
-
-
+            code:0,
+            userId:$scope.id.userId,
+            signature:$scope.userInfo.signature
         }
 
+        console.log("sendInfo"+angular.toJson(param))
+
+        if($scope.infoCache.signature!=$scope.userInfo.signature){
+           $scope.sendInfo(param)
+
+            console.log("sendInfo000"+angular.toJson(param))
+        }
 
     };
 
-    $scope.sendAnnouncement=function (announcement) {
+    $scope.sendAnnouncement=function () {
         var param={
-            userId:$scope.userId,
-            announcement:announcement
+            code:1,
+            userId:$scope.id.userId,
+            announcement:$scope.userInfo.announcement
         }
-        if (announcement!=$scope.announcement){
-            homeService.confirmInformation(param,function (data) {
-                alert(announcement)
-
-            },function (data) {
-                alert("请重新编辑")
-
-            })
+        if ($scope.infoCache.announcement!=$scope.userInfo.announcement){
+         $scope.sendInfo(param);
         }
 
     }
+
+
+
+
+    $scope.getConfirmInfo=function () {
+        var param={
+            userIdOfLogin:$scope.id.userId,
+            userIdOfShow:$scope.id.paramsUserId
+        }
+
+
+        homeService.getConfirmInfo(param,function (data) {
+            $scope.confirmInfo.code=data;
+
+
+            switch ($scope.confirmInfo.code){
+                case 0:
+                        $scope.confirmTurn.turnOfCode="已关注";
+
+                        $scope.confirmTurn.showForY=false;
+
+                    break;
+                case 1:
+                    $scope.confirmTurn.turnOfCode="未关注";
+
+                        $scope.confirmTurn.showForY=true;
+
+                    break;
+                default:
+                    break;
+
+            }
+        },function (data) {
+            alert("错误")
+
+        })
+
+    }
+
+    $scope.sendInfo=function (param) {
+        homeService.confirmInformation(param,function (data) {
+
+            alert("发送成功")
+
+        },function (data) {
+            alert("请重新编辑")
+
+        })
+
+    }
+
+    $scope.unfollow=function () {
+            var param={
+                code:2,
+                userIdOfLogin:$scope.id.userId,
+                userIdOfShow:$scope.id.paramsUserId
+            };
+            $scope.sendInfo(param)
+    }
+
+    $scope.follow=function () {
+        var param={
+            code:3,
+            userIdOfLogin:$scope.id.userId,
+            userIdOfShow:$scope.id.paramsUserId
+        }
+        $scope.sendInfo(param)
+
+    }
+
+    $scope.showMsg=function () {
+        $scope.show.privateMsg=!$scope.show.privateMsg
+
+    }
+    $scope.sendPrivateMsg=function () {
+  console.log("fanfan")
+        console.log($scope.private.privateLetter);
+        if ($scope.private.privateLetter!=null){
+            var param={
+                code:4,
+                userIdOfLogin:$scope.id.userId,
+                userIdOfShow:$scope.id.paramsUserId,
+                privateMsg:$scope.private.privateLetter
+            }
+            $scope.sendInfo(param);
+            $scope.private.privateLetter='';
+        }
+
+    }
+
+    $scope.linkToFans=function () {
+        $state.go('app.personalHomepage.hpTabset.myFans',{userId:$scope.id.paramsUserId});
+        $scope.index.curIndex=3;
+
+    }
+    $scope.linkToConcern=function () {
+        $state.go('app.personalHomepage.hpTabset.myConcern',{userId:$scope.id.paramsUserId});
+        $scope.index.curIndex=2;
+
+    }
+
 }])

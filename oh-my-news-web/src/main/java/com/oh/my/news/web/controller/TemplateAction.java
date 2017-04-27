@@ -32,6 +32,7 @@ public class TemplateAction extends BaseAction {
     @RequestMapping(value = "/pageReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public @ResponseBody Object pageReq(@RequestBody Map pageMap){
         System.out.println(pageMap);
+
         int currentPage = Integer.parseInt(pageMap.get("currentPage").toString().trim());
         Map<String,Object> map = new HashMap();
         map.put("pagination",new Pagination(200,currentPage));

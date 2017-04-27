@@ -1,12 +1,10 @@
 package com.oh.my.news.web.controller;
 
-import com.oh.my.news.model.template.Item;
 import com.oh.my.news.model.template.Pagination;
-import com.oh.my.news.model.test.Content;
+import com.oh.my.news.model.vo.Content;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,26 +37,20 @@ public class DraftAction extends BaseAction {
     public
     @ResponseBody
     Object getContent(@RequestBody Map ctgyMap) {
-       //System.out.println(ctgyMap);
-       /* class Message {
-            public String message;
-
-            public Message(String message) {
-                this.message = message;
-            }
-        }*/
          int MAX_SIZE = 200;
-//       List<Map> list = new ArrayList<Map>();
-//        Content[] listArray = new Content[2];
-//        List<Object[]> list2 = new ArrayList<Object[]>();
+      // List<Map> list = new ArrayList<Map>();
+        List<Content> list = new ArrayList<Content>();
+        List<Content> list1= new ArrayList<Content>();
+        //Content[] listArray = new Content[2];
+       // List<Object[]> list2 = new ArrayList<Object[]>();
         //下拉框的选择
         int dd= Integer.parseInt(ctgyMap.get("value").toString().trim());
         System.out.println(dd);
-//        int pageMap = Integer.parseInt(ctgyMap.get("currentPage").toString().trim());
+        int pageMap = Integer.parseInt(ctgyMap.get("currentPage").toString().trim());
         //返回的值
-        Map<String,Object> map = new HashMap();
-//        Map<String,Object> m= new HashMap();
-//        map.put("pagination",new Pagination(MAX_SIZE,pageMap));
+       // Map<String,Object> map = new HashMap();
+        Map<String,Object> m= new HashMap();
+        m.put("pagination",new Pagination(MAX_SIZE,pageMap));
         List<Content> contents = new ArrayList<Content>();
 
         contents.add(new Content("123济南西安等地出台楼市新政 限售城市增至18个",null,"进入4月，楼市调控仍在不断深入，一二线城市的调控不断升级，一些三四线城市也加入到调控队伍。\n" +
@@ -91,44 +83,40 @@ public class DraftAction extends BaseAction {
                 "\n" +
                 "　　据北京市政路桥市政集团相关负责人介绍，北京地铁17号线18标已正式开工建设，昨日开始进行地下连续墙施工。“18标位于通州区，包括1站2区间，分别为四线明挖段至次渠站区间、次渠站、次渠站至次渠北站区间，全长约1921.9米，主要工法为明挖、暗挖、盾构。其中，新建次渠站与既有亦庄线次渠站十字换乘，所处地层地质条件复杂，施工风险高，承压水下粉细砂层零距离下穿既有车站亦庄线次渠站非降水暗挖隧道，施工难度大。”该负责人称。\n"));
 
-
-
-
-//        for (int j = 0; j < contents.size(); j++) {
-//        // int num=0;
-////                list.get(pageMap);
+          if(pageMap==1)
+        {
+            list.add(contents.get(0));
+            list.add(contents.get(1));
+            m.put("content",list);
+        }
+        if(pageMap==2)
+        {
+            list1.add(contents.get(2));
+            list1.add(contents.get(3));
+            m.put("content",list1);
+        }
+//        for(int j=0;j<contents.size();j++){
 //        listArray[0] = contents.get(j);
 //        j++;
 //        listArray[1] = contents.get(j);
 //        list2.add(listArray);
-////            list2.get(0)
+//            //list2.get(0)；
 //    }
-
+//
 //        for (int i = 0;i<list2.size();i++) {
 //
-//            map.put("content", list2.get(i));
-//            list.add(map);
-//           // map.remove("content");
+//           // map.put("content", list2.get(i));
+//            list.add(list2.get(i));
 //
 //     }
 //          for (int i=0;i<list.size();i++){
-//              if (i == (pageMap-1)){
-//                  m= list.get(i);
-//
-//
+//              if (i==(pageMap-1)){
+//                  System.out.println(list.get(i));
+//                  m.put("content",list.get(i));
 //              }
 //          }
-        map.put("content",contents);
-        return successReturnObject(map);
-
+       // map.put("content",contents);
+        return successReturnObject(m);
     }
-//    @RequestMapping(value = "/pageReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)
-//    public @ResponseBody Object pageReq(@RequestBody Map pageMap){
-//        System.out.println(pageMap);
-//        int currentPage = Integer.parseInt(pageMap.get("currentPage").toString().trim());
-//        Map<String,Object> map = new HashMap();
-//        map.put("pagination",new Pagination(200,currentPage));
-//        return successReturnObject(map);
-//    }
 }
 
