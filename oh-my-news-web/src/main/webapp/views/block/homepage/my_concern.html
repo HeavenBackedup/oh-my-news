@@ -1,1 +1,18 @@
-<div>我的关注</div>
+<div ng-controller="myConcernController" ng-init="init()">
+    <div class="row">
+        我关注的人：
+    </div>
+
+    <div class="row" ng-repeat="user in userList">
+        <div class="col-sm-2"> <img class="img-responsive" ng-src="{{user.avatar}}" style="width: auto" /></div>
+        <div class="col-sm-8">
+            <div class="row"><a ng-bind="user.name" ng-click="getHomepage(user.id)" ui-sref="app.personalHomepage.hpTabset.myHomePage"></a></div>
+            <div class="row">
+                <span>常居：</span>
+                <span ng-bind="user.address"></span>
+                <span>| 签名：</span>
+                <span ng-bind="user.signature"></span>
+            </div>
+        </div>
+    </div>
+</div>

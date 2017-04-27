@@ -1,6 +1,7 @@
 package com.oh.my.news.web.controller;
 
 import com.oh.my.news.model.template.Item;
+import com.oh.my.news.model.template.Pagination;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
