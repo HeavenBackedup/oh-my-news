@@ -1,4 +1,4 @@
-package com.oh.my.news.model.test;
+package com.oh.my.news.model.vo;
 
 /**
  * Created by leilei on 2017/4/20.
