@@ -1,3 +1,99 @@
-<div>
-  我的钱包
+<body>
+    <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">
+                 <h1>我的钱包：</h1>
+    </div>
+<!--进度条和余额变动-->
+    <div  ng-controller="progressBarController" class="progress">
+             <div class="progress-bar" role="progressbar" data-ng-model="valuenow" aria-valuenow="{{valuenow}}" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                        {{valuenow}}
+             </div>
+
+            <div id="ballance" class="ax_default _三级标题">
+                <div id="u169_div" class=""></div>
+                    <!-- Unnamed () -->
+             <div id="u170" class="text" style="visibility: visible;">
+                   <br> <p><span data-ng-model="money">余额：{{money}}</span></p>
+             </div>
+            </div>
 </div>
+
+
+<!--提现功能-->
+    <div ng-controller="withdrawController" id="u177" class="ax_default link_button">
+        <div id="u177_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u178" class="text" style="visibility: visible;">
+            <input placeholder="此处输入提现金额" ng-model="input">
+            <p> <button ng-click="withdraw()">提现</button></p>
+
+            <!--<span>{{inputRes}}</span>-->
+        </div>
+    </div>
+<!--充值-->
+    <!-- Unnamed (矩形) -->
+    <div ng-controller="rechargeController" id="u179" class="ax_default link_button">
+        <div id="u179_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u180" class="text" style="visibility: visible;">
+            <input placeholder="此处输入充值金额" ng-model="input">
+            <p> <button ng-click="recharge()">充值</button></p>
+            <!--<span>{{inputRes}}</span>-->
+        </div>
+    </div>
+
+<!--支出收入事项简记-->
+
+    <div  ng-controller="payController" class="container">
+             <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">支出事项：</div>
+                <table class="table table-hover">
+                         <thead>
+                                <tr>
+                                    <th>  交易时间 </th>
+                                    <th>  支出事项 </th>
+                                    <th>  金额     </th>
+                                    <th>  收款方   </th>
+                                    <th>  留言     </th>
+                                    <th>  流水号   </th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr ng-repeat="item in events">
+                                    <td>{{item.time}}</td>
+                                    <td>{{item.goal}}</td>
+                                    <td>{{item.sum}}</td>
+                                    <td>{{item.person}}</td>
+                                    <td>{{item.note}}</td>
+                                    <td>{{item.id}}</td>
+                                </tr>
+                        </tbody>
+                 </table>
+    </div>
+    <div  ng-controller="incomeController" class="container">
+        <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">收入事项：</div>
+                    <table class="table table-hover">
+                            <thead>
+                                    <tr>
+                                        <th>  交易时间 </th>
+                                        <th>  收入事项 </th>
+                                        <th>  金额     </th>
+                                        <th>  收款方   </th>
+                                        <th>  留言     </th>
+                                        <th>  流水号   </th>
+                                    </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="item in events">
+                                    <td>{{item.time}}</td>
+                                    <td>{{item.goal}}</td>
+                                    <td>{{item.sum}}</td>
+                                    <td>{{item.person}}</td>
+                                    <td>{{item.note}}</td>
+                                    <td>{{item.id}}</td>
+                                </tr>
+                            </tbody>
+                    </table>
+    </div>
+    <script   type="text/javascript " src="../../vendor/angular.js-1.6.4/angular.js-1.6.4"> </script>
+</body>
+
