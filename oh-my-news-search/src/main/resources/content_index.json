@@ -1,0 +1,81 @@
+{
+    "settings": {
+      "index" : {
+        "number_of_shards" : 3,
+        "number_of_replicas" : 1
+      },
+      "analysis": {
+        "analyzer": {
+          "pinyin_analyzer": {
+            "tokenizer" : "my_pinyin",
+            "filter" : ["word_delimiter","nGram"]
+          }
+        },
+        "tokenizer": {
+          "my_pinyin": {
+            "type" : "pinyin",
+            "keep_separate_first_letter" : false,
+            "keep_full_pinyin" : true,
+            "keep_original" : true,
+            "limit_first_letter_length" : 16,
+            "lowercase" : true,
+            "remove_duplicated_term" : true
+          }
+        }
+      }
+    },
+    "mappings": {
+      "index":{
+        "properties":{
+          "id":{
+            "type":"integer",
+            "store":"yes"
+          },
+          "topic":{
+            "type":"string",
+            "store":"no",
+            "index":"analyzed",
+            "fields": {
+              "cn": {
+                "type": "string",
+                "analyzer": "ik"
+              },
+              "en": {
+                "type": "string",
+                "analyzer": "english"
+              },
+              "pinyin":{
+                "type": "string",
+                "analyzer": "pinyin_analyzer"
+              }
+            },
+            "term_vector": "with_positions_offsets"
+          },
+          "content":{
+            "type":"string",
+            "store":"no",
+            "index":"analyzed",
+            "fields": {
+              "cn": {
+                "type": "string",
+                "analyzer": "ik"
+              },
+              "en": {
+                "type": "string",
+                "analyzer": "english"
+              }
+            },
+            "term_vector": "with_positions_offsets"
+          },
+          "author":{
+            "type":"string",
+            "store":"no",
+            "index":"analyzed",
+            "analyzer":"whitespace",
+            "search_analyzer":"whitespace",
+            "term_vector": "with_positions_offsets"
+          }
+        }
+      }
+    }
+}
