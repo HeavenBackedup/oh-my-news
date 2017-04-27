@@ -31,6 +31,5 @@ app.controller('loginController',['$scope','loginService','$state','user',functi
             }
         },function (data) {
 
-        });
-    }
+
 }])

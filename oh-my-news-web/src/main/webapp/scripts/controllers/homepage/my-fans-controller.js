@@ -1,35 +1,35 @@
 /**
- * Created by fanfan on 2017/4/26.
+ * Created by fanfan on 2017/4/22.
  */
-app.controller('myConcernController',['$scope','concernService','user','$stateParams','$state',function ($scope,concernService,user,$stateParams,$state) {
-
+app.controller('myFansController',['$scope','fansService','user','$stateParams','$state',function ($scope,fansService,user,$stateParams,$state) {
+    // alert('fuck shj');
     $scope.init=function () {
         $scope.id={
             userId:user.getId(),
             paramsUserId:$state.params.userId
         }
 
-        $scope.concernInformation={
+        $scope.fansInformation={
             // userId:'',
             // avatarPath:'',
             // nickName:'',
             // signature:''
         }
 
-        $scope.getConcernList($scope.id.paramsUserId)
+        $scope.getFansList($scope.id.paramsUserId)
 
     }
-
-    $scope.getConcernList=function (userId) {
+    
+    $scope.getFansList=function (userId) {
         var param={
             userId:userId
         }
-        concernService.getInfo(param,function (data) {
-            $scope.concernInformation=data;
+        fansService.getInfo(param,function (data) {
+            $scope.fansInformation=data;
 
-
+            
         },function (data) {
-            console.log("getConcernList error"+data);
+            console.log("getFansList error"+data);
 
         })
 
@@ -38,6 +38,7 @@ app.controller('myConcernController',['$scope','concernService','user','$statePa
         $state.go('app.personalHomepage.hpTabset.myHomePage',{userId:id},{reload:true});
 
     }
+
 
 
 }])

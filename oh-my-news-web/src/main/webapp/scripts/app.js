@@ -45,44 +45,46 @@ var app =angular
       app.constant   = $provide.constant;
       app.value      = $provide.value;
       ngClipProvider.setPath(bootPATH+'/bower_components/zeroclipboard/dist/ZeroClipboard.swf');
-      $urlRouterProvider.otherwise('/app/personal_home_page/hp_tabset/my_home_page');
+      $urlRouterProvider.otherwise('login');
+        // /app/personal_home_page/hp_tabset/my_home_page
 
       $stateProvider
-        // 整体页面路由
-        .state('app',{
-          abstract: true,
-          url: '/app',
-          templateUrl: 'views/app.html',
-            controller: 'personalHomePageController'
-        })
+      // 整体页面路由
+          .state('app',{
+              abstract: true,
+              url: '/app',
+              templateUrl: 'views/app.html',
+              controller: 'appController'
+          })
 
-        // 个人主页模块根路由
-        .state('app.personalHomepage',{
-          abstract: true,
-          url: '/personal_home_page',
-          templateUrl: 'views/block/homepage/personal_homepage.html',
-            controller: 'personalHomePageController'
-        })
-        // 资产模块页面根路由，包含我的钱包和我的打赏页面
-        .state('app.assetHomepage',{
-          abstract: true,
-          url: '/asset_homepage',
-          templateUrl: 'views/block/homepage/asset_homepage.html',
-            controller: 'personalHomePageController'
-        })
-        // 个人主页模块路由，控制我的主页，草稿箱，私信，喜欢，收藏几个模块
-        .state('app.personalHomepage.hpTabset',{
-          abstract: true,
-          url: '/hp_tabset',
-          templateUrl: 'views/block/homepage/hp_tabset.html',
-            controller: 'personalHomePageController'
-        })
+          // 个人主页模块根路由
+          .state('app.personalHomepage',{
+              abstract: true,
+              url: '/personal_home_page',
+              templateUrl: 'views/block/homepage/personal_homepage.html',
+              controller: 'personalHomePageController'
+          })
+          // 资产模块页面根路由，包含我的钱包和我的打赏页面
+          .state('app.assetHomepage',{
+              abstract: true,
+              url: '/asset_homepage',
+              templateUrl: 'views/block/homepage/asset_homepage.html',
+              controller: 'assetHomePageController'
+          })
+          // 个人主页模块路由，控制我的主页，草稿箱，私信，喜欢，收藏几个模块
+          .state('app.personalHomepage.hpTabset',{
+              abstract: true,
+              url: '/hp_tabset',
+              templateUrl: 'views/block/homepage/hp_tabset.html',
+              controller: 'hbTabsetController',
+              params:{"userId":null}
+          })
+
         // 个人主页模块
         .state('app.personalHomepage.hpTabset.myHomePage',{
           url: '/my_home_page',
           templateUrl: 'views/block/homepage/my_home_page.html',
-            controller: 'myHomePageController',
-            params:{"userId":null}
+            controller: 'myHomePageController'
         })
 
         // 草稿箱模块
@@ -114,6 +116,12 @@ var app =angular
               url: '/my_concern',
               templateUrl: 'views/block/homepage/my_concern.html',
               controller: 'myConcernController'
+          })
+          // 我的粉丝
+          .state('app.personalHomepage.hpTabset.myFans',{
+              url:'/my_fans',
+              templateUrl: 'views/block/homepage/my_fans.html',
+              controller: 'myFansController'
           })
           // 我的钱包模块
         .state('app.assetHomepage.myWallet',{
