@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/search")
-public class searchAction extends BaseAction {
+public class SearchAction extends BaseAction {
     @RequestMapping(value = "/showResult",consumes = APPLICATION_JSON,method = RequestMethod.POST)
     public @ResponseBody Object showResult(@RequestBody Map contentMap){
         String keyword=contentMap.get("KeyWord").toString().trim();

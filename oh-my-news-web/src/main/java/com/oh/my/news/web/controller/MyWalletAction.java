@@ -1,4 +1,4 @@
-package com.oh.my.news.web.controller.mainpage;
+package com.oh.my.news.web.controller;
 
 import com.oh.my.news.web.util.BaseAction;
 import org.apache.commons.collections.map.HashedMap;
@@ -17,7 +17,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/mywallet")
-public class my_walletAction extends BaseAction{
+public class MyWalletAction extends BaseAction{
 
         @RequestMapping(value = "/getWithdraw",consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public @ResponseBody Object getWithdraw(@RequestBody Map inputMap) {
