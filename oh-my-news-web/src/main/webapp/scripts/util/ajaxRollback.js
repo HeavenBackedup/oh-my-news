@@ -21,13 +21,12 @@ app.factory('ajaxRollback',['$state','error',function ($state,error) {
                 }
             }
         }
-    }
+    };
     ajaxRollback.errorRollBack = function () {
         return function (errorData) {
             error.setData(errorData);
             $state.go('error');
         }
-    }
-
+    };
     return ajaxRollback;
 }])

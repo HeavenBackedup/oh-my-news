@@ -16,7 +16,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping(value = "/mainpage")
-public class mainAction extends BaseAction {
+public class MainAction extends BaseAction {
     //新闻显示
     @RequestMapping(value = "/showPage", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public @ResponseBody Object showPage(@RequestBody Map showPageMap) {

@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/accountManage")
-public class accountManageAction extends BaseAction{
+public class AccountManageAction extends BaseAction{
 
     @ResponseBody
     @RequestMapping(value = "/getUser",consumes = APPLICATION_JSON, method = RequestMethod.POST)

@@ -13,6 +13,7 @@
         <module>oh-my-news-model</module>
         <module>oh-my-news-web</module>
         <module>oh-my-news-service</module>
+        <module>oh-my-news-search</module>
     </modules>
 
 

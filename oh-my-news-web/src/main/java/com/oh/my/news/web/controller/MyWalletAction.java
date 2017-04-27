@@ -1,4 +1,4 @@
-package com.oh.my.news.web.controller.mainpage;
+package com.oh.my.news.web.controller;
 
 import com.oh.my.news.web.util.BaseAction;
 import org.apache.commons.collections.map.HashedMap;
