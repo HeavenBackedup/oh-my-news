@@ -47,13 +47,12 @@
     <ul class="nav navbar-nav navbar-right">
       <li><a ui-sref="app.edit"><span class="navbar-brand"></span> 发新闻</a></li>
       <li><a ui-sref="app.template"><span class="navbar-brand"></span> 模板(生产环境删除)</a></li>
-      <li ng-show="login" role="presentation" class="dropdown">
+      <li ng-show="show.login" role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          xxx的账号 <span class="caret"></span>
+          {{userInfoOfLogin.nickName}}的账号 <span class="caret"></span>
         </a>
         <ul  class="dropdown-menu">
-          <li><a ui-sref="app.personalHomepage.hpTabset.myHomePage">我的主页</a></li>
-          <li><a ui-sref="app.assetHomepage.myReward">我的打赏</a></li>
+          <li ng-click="backToPersondalPage()" ><a>我的主页</a></li>
           <li><a ui-sref="app.assetHomepage.myWallet">我的钱包</a></li>
           <li><a ui-sref="app.accountManage">账号管理</a></li>
           <li><a href="#">退出</a></li>
@@ -65,7 +64,7 @@
         <!--</ul>-->
 
       </li>
-      <li ng-show="!login" role="presentation" class="dropdown">
+      <li ng-show="!show.login" role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           登陆或注册 <span class="caret"></span>
         </a>

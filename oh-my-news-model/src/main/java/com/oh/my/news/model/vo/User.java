@@ -1,45 +1,27 @@
 package com.oh.my.news.model.vo;
 
 /**
- * Created by wangyan on 2017/4/19.
+ * Created by llf on 2017/4/16.
  */
 public class User {
-    Integer  id;
-    String username;
-    String password;
-    String photoid;
-    String[] address;
-    String email;
-
-    public User() {
-    }
-
-    public User(Integer id, String username, String password, String photoid, String[] address, String email) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.photoid = photoid;
-        this.address = address;
-        this.email = email;
-    }
-
+    private Integer id;
+    private String username;
+    private String password;
+    private String photoid;
+    private String address;
+    private String email;
     public Integer getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+
+    public String getAddress() {
+        return address;
     }
 
-    public String getPassword() {
-        return password;
+    public void setAddress(String address) {
+        this.address = address;
     }
-
-    public String getPhotoid() {
-        return photoid;
-    }
-
-    public String[] getAddress() { return address;}
 
     public String getEmail() {
         return email;
@@ -49,22 +31,32 @@ public class User {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public String getPhotoid() {
+        return photoid;
     }
 
     public void setPhotoid(String photoid) {
         this.photoid = photoid;
     }
 
-
-    public void setAddress(String[] address) { this.address = address;}
-
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

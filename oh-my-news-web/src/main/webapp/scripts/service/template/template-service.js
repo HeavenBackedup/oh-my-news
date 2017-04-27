@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by shj on 2017/4/11.
  */
 app.service('templateService',['$http','routeUtil','ajaxRollback',function($http,routeUtil,ajaxRollback){
