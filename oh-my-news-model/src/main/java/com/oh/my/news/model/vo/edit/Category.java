@@ -1,4 +1,4 @@
-package com.oh.my.news.model.vo;
+package com.oh.my.news.model.vo.edit;
 
 /**
  * Created by shj on 2017/4/15.
@@ -9,7 +9,6 @@ public class Category {
     private String catName;
 
     public Category(int id, Category category, String catName) {
-        this.id = id;
         this.parent = category;
         this.catName = catName;
     }

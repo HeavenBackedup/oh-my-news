@@ -26,7 +26,7 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
 
 
     //初始化文章，判断是否是新增还是修改
-    $scope.EditContentInit = function () {
+    $scope.editContentInit = function () {
         var editContent = content.getTemplate();
         if(editContent.id == -1){
             $scope.articleId = -1;
@@ -42,8 +42,7 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
                 $scope.categorySelected = item;
                 return;
             }
-        })
-
+        });
     }
 
     //判断用户是否已登录
@@ -81,12 +80,14 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
     $scope.picManage = function () {
         var param = {userId:$scope.userId,articleId:$scope.articleId};
         // console.info(angular.toJson(param));
+        $scope.temp = null;
         editService.getPics(param,function (data) {
 
             angular.forEach(data,function (item,index,array) {
                 item.isChosen = false;
             });
             $scope.allPics = data;
+            $scope.temp = data;
             // console.info(angular.toJson(data));
             $scope.openModal();
         },function (data) {

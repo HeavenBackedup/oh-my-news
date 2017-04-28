@@ -1,6 +1,7 @@
 package com.oh.my.news.web.controller.mainpage;
 
 import com.oh.my.news.web.util.BaseAction;
+import jdk.nashorn.internal.runtime.Undefined;
 import mainpage.News;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

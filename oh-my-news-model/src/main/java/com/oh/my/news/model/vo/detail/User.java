@@ -1,9 +1,9 @@
-package com.oh.my.news.model.dto;
+package com.oh.my.news.model.vo.detail;
 
 /**
  * Created by fanfan on 2017/4/19.
  */
-public class User {
+public class User {////给前端显示的用户信息
     private int userId;
     private String name;
     private String userImgSrc;

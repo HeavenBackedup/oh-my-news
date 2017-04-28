@@ -1,15 +1,13 @@
 package com.oh.my.news.web.controller;
 
-import com.oh.my.news.model.vo.Category;
+import com.oh.my.news.model.vo.edit.Category;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by shj on 2017/4/15.
