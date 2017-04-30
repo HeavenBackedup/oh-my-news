@@ -13,9 +13,8 @@ app.service('mainService',['$http','routeUtil','ajaxRollback',function($http,rou
     }
     mainService.collectList=function (param,success,failed,otherwise) {
         routeUtil.postUrl(COLLECT_LIST,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
-
-
     }
+
     mainService.markList=function (param,success,failed,otherwise) {
         routeUtil.postUrl(MARK_LIST,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
 
