@@ -9,6 +9,10 @@ import java.util.List;
  * Created by shj on 2017/5/1.
  */
 public interface UserWriteManage {
+
     void register(User user)throws Exception;
 
+    void editSignature(String userId,String signature)throws Exception;
+
+    void editAnouncement(String userId,String annoucement)throws Exception;
 }

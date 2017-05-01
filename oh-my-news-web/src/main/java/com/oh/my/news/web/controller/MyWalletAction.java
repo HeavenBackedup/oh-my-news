@@ -20,7 +20,6 @@ import java.util.*;
 @RequestMapping(value = "/mywallet")
 public class MyWalletAction extends BaseAction{
 
-
         @RequestMapping(value = "/getPayevents",consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public @ResponseBody Object getPayevents(@RequestBody Map inputMap) {
 

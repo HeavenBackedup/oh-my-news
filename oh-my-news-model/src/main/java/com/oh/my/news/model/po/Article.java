@@ -12,8 +12,9 @@ public class Article {
     private String labels;
     private int categoryId;
     private int isPublished;
+    private String contentSnapshot;
 
-    public Article(int id, int isDelete, int userId, String topic, String content, String labels, int categoryId, int isPublished) {
+    public Article(int id, int isDelete, int userId, String topic, String content, String labels, int categoryId, int isPublished, String contentSnapshot) {
         this.id = id;
         this.isDelete = isDelete;
         this.userId = userId;
@@ -22,7 +23,10 @@ public class Article {
         this.labels = labels;
         this.categoryId = categoryId;
         this.isPublished = isPublished;
+        this.contentSnapshot = contentSnapshot;
     }
+
+
 
     public Article() {
     }
@@ -38,6 +42,7 @@ public class Article {
                 ", labels='" + labels + '\'' +
                 ", categoryId=" + categoryId +
                 ", isPublished=" + isPublished +
+                ", contentSnapshot='" + contentSnapshot + '\'' +
                 '}';
     }
 
@@ -55,7 +60,8 @@ public class Article {
         if (isPublished != article.isPublished) return false;
         if (topic != null ? !topic.equals(article.topic) : article.topic != null) return false;
         if (content != null ? !content.equals(article.content) : article.content != null) return false;
-        return labels != null ? labels.equals(article.labels) : article.labels == null;
+        if (labels != null ? !labels.equals(article.labels) : article.labels != null) return false;
+        return contentSnapshot != null ? contentSnapshot.equals(article.contentSnapshot) : article.contentSnapshot == null;
     }
 
     @Override
@@ -68,6 +74,7 @@ public class Article {
         result = 31 * result + (labels != null ? labels.hashCode() : 0);
         result = 31 * result + categoryId;
         result = 31 * result + isPublished;
+        result = 31 * result + (contentSnapshot != null ? contentSnapshot.hashCode() : 0);
         return result;
     }
 
@@ -133,5 +140,13 @@ public class Article {
 
     public void setIsPublished(int isPublished) {
         this.isPublished = isPublished;
+    }
+
+    public String getContentSnapshot() {
+        return contentSnapshot;
+    }
+
+    public void setContentSnapshot(String contentSnapshot) {
+        this.contentSnapshot = contentSnapshot;
     }
 }
