@@ -25,17 +25,17 @@
 
   <div  class="navbar navbar-inverse col-md-offset-1 col-md-10" role="navigation">
     <ul class="nav navbar-nav">
-      <li><a class="navbar-brand" ng-click="showOtherPage(0)">首页</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(1)">文化</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(2)">时尚</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(3)">娱乐</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(4)">房产</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(5)">科技</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(6)">汽车</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(7)">财经</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(8)">游戏</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(9)">体育</a> </li>
-      <li><a class="navbar-brand" ng-click="showOtherPage(10)">书城</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(0,currentPage)">首页</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(1,currentPage)">文化</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(2,currentPage)">时尚</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(3,currentPage)">娱乐</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(4,currentPage)">房产</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(5,currentPage)">科技</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(6,currentPage)">汽车</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(7,currentPage)">财经</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(8,currentPage)">游戏</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(9,currentPage)">体育</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(10,currentPage)">书城</a> </li>
 
     </ul>
   </div>
@@ -67,36 +67,37 @@
 
 <!--右侧正文部分-->
   <div class="col-md-offset-1 col-md-7">
-      <div class="row" data-ng-repeat="p in newsItems">
-        <h3 style="font-weight: bolder;text-align: center" >{{p.title}}</h3>
-        <div class="col-md-offset-7">作者：{{p.author}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{p.date}}</div>
+      <div class="row" ng-repeat="item in newsItems">
+        <h3 style="font-weight: bolder;text-align: center" >{{item.topic}}</h3>
+        <div class="col-md-offset-7" >作者：{{item.author}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.date}}</div>
         <!--根据该新闻是否带有图片来进行相应的样式选择-->
-        <div ng-show=" p.picUrls!=null">
-          <!--图片轮播插件-->
+          <div ng-show="item.picUrl.length>0">
             <div uib-carousel style="width: 200px;height: 170px; margin-right: 20px; margin-bottom: 20px"class="pull-left" interval="myInterval" no-wrap="noWrapSlides" active="true" >
-              <div uib-slide ng-repeat="pic in p.picUrls" active="pic.active" index="$index">
+              <div uib-slide ng-repeat="pic in item.picUrl" active="pic.active" index="$index">
                 <img ng-src="{{pic}}" style="width: 200px;height: 170px;margin:auto;">
               </div>
             </div>
 
-          <!--正文显示部分 当正文文本超过8行时剩余部分显示省略号-->
-          <div style="display: -webkit-box;-webkit-line-clamp: 8;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;">
-            {{p.content}}
-          </div>
-          <!--跳转新闻显示页面-->
-          <a class="pull-right" ui-sref="app.detail">
+            <!--正文显示部分 当正文文本超过8行时剩余部分显示省略号-->
+            <div style="display: -webkit-box;-webkit-line-clamp: 8;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;">
+              {{item.text}}
+            </div>
+            <!--跳转新闻显示页面-->
+            <a class="pull-right" ui-sref="app.detail">
               点击查看全文>>
-          </a>
-        </div>
+            </a>
+          </div>
 
-        <!--当新闻不带图片时的显示模块-->
-        <div ng-hide="p.picUrls!=null" style="display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">
-          {{p.content}}
-          <a class="pull-right" ui-sref="app.detail">
-            点击查看全文>>
+          <div ng-show="item.picUrl.length==0" style="display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">
+            {{item.text}}
+            <a class="pull-right" ui-sref="app.detail">
+              点击查看全文>>
 
-          </a>
-        </div>
+            </a>
+          </div>
+
+
+
         <hr>
       </div>
 
@@ -105,7 +106,7 @@
 
 <!--分页模块-->
 <div class="col-md-offset-4">
-  <div uib-pagination ng-change="pageChange()" total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页" class="pagination-sm" boundary-links="true" rotate="false" ></divpagination>
+  <div uib-pagination ng-change="changePage(index,currentPage)" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页" class="pagination-sm" boundary-links="true" rotate="false" ></div>
 </div>
 </div>
 

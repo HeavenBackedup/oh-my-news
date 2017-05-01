@@ -1,6 +1,6 @@
 package com.oh.my.news.web.controller;
 
-import com.oh.my.news.model.home.OthersInfomation;
+import com.oh.my.news.model.vo.myHomePage.home.OthersInfomation;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

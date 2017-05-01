@@ -1,6 +1,4 @@
-package com.oh.my.news.model.home;
-
-import java.util.Date;
+package com.oh.my.news.model.vo.myHomePage.home;
 
 /**
  * Created by fanfan on 2017/4/17.

@@ -1,6 +1,4 @@
-package com.oh.my.news.model.home;
-
-import com.oh.my.news.model.dto.User;
+package com.oh.my.news.model.vo.myHomePage.home;
 
 import java.util.ArrayList;
 import java.util.HashMap;
