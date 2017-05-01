@@ -1,5 +1,5 @@
 
-app.controller('progressBarController',['$scope','my-wallet-Service',function ($scope,my_wallet_Service) {
+app.controller('progressBarController',['$scope','myWalletService',function ($scope,myWalletService) {
             $scope.init=function () {
                 $scope.money=1000;
                 $scope.valuenow="";
@@ -8,10 +8,10 @@ app.controller('progressBarController',['$scope','my-wallet-Service',function ($
 
             var add=0;
             var minus=0;
-            my_wallet_Service.getRecharge(param,function (data) {
+    myWalletService.getRecharge(param,function (data) {
                 add=data;
             })
-            my_wallet_Service.getWithdraw(param,function (data) {
+    myWalletService.getWithdraw(param,function (data) {
                 minus=data;
 
             })
@@ -20,7 +20,7 @@ app.controller('progressBarController',['$scope','my-wallet-Service',function ($
 
 
 }])
-app.controller('rechargeController',['$scope','my_wallet_Service',function ($scope,my_wallet_Service) {
+app.controller('rechargeController',['$scope','myWalletService',function ($scope,myWalletService) {
     $scope.init=function () {
         $scope.input="";
         $scope.inputRes="";
@@ -28,7 +28,7 @@ app.controller('rechargeController',['$scope','my_wallet_Service',function ($sco
     $scope.recharge = function () {
         var param = {};
         param.value = $scope.input;
-        my_wallet_Service.getRecharge(param,function (data) {
+        myWalletService.getRecharge(param,function (data) {
             $scope.inputRes = data;
         },function(data){
             console.info("error:  "+data)
@@ -36,7 +36,7 @@ app.controller('rechargeController',['$scope','my_wallet_Service',function ($sco
     }
     alert("确认充值？")
 }])
-app.controller('withdrawController',['$scope','my_wallet_Service',function ($scope,my_wallet_Service) {
+app.controller('withdrawController',['$scope','myWalletService',function ($scope,myWalletService) {
     $scope.init=function () {
         $scope.input="";
         $scope.inputRes="";
@@ -45,7 +45,7 @@ app.controller('withdrawController',['$scope','my_wallet_Service',function ($sco
     $scope.withdraw = function () {
         var param = {};
         param.value = $scope.input;
-        my_wallet_Service.getWithdraw(param,function (data) {
+        myWalletService.getWithdraw(param,function (data) {
             $scope.inputRes = data;
         },function(data){
             console.info("error:  "+data)
@@ -54,12 +54,12 @@ app.controller('withdrawController',['$scope','my_wallet_Service',function ($sco
     alert("确认提现？")
 
 }])
-app.controller('payController',['$scope','my_wallet_service',function ($scope,my_wallet_Service) {
+app.controller('payController',['$scope','myWalletService',function ($scope,myWalletService) {
         var count=0;
-        my_wallet_Service.getWithdraw(param,function(data){
+    myWalletService.getWithdraw(param,function(data){
             count=data;
           })
-        my_wallet_Service.getPayevents(param,function (data) {
+    myWalletService.getPayevents(param,function (data) {
             $scope.events=data;
 
         })
@@ -67,12 +67,12 @@ app.controller('payController',['$scope','my_wallet_service',function ($scope,my
 
 
 }])
-app.controller('incomeController',['$scope','my_wallet_service',function ($scope,my_wallet_Service) {
+app.controller('incomeController',['$scope','myWalletService',function ($scope,myWalletService) {
         var count=0;
-        my_wallet_Service.getRecharge(param,function(data){
+    myWalletService.getRecharge(param,function(data){
             count=data;
         })
-        my_wallet_Service.getIncomeevents(param,function (data) {
+    myWalletService.getIncomeevents(param,function (data) {
             $scope.events=data;
 
         })

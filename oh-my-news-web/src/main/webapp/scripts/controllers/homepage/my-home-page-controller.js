@@ -1,7 +1,7 @@
 /**
  * Created by fanfan on 2017/4/15.
  */
-app.controller('personalHomePageController',['$scope','homeService','user','$stateParams','$state','$controller',function ($scope,homeService,user,$stateParams,$state,$controller) {
+app.controller('myHomePageController',['$scope','homeService','user','$stateParams','$state','$controller',function ($scope,homeService,user,$stateParams,$state,$controller) {
     $controller('appController', {$scope: $scope});
 
     $scope.init=function () {

@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2017/4/24.
  */
-app.service('my_wallet_Service',['$http','routeUtil','ajaxRollback',function($http,routeUtil,ajaxRollback){
-    var MyWalletSearvice = {};
+app.service('myWalletService',['$http','routeUtil','ajaxRollback',function($http,routeUtil,ajaxRollback){
+    var MyWalletService = {};
 
     var GET_PAYEVENTS='/mywallet/getPayevents';
     var GET_WITHDRAW='/mywallet/getWithdraw';

@@ -2,7 +2,7 @@ package com.oh.my.news.web.controller.mainpage;
 
 import com.oh.my.news.model.template.Item;
 import com.oh.my.news.model.template.Pagination;
-import com.oh.my.news.model.vo.EditContent;
+import com.oh.my.news.model.vo.mainpage.EditContent;
 import com.oh.my.news.web.util.BaseAction;
 import jdk.nashorn.internal.runtime.Undefined;
 import mainpage.News;
