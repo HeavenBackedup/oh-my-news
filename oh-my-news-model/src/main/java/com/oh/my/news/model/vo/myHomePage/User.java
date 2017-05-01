@@ -1,4 +1,4 @@
-package com.oh.my.news.model.dto;
+package com.oh.my.news.model.vo.myHomePage;
 
 /**
  * Created by fanfan on 2017/4/19.
