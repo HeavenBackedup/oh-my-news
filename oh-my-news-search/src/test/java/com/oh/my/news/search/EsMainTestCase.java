@@ -27,7 +27,7 @@ public class EsMainTestCase extends TestCase {
 
 
     public EsMainTestCase() {
-        System.setProperty("global.config.path","/Users/Dzhaoooo/GitProjects/env/env-dev");
+        System.setProperty("global.config.path","/Users/shj/dev/env/env/env-dev");
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:oh-my-news-search/spring-service.xml");
         this.esService = (ESService) applicationContext.getBean("esService");
         this.searchContentApi = (SearchContentApi)applicationContext.getBean("searchContentApi");

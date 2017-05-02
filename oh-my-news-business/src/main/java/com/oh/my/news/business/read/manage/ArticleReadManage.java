@@ -1,7 +1,6 @@
 package com.oh.my.news.business.read.manage;
 
 import com.oh.my.news.model.dto.ArticleDto;
-
 import java.util.List;
 
 /**
@@ -45,5 +44,7 @@ public interface ArticleReadManage {
      * @throws Exception
      */
     ArticleDto getArticleDetail(int articleId)throws Exception;
+
+    List<ArticleDto> search(String text,int currentPage,int pageItemNum)throws Exception;
 
 }

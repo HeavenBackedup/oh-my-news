@@ -72,23 +72,6 @@ public class User {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", isDelete=" + isDelete +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", mediaId=" + mediaId +
-                ", signature='" + signature + '\'' +
-                ", announcement='" + announcement + '\'' +
-                ", date=" + date +
-                ", nickname='" + nickname + '\'' +
-                '}';
-    }
-
     public int getId() {
         return id;
     }

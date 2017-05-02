@@ -16,4 +16,8 @@ public interface ImageReadManage {
      * @throws Exception
      */
     File getImageById(Integer id)throws Exception;
+    List<Image> getImagesByArticleId(int articleId)throws Exception;
+
+
+
 }

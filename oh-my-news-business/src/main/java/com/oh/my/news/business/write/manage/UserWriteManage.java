@@ -32,4 +32,6 @@ public interface UserWriteManage {
      * @throws Exception
      */
     void editAnouncement(String userId,String annoucement)throws Exception;
+
+    void update(User user)throws Exception;
 }
