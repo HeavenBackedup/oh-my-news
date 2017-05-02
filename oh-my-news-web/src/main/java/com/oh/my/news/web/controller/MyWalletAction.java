@@ -22,7 +22,6 @@ public class MyWalletAction extends BaseAction{
 
         @RequestMapping(value = "/getPayevents",consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public @ResponseBody Object getPayevents(@RequestBody Map inputMap) {
-
                 System.out.println(inputMap);
                 Calendar rightnow=Calendar.getInstance();
                 Random random=new Random();

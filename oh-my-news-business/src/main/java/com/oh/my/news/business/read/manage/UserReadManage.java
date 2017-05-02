@@ -14,14 +14,14 @@ public interface UserReadManage {
      * @param username
      * @param email
      * @param password
-     * @return
+     * @return  登录成功返回用户的useId
      * @throws Exception
      */
     Integer login(String username,String email,String password)throws Exception;
 
     /**
      *
-     * @param username
+     * @param username  使用用户名进行验证
      * @return
      * @throws Exception
      */
@@ -29,15 +29,18 @@ public interface UserReadManage {
 
     /**
      *
-     * @param email
+     * @param email  使用邮箱进行验证
      * @return
      * @throws Exception
      */
     boolean emailValidation(String email)throws Exception;
 
 
-
-
-
+    /**
+     *
+     * @param userId
+     * @return  用户的相关信息 包括关注人数跟粉丝人数
+     * @throws Exception
+     */
     UserDto getUserDetail(int userId)throws Exception;
 }

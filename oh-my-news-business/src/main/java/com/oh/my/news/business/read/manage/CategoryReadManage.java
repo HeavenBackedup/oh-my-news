@@ -8,5 +8,10 @@ import java.util.List;
  * Created by shj on 2017/5/1.
  */
 public interface CategoryReadManage {
+    /**
+     *
+     * @return 返回所有类别信息
+     * @throws Exception
+     */
     List<Category> getCategories()throws Exception;
 }

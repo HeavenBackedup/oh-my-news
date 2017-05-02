@@ -7,14 +7,14 @@ import com.oh.my.news.model.vo.mainpage.EditContent;
  */
 public interface ArticleWriteManage {
     /**
-     *
-     * @param editContent
+     *  发表该新闻
+     * @param editContent  编辑的新闻内容
      * @throws Exception
      */
     void publish(EditContent editContent)throws Exception;
 
     /**
-     *
+     * 将新闻保存在草稿箱中
      * @param editContent
      * @throws Exception
      */
