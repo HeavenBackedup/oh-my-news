@@ -4,30 +4,32 @@ import com.oh.my.news.model.po.Article;
 import com.oh.my.news.model.po.Category;
 import com.oh.my.news.model.po.User;
 
+import java.util.List;
+
 /**
  * Created by shj on 2017/5/1.
  */
 public class ArticleDto{
-    private Category category;
     private Pagination pagination;
-    private Article article;
-    private User user;
+    private List<ArticleCategoryDto> article;
+    private UserSnapshot userSnapshot;
 
 
-    public ArticleDto(Category category, Pagination pagination, Article article, User user) {
-        this.category = category;
+    public ArticleDto(Pagination pagination, List<ArticleCategoryDto> article, UserSnapshot userSnapshot) {
         this.pagination = pagination;
         this.article = article;
-        this.user = user;
+        this.userSnapshot = userSnapshot;
+    }
+
+    public ArticleDto() {
     }
 
     @Override
     public String toString() {
         return "ArticleDto{" +
-                "category=" + category +
-                ", pagination=" + pagination +
+                "pagination=" + pagination +
                 ", article=" + article +
-                ", user=" + user +
+                ", userSnapshot=" + userSnapshot +
                 '}';
     }
 
@@ -38,27 +40,17 @@ public class ArticleDto{
 
         ArticleDto that = (ArticleDto) o;
 
-        if (category != null ? !category.equals(that.category) : that.category != null) return false;
         if (pagination != null ? !pagination.equals(that.pagination) : that.pagination != null) return false;
         if (article != null ? !article.equals(that.article) : that.article != null) return false;
-        return user != null ? user.equals(that.user) : that.user == null;
+        return userSnapshot != null ? userSnapshot.equals(that.userSnapshot) : that.userSnapshot == null;
     }
 
     @Override
     public int hashCode() {
-        int result = category != null ? category.hashCode() : 0;
-        result = 31 * result + (pagination != null ? pagination.hashCode() : 0);
+        int result = pagination != null ? pagination.hashCode() : 0;
         result = 31 * result + (article != null ? article.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (userSnapshot != null ? userSnapshot.hashCode() : 0);
         return result;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public Pagination getPagination() {
@@ -69,19 +61,19 @@ public class ArticleDto{
         this.pagination = pagination;
     }
 
-    public Article getArticle() {
+    public List<ArticleCategoryDto> getArticle() {
         return article;
     }
 
-    public void setArticle(Article article) {
+    public void setArticle(List<ArticleCategoryDto> article) {
         this.article = article;
     }
 
-    public User getUser() {
-        return user;
+    public UserSnapshot getUserSnapshot() {
+        return userSnapshot;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserSnapshot(UserSnapshot userSnapshot) {
+        this.userSnapshot = userSnapshot;
     }
 }

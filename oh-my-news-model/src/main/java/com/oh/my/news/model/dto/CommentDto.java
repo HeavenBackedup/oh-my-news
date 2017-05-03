@@ -9,10 +9,10 @@ import com.oh.my.news.model.po.User;
 public class CommentDto {
 
     private Comment comment;
-    private User replier;
+    private UserSnapshot replier;
     private Comment formerComment;
 
-    public CommentDto(Comment comment, User replier, Comment formerComment) {
+    public CommentDto(Comment comment, UserSnapshot replier, Comment formerComment) {
         this.comment = comment;
         this.replier = replier;
         this.formerComment = formerComment;
@@ -23,7 +23,7 @@ public class CommentDto {
 
     @Override
     public String toString() {
-        return "commentDto{" +
+        return "CommentDto{" +
                 "comment=" + comment +
                 ", replier=" + replier +
                 ", formerComment=" + formerComment +
@@ -58,11 +58,11 @@ public class CommentDto {
         this.comment = comment;
     }
 
-    public User getReplier() {
+    public UserSnapshot getReplier() {
         return replier;
     }
 
-    public void setReplier(User replier) {
+    public void setReplier(UserSnapshot replier) {
         this.replier = replier;
     }
 

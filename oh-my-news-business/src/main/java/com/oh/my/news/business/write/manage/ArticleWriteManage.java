@@ -25,7 +25,7 @@ public interface ArticleWriteManage {
 
     void report(int userId,int articleId)throws Exception;
 
-    void donate(int userId,int articleId,int num)throws Exception;
+    void donate(int userId,int articleId,int num,String message)throws Exception;
 
     void mark(int userId,int articleId,float score)throws Exception;
 

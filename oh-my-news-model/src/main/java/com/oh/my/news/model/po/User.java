@@ -12,22 +12,21 @@ public class User {
     private String password;
     private String email;
     private String address;
-    private int mediaId;
+    private String imageUrl;
     private String signature;
     private String announcement;
     private Date date;
     private String nickname;
     private int isLimit;
 
-
-    public User(int id, int isDelete, String username, String password, String email, String address, int mediaId, String signature, String announcement, Date date, String nickname, int isLimit) {
+    public User(int id, int isDelete, String username, String password, String email, String address, String imageUrl, String signature, String announcement, Date date, String nickname, int isLimit) {
         this.id = id;
         this.isDelete = isDelete;
         this.username = username;
         this.password = password;
         this.email = email;
         this.address = address;
-        this.mediaId = mediaId;
+        this.imageUrl = imageUrl;
         this.signature = signature;
         this.announcement = announcement;
         this.date = date;
@@ -35,6 +34,8 @@ public class User {
         this.isLimit = isLimit;
     }
 
+    public User() {
+    }
 
     @Override
     public String toString() {
@@ -45,7 +46,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
-                ", mediaId=" + mediaId +
+                ", imageUrl='" + imageUrl + '\'' +
                 ", signature='" + signature + '\'' +
                 ", announcement='" + announcement + '\'' +
                 ", date=" + date +
@@ -63,12 +64,12 @@ public class User {
 
         if (id != user.id) return false;
         if (isDelete != user.isDelete) return false;
-        if (mediaId != user.mediaId) return false;
         if (isLimit != user.isLimit) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (address != null ? !address.equals(user.address) : user.address != null) return false;
+        if (imageUrl != null ? !imageUrl.equals(user.imageUrl) : user.imageUrl != null) return false;
         if (signature != null ? !signature.equals(user.signature) : user.signature != null) return false;
         if (announcement != null ? !announcement.equals(user.announcement) : user.announcement != null) return false;
         if (date != null ? !date.equals(user.date) : user.date != null) return false;
@@ -83,7 +84,7 @@ public class User {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + mediaId;
+        result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         result = 31 * result + (signature != null ? signature.hashCode() : 0);
         result = 31 * result + (announcement != null ? announcement.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
@@ -140,12 +141,12 @@ public class User {
         this.address = address;
     }
 
-    public int getMediaId() {
-        return mediaId;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setMediaId(int mediaId) {
-        this.mediaId = mediaId;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getSignature() {

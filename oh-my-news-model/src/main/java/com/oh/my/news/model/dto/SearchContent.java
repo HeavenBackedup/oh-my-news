@@ -1,4 +1,4 @@
-package com.oh.my.news.model.dto.search;
+package com.oh.my.news.model.dto;
 
 /**
  * Created by shj on 2017/4/27.
