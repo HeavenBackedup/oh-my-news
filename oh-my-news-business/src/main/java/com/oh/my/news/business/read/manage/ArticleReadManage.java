@@ -57,7 +57,6 @@ public interface ArticleReadManage {
      */
     List<ArticleDto> search(String text,int currentPage,int pageItemNum)throws Exception;
 
-    ArticalReader getArticleReader(int articleId)throws Exception;
 
 
 

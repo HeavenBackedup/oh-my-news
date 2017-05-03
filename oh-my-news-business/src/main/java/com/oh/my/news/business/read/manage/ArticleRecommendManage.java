@@ -17,5 +17,5 @@ public interface ArticleRecommendManage {
 
     List<ArticleSnapshot> getLast()throws Exception;
 
-    List<EditContent> getRecommendByCategoryId(int categoryId)throws Exception;
+    List<EditContent> getRecommendByCategoryId(int categoryId,int currentPage,int pageItemNum)throws Exception;
 }
