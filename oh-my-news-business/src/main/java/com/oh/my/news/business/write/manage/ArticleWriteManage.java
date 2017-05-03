@@ -19,6 +19,20 @@ public interface ArticleWriteManage {
      * @throws Exception
      */
     void save(EditContent editContent)throws Exception;
+
+
+    void thumUp(int userId,int articleId)throws Exception;
+
+    void report(int userId,int articleId)throws Exception;
+
+    void donate(int userId,int articleId,int num)throws Exception;
+
+    void mark(int userId,int articleId,float score)throws Exception;
+
+    void collect(int userId,int articleId)throws Exception;
+
+
+
     
     
 }

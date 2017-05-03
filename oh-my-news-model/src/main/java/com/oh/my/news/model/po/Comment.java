@@ -10,14 +10,16 @@ public class Comment {
     private int formerCommentId;
     private String content;
     private Date date;
+    private int articleId;
 
-    public Comment(int id, int isDelete, int userId, int formerCommentId, String content, Date date) {
+    public Comment(int id, int isDelete, int userId, int formerCommentId, String content, Date date, int articleId) {
         this.id = id;
         this.isDelete = isDelete;
         this.userId = userId;
         this.formerCommentId = formerCommentId;
         this.content = content;
         this.date = date;
+        this.articleId = articleId;
     }
 
     public Comment() {
@@ -32,6 +34,7 @@ public class Comment {
                 ", formerCommentId=" + formerCommentId +
                 ", content='" + content + '\'' +
                 ", date=" + date +
+                ", articleId=" + articleId +
                 '}';
     }
 
@@ -46,6 +49,7 @@ public class Comment {
         if (isDelete != comment.isDelete) return false;
         if (userId != comment.userId) return false;
         if (formerCommentId != comment.formerCommentId) return false;
+        if (articleId != comment.articleId) return false;
         if (content != null ? !content.equals(comment.content) : comment.content != null) return false;
         return date != null ? date.equals(comment.date) : comment.date == null;
     }
@@ -58,6 +62,7 @@ public class Comment {
         result = 31 * result + formerCommentId;
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + articleId;
         return result;
     }
 
@@ -107,5 +112,13 @@ public class Comment {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 }

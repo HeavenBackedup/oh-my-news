@@ -10,6 +10,7 @@ public class Transaction {
     private int targetUserId;
     private Date date;
     private float amount;
+    private int articleId;
 
     public Transaction(int id, int isDelete, int sourceUserId, int targetUserId, Date date, float amount) {
         this.id = id;

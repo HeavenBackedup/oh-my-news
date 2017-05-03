@@ -17,9 +17,10 @@ public class User {
     private String announcement;
     private Date date;
     private String nickname;
+    private int isLimit;
 
 
-    public User(int id, int isDelete, String username, String password, String email, String address, int mediaId, String signature, String announcement, Date date, String nickname) {
+    public User(int id, int isDelete, String username, String password, String email, String address, int mediaId, String signature, String announcement, Date date, String nickname, int isLimit) {
         this.id = id;
         this.isDelete = isDelete;
         this.username = username;
@@ -31,9 +32,26 @@ public class User {
         this.announcement = announcement;
         this.date = date;
         this.nickname = nickname;
+        this.isLimit = isLimit;
     }
 
-    public User() {
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", isDelete=" + isDelete +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", mediaId=" + mediaId +
+                ", signature='" + signature + '\'' +
+                ", announcement='" + announcement + '\'' +
+                ", date=" + date +
+                ", nickname='" + nickname + '\'' +
+                ", isLimit=" + isLimit +
+                '}';
     }
 
     @Override
@@ -46,6 +64,7 @@ public class User {
         if (id != user.id) return false;
         if (isDelete != user.isDelete) return false;
         if (mediaId != user.mediaId) return false;
+        if (isLimit != user.isLimit) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
@@ -69,6 +88,7 @@ public class User {
         result = 31 * result + (announcement != null ? announcement.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
+        result = 31 * result + isLimit;
         return result;
     }
 
@@ -159,4 +179,13 @@ public class User {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public int getIsLimit() {
+        return isLimit;
+    }
+
+    public void setIsLimit(int isLimit) {
+        this.isLimit = isLimit;
+    }
 }
+
