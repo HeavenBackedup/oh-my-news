@@ -38,14 +38,23 @@ public class RegisterAction extends BaseAction {
         return successReturnObject(isform);
     }
 
-    @RequestMapping(value = "/verifyInfo", consumes = APPLICATION_JSON, method = RequestMethod.POST)
+    @RequestMapping(value = "/verifynameInfo", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public
     @ResponseBody
-    Object verifyInfo(@RequestBody Map map) {
+    Object verifynameInfo(@RequestBody Map map) {
         boolean isform = true;
         String inputusername = map.get("value").toString();
         if (inputusername.equals("abc")) {
             isform = false;
+        }
+        return successReturnObject(isform);
+    }
+    @RequestMapping(value = "/verifyemailInfo", consumes = APPLICATION_JSON, method = RequestMethod.POST)
+    public  @ResponseBody Object verifyemailInfo(@RequestBody Map map){
+        boolean isform=true;
+        String inputemail=map.get("value").toString();
+        if(inputemail.equals("123@qq.com")){
+            isform=false;
         }
         return successReturnObject(isform);
     }
