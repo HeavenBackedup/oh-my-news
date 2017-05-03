@@ -1,5 +1,6 @@
 package com.oh.my.news.web.controller;
 
+import com.oh.my.news.model.dto.Wallet;
 import com.oh.my.news.web.util.BaseAction;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
@@ -19,85 +20,30 @@ import java.util.*;
 @RequestMapping(value = "/mywallet")
 public class MyWalletAction extends BaseAction{
 
-        @RequestMapping(value = "/getWithdraw",consumes = APPLICATION_JSON, method = RequestMethod.POST)
-        public @ResponseBody Object getWithdraw(@RequestBody Map inputMap) {
-                float rmb=0;
-                rmb = (float) Integer.parseInt(inputMap.get("value").toString());
-                return rmb;
-        }
-        @RequestMapping(value = "/getRecharge",consumes = APPLICATION_JSON, method = RequestMethod.POST)
-        public @ResponseBody Object getRecharge(@RequestBody Map inputMap) {
-                float dollar=0;
-                dollar = (float) Integer.parseInt(inputMap.get("value").toString());
-
-                return dollar;
-        }
-
         @RequestMapping(value = "/getPayevents",consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public @ResponseBody Object getPayevents(@RequestBody Map inputMap) {
-                long time=0;
-                String goal="";
-                String sum="";
-                String person="";
-                String note="";
-                int id=0;
-                Random random=new Random();
-
-                List<Map<String,Object>> events=new ArrayList();
-                Map<String,Object> event=new HashMap<String,Object>();
+                System.out.println(inputMap);
                 Calendar rightnow=Calendar.getInstance();
-                time=rightnow.getTimeInMillis();
-                goal="提现";
-                sum="提现金额";
-                person="自己用户名和id";
-                note="";
-                id=random.nextInt(10000);
-                event.put("1",time);
-                event.put("2",goal);
-                event.put("3",sum);
-                event.put("4",person);
-                event.put("5",note);
-                event.put("6",id);
-                events.add(event);
-                return events;
+                Random random=new Random();
+                int id=random.nextInt(10000);
+                Map<String,Object> map=new HashMap<String, Object>();
+                List<Wallet> list=new ArrayList<Wallet>();
+                list.add(new Wallet(rightnow.getTimeInMillis(),"提现",inputMap.get("rmb").toString(),"自己用户名和ID","",id));
+                map.put("myWallet",list);
+                return map;
         }
 
 
         @RequestMapping(value = "/getIncomeevents",consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public @ResponseBody Object getIncomeevents(@RequestBody Map inputMap) {
-                long time=0;
-                String goal="";
-                String sum="";
-                String person="";
-                String note="";
-                int id=0;
-                Random random=new Random();
-
-                List<Map<String,Object>> events=new ArrayList();
-                Map<String,Object> event=new HashMap<String,Object>();
+                System.out.println(inputMap);
                 Calendar rightnow=Calendar.getInstance();
-                time=rightnow.getTimeInMillis();
-                goal="充值";
-                sum="充值金额";
-                person="自己用户名和id";
-                note="";
-                id=random.nextInt(10000);
-                event.put("1",time);
-                event.put("2",goal);
-                event.put("3",sum);
-                event.put("4",person);
-                event.put("5",note);
-                event.put("6",id);
-                events.add(event);
-
-                return events;
-
-
-
-
+                Random random=new Random();
+                int id=random.nextInt(10000);
+                Map<String,Object> map=new HashMap<String, Object>();
+                List<Wallet> list=new ArrayList<Wallet>();
+                list.add(new Wallet(rightnow.getTimeInMillis(),"充值",inputMap.get("rmb").toString(),"自己用户名和ID","",id));
+                map.put("myWallet",list);
+                return map;
         }
-
-
-
-
 }

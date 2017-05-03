@@ -20,6 +20,7 @@ import java.util.Map;
 public class MyConcernController extends BaseAction{
 
     /*这个类返回该用户关注的人的列表*/
+    @Deprecated
     @ResponseBody
     @RequestMapping(value = "/getConcernUser",consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public Object getConcernUser(@RequestBody Map inputMap){
@@ -43,7 +44,9 @@ public class MyConcernController extends BaseAction{
         return successReturnObject(concernUserList);
     }
 
+
     /*这个类返回该用户关注的某一个人的个人主页*/
+    @Deprecated
     @ResponseBody
     @RequestMapping(value = "/getHomepage",consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public Object getHomepage(@RequestBody Map inputMap){

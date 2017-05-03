@@ -1,99 +1,104 @@
 <div ng-init="init()">
-  <form name="editForm" role="form"  >
-    <div class="form-group row has-error">
-      <div class="col-md-8 col-md-offset-1">
-        <div class="row">
-          <h2>文章标题</h2>
-        </div>
-        <div class="row">
-          <input type="text" name="topic" ng-model="topic" placeholder="在这里输入标题" required>
-        </div>
-        <div class="row">
-          <label class="control-label" ng-show="editForm.topic.$invalid">标题非法,不能为空</label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-md-10 col-md-offset-1">
-        <div class="row">
-          <h5>正文</h5>
-        </div>
-        <div class="row" ng-show="!isPreview">
-          <text-angular name="htmlContent" ng-model="htmlContent" class="container app" ></text-angular>
-        </div>
-        <div class="row" ng-show="isPreview">
-          <div class="panel panel-default">
-            <div class="panel-body" ng-bind-html="htmlContent">
+    <form name="editForm" role="form">
+        <div class="form-group row has-error">
+            <div class="col-md-8 col-md-offset-1">
+                <div class="row">
+                    <h2>文章标题</h2>
+                </div>
+                <div class="row">
+                    <input type="text" name="topic" ng-model="topic" placeholder="在这里输入标题" required>
+                </div>
+                <div class="row">
+                    <label class="control-label" ng-show="editForm.topic.$invalid">标题非法,不能为空</label>
+                </div>
             </div>
-          </div>
-
         </div>
-      </div>
-    </div>
-    <div class="form-group row has-error">
-      <div class="col-md-offset-1">
-        <div class="col-md-2">
-          <select  class="form-select-button" ng-model="categorySelected" ng-options="c.catName
+        <div class="form-group row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                    <h5>正文</h5>
+                </div>
+                <div class="row" ng-show="!isPreview">
+                    <text-angular name="htmlContent" ng-model="htmlContent" class="container app"></text-angular>
+                </div>
+                <div class="row" ng-show="isPreview">
+                    <div class="panel panel-default">
+                        <div class="panel-body" ng-bind-html="htmlContent">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group row has-error">
+            <div class="col-md-offset-1">
+                <div class="col-md-2">
+                    <select class="form-select-button" ng-model="categorySelected" ng-options="c.catName
           for
           c in categories">
-          </select>
-          <!--<option ng-repeat="c in categories" value="{{c}}">{{c.catName}}</option>-->
-        </div>
-        <div class="col-md-offset-1">
-          <label>标签</label>
-          <input name="labels" type="text" ng-model="labels" required="标签以;号隔开">
-          <label class="control-label" ng-show="editForm.labels.$invalid">标签不能为空</label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-md-offset-8">
-        <button class="btn btn-success" ng-click="preview()" ng-show="!isPreview">预览</button>
-        <button class="btn btn-info" ng-click="returnEdit()" ng-show="isPreview">编辑</button>
-        <button class="btn btn-default" ng-click="picManage()">图片管理</button>
-        <button class="btn btn-default" ng-disabled="(editForm.$invalid)||(categorySelected.id==-1)" ng-click="commit(0)" >保存</button>
-        <button class="btn btn-default" ng-disabled="(editForm.$invalid)||(categorySelected.id==-1)" ng-click="commit(1)" >发表</button>
-      </div>
-    </div>
-
-  </form>
-
-
-
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-       aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog" style="padding-top: 200px;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-          <label>我的图片</label>
-        </div>
-        <div class="modal-body">
-          <div class="pre-scrollable" style="height: 350px">
-            <div ng-repeat="p in allPics">
-            <div class="row"  >
-              <div class="col-md-3 col-md-offset-1">
-                <img ng-src="{{p.url}}" class="img-responsive" style="width: auto" >
-              </div>
-              <div class="col-md-3 col-md-offset-4">
-
-                <button class="btn-sm btn-success" clip-copy="p.url" ng-show="!p.isChosen" clip-click="copyClipboard(p)">复制链接</button>
-                <label class="label label-info" ng-show="p.isChosen">链接已复制</label>
-              </div>
+                    </select>
+                    <!--<option ng-repeat="c in categories" value="{{c}}">{{c.catName}}</option>-->
+                </div>
+                <div class="col-md-offset-1">
+                    <label>标签</label>
+                    <input name="labels" type="text" ng-model="labels" required="标签以;号隔开">
+                    <label class="control-label" ng-show="editForm.labels.$invalid">标签不能为空</label>
+                </div>
             </div>
-              <br>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-offset-8">
+                <button class="btn btn-success" ng-click="preview()" ng-show="!isPreview">预览</button>
+                <button class="btn btn-info" ng-click="returnEdit()" ng-show="isPreview">编辑</button>
+                <button class="btn btn-default" ng-click="picManage()">图片管理</button>
+                <button class="btn btn-default" ng-disabled="(editForm.$invalid)||(categorySelected.id==-1)"
+                        ng-click="commit(0)">保存
+                </button>
+                <button class="btn btn-default" ng-disabled="(editForm.$invalid)||(categorySelected.id==-1)"
+                        ng-click="commit(1)">发表
+                </button>
             </div>
-          </div>
         </div>
-        <div class="modal-footer">
-          <button CLASS="btn-sm btn-info" type="file" ngf-select="fileUpload($file, $invalidFiles)"
-                  accept="*">
-            添加图片</button>
-          <button class="btn-sm btn-info" ng-click="closeModal()">退出</button>
-        </div>
-      </div>
-    </div>
+
     </form>
-  </div>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" style="padding-top: 200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <label>我的图片</label>
+                </div>
+                <div class="modal-body">
+                    <div class="pre-scrollable" style="height: 350px">
+                        <div ng-repeat="p in allPics">
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-1">
+                                    <img ng-src="{{p.url}}" class="img-responsive" style="width: auto">
+                                </div>
+                                <div class="col-md-3 col-md-offset-4">
+                                    <button class="btn-sm btn-success" clip-copy="p.url" ng-show="!p.isChosen"
+                                            clip-click="copyClipboard(p)">复制链接
+                                    </button>
+                                    <label class="label label-info" ng-show="p.isChosen">链接已复制</label>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button CLASS="btn-sm btn-info" type="file" ngf-select="fileUpload($file, $invalidFiles)"
+                            accept="*">
+                        添加图片
+                    </button>
+                    <button class="btn-sm btn-info" ng-click="closeModal()">退出</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
 
 </div>

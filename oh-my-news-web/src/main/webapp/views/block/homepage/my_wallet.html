@@ -1,9 +1,9 @@
-<body>
+<div>
     <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">
                  <h1>我的钱包：</h1>
     </div>
 <!--进度条和余额变动-->
-    <div  ng-controller="progressBarController" class="progress">
+    <div   class="progress">
              <div class="progress-bar" role="progressbar" data-ng-model="valuenow" aria-valuenow="{{valuenow}}" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                         {{valuenow}}
              </div>
@@ -13,37 +13,38 @@
                     <!-- Unnamed () -->
              <div id="u170" class="text" style="visibility: visible;">
                    <br> <p><span data-ng-model="money">余额：{{money}}</span></p>
+                 <p><button ng-click="ballance()"> 显示余额 </button></p>
              </div>
             </div>
 </div>
 
 
 <!--提现功能-->
-    <div ng-controller="withdrawController" id="u177" class="ax_default link_button">
+    <div  id="u177" class="ax_default link_button">
         <div id="u177_div" class=""></div>
         <!-- Unnamed () -->
         <div id="u178" class="text" style="visibility: visible;">
-            <input placeholder="此处输入提现金额" ng-model="input">
+            <input placeholder="此处输入提现金额" ng-model="inputwithdraw" ng-model="inputRes1">
             <p> <button ng-click="withdraw()">提现</button></p>
 
-            <!--<span>{{inputRes}}</span>-->
+
         </div>
     </div>
 <!--充值-->
     <!-- Unnamed (矩形) -->
-    <div ng-controller="rechargeController" id="u179" class="ax_default link_button">
+    <div  id="u179" class="ax_default link_button">
         <div id="u179_div" class=""></div>
         <!-- Unnamed () -->
         <div id="u180" class="text" style="visibility: visible;">
-            <input placeholder="此处输入充值金额" ng-model="input">
+            <input placeholder="此处输入充值金额" ng-model="inputrecharge" ng-model="inputRes2">
             <p> <button ng-click="recharge()">充值</button></p>
-            <!--<span>{{inputRes}}</span>-->
+
         </div>
     </div>
 
 <!--支出收入事项简记-->
 
-    <div  ng-controller="payController" class="container">
+    <div  class="container" ng-change="payeventschange()">
              <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">支出事项：</div>
                 <table class="table table-hover">
                          <thead>
@@ -68,7 +69,7 @@
                         </tbody>
                  </table>
     </div>
-    <div  ng-controller="incomeController" class="container">
+    <div   class="container" ng-change="incomeeventschange()">
         <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">收入事项：</div>
                     <table class="table table-hover">
                             <thead>
@@ -94,6 +95,5 @@
                             </tbody>
                     </table>
     </div>
-    <script   type="text/javascript " src="../../vendor/angular.js-1.6.4/angular.js-1.6.4"> </script>
-</body>
 
+</div>

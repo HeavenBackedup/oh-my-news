@@ -1,3 +1,255 @@
-<div>
-  新闻显示页面
+<div class="widewrapper main" ng-init="init()">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+                <article class="blog-post">
+                    <header>
+                        <h3><a>OhmyNews</a> >> <a>{{category}}</a></h3>
+
+                        <div class="lead-image">
+                            <img src="images/img/single-post.jpg" alt="" class="img-responsive">
+
+                        </div>
+                    </header>
+                    <div class="body">
+                        <h1 ng-bind-template="{{topic}}"></h1>
+                        <div class="meta">
+                            <i class="fa fa-user"></i> {{author}} <i class="fa fa-calendar"></i>{{articalTime}}<i
+                                class="fa fa-comments"></i><span class="data"><a ng-click="goto('comments')">{{commentNum}} Comments</a></span>
+                            <i class="fa fa-eye"></i><span class="data">{{readed}} Readed</span>
+                            <i class="fa fa-thumbs-o-up"></i><span class="data">{{thumbupNum}} Thumbs Up</span>
+                            <i class="fa fa-trophy"></i><span class="data">评分：{{articalScore}}</span>
+                        </div>
+
+                        <div ng-bind-html="htmlContent">
+                        </div>
+
+                    </div>
+                </article>
+
+                <aside class="social-icons clearfix">
+                    <!-- <hr>   -->
+                    <form action="#" method="get" accept-charset="utf-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Share on</h3>
+                                <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-google"></i></a>
+                            </div>
+                            <div class="col-md-6">
+                                <h3>-</h3>
+                                <a ng-click="submit(6,true)"><i class="fa fa-bookmark"></i></a><a ng-click="submit(5,true)"><i
+                                    class="fa fa-thumbs-up"></i></a><a ng-click="openModal()" data-toggle="modal"><i class="fa fa-cny"></i></a><a
+                                    ng-click="submit(3,true)"><i>举报</i></a>
+                            </div>
+                        </div>
+                    </form>
+                    <hr style="height:1px;border:none;border-top:1px solid #555555;">
+                </aside>
+
+                <aside>
+                    <div>
+                        <span style="color:darkviolet;text-align:center;font-size: 120%"><b>打分：</b></span>
+                        <label><input name="score" type="radio" value="0" style="width:15px;height:15px"/><b style="font-size: 150%">0</b></label>
+                        <label><input name="score" type="radio" value="1" style="width:15px;height:15px"/><b style="font-size: 150%">1</b></label>
+                        <label><input name="score" type="radio" value="2" style="width:15px;height:15px" checked/><b style="font-size: 150%">2</b></label>
+                        <label><input name="score" type="radio" value="3" style="width:15px;height:15px"/><b style="font-size: 150%">3</b></label>
+                        <label><input name="score" type="radio" value="4" style="width:15px;height:15px"/><b style="font-size: 150%">4</b></label>
+                        <label><input name="score" type="radio" value="5" style="width:15px;height:15px"/><b style="font-size: 150%">5</b></label>
+                        <span>
+                            &nbsp &nbsp
+                            <!--<div class="buttons clearfix">-->
+                            <button type="submit" class="btn btn-primary btn-xs" ng-click="submit(2,null)">提交</button>
+                        <!--</div>-->
+                        </span>
+                    </div>
+                </aside>
+
+                <aside class="comments" id="comments">
+                    <hr>
+
+                    <h2><i class="fa fa-comments"></i> 3 Comments</h2>
+
+                    <div>
+                        <div ng-repeat="x in pageComments">
+                            <article class="comment">
+                                <header class="clearfix">
+                                    <img ng-src="{{x.comments[0].replier.userImgSrc}}" alt="A Smart Guy" class="avatar">
+                                    <div class="meta">
+                                        <h3><a href="#">{{x.comments[0].replier.name}}</a></h3>
+                                        <span class="date">
+                                        {{x.comments[0].date}}
+                                    </span>
+                                        <span class="separator">
+                                        -
+                                    </span>
+                                        <!--<a ng-click="x.unfold=!(x.unfold)" class="show comment-reply"><a ng-click="goto('create-comment')" class="reply-link">Reply ({{x.comments.length}})</a></a>-->
+                                        <a ng-click="gotoReply(x.comments[0])" class="reply-link">Reply </a>
+                                        <span ng-show="(x.comments.length>1)">
+                                            <span ng-show="!(x.unfold)">
+                                                <span class="separator">
+                                            -
+                                             </span>
+                                            <a ng-click="x.unfold=!(x.unfold)" class="reply-link">Unfold ({{x.comments.length-1}})</a>
+                                            </span>
+                                            <span ng-show="(x.unfold)">
+                                                <span class="separator">
+                                            -
+                                             </span>
+                                            <a ng-click="x.unfold=!(x.unfold)" class="reply-link">Fold ({{x.comments.length-1}})</a>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </header>
+                                <div class="body">
+                                    {{x.comments[0].content}}
+                                </div>
+                            </article>
+
+                            <div ng-repeat="xx in x.comments" ng-if="$index>0" ng-show="x.unfold">
+                                <!--{{$index}} {{pageComments.length}}-->
+                                <article class="comment reply">
+                                    <header class="clearfix">
+                                        <img ng-src="{{xx.replier.userImgSrc}}" alt="A Smart Guy" class="avatar">
+                                        <div class="meta">
+                                            <h3><a href="#">{{xx.replier.name}}</a></h3>
+                                            <!--<div><span>{{x.comments[0].id}} aa</span>&nbsp;<span>{{xx.formerComment.id}} bb</span>&nbsp;<span>{{xx.formerComment.replier.name}} cc</span></div>-->
+                                            <span ng-show="(xx.formerComment.id!=x.comments[0].id)"> replied:<a href="#"> {{xx.formerComment.replier.name}} </a><br/></span>
+                                            <span class="date">
+                                    {{xx.date}}
+                                </span>
+                                            <span class="separator">
+                                    -
+                                </span>
+
+                                            <a ng-click="gotoReply(xx)" class="reply-link">Reply</a>
+                                        </div>
+                                    </header>
+                                    <div class="body">
+                                        {{xx.content}}
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div >
+                            <div style="font-size: 300%" uib-pagination ng-change="pageChange()" total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页" class="pagination-sm" boundary-links="true" rotate="false" ></div>
+                        </div>
+                    </div>
+                </aside>
+
+
+                <aside class="create-comment" id="create-comment">
+                    <hr>
+
+                    <h2><i class="fa fa-pencil"></i> Add Comment</h2>
+
+                    <form action="#" method="get" accept-charset="utf-8">
+                        <!--                             <div class="row">
+                                                        <div class="col-md-6">
+                                                            <input type="text" name="name" id="comment-name" placeholder="Your Name" class="form-control input-lg">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="email" name="email" id="comment-email" placeholder="Email" class="form-control input-lg">
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="url" name="name" id="comment-url" placeholder="Website" class="form-control input-lg"> -->
+
+                        <textarea rows="10" name="message" id="comment-body" placeholder="Your Message"
+                                  class="form-control input-lg" ng-model="submitInfo.comment.content"></textarea>
+                        <br/>
+
+
+
+                        <div class="buttons clearfix">
+                            <button type="button" class="btn btn-xlarge btn-clean-one" ng-click="submit(1,formerComment)">Submit</button>
+                        </div>
+                    </form>
+                </aside>
+            </div>
+            <aside class="col-md-4 blog-aside">
+
+                <div class="aside-widget">
+                    <header>
+                        <h3>Author's Post</h3>
+                    </header>
+                    <div class="body">
+                        <ul class="clean-list">
+                            <li ng-repeat="AU in authorPost"><a href="">{{AU.articalInfo.topic}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="aside-widget">
+                    <header>
+                        <h3>Related Post</h3>
+                    </header>
+                    <div class="body">
+                        <ul class="clean-list">
+                            <li ng-repeat="RE in relatedPost"><a href="">{{RE.articalInfo.topic}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="aside-widget">
+                    <header>
+                        <h3>Tags</h3>
+                    </header>
+                    <div class="body clearfix">
+                        <ul class="tags">
+                            <li ng-repeat="LA in labels"><a href="#">{{LA}}</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    打赏文章
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form action="" autocomplete="on">
+                    总余额: ￥{{totalMoney.toFixed(2)}}<br>
+                    打赏金额: <input type="number" name="lname" ng-model="reward" ng-change="(reward = (reward>totalMoney?totalMoney:(reward<0?0:reward)))"><br>
+                    <!--<input type="submit">-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="submit(4,reward)">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+
+<footer>
+
+    <div class="widewrapper copyright">
+        Copyright &copy; 2017.OhmyNews All rights reserved.
+    </div>
+</footer>

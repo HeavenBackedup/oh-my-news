@@ -1,6 +1,6 @@
 package com.oh.my.news.web.controller;
 
-import com.oh.my.news.model.home.OthersInfomation;
+import com.oh.my.news.model.vo.myHomePage.home.OthersInfomation;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

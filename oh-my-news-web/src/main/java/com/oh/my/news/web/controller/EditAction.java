@@ -1,7 +1,7 @@
 package com.oh.my.news.web.controller;
 
 import com.oh.my.news.model.dto.Image;
-import com.oh.my.news.model.vo.EditContent;
+import com.oh.my.news.model.vo.edit.EditContent;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

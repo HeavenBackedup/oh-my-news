@@ -26,8 +26,8 @@ app.controller('templateController',['$scope','templateService','Upload','fileSe
        templateService.getInput(param,function (data) {
            $scope.inputRes = data;
        },function(data){
-           console.info("error:  "+data)
-       })
+           console.info("error:  "+data);
+       });
     }
     // 分页处理逻辑
     $scope.pageChange = function () {
@@ -38,7 +38,7 @@ app.controller('templateController',['$scope','templateService','Upload','fileSe
             $scope.pagination.currentPage = data.pagination.currentPage;
             $scope.pageItems = data.items;
         },function (data) {
-            console.info("error: "+data)
+            console.info("error: "+data);
         });
     }
 
@@ -118,7 +118,7 @@ app.controller('templateController',['$scope','templateService','Upload','fileSe
             alert(angular.toJson(data));
         },function (data) {
             console.error(data);
-        })
+        });
     }
 
 
