@@ -45,6 +45,14 @@ public interface ArticleReadManage {
      */
     ArticleDto getArticleDetail(int articleId)throws Exception;
 
+    /**
+     *
+     * @param text 搜索关键词
+     * @param currentPage 当前页数
+     * @param pageItemNum 一张页面可以存放的文章个数
+     * @return 根据关键词搜索的文章列表
+     * @throws Exception
+     */
     List<ArticleDto> search(String text,int currentPage,int pageItemNum)throws Exception;
 
 }

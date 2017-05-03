@@ -16,6 +16,13 @@ public interface ImageReadManage {
      * @throws Exception
      */
     File getImageById(Integer id)throws Exception;
+
+    /**
+     *
+     * @param articleId 该文章的id
+     * @return  通过该文章的id返回该文章对应的图片list
+     * @throws Exception
+     */
     List<Image> getImagesByArticleId(int articleId)throws Exception;
 
 

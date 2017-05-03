@@ -33,5 +33,10 @@ public interface UserWriteManage {
      */
     void editAnouncement(String userId,String annoucement)throws Exception;
 
+    /**
+     *
+     * @param user 修改的用户信息，更新数据库中的相应数据
+     * @throws Exception
+     */
     void update(User user)throws Exception;
 }

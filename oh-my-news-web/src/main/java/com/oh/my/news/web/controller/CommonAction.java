@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/common")
-public class CommonAction extends BaseAction{
+public class shCommonAction extends BaseAction{
 
     @RequestMapping(value = "/getCategories")
     public @ResponseBody Object getCategoties(){
