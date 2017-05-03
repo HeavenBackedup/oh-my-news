@@ -1,5 +1,6 @@
 package com.oh.my.news.business.read.manage;
 
+import com.oh.my.news.model.dto.ArticalReader;
 import com.oh.my.news.model.dto.ArticleDto;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public interface ArticleReadManage {
      */
     ArticleDto getArticleDetail(int articleId)throws Exception;
 
+
     /**
      *
      * @param text 搜索关键词
@@ -54,5 +56,10 @@ public interface ArticleReadManage {
      * @throws Exception
      */
     List<ArticleDto> search(String text,int currentPage,int pageItemNum)throws Exception;
+
+    ArticalReader getArticleReader(int articleId)throws Exception;
+
+
+
 
 }

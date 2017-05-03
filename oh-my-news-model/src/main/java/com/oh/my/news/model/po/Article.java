@@ -13,8 +13,9 @@ public class Article {
     private int categoryId;
     private int isPublished;
     private String contentSnapshot;
+    private int isLimit;
 
-    public Article(int id, int isDelete, int userId, String topic, String content, String labels, int categoryId, int isPublished, String contentSnapshot) {
+    public Article(int id, int isDelete, int userId, String topic, String content, String labels, int categoryId, int isPublished, String contentSnapshot, int isLimit) {
         this.id = id;
         this.isDelete = isDelete;
         this.userId = userId;
@@ -24,9 +25,8 @@ public class Article {
         this.categoryId = categoryId;
         this.isPublished = isPublished;
         this.contentSnapshot = contentSnapshot;
+        this.isLimit = isLimit;
     }
-
-
 
     public Article() {
     }
@@ -43,6 +43,7 @@ public class Article {
                 ", categoryId=" + categoryId +
                 ", isPublished=" + isPublished +
                 ", contentSnapshot='" + contentSnapshot + '\'' +
+                ", isLimit=" + isLimit +
                 '}';
     }
 
@@ -58,6 +59,7 @@ public class Article {
         if (userId != article.userId) return false;
         if (categoryId != article.categoryId) return false;
         if (isPublished != article.isPublished) return false;
+        if (isLimit != article.isLimit) return false;
         if (topic != null ? !topic.equals(article.topic) : article.topic != null) return false;
         if (content != null ? !content.equals(article.content) : article.content != null) return false;
         if (labels != null ? !labels.equals(article.labels) : article.labels != null) return false;
@@ -75,6 +77,7 @@ public class Article {
         result = 31 * result + categoryId;
         result = 31 * result + isPublished;
         result = 31 * result + (contentSnapshot != null ? contentSnapshot.hashCode() : 0);
+        result = 31 * result + isLimit;
         return result;
     }
 
@@ -149,4 +152,13 @@ public class Article {
     public void setContentSnapshot(String contentSnapshot) {
         this.contentSnapshot = contentSnapshot;
     }
+
+    public int getIsLimit() {
+        return isLimit;
+    }
+
+    public void setIsLimit(int isLimit) {
+        this.isLimit = isLimit;
+    }
 }
+

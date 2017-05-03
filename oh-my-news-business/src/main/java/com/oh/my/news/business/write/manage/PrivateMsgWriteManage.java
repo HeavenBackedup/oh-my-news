@@ -3,7 +3,7 @@ package com.oh.my.news.business.write.manage;
 /**
  * Created by shj on 2017/5/1.
  */
-public interface PrivateMagWriteManage {
+public interface PrivateMsgWriteManage {
     /**
      *
      * @param sourceId 发送方id
