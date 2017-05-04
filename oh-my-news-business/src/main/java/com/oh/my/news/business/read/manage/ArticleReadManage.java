@@ -1,6 +1,7 @@
 package com.oh.my.news.business.read.manage;
 
 import com.oh.my.news.model.dto.ArticalReader;
+import com.oh.my.news.model.dto.ArticleDetail;
 import com.oh.my.news.model.dto.ArticleDto;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public interface ArticleReadManage {
      * @return 根据文章的id来返回文章的具体信息
      * @throws Exception
      */
-    ArticleDto getArticleDetail(int articleId)throws Exception;
+    ArticleDetail getArticleDetail(int articleId)throws Exception;
 
 
     /**

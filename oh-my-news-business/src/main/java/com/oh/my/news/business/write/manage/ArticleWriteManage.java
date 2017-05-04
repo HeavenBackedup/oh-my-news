@@ -43,7 +43,8 @@ public interface ArticleWriteManage {
      * @param num 打赏金额
      * @throws Exception
      */
-    void donate(int userId,int articleId,int num)throws Exception;
+
+    void donate(int userId,int articleId,int num,String message)throws Exception;
 
     /**
      * 某用户给某新闻评分

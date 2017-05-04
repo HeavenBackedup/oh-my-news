@@ -1,27 +1,44 @@
 /**
  * Created by llf on 2017/4/10.
  */
-app.controller('registerController', ['$scope', 'registerService', function ($scope, registerService) {
+app.controller('registerController', ['$scope', '$state','registerService', function ($scope,$state, registerService) {
     $scope.init = function () {
         $scope.username = "";
         $scope.pwd = "";
         $scope.repwd = "";
         $scope.inputRes="";
+        $scope.email="";
         $scope.isform=true;
+        $scope.isform1=true;
     }
-    $scope.verify=function () {
+    $scope.verifyusername=function () {
         var inputusername={};
         if($scope.username!=null){
         inputusername.value=$scope.username;
-        registerService.verifyInfo(inputusername,function (data) {
+        registerService.verifynameInfo(inputusername,function (data) {
             $scope.isform=data;
             if($scope.isform==false){
-                $scope.inputRes="！该用户已经存在"
+                $scope.inputRes="！该用户已经存在";
             }
 
         },function (data) {
-
+            console.info("error" + data)
         })}
+    }
+    $scope.verifyemail=function () {
+        // console.info("email");
+        var inputemail={};
+        if($scope.email!=null){
+            inputemail.value=$scope.email;
+            registerService.verifyemailInfo(inputemail,function (data) {
+                $scope.isform1=data;
+                if($scope.isform1==false){
+                    $scope.inputRes="!该邮箱已经被注册过";
+                }
+            },function (data) {
+                console.info("error" + data)
+            })
+        }
     }
     $scope.submit = function () {
         var user = {username: "", password: "",email:""};
@@ -33,7 +50,8 @@ app.controller('registerController', ['$scope', 'registerService', function ($sc
            $scope.isform=data;
             if($scope.isform==true){
                 console.info("注册成功")
-                alert("注册成功")
+                alert("注册成功!")
+                $state.go("login");
             }
         }, function (data) {
             console.info("error" + data)

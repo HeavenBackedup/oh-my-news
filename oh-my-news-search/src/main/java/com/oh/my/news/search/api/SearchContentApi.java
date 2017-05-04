@@ -1,6 +1,6 @@
 package com.oh.my.news.search.api;
 
-import com.oh.my.news.model.dto.search.SearchContent;
+import com.oh.my.news.model.dto.SearchContent;
 import com.oh.my.news.search.util.ESService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.elasticsearch.action.search.SearchResponse;
@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by shj on 2017/4/27.

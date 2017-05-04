@@ -1,11 +1,10 @@
 package com.oh.my.news.search;
 
-import com.oh.my.news.model.dto.search.SearchContent;
+import com.oh.my.news.model.dto.SearchContent;
 import com.oh.my.news.search.api.SearchContentApi;
 import com.oh.my.news.search.util.ESService;
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
