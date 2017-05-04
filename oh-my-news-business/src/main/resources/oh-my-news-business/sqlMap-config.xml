@@ -13,4 +13,5 @@
     <sqlMap resource="ibatis/template_sqlMap.xml"></sqlMap>
     <sqlMap resource="ibatis/image_sqlMap.xml"></sqlMap>
     <sqlMap resource="ibatis/category_sqlMap.xml"></sqlMap>
+    <sqlMap resource="ibatis/concern_sqlMap.xml"></sqlMap>
 </sqlMapConfig>

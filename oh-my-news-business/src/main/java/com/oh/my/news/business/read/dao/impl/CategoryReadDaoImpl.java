@@ -5,12 +5,14 @@ import com.oh.my.news.business.read.dao.CategoryReadDao;
 import com.oh.my.news.model.po.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by Dzhaoooo on 17/5/3.
  */
+@Repository
 public class CategoryReadDaoImpl implements CategoryReadDao {
     @Autowired
     @Qualifier(value = "sqlMapClientRead")

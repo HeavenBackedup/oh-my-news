@@ -10,12 +10,37 @@ import java.util.List;
  */
 public interface ArticleRecommendManage {
 
-
+    /**
+     *
+     * @return 收藏排行的文章list，包括文章的id跟topic
+     * @throws Exception
+     */
     List<ArticleSnapshot> getCollect()throws Exception;
+
+    /**
+     *
+     * @return 评论排行的文章list，包括文章的id跟topic
+     * @throws Exception
+     */
 
     List<ArticleSnapshot> getMark()throws Exception;
 
+    /**
+     *
+     * @return 最新动态的文章list，包括文章的id跟topic
+     * @throws Exception
+     */
+
     List<ArticleSnapshot> getLast()throws Exception;
+
+    /**
+     *
+     * @param categoryId  新闻类型对应的id
+     * @param currentPage  当前页数
+     * @param pageItemNum  一页可容纳的新闻个数
+     * @return  根据新闻类型返回对应的新闻列表
+     * @throws Exception
+     */
 
     List<EditContent> getRecommendByCategoryId(int categoryId,int currentPage,int pageItemNum)throws Exception;
 }

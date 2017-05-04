@@ -9,11 +9,11 @@
     </resultMap>
 
     <select id="query_image" parameterClass="Integer" resultMap="image_resultMap">
-        select `id`,`key`,`url`,`is_delete` from image where `id` = #id# and is_delete = 0;
+        select `id`,`key`,`url`,`is_delete` from media where `id` = #id# and is_delete = 0;
     </select>
 
     <insert id="insert_image" parameterClass="com.oh.my.news.model.po.File">
-        insert into image (`key`,`url`,`is_delete`) values (#key#,#url#,0)
+        insert into media (`key`,`url`,`is_delete`) values (#key#,#url#,0)
         <selectKey keyProperty="id" resultClass="Integer">
             SELECT LAST_INSERT_ID() as id
         </selectKey>

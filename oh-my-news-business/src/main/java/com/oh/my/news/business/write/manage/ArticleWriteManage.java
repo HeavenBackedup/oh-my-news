@@ -20,15 +20,46 @@ public interface ArticleWriteManage {
      */
     void save(EditContent editContent)throws Exception;
 
-
+    /**
+     * 某用户对某新闻点赞
+     * @param userId  用户id
+     * @param articleId  新闻id
+     * @throws Exception
+     */
     void thumUp(int userId,int articleId)throws Exception;
 
+    /**
+     * 某用户举报某新闻
+     * @param userId
+     * @param articleId
+     * @throws Exception
+     */
     void report(int userId,int articleId)throws Exception;
 
+    /**
+     * 某用户给某新闻打赏
+     * @param userId
+     * @param articleId
+     * @param num 打赏金额
+     * @throws Exception
+     */
     void donate(int userId,int articleId,int num)throws Exception;
 
+    /**
+     * 某用户给某新闻评分
+     * @param userId
+     * @param articleId
+     * @param score 具体的评分分数
+     * @throws Exception
+     */
     void mark(int userId,int articleId,float score)throws Exception;
 
+    /**
+     * 某用户收藏某新闻
+     * @param userId
+     * @param articleId
+     * @throws Exception
+     */
     void collect(int userId,int articleId)throws Exception;
 
 
