@@ -5,6 +5,7 @@ import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -95,16 +96,19 @@ public class ESService {
 
     public SearchResponse query(String text, int from, int size)throws ElasticsearchException{
        QueryBuilder queryBuilder = QueryBuilders.boolQuery()
-               .should(QueryBuilders.matchQuery("topic",text))
-               .should(QueryBuilders.matchQuery("content",text))
+               .should(QueryBuilders.matchQuery("topic.cn",text))
+               .should(QueryBuilders.matchQuery("topic.en",text))
+               .should(QueryBuilders.matchQuery("topic.pinyin",text))
+               .should(QueryBuilders.matchQuery("content.cn",text))
+               .should(QueryBuilders.matchQuery("content.en",text))
                .should(QueryBuilders.matchQuery("author",text));
       return client.prepareSearch(indexName)
               .setTypes(indexType)
+              .setSearchType(SearchType.DFS_QUERY_AND_FETCH)
               .setQuery(queryBuilder)
                .setFrom(from)
                .setSize(size)
                .setExplain(false)
-               .setNoFields()
                .execute()
                .actionGet();
     }
