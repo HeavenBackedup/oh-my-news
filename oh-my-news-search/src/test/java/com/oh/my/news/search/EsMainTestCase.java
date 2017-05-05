@@ -158,11 +158,24 @@ public class EsMainTestCase extends TestCase {
 
     public void testQuery(){
         try {
-            System.out.println(searchContentApi.search("大会 校长",1,10));
+            System.out.println(searchContentApi.search("校长党委书记",0,10));
         }catch (Exception e){
             e.printStackTrace();
             Assert.fail();
         }
     }
+
+//    public ESService getEsService() {
+//        return esService;
+//    }
+//
+//    public SearchContentApi getSearchContentApi() {
+//        return searchContentApi;
+//    }
+
+//    public static void main(String[] args) {
+//        EsMainTestCase esMainTestCase = new EsMainTestCase();
+//        esMainTestCase.testQuery();
+//    }
 
 }

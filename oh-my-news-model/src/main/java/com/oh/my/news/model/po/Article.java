@@ -21,8 +21,9 @@ public class Article {
     private boolean colleted;
     private Date date;
     private int mark_num;
+    private int root_num;
 
-    public Article(int id, int isDelete, int userId, String topic, String content, String labels, int categoryId, int isPublished, String contentSnapshot, int isLimit, int score, boolean report, float donation, boolean thumbUp, boolean colleted, Date date, int mark_num) {
+    public Article(int id, int isDelete, int userId, String topic, String content, String labels, int categoryId, int isPublished, String contentSnapshot, int isLimit, int score, boolean report, float donation, boolean thumbUp, boolean colleted, Date date, int mark_num, int root_num) {
         this.id = id;
         this.isDelete = isDelete;
         this.userId = userId;
@@ -40,6 +41,34 @@ public class Article {
         this.colleted = colleted;
         this.date = date;
         this.mark_num = mark_num;
+        this.root_num = root_num;
+    }
+
+    public Article() {
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", isDelete=" + isDelete +
+                ", userId=" + userId +
+                ", topic='" + topic + '\'' +
+                ", content='" + content + '\'' +
+                ", labels='" + labels + '\'' +
+                ", categoryId=" + categoryId +
+                ", isPublished=" + isPublished +
+                ", contentSnapshot='" + contentSnapshot + '\'' +
+                ", isLimit=" + isLimit +
+                ", score=" + score +
+                ", report=" + report +
+                ", donation=" + donation +
+                ", thumbUp=" + thumbUp +
+                ", colleted=" + colleted +
+                ", date=" + date +
+                ", mark_num=" + mark_num +
+                ", root_num=" + root_num +
+                '}';
     }
 
     @Override
@@ -61,6 +90,7 @@ public class Article {
         if (thumbUp != article.thumbUp) return false;
         if (colleted != article.colleted) return false;
         if (mark_num != article.mark_num) return false;
+        if (root_num != article.root_num) return false;
         if (topic != null ? !topic.equals(article.topic) : article.topic != null) return false;
         if (content != null ? !content.equals(article.content) : article.content != null) return false;
         if (labels != null ? !labels.equals(article.labels) : article.labels != null) return false;
@@ -88,30 +118,8 @@ public class Article {
         result = 31 * result + (colleted ? 1 : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + mark_num;
+        result = 31 * result + root_num;
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", isDelete=" + isDelete +
-                ", userId=" + userId +
-                ", topic='" + topic + '\'' +
-                ", content='" + content + '\'' +
-                ", labels='" + labels + '\'' +
-                ", categoryId=" + categoryId +
-                ", isPublished=" + isPublished +
-                ", contentSnapshot='" + contentSnapshot + '\'' +
-                ", isLimit=" + isLimit +
-                ", score=" + score +
-                ", report=" + report +
-                ", donation=" + donation +
-                ", thumbUp=" + thumbUp +
-                ", colleted=" + colleted +
-                ", date=" + date +
-                ", mark_num=" + mark_num +
-                '}';
     }
 
     public int getId() {
@@ -248,6 +256,14 @@ public class Article {
 
     public void setMark_num(int mark_num) {
         this.mark_num = mark_num;
+    }
+
+    public int getRoot_num() {
+        return root_num;
+    }
+
+    public void setRoot_num(int root_num) {
+        this.root_num = root_num;
     }
 }
 
