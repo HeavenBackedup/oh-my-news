@@ -25,10 +25,11 @@ public class ConcernWriteDaoImpl implements ConcernWriteDao {
         sqlMapClient.update("concern_sqlMap.delete_concern_rel_by_ids",map);
     }
 
-    public void insertConcernByIds(Integer userId, Integer followerId) throws Exception {
+    public Integer insertConcernByIds(Integer userId, Integer followerId) throws Exception {
         Map<String,Integer> map=new HashMap<String, Integer>();
         map.put("userId",userId);
         map.put("followerId",followerId);
-        sqlMapClient.insert("concern_sqlMap.insert_concern_rel_by_ids",map);
+        return (Integer)sqlMapClient.insert("concern_sqlMap.insert_concern_rel_by_ids",map);
+
     }
 }

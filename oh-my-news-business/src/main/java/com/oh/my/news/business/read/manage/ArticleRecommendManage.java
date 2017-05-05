@@ -6,20 +6,20 @@ import com.oh.my.news.model.vo.mainpage.EditContent;
 import java.util.List;
 
 /**
- * Created by shj on 2017/5/3.
+ * Created by Dzhaoooo on 2017/5/3.
  */
 public interface ArticleRecommendManage {
 
     /**
      *
-     * @return 收藏排行的文章list，包括文章的id跟topic
+     * @return 收藏排行的新闻list，包括文章的id跟topic
      * @throws Exception
      */
     List<ArticleSnapshot> getCollect()throws Exception;
 
     /**
      *
-     * @return 评论排行的文章list，包括文章的id跟topic
+     * @return 评论排行的新闻list，包括文章的id跟topic
      * @throws Exception
      */
 
@@ -27,7 +27,7 @@ public interface ArticleRecommendManage {
 
     /**
      *
-     * @return 最新动态的文章list，包括文章的id跟topic
+     * @return 最新动态的新闻list，包括文章的id跟topic
      * @throws Exception
      */
 

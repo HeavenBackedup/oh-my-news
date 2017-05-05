@@ -1,4 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="article_sqlMap">
+<resultMap id="articleSnapshot_resultMap" class="com.oh.my.news.model.dto.ArticleSnapshot">
+    <result property="id" column="id" jdbcType="INTEGER"></result>
+    <result property="topic" column="topic" jdbcType="VARCHAR"></result>
+</resultMap>
+    
+ <resultMap id="editContent_resultMap" class="com.oh.my.news.model.vo.mainpage.EditContent">
+     <result property="id" column="id" jdbcType="INTEGER"></result>
+     <result property="author" column="username" jdbcType="VARCHAR"></result>
+     <result property="date" column="date" jdbcType="DATE"></result>
+     <result property="topic" column="topic" jdbcType="VARCHAR"></result>
+     <result property="htmlContent" column="content" jdbcType="VARCHAR"></result>
+     <result property="labels" column="label" jdbcType="VARCHAR"></result>
+     <result property="categoryId" column="category_id" jdbcType="INTEGER"></result>
+ </resultMap>
+
+
+    <select id="query_collect_list" resultMap="articleSnapshot_resultMap">
+      select id,topic from article where is_delete=0 and is_limit=0 order by collected desc limit 10;
+    </select>
+
+    <select id="query_mark_list" resultMap="articleSnapshot_resultMap">
+        select id,topic from article where is_delete=0 and is_limit=0 order by mark_num desc limit 10;
+    </select>
+    
+    <select id="query_last_list" resultMap="articleSnapshot_resultMap">
+        select id,topic from article where is_delete=0 and is_limit=0 order by `date` desc limit 10;
+    </select>
+
+    <select id="query_all" resultMap="editContent_resultMap">
+        select article.id,username,article.date,topic,content,label,category_id from article,`user` where `user`.id=article.user_id and `user`.is_delete=0 and `user`.is_limit=0 and article.is_delete=0 and article.is_published=1 and article.is_limit=0 order by score+thumb_up+collected+mark_num desc limit #currentPage#,#pageItemNum#;
+    </select>
+    <select id="query_by_category_id" resultMap="editContent_resultMap">
+      select article.id,`username`,article.date,topic,content,label,category_id from article,`user` where `user`.id=article.user_id and article.category_id=#categoryId# and `user`.is_delete=0 and `user`.is_limit=0 and article.is_delete=0 and article.is_published=1 and article.is_limit=0 order by score+thumb_up+collected+mark_num desc limit #currentPage#,#pageItemNum#;
+    </select>
 </sqlMap>

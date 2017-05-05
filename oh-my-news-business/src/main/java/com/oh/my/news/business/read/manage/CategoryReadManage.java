@@ -5,7 +5,7 @@ import com.oh.my.news.model.po.Category;
 import java.util.List;
 
 /**
- * Created by shj on 2017/5/1.
+ * Created by Dzhaoooo on 2017/5/1.
  */
 public interface CategoryReadManage {
     /**

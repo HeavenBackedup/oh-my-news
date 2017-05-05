@@ -17,9 +17,10 @@ public interface ConcernWriteManage {
      * 开始关注某人
      * @param userId
      * @param followerId
+     * @return 返回插入记录的id
      * @throws Exception
      */
-    void addFollower(int userId,int followerId)throws Exception;
+    Integer addFollower(int userId,int followerId)throws Exception;
 
 
 }

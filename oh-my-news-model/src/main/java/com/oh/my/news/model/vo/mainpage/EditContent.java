@@ -12,14 +12,6 @@ public class EditContent {
     private String labels;
     private int categoryId;
 
-
-    public EditContent(String topic, String htmlContent, String labels, int categoryId) {
-        this.topic = topic;
-        this.htmlContent = htmlContent;
-        this.labels = labels;
-        this.categoryId = categoryId;
-    }
-
     public EditContent(int id, String author, String date, String topic, String htmlContent, String labels, int categoryId) {
         this.id = id;
         this.author = author;
@@ -34,26 +26,18 @@ public class EditContent {
 
     }
 
-    @Override
-    public String
-    toString() {
-        return "EditContent{" +
-                "topic='" + topic + '\'' +
-                ", htmlContent='" + htmlContent + '\'' +
-                ", labels='" + labels + '\'' +
-                ", categoryId=" + categoryId +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         EditContent that = (EditContent) o;
 
+        if (id != that.id) return false;
         if (categoryId != that.categoryId) return false;
+        if (author != null ? !author.equals(that.author) : that.author != null) return false;
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (topic != null ? !topic.equals(that.topic) : that.topic != null) return false;
         if (htmlContent != null ? !htmlContent.equals(that.htmlContent) : that.htmlContent != null) return false;
         return labels != null ? labels.equals(that.labels) : that.labels == null;
@@ -61,11 +45,35 @@ public class EditContent {
 
     @Override
     public int hashCode() {
-        int result = topic != null ? topic.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (topic != null ? topic.hashCode() : 0);
         result = 31 * result + (htmlContent != null ? htmlContent.hashCode() : 0);
         result = 31 * result + (labels != null ? labels.hashCode() : 0);
         result = 31 * result + categoryId;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "EditContent{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", date='" + date + '\'' +
+                ", topic='" + topic + '\'' +
+                ", htmlContent='" + htmlContent + '\'' +
+                ", labels='" + labels + '\'' +
+                ", categoryId=" + categoryId +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAuthor() {
@@ -76,13 +84,13 @@ public class EditContent {
         this.author = author;
     }
 
-    public int getId() {return id;}
+    public String getDate() {
+        return date;
+    }
 
-    public void setId(int id) {this.id = id;}
-
-    public String getDate() {return date; }
-
-    public void setDate(String date) {this.date = date;}
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getTopic() {
         return topic;

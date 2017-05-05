@@ -13,7 +13,7 @@ public class ConcernWriteManageImpl implements ConcernWriteManage {
     public void deleteFollower(int userId,int followerId)throws Exception{
         concernWriteDao.deleteConcernByIds(userId,followerId);
     }
-    public void addFollower(int userId,int followerId)throws Exception{
-        concernWriteDao.insertConcernByIds(userId,followerId);
+    public Integer addFollower(int userId,int followerId)throws Exception{
+       return concernWriteDao.insertConcernByIds(userId,followerId);
     }
 }
