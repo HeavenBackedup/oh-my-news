@@ -1,7 +1,10 @@
 package com.oh.my.news.business.write.manage;
 
+import com.oh.my.news.model.dto.UserFont;
+import com.oh.my.news.model.dto.UserFontWrite;
 import com.oh.my.news.model.dto.UserSnapshot;
 import com.oh.my.news.model.po.User;
+import com.oh.my.news.model.po.UserWrite;
 
 import java.util.List;
 
@@ -15,7 +18,7 @@ public interface UserWriteManage {
      * @param user
      * @throws Exception
      */
-    void register(User user)throws Exception;
+    void register(UserWrite user)throws Exception;
 
     /**
      * 编辑用户主页的signature
@@ -23,7 +26,7 @@ public interface UserWriteManage {
      * @param signature 修改的signature
      * @throws Exception
      */
-    void editSignature(String userId,String signature)throws Exception;
+    void editSignature(Integer userId,String signature)throws Exception;
 
     /**
      * 编辑用户主页的annoucement
@@ -31,12 +34,12 @@ public interface UserWriteManage {
      * @param annoucement 修改的annoucement
      * @throws Exception
      */
-    void editAnouncement(String userId,String annoucement)throws Exception;
+    void editAnouncement(Integer userId,String annoucement)throws Exception;
 
     /**
      *
-     * @param user 修改的用户信息，更新数据库中的相应数据
+     * @param userFontWrite 修改的用户信息，更新数据库中的相应数据
      * @throws Exception
      */
-    void update(User user)throws Exception;
+    void update(UserFontWrite userFontWrite)throws Exception;
 }

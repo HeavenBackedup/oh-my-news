@@ -7,13 +7,14 @@ import com.oh.my.news.model.po.User;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
 /**
  * Created by llf on 2017/5/4.
  */
-
+@Repository
 public class UserReadDaoImpl implements UserReadDao{
     @Autowired
     @Qualifier(value="sqlMapClientRead")
@@ -30,28 +31,32 @@ public class UserReadDaoImpl implements UserReadDao{
         Map<String,Object> map=new HashedMap();
         map.put("username",username);
         map.put("password",password);
-        return (Integer) sqlMapClient.queryForObject("uer_sqlMap.username_query_user",map);
+        return (Integer) sqlMapClient.queryForObject("user_sqlMap.username_query_user",map);
     }
 
     public Integer queryUserbyemail(String email,String password) throws Exception {
         Map<String,Object> map=new HashedMap();
         map.put("email",email);
         map.put("password",password);
-        return (Integer) sqlMapClient.queryForObject("uer_sqlMap.email_query_user",map);
+        return (Integer) sqlMapClient.queryForObject("user_sqlMap.email_query_user",map);
     }
 
     public UserDto queryUserDetail(int userId) throws Exception {
-        User u=(User)sqlMapClient.queryForObject("query_user_detail",userId);
-        int followers=(Integer) sqlMapClient.queryForObject("calculate_followers",userId);
-        int fans=(Integer) sqlMapClient.queryForObject("calculate_fans",userId);
+        User u=(User)sqlMapClient.queryForObject("user_sqlMap.query_user_detail",userId);
+        int followers=(Integer) sqlMapClient.queryForObject("user_sqlMap.calculate_followers",userId);
+        int fans=(Integer) sqlMapClient.queryForObject("user_sqlMap.calculate_fans",userId);
         UserDto user=new UserDto();
         user.setId(u.getId());
+//        System.out.println(user.getId());
         user.setUsername(u.getUsername());
+//        System.out.println(user.getUsername());
         user.setEmail(u.getEmail());
+//        System.out.println(user.getEmail());
         user.setAddress(u.getAddress());
         user.setAnnouncement(u.getAnnouncement());
         user.setImageUrl(u.getImageUrl());
-        user.setDate(user.getDate());
+        user.setDate(u.getDate());
+//        System.out.println(user.getDate());
         user.setIsDelete(u.getIsDelete());
         user.setIsLimit(u.getIsLimit());
         user.setFollowers(followers);

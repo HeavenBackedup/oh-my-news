@@ -5,10 +5,12 @@ import com.oh.my.news.business.read.manage.UserReadManage;
 import com.oh.my.news.model.dto.UserDto;
 import com.oh.my.news.model.dto.UserFont;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by llf on 2017/5/4.
  */
+@Service
 public class UserReadManageImpl implements UserReadManage {
     @Autowired
     private UserReadDao userReadDao;
@@ -46,6 +48,15 @@ public class UserReadManageImpl implements UserReadManage {
         userFont.setUsername(userDto.getUsername());
         userFont.setPassword(userDto.getPassword());
         userFont.setNickname(userDto.getNickname());
-        return null;
+        userFont.setAddress(address);
+        userFont.setAnnouncement(userDto.getAnnouncement());
+        userFont.setFans(userDto.getFans());
+        userFont.setEmail(userDto.getEmail());
+        userFont.setDate(userDto.getDate());
+        userFont.setFollowers(userDto.getFollowers());
+        userFont.setImageUrl(userDto.getImageUrl());
+        userFont.setIsDelete(userDto.getIsDelete());
+        userFont.setIsLimit(userDto.getIsLimit());
+        return userFont;
     }
 }
