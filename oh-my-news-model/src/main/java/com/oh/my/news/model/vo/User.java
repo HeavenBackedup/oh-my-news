@@ -8,11 +8,20 @@ public class User {
     private String username;
     private String password;
     private String photoid;
-    private String address;
+
+    public String[] getAddress() {
+        return address;
+    }
+
+    public void setAddress(String[] address) {
+        this.address = address;
+    }
+
+    private String[] address;
     private String email;
 
 
-    public User(Integer id, String username, String password, String photoid, String address, String email) {
+    public User(Integer id, String username, String password, String photoid, String []address, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -67,13 +76,7 @@ public class User {
     }
 
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getEmail() {
         return email;

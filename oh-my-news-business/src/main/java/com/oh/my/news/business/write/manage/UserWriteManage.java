@@ -1,7 +1,7 @@
 package com.oh.my.news.business.write.manage;
 
 import com.oh.my.news.model.dto.UserSnapshot;
-import com.oh.my.news.model.vo.User;
+import com.oh.my.news.model.po.User;
 
 import java.util.List;
 

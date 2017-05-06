@@ -1,6 +1,7 @@
 package com.oh.my.news.business.read.manage;
 
 import com.oh.my.news.model.dto.UserDto;
+import com.oh.my.news.model.dto.UserFont;
 import com.oh.my.news.model.dto.UserSnapshot;
 
 import java.util.List;
@@ -12,13 +13,19 @@ public interface UserReadManage {
     /**
      *
      * @param username
+     * @param password
+     * @return  登录成功返回用户的useId
+     * @throws Exception
+     */
+    Integer usernamelogin(String username,String password)throws Exception;
+    /**
+     *
      * @param email
      * @param password
      * @return  登录成功返回用户的useId
      * @throws Exception
      */
-    Integer login(String username,String email,String password)throws Exception;
-
+    Integer emaillogin(String email,String password) throws Exception;
     /**
      *
      * @param username  使用用户名进行验证
@@ -42,5 +49,5 @@ public interface UserReadManage {
      * @return  用户的相关信息 包括关注人数跟粉丝人数
      * @throws Exception
      */
-    UserDto getUserDetail(int userId)throws Exception;
+    UserFont getUserDetail(int userId)throws Exception;
 }
