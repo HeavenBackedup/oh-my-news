@@ -30,7 +30,7 @@ public class ConcernWriteDaoTestCase extends TestCase {
 
     public void testInsertConcernByIds(){
         try {
-            this.concernWriteDao.insertConcernByIds(1,4);
+           System.out.println(this.concernWriteDao.insertConcernByIds(1,4));
         }catch (Exception e){
             e.printStackTrace();
             Assert.fail();

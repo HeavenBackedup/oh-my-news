@@ -33,7 +33,10 @@
     </update>
 
     <insert id="insert_concern_rel_by_ids">
-        insert into concern(is_delete,source_user_id,target_user_id)values(0,#userId#,#followerId#);
+        insert into concern(is_delete,source_user_id,target_user_id,`date`)values(0,#userId#,#followerId#,now());
+        <selectKey resultClass="java.lang.Integer" keyProperty="id">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
     </insert>
 
 </sqlMap>

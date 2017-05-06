@@ -5,5 +5,5 @@ package com.oh.my.news.business.write.dao;
  */
 public interface ConcernWriteDao {
     void deleteConcernByIds(Integer userId,Integer followerId ) throws Exception;
-    void insertConcernByIds(Integer userId,Integer followerId ) throws Exception;
+    Integer insertConcernByIds(Integer userId,Integer followerId ) throws Exception;
 }

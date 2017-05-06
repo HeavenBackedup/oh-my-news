@@ -21,12 +21,15 @@ public class ConcernReadDaoImpl implements ConcernReadDao{
     @Autowired
     @Qualifier(value = "sqlMapClientRead")
     private SqlMapClient sqlMapClient;
+
     public List<UserSnapshot> queryMyConcernsById(Integer id) throws Exception{
        return (List<UserSnapshot>)sqlMapClient.queryForList("concern_sqlMap.query_concerns_by_id",id);
     }
+
     public List<UserSnapshot> queryMyFansById(Integer id) throws Exception{
       return (List<UserSnapshot>)sqlMapClient.queryForList("concern_sqlMap.query_fans_by_id",id);
     }
+
     public boolean  checkConcernRelById(int userId,int followerId) throws Exception{
         Map<String,Integer> map=new HashMap<String, Integer>();
         map.put("userId",userId);
