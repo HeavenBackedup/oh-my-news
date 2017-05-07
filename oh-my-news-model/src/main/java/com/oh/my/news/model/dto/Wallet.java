@@ -4,14 +4,26 @@ package com.oh.my.news.model.dto;
  * Created by Administrator on 2017/4/30.
  */
 public class Wallet {
-    private long time;
+    private String time;
     private String goal;
     private String sum;
     private String person;
     private String note;
     private int id;
 
-    public Wallet(long time, String goal, String sum, String person, String note, int id) {
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "time=" + time +
+                ", goal='" + goal + '\'' +
+                ", sum='" + sum + '\'' +
+                ", person='" + person + '\'' +
+                ", note='" + note + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    public Wallet(String time, String goal, String sum, String person, String note, int id) {
         this.time = time;
         this.goal = goal;
         this.sum = sum;
@@ -20,11 +32,11 @@ public class Wallet {
         this.id = id;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

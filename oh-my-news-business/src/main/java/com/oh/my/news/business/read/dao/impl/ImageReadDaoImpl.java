@@ -21,5 +21,6 @@ public class ImageReadDaoImpl implements ImageReadDao{
 
     public File queryImageById(Integer id) throws Exception {
         return (File) sqlMapClient.queryForObject("image_sqlMap.query_image",id);
+
     }
 }

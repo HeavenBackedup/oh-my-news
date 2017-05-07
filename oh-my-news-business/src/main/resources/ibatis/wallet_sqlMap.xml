@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="wallet_sqlMap">
+    <select id="query_wallet_by_id" parameterClass="Integer" resultClass="float">
+        select user.id,wallet.figure from user,wallet where user.id=wallet.user_id and wallet.is_delete=0 and wallet.user_id=#id#;
+    </select>
+    <insert id="insert_wallet_by_id" parameterClass="Integer" >
+        insert into wallet(is_delete,user_id,figure) values(0,#id#,1000);
+    </insert>
+    <update id="update_wallet_by_id">
+        update wallet,transaction set figure=transaction.amount where wallet.user_id=#id#;
+    </update>
+
 </sqlMap>

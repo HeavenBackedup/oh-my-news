@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -23,27 +24,31 @@ public class MyWalletAction extends BaseAction{
         @RequestMapping(value = "/getPayevents",consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public @ResponseBody Object getPayevents(@RequestBody Map inputMap) {
                 System.out.println(inputMap);
-                Calendar rightnow=Calendar.getInstance();
+                Date rightnow=new Date();
+                SimpleDateFormat dataformat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Random random=new Random();
                 int id=random.nextInt(10000);
                 Map<String,Object> map=new HashMap<String, Object>();
                 List<Wallet> list=new ArrayList<Wallet>();
-                list.add(new Wallet(rightnow.getTimeInMillis(),"提现",inputMap.get("rmb").toString(),"自己用户名和ID","",id));
+                list.add(new Wallet(dataformat.format(rightnow),"提现",inputMap.get("value").toString(),"自己用户名和ID","",id));
                 map.put("myWallet",list);
-                return map;
+                System.out.println(map);
+
+                return successReturnObject(map);
         }
 
 
         @RequestMapping(value = "/getIncomeevents",consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public @ResponseBody Object getIncomeevents(@RequestBody Map inputMap) {
                 System.out.println(inputMap);
-                Calendar rightnow=Calendar.getInstance();
+                Date rightnow=new Date();
+                SimpleDateFormat dataformat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Random random=new Random();
                 int id=random.nextInt(10000);
                 Map<String,Object> map=new HashMap<String, Object>();
                 List<Wallet> list=new ArrayList<Wallet>();
-                list.add(new Wallet(rightnow.getTimeInMillis(),"充值",inputMap.get("rmb").toString(),"自己用户名和ID","",id));
+                list.add(new Wallet(dataformat.format(rightnow),"充值",inputMap.get("value").toString(),"自己用户名和ID","",id));
                 map.put("myWallet",list);
-                return map;
+                return successReturnObject(map);
         }
 }

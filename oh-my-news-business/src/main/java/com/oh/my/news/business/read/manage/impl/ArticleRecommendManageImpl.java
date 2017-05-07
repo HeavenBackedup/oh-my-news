@@ -6,7 +6,6 @@ import com.oh.my.news.model.dto.ArticleSnapshot;
 import com.oh.my.news.model.vo.mainpage.EditContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.jvm.hotspot.utilities.Assert;
 
 import javax.annotation.PostConstruct;
 import java.util.List;

@@ -1,1 +1,37 @@
-<div>我的打赏</div>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>the front page</title>
+</head>
+<body >
+<div ng-init="init()">
+        <ul>
+                <li>
+                    <div  class="row">
+                        <input placeholder="请输入打赏金额(限额1000元)" ng-model="input">
+                        <button ng-click="inputCommit()"a href="#" class="tooltip-show" data-toggle="tooltip"title="确认打赏？">打赏</button>
+                        <span>{{inputRes}}</span>
+                    </div>
+                </li>
+        </ul>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<script type="text/javascript " src="../../vendor/angular.js-1.6.4/angular.js-1.6.4">    </script>
+
+</body>
+</html>
