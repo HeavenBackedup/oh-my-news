@@ -1,4 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="comment_sqlMap">
+
+    <resultMap id="comment_resultMap" class="com.oh.my.news.model.po.Comment">
+        <result property="id" column="id" jdbcType="INTEGER"></result>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
+        <result property="userId" column="user_id" jdbcType="INTEGER"></result>
+        <result property="formerCommentId" column="former_comment_id" jdbcType="INTEGER"></result>
+        <result property="content" column="content" jdbcType="VARCHAR"></result>
+        <result property="date" column="date" jdbcType="DATE"></result>
+        <result property="articleId" column="article_id" jdbcType="INTEGER"></result>
+        <result property="rootCommentId" column="root_comment_id" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <select id="query_comments_by_article_id" resultMap="comment_resultMap">
+        select id,is_delete,user_id,former_comment_id,content,`date`,article_id,root_comment_id from comment where article_id=#articleId# and is_delete=0 limit #currentPage#,#pageItemNum#;
+    </select>
+
+    <select id="query_comment_by_id" resultMap="comment_resultMap">
+        select id,is_delete,user_id,former_comment_id,content,`date`,article_id,root_comment_id  from comment where id=#id# and is_delete=0;
+    </select>
+
+    <select id="query_root_comment_by_article_id" resultMap="comment_resultMap">
+        select id,is_delete,user_id,former_comment_id,content,`date`,article_id,root_comment_id from comment where former_comment_id=0 and is_delete = 0 and article_id = #articleId# order by `date` desc limit #currentPage#,#pageItemNum#;
+    </select>
+
+    <select id="query_comments_by_root_comment_id" resultMap="comment_resultMap">
+        select id,is_delete,user_id,former_comment_id,content,`date`,article_id,root_comment_id from comment where root_comment_id=#rootCommentId# and is_delete = 0 order by `date` ;
+    </select>
+
+    <select id="query_page_num" resultClass="Integer">
+        select count(*) from comment where former_comment_id=0 and is_delete = 0 and article_id=#articleId#   order by `date` desc  ;
+    </select>
+
+    <select id="query_root_comment_id_by_former_comment_id" resultClass="java.lang.Integer">
+        select root_comment_id from comment where id=#formerCommentId# and is_delete=0 ;
+    </select>
+
+    <select id="query_article_id_by_former_comment_id" resultClass="java.lang.Integer">
+        select article_id from comment where id=#formerCommentId# and is_delete=0;
+    </select>
+
+    <insert id="insert_comment" parameterClass="com.oh.my.news.model.po.Comment" >
+        insert into comment(is_delete,user_id,former_comment_id,content,`date`,article_id,root_comment_id) values (0,#userId#,#formerCommentId#,#content#,now(),#articleId#,#rootCommentId#);
+        <selectKey resultClass="java.lang.Integer" keyProperty="id">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+    </insert>
+
+    <update id="update_root_comment_id" parameterClass="java.lang.Integer">
+        update comment set root_comment_id=#id# where id=#id# and is_delete=0;
+    </update>
+
 </sqlMap>

@@ -3,17 +3,19 @@ package com.oh.my.news.business.read.dao.impl;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.oh.my.news.business.read.dao.UserReadDao;
 import com.oh.my.news.model.dto.UserDto;
+import com.oh.my.news.model.dto.UserSnapshot;
 import com.oh.my.news.model.po.User;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
 /**
  * Created by llf on 2017/5/4.
  */
-
+@Repository
 public class UserReadDaoImpl implements UserReadDao{
     @Autowired
     @Qualifier(value="sqlMapClientRead")
@@ -59,5 +61,14 @@ public class UserReadDaoImpl implements UserReadDao{
         user.setNickname(u.getNickname());
         user.setPassword(u.getPassword());
         return user;
+    }
+
+
+    public UserSnapshot getUserSnapshotById(int id) throws Exception {
+        return (UserSnapshot)sqlMapClient.queryForObject("user_sqlMap.query_user_snapshot_by_id",id);
+    }
+
+    public User getUserById(int id) throws Exception {
+        return null;
     }
 }

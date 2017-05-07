@@ -11,8 +11,9 @@ public class Comment {
     private String content;
     private Date date;
     private int articleId;
+    private int rootCommentId;
 
-    public Comment(int id, int isDelete, int userId, int formerCommentId, String content, Date date, int articleId) {
+    public Comment(int id, int isDelete, int userId, int formerCommentId, String content, Date date, int articleId, int rootCommentId) {
         this.id = id;
         this.isDelete = isDelete;
         this.userId = userId;
@@ -20,22 +21,10 @@ public class Comment {
         this.content = content;
         this.date = date;
         this.articleId = articleId;
+        this.rootCommentId = rootCommentId;
     }
 
     public Comment() {
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", isDelete=" + isDelete +
-                ", userId=" + userId +
-                ", formerCommentId=" + formerCommentId +
-                ", content='" + content + '\'' +
-                ", date=" + date +
-                ", articleId=" + articleId +
-                '}';
     }
 
     @Override
@@ -50,6 +39,7 @@ public class Comment {
         if (userId != comment.userId) return false;
         if (formerCommentId != comment.formerCommentId) return false;
         if (articleId != comment.articleId) return false;
+        if (rootCommentId != comment.rootCommentId) return false;
         if (content != null ? !content.equals(comment.content) : comment.content != null) return false;
         return date != null ? date.equals(comment.date) : comment.date == null;
     }
@@ -63,7 +53,22 @@ public class Comment {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + articleId;
+        result = 31 * result + rootCommentId;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", isDelete=" + isDelete +
+                ", userId=" + userId +
+                ", formerCommentId=" + formerCommentId +
+                ", content='" + content + '\'' +
+                ", date=" + date +
+                ", articleId=" + articleId +
+                ", rootCommentId=" + rootCommentId +
+                '}';
     }
 
     public int getId() {
@@ -120,5 +125,13 @@ public class Comment {
 
     public void setArticleId(int articleId) {
         this.articleId = articleId;
+    }
+
+    public int getRootCommentId() {
+        return rootCommentId;
+    }
+
+    public void setRootCommentId(int rootCommentId) {
+        this.rootCommentId = rootCommentId;
     }
 }

@@ -1,54 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="user_sqlMap">
-    <resultMap id="user_resultMap" class="com.oh.my.news.model.po.User">
+    <!--<resultMap id="user_resultMap" class="com.oh.my.news.model.po.User">-->
+        <!--<result property="id" column="id" jdbcType="INTEGER"></result>-->
+        <!--<result property="username" column="username" jdbcType="VARCHAR"></result>-->
+        <!--<result property="email" column="email" jdbcType="VARCHAR"></result>-->
+        <!--<result property="password" column="password" jdbcType="VARCHAR"></result>-->
+        <!--<result property="date" column="date" jdbcType="TIMESTAMP"></result>-->
+        <!--<result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>-->
+        <!--<result property="address" column="address" jdbcType="VARCHAR"></result>-->
+        <!--<result property="imageUrl" column="url" jdbcType="VARCHAR"></result>-->
+        <!--<result property="signature" column="signature" jdbcType="VARCHAR"></result>-->
+        <!--<result property="announcement" column="announcement" jdbcType="VARCHAR"></result>-->
+        <!--<result property="nickname" column="nickname" jdbcType="VARCHAR"></result>-->
+        <!--<result property="isLimit" column="is_limit" jdbcType="INTEGER"></result>-->
+    <!--</resultMap>-->
+
+    <resultMap id="user_snapshot_resultMap" class="com.oh.my.news.model.dto.UserSnapshot">
         <result property="id" column="id" jdbcType="INTEGER"></result>
-        <result property="username" column="username" jdbcType="VARCHER"></result>
-        <result property="email" column="email" jdbcType="VARCHER"></result>
-        <result property="password" column="password" jdbcType="VARCHER"></result>
-        <result property="date" column="date" jdbcType="TIMESTAMP"></result>
-        <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
-        <result property="address" column="address" jdbcType="VARCHAR"></result>
-        <result property="imageUrl" column="url" jdbcType="VARCHAR"></result>
-        <result property="signature" column="signature" jdbcType="VARCHAR"></result>
-        <result property="announcement" column="announcement" jdbcType="VARCHAR"></result>
+        <result property="imageUrl" column="url" jdbcType="INTEGER"></result>
         <result property="nickname" column="nickname" jdbcType="VARCHAR"></result>
+        <result property="signature" column="signature" jdbcType="INTEGER"></result>
     </resultMap>
-    <select id="verify_username" parameterClass="String" resultClass="java.lang.Integer">
-    SELECT  `id` from `user` where username=#username# and is_delete=0;
-</select>
-    <select id="verify_email" parameterClass="String" resultClass="java.lang.Integer">
-        SELECT `id` from `user` where email=#email# and is_delete=0;
+    <!--<select id="verify_username" parameterClass="String" resultClass="java.lang.Integer">-->
+    <!--SELECT  `id` from `user` where username=#username# and is_delete=0;-->
+<!--</select>-->
+    <!--<select id="verify_email" parameterClass="String" resultClass="java.lang.Integer">-->
+        <!--SELECT `id` from `user` where email=#email# and is_delete=0;-->
+    <!--</select>-->
+    <!--<select id="username_query_user" parameterClass="java.util.Map" resultClass="java.lang.Integer">-->
+        <!--SELECT `id` from `user` where username=#username# and password=#password# and is_delete=0;-->
+    <!--</select>-->
+    <!--<select id="email_query_user" parameterClass="java.util.Map" resultClass="java.lang.Integer">-->
+        <!--SELECT  `id` from `user` where email=#email# and password=#password# and is_delete=0;-->
+    <!--</select>-->
+    <!--<insert id="insert_user" parameterClass="com.oh.my.news.model.po.User">-->
+        <!--INSERT  INTO `user`(`username`,`email`,`password`,`date`,`is_delete`,`is_limit`)VALUES (#username#,#email#,#password#,now(),0,0);-->
+        <!--<selectKey keyProperty="id" resultClass="java.lang.Integer">-->
+            <!--SELECT  LAST_INSERT_ID() as id;-->
+        <!--</selectKey>-->
+    <!--</insert>-->
+    <!--<update id="insert_signature" parameterClass="java.util.Map">-->
+    <!--update `user` set signature=#signature# where id=#userId# and is_delete=0;-->
+<!--</update>-->
+    <!--<update id="insert_announcement" parameterClass="java.util.Map">-->
+        <!--update `user` set announcement=#announcement# where id=#userId# and is_delete=0;-->
+    <!--</update>-->
+    <!--<update id="update_user" parameterClass="com.oh.my.news.model.po.User">-->
+        <!--update `user`,media set `user`.username=#username#,`user`.password=#password#,`user`.email=#email#,`user`.address=#address#,`user`.media_id=#media_id#,`user`.signature=#signature#,-->
+        <!--`user`.announcement=#announcement#,`user`.date=now(),`user`.nickname=#nickname# ,`user`.media_id=media.id  where `user`.id=#id# and media.url=#imageUrl# and `user`.is_delete=0;-->
+    <!--</update>-->
+    <!--<select id="calculate_followers" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">-->
+        <!--select count(target_user_id) from concern where source_user_id=#userId# and is_delete=0 ;-->
+    <!--</select>-->
+    <!--<select id="calculate_fans" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">-->
+        <!--SELECT count(source_user_id) from concern where target_user_id=#userId# and is_delete=0;-->
+    <!--</select>-->
+    <!--<select id="query_user_detail" parameterClass="java.lang.Integer" resultMap="user_resultMap">-->
+        <!--SELECT `user`.id,`user`.username,`user`.email,`user`.password,`user`.address,`user`.signature,`user`.announcement,`user`.date,`user`.nickname,media.url where `user`.id=#userId# and `user`.media_id=media.id and `user`.is_delete=0;-->
+    <!--</select>-->
+
+
+
+
+    <select id="query_user_snapshot_by_id" resultMap="user_snapshot_resultMap" parameterClass="Integer">
+        select `user`.id,media.url,`user`.nickname,`user`.signature from `user`,media where `user`.media_id=media.id and `user`.is_delete=0 and `user`.is_limit=0 and media.is_delete = 0 and `user`.id = #id#;
     </select>
-    <select id="username_query_user" parameterClass="java.util.Map" resultClass="java.lang.Integer">
-        SELECT `id` from `user` where username=#username# and password=#password# and is_delete=0;
-    </select>
-    <select id="email_query_user" parameterClass="java.util.Map" resultClass="java.lang.Integer">
-        SELECT  `id` from `user` where email=#email# and password=#password# and is_delete=0;
-    </select>
-    <insert id="insert_user" parameterClass="com.oh.my.news.model.po.User">
-        INSERT  INTO `user`(`username`,`email`,`password`,`date`,`is_delete`,`is_limit`)VALUES (#username#,#email#,#password#,now(),0,0);
-        <selectKey keyProperty="id" resultClass="java.lang.Integer">
-            SELECT  LAST_INSERT_ID() as id;
-        </selectKey>
-    </insert>
-    <update id="insert_signature" parameterClass="java.util.Map">
-    update `user` set signature=#signature# where id=#userId# and is_delete=0;
-</update>
-    <update id="insert_announcement" parameterClass="java.util.Map">
-        update `user` set announcement=#announcement# where id=#userId# and is_delete=0;
-    </update>
-    <update id="update_user" parameterClass="com.oh.my.news.model.po.User">
-        update `user`,media set `user`.username=#username#,`user`.password=#password#,`user`.email=#email#,`user`.address=#address#,`user`.media_id=#media_id#,`user`.signature=#signature#,
-        `user`.announcement=#announcement#,`user`.date=now(),`user`.nickname=#nickname# ,`user`.media_id=media.id  where `user`.id=#id# and media.url=#imageUrl# and `user`.is_delete=0;
-    </update>
-    <select id="calculate_followers" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
-        select count(target_user_id) from concern where source_user_id=#userId# and is_delete=0 ;
-    </select>
-    <select id="calculate_fans" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
-        SELECT count(source_user_id) from concern where target_user_id=#userId# and is_delete=0;
-    </select>
-    <select id="query_user_detail" parameterClass="java.lang.Integer" resultMap="user_resultMap">
-        SELECT `user`.id,`user`.username,`user`.email,`user`.password,`user`.address,`user`.signature,`user`.announcement,`user`.date,`user`.nickname,media.url where `user`.id=#userId# and `user`.media_id=media.id and `user`.is_delete=0;
-    </select>
+
+
+
+
+
 </sqlMap>
