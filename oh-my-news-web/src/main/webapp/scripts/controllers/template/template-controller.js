@@ -1,7 +1,7 @@
  /**
  * Created by shj on 2017/4/11.
  */
-app.controller('templateController',['$scope','templateService','Upload','fileService','$timeout','content','htmlParseService','$location','$anchorScroll',function ($scope,templateService,Upload,fileService,$timeout,content,htmlParseService,$location,$anchorScroll) {
+app.controller('templateController',['$scope','templateService',function ($scope,templateService) {
 
 
 
@@ -13,13 +13,10 @@ app.controller('templateController',['$scope','templateService','Upload','fileSe
         $scope.pagination.totalItems = 200;
         $scope.pagination.currentPage = 2;
         $scope.pagination.maxSize = 5;
-        $scope.file = {};
-        $scope.errfile = {};
-        $scope.fileName="";
         moment.locale("zh-cn");
-        $scope.path;
-    };
-    // 输入框值处理逻辑
+    }
+
+
     $scope.inputCommit = function () {
         var param = {};
         param.value = $scope.input;
@@ -29,7 +26,7 @@ app.controller('templateController',['$scope','templateService','Upload','fileSe
            console.info("error:  "+data);
        });
     }
-    // 分页处理逻辑
+
     $scope.pageChange = function () {
         var param = {};
         param.currentPage = $scope.pagination.currentPage;

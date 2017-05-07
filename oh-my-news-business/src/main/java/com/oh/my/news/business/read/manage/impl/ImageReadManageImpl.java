@@ -14,7 +14,6 @@ import java.util.List;
  */
 @Service
 public class ImageReadManageImpl implements ImageReadManage{
-
     @Autowired
     private ImageReadDao imageReadDao;
 

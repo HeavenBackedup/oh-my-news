@@ -1,7 +1,6 @@
 package com.oh.my.news.business.read.manage;
 
-import com.oh.my.news.model.dto.TransactionDto;
-import com.oh.my.news.model.dto.Wallet;
+import com.oh.my.news.model.po.TransactionPo;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public interface TransactionReadManage {
      * @return 返回该用户的所有支出事项的列表
      * @throws Exception
      */
-    List<TransactionDto> getPayevents(int userId)throws Exception;
+    List<TransactionPo> getPayevents(int userId)throws Exception;
 
     /**
      *
@@ -24,7 +23,7 @@ public interface TransactionReadManage {
      * @throws Exception
      */
 
-    List<TransactionDto> getIncomeevents(int userId)throws Exception;
+    List<TransactionPo> getIncomeevents(int userId)throws Exception;
 
     /**
      *

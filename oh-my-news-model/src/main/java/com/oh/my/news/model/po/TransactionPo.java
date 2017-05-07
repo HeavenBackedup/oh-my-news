@@ -1,11 +1,11 @@
-package com.oh.my.news.model.dto;
+package com.oh.my.news.model.po;
 
 import java.util.Date;
 
 /**
  * Created by shj on 2017/5/2.
  */
-public class TransactionDto {
+public class TransactionPo {
     private int id;
     private int isDelete;
     private String targetName;
@@ -14,13 +14,16 @@ public class TransactionDto {
     private String message;
 
 
-    public TransactionDto(int id, int isDelete, String targetName, Date date, float amount, String message) {
+    public TransactionPo(int id, int isDelete, String targetName, Date date, float amount, String message) {
         this.id = id;
         this.isDelete = isDelete;
         this.targetName = targetName;
         this.date = date;
         this.amount = amount;
         this.message = message;
+    }
+
+    public TransactionPo() {
     }
 
     @Override
@@ -88,7 +91,7 @@ public class TransactionDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TransactionDto that = (TransactionDto) o;
+        TransactionPo that = (TransactionPo) o;
 
         if (id != that.id) return false;
         if (isDelete != that.isDelete) return false;

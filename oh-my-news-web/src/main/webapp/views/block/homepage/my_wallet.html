@@ -1,23 +1,24 @@
+<body>
 <div>
     <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">
                  <h1>我的钱包：</h1>
     </div>
 <!--进度条和余额变动-->
-    <div   class="progress">
-             <div class="progress-bar" role="progressbar" data-ng-model="valuenow" aria-valuenow="{{valuenow}}" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                        {{valuenow}}
-             </div>
+            <div   class="progress">
+                     <div class="progress-bar" role="progressbar" ng-model="valuenow" aria-valuenow="{{valuenow}}" aria-valuemin="0" aria-valuemax="100" style="width:10%;">
+                                10%
+                     </div>
+            </div>
 
             <div id="ballance" class="ax_default _三级标题">
                 <div id="u169_div" class=""></div>
                     <!-- Unnamed () -->
              <div id="u170" class="text" style="visibility: visible;">
-                   <br> <p><span data-ng-model="money">余额：{{money}}</span></p>
+                 <br> <p><span ng-model="money">余额：{{money}}</span></p>
                  <p><button ng-click="ballance()"> 显示余额 </button></p>
              </div>
             </div>
 </div>
-
 
 <!--提现功能-->
     <div  id="u177" class="ax_default link_button">
@@ -44,21 +45,21 @@
 
 <!--支出收入事项简记-->
 
-    <div  class="container" ng-change="payeventschange()">
+    <div  class="container" >
              <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">支出事项：</div>
                 <table class="table table-hover">
                          <thead>
                                 <tr>
                                     <th>  交易时间 </th>
                                     <th>  支出事项 </th>
-                                    <th>  金额     </th>
+                                    <th>  金额（元）     </th>
                                     <th>  收款方   </th>
                                     <th>  留言     </th>
                                     <th>  流水号   </th>
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr ng-repeat="item in events">
+                                <tr ng-repeat="item in eventsout">
                                     <td>{{item.time}}</td>
                                     <td>{{item.goal}}</td>
                                     <td>{{item.sum}}</td>
@@ -69,14 +70,14 @@
                         </tbody>
                  </table>
     </div>
-    <div   class="container" ng-change="incomeeventschange()">
+    <div   class="container" >
         <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">收入事项：</div>
                     <table class="table table-hover">
                             <thead>
                                     <tr>
                                         <th>  交易时间 </th>
                                         <th>  收入事项 </th>
-                                        <th>  金额     </th>
+                                        <th>  金额(元)     </th>
                                         <th>  收款方   </th>
                                         <th>  留言     </th>
                                         <th>  流水号   </th>
@@ -84,7 +85,7 @@
                             </thead>
 
                             <tbody>
-                                <tr ng-repeat="item in events">
+                                <tr ng-repeat="item in eventsin">
                                     <td>{{item.time}}</td>
                                     <td>{{item.goal}}</td>
                                     <td>{{item.sum}}</td>
@@ -97,3 +98,4 @@
     </div>
 
 </div>
+</body>
