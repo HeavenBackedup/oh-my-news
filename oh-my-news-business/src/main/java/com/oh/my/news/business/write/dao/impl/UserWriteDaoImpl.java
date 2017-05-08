@@ -22,7 +22,6 @@ public class UserWriteDaoImpl implements UserWriteDao {
     public void insertUser(UserWrite user) throws Exception {
         sqlMapClient.insert("user_sqlMap.insert_user",user);
     }
-
     public void insertSignature(Integer userId, String signature) throws Exception {
         Map<String,Object> map=new HashedMap();
         map.put("userId",userId);

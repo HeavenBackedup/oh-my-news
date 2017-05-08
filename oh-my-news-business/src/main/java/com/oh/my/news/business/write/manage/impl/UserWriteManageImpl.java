@@ -21,7 +21,6 @@ public class UserWriteManageImpl implements UserWriteManage {
     public void register(UserWrite user) throws Exception {
         userWriteDao.insertUser(user);
     }
-
     public void editSignature(Integer userId, String signature) throws Exception {
         userWriteDao.insertSignature(userId,signature);
     }
