@@ -12,4 +12,8 @@ public interface PrivateMsgWriteManage {
      * @throws Exception
      */
     void sendMsg(int sourceId,int targetId,String content)throws Exception;
+
+
+
+
 }

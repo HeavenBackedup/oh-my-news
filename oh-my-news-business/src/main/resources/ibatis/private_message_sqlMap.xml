@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="private_message_sqlMap">
-    <resultMap id="private_message">
-
+    <resultMap id="private_messageMap" class="com.oh.my.news.model.dto.PrivateMessage">
+        <result property="id" column="id" jdbcType="INTEGER"></result>
+        <result property="sourceUsername" column="username" jdbcType="STRING"></result>
+        <result property="imageUrl" column="url" jdbcType="STRING"></result>
+        <result property="content" column="content" jdbcType="STRING"></result>
+        <result property="date" column="date" jdbcType="DATE"></result>
     </resultMap>
-
-
+    <select id="queryList_private_message_by_id" resultMap="private_messageMap">
+        select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.date from `private_message`,`user`,`media` where `private_message`.source_user_id=`user`.id and `private_message`.source_user_id=#sourceUserId# and  `private_message`.target_user_id=#targetUserId# and `media`.id=`private_message`.source_user_id;
+    </select>
+    <select id="queryObject_private_message_by_id" resultClass="List">
+        select `private_message`.target_user_id ,`user`.username username from `private_message`,`user` where `private_message`.source_user_id=#id# and `private_message`.target_user_id=`user`.id;
+    </select>
+    <insert id="insert_private_message" parameterClass="com.oh.my.news.model.po.PrivateMessagePo">
+        insert into `private_message`(is_delete,source_user_id,target_user_id,content,date,is_read) values(0,#sourceUserId#,#targetUserId#,#content#,now(),0);
+        <selectKey resultClass="java.lang.Integer" keyProperty="id">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+    </insert>
 
 
 </sqlMap>

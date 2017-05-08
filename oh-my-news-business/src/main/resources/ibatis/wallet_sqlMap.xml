@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="wallet_sqlMap">
-    <select id="query_wallet_by_id" parameterClass="Integer" resultClass="float">
-        select user.id,wallet.figure from user,wallet where user.id=wallet.user_id and wallet.is_delete=0 and wallet.user_id=#id#;
+    <select id="queryfigure_wallet_by_id" parameterClass="Integer" resultClass="Float">
+        select `wallet`.figure from `wallet` where `wallet`.is_delete=0 and `wallet`.user_id=#userId#;
     </select>
+    <select id="queryMaxfigure_wallet_by_id" parameterClass="Integer" resultClass="Float">
+        select `wallet`.max_figure from `wallet` where `wallet`.is_delete=0 and `wallet`.user_id=#userId#;
+    </select>
+
+
     <insert id="insert_wallet_by_id" parameterClass="Integer" >
-        insert into wallet(is_delete,user_id,figure) values(0,#id#,1000);
+        insert into `wallet`(is_delete,user_id,figure,max_figure) values(0,#id#,1000,1000);
+        <selectKey resultClass="java.lang.Integer" keyProperty="id">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
     </insert>
-    <update id="update_wallet_by_id">
-        update wallet,transaction set figure=transaction.amount where wallet.user_id=#id#;
+
+    <update id="updatefigure_wallet_by_id" parameterClass="Map">
+        update `wallet` set figure=figure+#sum# where `wallet`.user_id=#id#;
+    </update>
+
+    <update id="updateMaxfigure_wallet_by_id" parameterClass="Integer">
+        update `wallet` set max_figure=figure where `wallet`.user_id=#id# and figure>max_figure;
     </update>
 
 </sqlMap>
