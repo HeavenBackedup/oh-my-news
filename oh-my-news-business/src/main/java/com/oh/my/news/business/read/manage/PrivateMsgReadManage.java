@@ -1,6 +1,6 @@
 package com.oh.my.news.business.read.manage;
 
-import com.oh.my.news.model.po.PrivateMessage;
+import com.oh.my.news.model.dto.PrivateMessage;
 
 import java.util.List;
 
