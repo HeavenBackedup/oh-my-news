@@ -1,6 +1,5 @@
 package com.oh.my.news.business.write.dao;
 
-import com.oh.my.news.business.write.dao.impl.TransactionWriteDao;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;

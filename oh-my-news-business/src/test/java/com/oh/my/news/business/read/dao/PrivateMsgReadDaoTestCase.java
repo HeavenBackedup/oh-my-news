@@ -1,41 +1,42 @@
 package com.oh.my.news.business.read.dao;
+import com.oh.my.news.business.read.dao.impl.PrivateMsgReadDaoImpl;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Created by Administrator on 2017/5/6.
+ * Created by Administrator on 2017/5/7.
  */
-public class TransactionReadDaoTestCase extends TestCase {
-    private TransactionReadDao transactionReadDao;
-    public TransactionReadDaoTestCase() {
+public class PrivateMsgReadDaoTestCase extends TestCase {
+
+    private PrivateMsgReadDao privateMsgReadDao;
+    public PrivateMsgReadDaoTestCase() {
         System.setProperty("global.config.path", "F:\\thefirstproject\\env\\env\\env-dev");
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:oh-my-news-business/spring-service.xml");
-       this.transactionReadDao=(TransactionReadDao)applicationContext.getBean("transactionReadDaoImpl");
-    }
-    public void testPayevents(){
+        this.privateMsgReadDao=(PrivateMsgReadDao) applicationContext.getBean("privateMsgReadDaoImpl");
 
+    }
+    public void testqueryExMsg()
+
+    {
         try {
-            System.out.println(this.transactionReadDao.Payevents(3));
+            System.out.println(this.privateMsgReadDao.queryExMsg(2, 3));
         } catch (Exception e) {
             e.printStackTrace();
-            Assert.fail();
+        }
+
+    }
+    public void testqueryPrivateMessage(){
+        try {
+            System.out.println(this.privateMsgReadDao.queryPrivateMessage(2));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
-    public void testIncomeevents(){
 
-        try {
-            System.out.println(this.transactionReadDao.Incomeevents(3));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail();
-        }
-
-    }
 
 
 

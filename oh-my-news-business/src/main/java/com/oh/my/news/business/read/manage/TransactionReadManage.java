@@ -25,22 +25,10 @@ public interface TransactionReadManage {
 
     List<TransactionPo> getIncomeevents(int userId)throws Exception;
 
-    /**
-     *
-     * @param userId
-     * @param sum 具体提现金额
-     * @return 返回该操作的具体状态，成功返回0，失败返回1
-     * @throws Exception
-     */
-    int getWithDraw(int userId,int sum)throws Exception;
 
-    /**
-     *
-     * @param userId
-     * @param sum 具体充值金额
-     * @return 返回该操作的具体状态，成功返回0，失败返回1
-     * @throws Exception
-     */
-    int getRecharge(int userId,int sum)throws Exception;
+    float getFigure(int userId)throws Exception;
+
+
+    float getMaxFigure(int userId)throws Exception;
 
 }

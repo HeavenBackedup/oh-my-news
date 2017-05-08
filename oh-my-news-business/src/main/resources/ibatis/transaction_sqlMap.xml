@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="transaction_sqlMap">
-    <resultMap id="transaction_resultMap" class="com.oh.my.news.model.po.Transaction">
-        <result property="id" column="id" jdbcType="Integer"></result>
-        <result property="isDelete" column="isDelete" jdbcType="Integer"></result>
-        <result property="sourceUserId" column="source_user_id" jdbcType="INTEGER"></result>
-        <result property="targetUserId" column="target_user_id" jdbcType="INTEGER"></result>
-        <result property="date" column="date" jdbcType="Date"></result>
-        <result property="amount" column="amount" jdbcType="float"></result>
-        <result property="message" column="message" jdbcType="String"></result>
-        <result property="articleId" column="article_id" jdbcType="Integer"></result>
-    </resultMap>
+
     <resultMap id="transaction_mapResult" class="com.oh.my.news.model.po.TransactionPo">
         <result property="id" column="id" jdbcType="INTEGER"></result>
         <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>

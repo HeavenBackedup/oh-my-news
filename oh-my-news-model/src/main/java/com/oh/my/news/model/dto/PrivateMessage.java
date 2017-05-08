@@ -1,5 +1,6 @@
-package com.oh.my.news.model.po;
+package com.oh.my.news.model.dto;
 import java.util.Date;
+
 /**
  * Created by shj on 2017/5/2.
  */

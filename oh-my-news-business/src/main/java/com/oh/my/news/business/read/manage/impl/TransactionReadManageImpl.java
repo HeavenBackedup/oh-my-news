@@ -1,6 +1,7 @@
 package com.oh.my.news.business.read.manage.impl;
 
 import com.oh.my.news.business.read.dao.TransactionReadDao;
+import com.oh.my.news.business.read.dao.WalletReadDao;
 import com.oh.my.news.business.read.manage.TransactionReadManage;
 import com.oh.my.news.model.po.TransactionPo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.List;
 public class TransactionReadManageImpl implements TransactionReadManage {
     @Autowired
     private TransactionReadDao transactionReadDao;
+    private WalletReadDao walletReadDao;
     @Override
     public List<TransactionPo> getPayevents(int userId)throws Exception{
         return  transactionReadDao.Payevents(userId);
@@ -25,22 +27,16 @@ public class TransactionReadManageImpl implements TransactionReadManage {
     }
 
     @Override
-     public int getWithDraw(int userId,int sum)throws Exception{
-
-
-            return transactionReadDao.getWithDraw(userId, sum);
-
-
-     }
-
-    @Override
-    public int getRecharge(int userId,int sum)throws Exception{
-
-             return transactionReadDao.getRecharge(userId, sum);
-
-
+    public float getFigure(int userId)throws Exception{
+        return walletReadDao.getFigure(userId);
     }
 
+    @Override
+    public float getMaxFigure(int userId)throws Exception{
+
+        return walletReadDao.getMaxFigure(userId);
+
+    }
 
 
 

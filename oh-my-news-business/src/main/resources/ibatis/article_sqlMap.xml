@@ -5,7 +5,7 @@
     <result property="id" column="id" jdbcType="INTEGER"></result>
     <result property="topic" column="topic" jdbcType="VARCHAR"></result>
 </resultMap>
-    
+
  <resultMap id="editContent_resultMap" class="com.oh.my.news.model.vo.mainpage.EditContent">
      <result property="id" column="id" jdbcType="INTEGER"></result>
      <result property="author" column="username" jdbcType="VARCHAR"></result>
@@ -24,7 +24,7 @@
     <select id="query_mark_list" resultMap="articleSnapshot_resultMap">
         select id,topic from article where is_delete=0 and is_limit=0 order by mark_num desc limit 10;
     </select>
-    
+
     <select id="query_last_list" resultMap="articleSnapshot_resultMap">
         select id,topic from article where is_delete=0 and is_limit=0 order by `date` desc limit 10;
     </select>

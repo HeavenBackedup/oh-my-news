@@ -1,25 +1,23 @@
 package com.oh.my.news.business.write.dao.impl;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.oh.my.news.model.dto.Wallet;
+import com.oh.my.news.business.write.dao.TransactionWriteDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/4.
  */
 @Repository
-public class TransactionWriteDaoImpl implements TransactionWriteDao{
+public class TransactionWriteDaoImpl implements TransactionWriteDao {
     @Autowired
     @Qualifier(value = "sqlMapClientWrite")
     private SqlMapClient sqlMapClient;
+    @Override
     public  void insertTransactionByIds(Integer source_user_id,Integer target_user_id,Integer amount,Integer article_id,String message) throws Exception{
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("source_user_id",source_user_id);

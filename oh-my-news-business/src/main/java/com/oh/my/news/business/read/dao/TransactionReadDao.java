@@ -13,8 +13,7 @@ public interface TransactionReadDao {
     List<TransactionPo> Payevents(int userId)throws Exception;
     List<TransactionPo> Incomeevents(int userId)throws Exception;
 
-    int getWithDraw(int userId,int sum)throws Exception;
-    int getRecharge(int userId,int sum)throws Exception;
+
 
 
 
