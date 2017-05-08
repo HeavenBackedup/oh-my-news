@@ -12,6 +12,10 @@
         select `id`,`key`,`url`,`is_delete` from media where `id` = #id# and is_delete = 0;
     </select>
 
+    <select id="query_image_by_article_id" parameterClass="Integer" resultMap="image_resultMap">
+        select `id`,`key`,`url`,`is_delete` from media,a_m_rel where media.`id` = a_m_rel.media_id and a_m_rel.article_id=#articleId# and is_delete = 0;
+    </select>
+
     <insert id="insert_image" parameterClass="com.oh.my.news.model.po.File">
         insert into media (`key`,`url`,`is_delete`) values (#key#,#url#,0)
         <selectKey keyProperty="id" resultClass="Integer">
