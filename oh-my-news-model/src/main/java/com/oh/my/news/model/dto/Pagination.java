@@ -11,7 +11,6 @@ public class Pagination {
         this.totalItems = totalItems;
         this.currentPage = currentPage;
     }
-
     public Pagination() {
     }
 

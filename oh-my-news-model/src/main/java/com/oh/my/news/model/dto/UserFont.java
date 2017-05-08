@@ -197,11 +197,9 @@ public class UserFont {
     public int getFans() {
         return fans;
     }
-
     public void setFans(int fans) {
         this.fans = fans;
     }
-
     public void setIsLimit(int isLimit) {
         this.isLimit = isLimit;
     }

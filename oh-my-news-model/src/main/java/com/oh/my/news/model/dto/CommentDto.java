@@ -11,7 +11,6 @@ public class CommentDto {
     private Comment comment;
     private UserSnapshot replier;
     private Comment formerComment;
-
     public CommentDto(Comment comment, UserSnapshot replier, Comment formerComment) {
         this.comment = comment;
         this.replier = replier;

@@ -8,7 +8,6 @@ public class UserSnapshot {
     private String imageUrl;
     private String nickname;
     private String signature;
-
     public UserSnapshot(int id, String imageUrl, String nickname, String signature) {
         this.id = id;
         this.imageUrl = imageUrl;

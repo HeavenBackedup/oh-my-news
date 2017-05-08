@@ -13,7 +13,6 @@ public class TransactionDto {
     private float amount;
     private String message;
 
-
     public TransactionDto(int id, int isDelete, String targetName, Date date, float amount, String message) {
         this.id = id;
         this.isDelete = isDelete;

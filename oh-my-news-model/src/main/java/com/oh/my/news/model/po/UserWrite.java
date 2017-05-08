@@ -18,7 +18,6 @@ public class UserWrite {
     private Date date;
     private String nickname;
     private int isLimit;
-
     public UserWrite(int id, int isDelete, String username, String password, String email, String address,  String signature, String announcement, Date date, String nickname, int isLimit) {
         this.id = id;
         this.isDelete = isDelete;

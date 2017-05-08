@@ -11,7 +11,6 @@ public class Image {
         this.id = id;
         this.url = url;
     }
-
     public Image() {
     }
 

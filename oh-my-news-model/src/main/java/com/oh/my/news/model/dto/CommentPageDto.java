@@ -10,12 +10,10 @@ public class CommentPageDto {
 
     private List<List<CommentDto>> comments;
     private Pagination pagination;
-
     public CommentPageDto(List<List<CommentDto>> comments, Pagination pagination) {
         this.comments = comments;
         this.pagination = pagination;
     }
-
     public CommentPageDto() {
     }
 

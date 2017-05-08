@@ -10,7 +10,6 @@ public class Wallet {
     private String person;
     private String note;
     private int id;
-
     @Override
     public String toString() {
         return "Wallet{" +
