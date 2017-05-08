@@ -9,7 +9,6 @@ public class SearchContent {
     private String content;
     private String author;
 
-
     public SearchContent(int id, String topic, String content, String author) {
         this.id = id;
         this.topic = topic;

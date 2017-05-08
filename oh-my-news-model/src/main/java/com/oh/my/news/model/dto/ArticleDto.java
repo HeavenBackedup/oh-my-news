@@ -20,7 +20,6 @@ public class ArticleDto{
         this.article = article;
         this.userSnapshot = userSnapshot;
     }
-
     public ArticleDto() {
     }
 

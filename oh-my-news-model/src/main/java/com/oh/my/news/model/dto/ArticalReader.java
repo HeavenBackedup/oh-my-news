@@ -14,7 +14,6 @@ public class ArticalReader {
     private float donation;
     private boolean thumbUp;
     private boolean colleted;
-
     public ArticalReader() {
     }
 

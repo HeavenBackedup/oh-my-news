@@ -14,7 +14,6 @@ public class ArticleSnapshot {
 
     public ArticleSnapshot() {
     }
-
     @Override
     public String toString() {
         return "ArticleSnapshot{" +

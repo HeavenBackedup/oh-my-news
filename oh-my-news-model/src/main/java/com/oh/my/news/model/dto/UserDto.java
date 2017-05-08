@@ -16,7 +16,6 @@ public class UserDto extends User {
         this.followers = followers;
         this.fans = fans;
     }
-
     public UserDto(int id, int isDelete, String username, String password, String email, String address, String imageUrl, String signature, String announcement, Date date, String nickname, int isLimit) {
         super(id, isDelete, username, password, email, address, imageUrl, signature, announcement, date, nickname, isLimit);
     }

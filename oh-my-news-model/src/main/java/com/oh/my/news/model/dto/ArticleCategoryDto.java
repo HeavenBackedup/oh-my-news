@@ -13,13 +13,11 @@ public class ArticleCategoryDto {
     private Article article;
     private Category category;
     List<Image> images;
-
     public ArticleCategoryDto(Article article, Category category, List<Image> images) {
         this.article = article;
         this.category = category;
         this.images = images;
     }
-    
 
     public Article getArticle() {
         return article;
