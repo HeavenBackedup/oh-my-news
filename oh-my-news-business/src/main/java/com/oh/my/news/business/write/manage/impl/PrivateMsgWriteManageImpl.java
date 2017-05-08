@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class PrivateMsgWriteManageImpl implements PrivateMsgWriteManage {
     @Autowired
     private PrivateMsgWriteDao privateMsgWriteDao;
-    private PrivateMessagePo privateMessagePo;
+
 
     @Override
      public void sendMsg(int sourceId,int targetId,String content)throws Exception {
-
+         PrivateMessagePo privateMessagePo=new PrivateMessagePo();
          privateMessagePo.setTargetId(targetId);
          privateMessagePo.setSourceId(sourceId);
          privateMessagePo.setContent(content);
