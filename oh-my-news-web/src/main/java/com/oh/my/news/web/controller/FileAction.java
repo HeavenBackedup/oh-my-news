@@ -1,7 +1,6 @@
 package com.oh.my.news.web.controller;
 
 import com.oh.my.news.business.write.manage.ImageWriteManage;
-import com.oh.my.news.business.write.manage.impl.ImageWriteManageImpl;
 import com.oh.my.news.model.dto.Image;
 import com.oh.my.news.web.util.BaseAction;
 import org.apache.log4j.Logger;

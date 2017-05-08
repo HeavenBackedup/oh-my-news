@@ -1,6 +1,8 @@
 package com.oh.my.news.web.controller;
 
 
+import com.oh.my.news.business.read.manage.UserReadManage;
+import com.oh.my.news.model.dto.UserFont;
 import com.oh.my.news.model.vo.myHomePage.home.UserInformation;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -17,33 +20,36 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/homePage")
 public class HomePageAction extends BaseAction {
+    @Resource
+    private UserReadManage userReadManage;
 
 //请求userId的信息
     @RequestMapping(value = "/common")
     public @ResponseBody
     Object getInformation(@RequestBody Map userMap) {
 
-    int userId = (Integer) userMap.get("userId");
-        System.out.print(userId);
-        System.out.print(userMap);
-    UserInformation userInformation = null;
+        int userId = (Integer) userMap.get("userId");
+        try {
+            UserFont userDetail=userReadManage.getUserDetail(userId);
+            UserInformation user=new UserInformation();
+            user.setUsersId(userId);
+            user.setAvatarPath(userDetail.getImageUrl());
+            user.setAnnouncement(userDetail.getAnnouncement());
+            user.setDate(userDetail.getDate());
+            user.setFans(userDetail.getFans());
+            user.setFollowers(userDetail.getFollowers());
+            user.setNickName(userDetail.getNickname());
+            user.setSignature(userDetail.getSignature());
+            return successReturnObject(user);
 
-        switch(userId)
+        }catch (Exception e){
+            e.printStackTrace();
+            return failReturnObject("get user detail fail");
+        }
 
-    {
-        case 1:
-            userInformation = new UserInformation(1,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492101116270_1?Expires=1807461113&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=6RGGw112mdxa4QdT534b%2F0ul6vQ%3D", "zhongzhao84", "goodday", "cool!", 18, 16, "2017.3.15");
-//            OthersInfomation othersInfomation1=new OthersInfomation("1","http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492105228958_1?Expires=2122825175&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=3gA%2BJohAw18jKqhHSCoyhgMj9MQ%3D","fanfan","funny");
 
-        break;
-        case 2:
-            userInformation = new UserInformation(2,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492101116270_1?Expires=1807461113&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=6RGGw112mdxa4QdT534b%2F0ul6vQ%3D", "fanfan", "good day", "cool cool!", 18, 15, "2017.3.15");
-        break;
-        default:
-            break;
 
-    }
-        return successReturnObject(userInformation);
+
 
 }
 

@@ -1,5 +1,7 @@
 package com.oh.my.news.web.controller;
 
+import com.oh.my.news.business.read.manage.ConcernReadManage;
+import com.oh.my.news.model.dto.UserSnapshot;
 import com.oh.my.news.model.vo.myHomePage.home.OthersInfomation;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.stereotype.Controller;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,36 +21,34 @@ import java.util.Map;
 @RequestMapping(value = "/concernPage")
 public class ConcernAction extends BaseAction{
 
+    @Resource
+    private ConcernReadManage concernReadManage;
 
     @RequestMapping(value = "/getConcern")
     public @ResponseBody
-    Object getFansInformation(@RequestBody Map userMap){
-
+    Object getFansInformation(@RequestBody Map userMap) {
+        //获取关注人列表
         int userId = (Integer) userMap.get("userId");
-        System.out.println("数据库接收到的concern的请求数据"+userMap);
+        try {
+            List<UserSnapshot> concerns = concernReadManage.getMyConcerns(userId);
+            List<OthersInfomation> concernList = new ArrayList<OthersInfomation>();
+            for (UserSnapshot u : concerns) {
+                OthersInfomation item = new OthersInfomation();
+                item.setUserId(u.getId());
+                item.setAvatarPath(u.getImageUrl());
+                item.setNickName(u.getNickname());
+                item.setSignature(u.getSignature());
+                concernList.add(item);
+            }
+            return successReturnObject(concernList);
 
-        List<OthersInfomation> concernList=new ArrayList<OthersInfomation>();
-        OthersInfomation othersInfomation1=new OthersInfomation(2,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492101116270_1?Expires=1807461113&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=6RGGw112mdxa4QdT534b%2F0ul6vQ%3D","fanfan","good day");
-        OthersInfomation othersInfomation2=new OthersInfomation(3,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492105281826_2?Expires=2122825175&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=%2B3Q2dKk8KlxgAwkEkh8yAFxQq1o%3D","nanan","bad day!");
 
-
-        OthersInfomation othersInfomation3=new OthersInfomation(1,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492101116270_1?Expires=1807461113&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=6RGGw112mdxa4QdT534b%2F0ul6vQ%3D","zhongzhao84","goodday");
-
-
-        //返回userId的关注人的列表
-        switch (userId){
-            case 1:
-                concernList.add(othersInfomation1);
-                concernList.add(othersInfomation2);
-                break;
-            case 2:
-                concernList.add(othersInfomation3);
-                concernList.add(othersInfomation2);
-                break;
-            default:
-                break;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return failReturnObject("get concerns fail");
         }
-        return successReturnObject(concernList);
-    };
+
+
+    }
 
 }
