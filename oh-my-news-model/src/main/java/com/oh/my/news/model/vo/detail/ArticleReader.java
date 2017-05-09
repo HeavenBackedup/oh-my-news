@@ -1,30 +1,28 @@
-package com.oh.my.news.model.dto;
-
-import com.oh.my.news.model.vo.detail.Artical;
-import com.oh.my.news.model.vo.detail.User;
+package com.oh.my.news.model.vo.detail;
 
 /**
  * Created by Prometheus on 2017/4/28.
  */
-public class ArticalReader {
+public class ArticleReader {//读者对文章已做的操作
     private User reader;
-    private Artical artical;
+    private Article article;
     private int score;
     private boolean report;
     private float donation;
     private boolean thumbUp;
-    private boolean colleted;
-    public ArticalReader() {
+    private boolean collected;
+
+    public ArticleReader() {
     }
 
-    public ArticalReader(User reader, Artical artical, int score, boolean report, float donation, boolean thumbUp, boolean colleted) {
+    public ArticleReader(User reader, Article article, int score, boolean report, float donation, boolean thumbUp, boolean collected) {
         this.reader = reader;
-        this.artical = artical;
+        this.article = article;
         this.score = score;
         this.report = report;
         this.donation = donation;
         this.thumbUp = thumbUp;
-        this.colleted = colleted;
+        this.collected = collected;
     }
 
     public User getReader() {
@@ -35,12 +33,12 @@ public class ArticalReader {
         this.reader = reader;
     }
 
-    public Artical getArtical() {
-        return artical;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArtical(Artical artical) {
-        this.artical = artical;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public int getScore() {
@@ -75,24 +73,24 @@ public class ArticalReader {
         this.thumbUp = thumbUp;
     }
 
-    public boolean isColleted() {
-        return colleted;
+    public boolean iscollected() {
+        return collected;
     }
 
-    public void setColleted(boolean colleted) {
-        this.colleted = colleted;
+    public void setcollected(boolean collected) {
+        this.collected = collected;
     }
 
     @Override
     public String toString() {
-        return "ArticalReader{" +
+        return "ArticleReader{" +
                 "reader=" + reader +
-                ", artical=" + artical +
+                ", article=" + article +
                 ", score=" + score +
                 ", report=" + report +
                 ", donation=" + donation +
                 ", thumbUp=" + thumbUp +
-                ", colleted=" + colleted +
+                ", collected=" + collected +
                 '}';
     }
 }

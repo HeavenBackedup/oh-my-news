@@ -7,21 +7,19 @@ import com.oh.my.news.model.po.User;
  */
 public class ArticleDetail {
     private ArticleCategoryDto articleCategoryDto;
-    private UserSnapshot userSnapshot;
     private int score;
     private boolean report;
     private float donation;
     private boolean thumbUp;
-    private boolean colleted;
+    private boolean collected;
 
-    public ArticleDetail(ArticleCategoryDto articleCategoryDto, UserSnapshot userSnapshot, int score, boolean report, float donation, boolean thumbUp, boolean colleted) {
+    public ArticleDetail(ArticleCategoryDto articleCategoryDto, int score, boolean report, float donation, boolean thumbUp, boolean collected) {
         this.articleCategoryDto = articleCategoryDto;
-        this.userSnapshot = userSnapshot;
         this.score = score;
         this.report = report;
         this.donation = donation;
         this.thumbUp = thumbUp;
-        this.colleted = colleted;
+        this.collected = collected;
     }
 
     public ArticleDetail() {
@@ -38,21 +36,18 @@ public class ArticleDetail {
         if (report != that.report) return false;
         if (Float.compare(that.donation, donation) != 0) return false;
         if (thumbUp != that.thumbUp) return false;
-        if (colleted != that.colleted) return false;
-        if (articleCategoryDto != null ? !articleCategoryDto.equals(that.articleCategoryDto) : that.articleCategoryDto != null)
-            return false;
-        return userSnapshot != null ? userSnapshot.equals(that.userSnapshot) : that.userSnapshot == null;
+        if (collected != that.collected) return false;
+        return articleCategoryDto != null ? articleCategoryDto.equals(that.articleCategoryDto) : that.articleCategoryDto == null;
     }
 
     @Override
     public int hashCode() {
         int result = articleCategoryDto != null ? articleCategoryDto.hashCode() : 0;
-        result = 31 * result + (userSnapshot != null ? userSnapshot.hashCode() : 0);
         result = 31 * result + score;
         result = 31 * result + (report ? 1 : 0);
         result = 31 * result + (donation != +0.0f ? Float.floatToIntBits(donation) : 0);
         result = 31 * result + (thumbUp ? 1 : 0);
-        result = 31 * result + (colleted ? 1 : 0);
+        result = 31 * result + (collected ? 1 : 0);
         return result;
     }
 
@@ -60,12 +55,11 @@ public class ArticleDetail {
     public String toString() {
         return "ArticleDetail{" +
                 "articleCategoryDto=" + articleCategoryDto +
-                ", userSnapshot=" + userSnapshot +
                 ", score=" + score +
                 ", report=" + report +
                 ", donation=" + donation +
                 ", thumbUp=" + thumbUp +
-                ", colleted=" + colleted +
+                ", collected=" + collected +
                 '}';
     }
 
@@ -75,14 +69,6 @@ public class ArticleDetail {
 
     public void setArticleCategoryDto(ArticleCategoryDto articleCategoryDto) {
         this.articleCategoryDto = articleCategoryDto;
-    }
-
-    public UserSnapshot getUserSnapshot() {
-        return userSnapshot;
-    }
-
-    public void setUserSnapshot(UserSnapshot userSnapshot) {
-        this.userSnapshot = userSnapshot;
     }
 
     public int getScore() {
@@ -117,11 +103,11 @@ public class ArticleDetail {
         this.thumbUp = thumbUp;
     }
 
-    public boolean isColleted() {
-        return colleted;
+    public boolean iscollected() {
+        return collected;
     }
 
-    public void setColleted(boolean colleted) {
-        this.colleted = colleted;
+    public void setcollected(boolean collected) {
+        this.collected = collected;
     }
 }

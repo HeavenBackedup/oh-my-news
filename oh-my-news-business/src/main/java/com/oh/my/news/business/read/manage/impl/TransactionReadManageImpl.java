@@ -14,24 +14,24 @@ import java.util.List;
  */
 @Service
 public class TransactionReadManageImpl implements TransactionReadManage {
-    @Autowired
+
     private TransactionReadDao transactionReadDao;
     private WalletReadDao walletReadDao;
-    @Override
+
     public List<TransactionPo> getPayevents(int userId)throws Exception{
         return  transactionReadDao.Payevents(userId);
     }
-    @Override
+
     public List<TransactionPo> getIncomeevents(int userId)throws Exception{
         return transactionReadDao.Incomeevents(userId);
     }
 
-    @Override
+
     public float getFigure(int userId)throws Exception{
         return walletReadDao.getFigure(userId);
     }
 
-    @Override
+
     public float getMaxFigure(int userId)throws Exception{
 
         return walletReadDao.getMaxFigure(userId);

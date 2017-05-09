@@ -21,7 +21,6 @@ public class ArticleWriteDaoImpl implements ArticleWriteDao {
     @Qualifier("sqlMapClientWrite")
     private SqlMapClient sqlMapClient;
 
-    @Override
     public void insertUARelReturnId(Integer userId, Integer articleId, Integer type, Float value) throws Exception {
         Map<String,Object> map = new HashedMap();
         map.put("userId",userId);
@@ -32,12 +31,14 @@ public class ArticleWriteDaoImpl implements ArticleWriteDao {
 
     }
 
-    @Override
+
+
+
     public Integer insertArticleReturnId(Article article) throws Exception {
         return (Integer) sqlMapClient.insert("article_sqlMap.insert_article", article);
     }
 
-    @Override
+
     public boolean ifOpDone(int userId, int articleId, int type) throws Exception {
         Map<String,Object> map = new HashedMap();
         map.put("userId",userId);
@@ -49,36 +50,36 @@ public class ArticleWriteDaoImpl implements ArticleWriteDao {
             return false;
         return true;
     }
-    @Override
+
     public void updateCollect(int id) throws Exception {
         sqlMapClient.update("article_sqlMap.update_collect",id);
     }
 
-    @Override
+
     public void updateMark(int id, float score) throws Exception {
         sqlMapClient.update("article_sqlMap.update_mark",id);
     }
 
-    @Override
+
     public void updateReport(int id) throws Exception {
         sqlMapClient.update("article_sqlMap.update_report",id);
     }
-    @Override
+
     public void updateThumbUp(int id) throws Exception {
         sqlMapClient.update("article_sqlMap.update_thumb_up",id);
     }
 
-    @Override
+
     public void publishArticle(Article article) throws Exception {
         sqlMapClient.update("article_sqlMap.article_publish",article);
     }
 
-    @Override
+
     public void saveArticle(Article article) throws Exception {
         sqlMapClient.update("article_sqlMap.article_save",article);
     }
 
-    @Override
+
     public void saveMedia(List<Integer> mediaIds, int articleId) throws Exception {
         if(CollectionUtils.isEmpty(mediaIds))
             return;

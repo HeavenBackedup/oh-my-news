@@ -15,14 +15,14 @@ public class WalletReadDaoImpl implements WalletReadDao {
     @Autowired
     @Qualifier(value = "sqlMapClientRead")
     private SqlMapClient sqlMapClient;
-    @Override
+
     public float getFigure(int userId) throws Exception{
 
         float figure=(Float) sqlMapClient.queryForObject("wallet_sqlMap.queryfigure_wallet_by_id",userId);
 
         return figure;
     }
-    @Override
+
     public float getMaxFigure(int userId) throws Exception{
         System.out.println(sqlMapClient);
         System.out.println(sqlMapClient.queryForObject("wallet_sqlMap.queryMaxfigure_wallet_by_id",userId));

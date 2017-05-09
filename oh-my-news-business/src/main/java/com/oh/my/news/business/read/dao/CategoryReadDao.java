@@ -1,5 +1,6 @@
 package com.oh.my.news.business.read.dao;
 
+import com.oh.my.news.model.po.Article;
 import com.oh.my.news.model.po.Category;
 
 import java.util.List;
@@ -13,5 +14,6 @@ public interface CategoryReadDao {
      * @return 返回类别列表的信息
      * @throws Exception
      */
+    Category getCategoryById(int id)throws Exception;
     List<Category> queryAllCategories() throws Exception;
 }

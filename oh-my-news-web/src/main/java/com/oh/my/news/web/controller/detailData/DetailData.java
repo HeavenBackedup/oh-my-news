@@ -10,7 +10,7 @@ import java.util.*;
  * Created by Prometheus on 2017/4/25.
  */
 public class DetailData {
-    static Artical thisArtical;
+    static Article thisArticle;
     static User thisUser;
 
     public static void main(String[] args) {
@@ -25,7 +25,8 @@ public class DetailData {
         User replier = new User(
                 1,
                 "John Doe",
-                "images/img/avatar.png"
+                "images/img/avatar.png",
+                1000
         );
 
         thisUser = replier;
@@ -33,12 +34,14 @@ public class DetailData {
         User replier1 = new User(
                 2,
                 "Andy Shen",
-                "images/img/smy.jpg"
+                "images/img/smy.jpg",
+                0
         );
         User replier2 = new User(
                 3,
                 "Sun Sun",
-                "images/img/sun.jpg"
+                "images/img/sun.jpg",
+                0
         );
 
 
@@ -118,11 +121,12 @@ public class DetailData {
     }
 
 
-    public static Artical getArtical(int articalId) {
+    public static Article getarticle(int articleId) {
         User user = new User(
                 1,
                 "John Doe",
-                "images/img/avatar.png"
+                "images/img/avatar.png",
+                0
         );
         Category category = new Category(
                 1,
@@ -137,60 +141,60 @@ public class DetailData {
         labels.add("PLUGIN");
         labels.add("BOOTSTRAP");
 
-        Artical artical1 = new Artical();
-        artical1.setId(2);
-        ArticalInfo articalInfo1 = new ArticalInfo();
-        articalInfo1.setTopic("Clean - Responsive HTML5 Template");
-        artical1.setArticalInfo(articalInfo1);
-        Artical artical2 = new Artical();
-        artical2.setId(3);
-        ArticalInfo articalInfo2 = new ArticalInfo();
-        articalInfo2.setTopic("Responsive Pricing Table");
-        artical2.setArticalInfo(articalInfo2);
-        Artical artical3 = new Artical();
-        artical3.setId(4);
-        ArticalInfo articalInfo3 = new ArticalInfo();
-        articalInfo3.setTopic("Yellow HTML5 Template");
-        artical3.setArticalInfo(articalInfo3);
-        Artical artical4 = new Artical();
-        artical4.setId(5);
-        ArticalInfo articalInfo4 = new ArticalInfo();
-        articalInfo4.setTopic("Blackor Responsive Theme");
-        artical4.setArticalInfo(articalInfo4);
-        Artical artical5 = new Artical();
-        artical5.setId(6);
-        ArticalInfo articalInfo5 = new ArticalInfo();
-        articalInfo5.setTopic("Blackor Responsive Theme");
-        artical5.setArticalInfo(articalInfo5);
-        Artical artical6 = new Artical();
-        artical6.setId(7);
-        ArticalInfo articalInfo6 = new ArticalInfo();
-        articalInfo6.setTopic("Portfolio Bootstrap Template");
-        artical6.setArticalInfo(articalInfo6);
-        Artical artical7 = new Artical();
-        artical7.setId(8);
-        ArticalInfo articalInfo7 = new ArticalInfo();
-        articalInfo7.setTopic("Clean Slider Template");
-        artical7.setArticalInfo(articalInfo7);
-        Artical artical8 = new Artical();
-        artical8.setId(9);
-        ArticalInfo articalInfo8 = new ArticalInfo();
-        articalInfo8.setTopic("Clean - Responsive HTML5 Template");
-        artical8.setArticalInfo(articalInfo8);
+        Article article1 = new Article();
+        article1.setId(2);
+        ArticleInfo articleInfo1 = new ArticleInfo();
+        articleInfo1.setTopic("Clean - Responsive HTML5 Template");
+        article1.setArticleInfo(articleInfo1);
+        Article article2 = new Article();
+        article2.setId(3);
+        ArticleInfo articleInfo2 = new ArticleInfo();
+        articleInfo2.setTopic("Responsive Pricing Table");
+        article2.setArticleInfo(articleInfo2);
+        Article article3 = new Article();
+        article3.setId(4);
+        ArticleInfo articleInfo3 = new ArticleInfo();
+        articleInfo3.setTopic("Yellow HTML5 Template");
+        article3.setArticleInfo(articleInfo3);
+        Article article4 = new Article();
+        article4.setId(5);
+        ArticleInfo articleInfo4 = new ArticleInfo();
+        articleInfo4.setTopic("Blackor Responsive Theme");
+        article4.setArticleInfo(articleInfo4);
+        Article article5 = new Article();
+        article5.setId(6);
+        ArticleInfo articleInfo5 = new ArticleInfo();
+        articleInfo5.setTopic("Blackor Responsive Theme");
+        article5.setArticleInfo(articleInfo5);
+        Article article6 = new Article();
+        article6.setId(7);
+        ArticleInfo articleInfo6 = new ArticleInfo();
+        articleInfo6.setTopic("Portfolio Bootstrap Template");
+        article6.setArticleInfo(articleInfo6);
+        Article article7 = new Article();
+        article7.setId(8);
+        ArticleInfo articleInfo7 = new ArticleInfo();
+        articleInfo7.setTopic("Clean Slider Template");
+        article7.setArticleInfo(articleInfo7);
+        Article article8 = new Article();
+        article8.setId(9);
+        ArticleInfo articleInfo8 = new ArticleInfo();
+        articleInfo8.setTopic("Clean - Responsive HTML5 Template");
+        article8.setArticleInfo(articleInfo8);
 
-        List<Artical> authorPost = new ArrayList<Artical>();
-        authorPost.add(artical1);
-        authorPost.add(artical2);
-        authorPost.add(artical3);
-        authorPost.add(artical4);
-        List<Artical> relatedPost = new ArrayList<Artical>();
-        relatedPost.add(artical5);
-        relatedPost.add(artical6);
-        relatedPost.add(artical7);
-        relatedPost.add(artical8);
+        List<Article> authorPost = new ArrayList<Article>();
+        authorPost.add(article1);
+        authorPost.add(article2);
+        authorPost.add(article3);
+        authorPost.add(article4);
+        List<Article> relatedPost = new ArrayList<Article>();
+        relatedPost.add(article5);
+        relatedPost.add(article6);
+        relatedPost.add(article7);
+        relatedPost.add(article8);
 
 
-        ArticalInfo articalInfo = new ArticalInfo(
+        ArticleInfo articleInfo = new ArticleInfo(
                 1,
                 "模板文章",
                 "<p><img src=\"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492101116270_1?Expires=1807461113&amp;OSSAccessKeyId=LTAImvg3z9iZRy2n&amp;Signature=6RGGw112mdxa4QdT534b%2F0ul6vQ%3D\" style=\"width: 25%;float: left;\"/>\u200B</p><p style=\"font-size: 16px;text-align: justify;\">新华社北京4月14日电 国家主席习近平14日在人民大会堂会见圣多美和普林西比总理特罗瓦达。</p><p style=\"font-size: 16px;text-align: justify;\">习近平指出，中圣普关系揭开了新的一页，圣普重回中非友好合作大家庭，顺应了当今时代潮流。中方高度赞赏总理先生为实现中圣普关系正常化作出的重要贡献，愿同圣普方一道，共同推进两国各领域友好互利合作，推动构建平等互信、合作共赢的全面合作伙伴关系。</p><p style=\"font-size: 16px;text-align: justify;\">习近平强调，双方要深化政治互信，密切两国政府、立法机构、政党等各领域交流与合作，在涉及彼此核心利益和重大关切问题上相互理解和支持。双方要拓展务实合作。中方愿优先支持圣普完善国家全面发展规划，着力开展旅游业、渔业、农业三大领域互利合作，帮助圣普构筑基础设施建设、人力资源开发和安全能力建设三大支柱保障，实现自主可持续发展。双方要积极开展教育、文化、医疗卫生、智库、媒体、青年、妇女等人文领域交流合作，不断增进两国人民之间相互了解和友谊，巩固两国友好民意和社会基础。中方愿同圣普方在打击海盗和跨国有组织犯罪等安全领域开展交流合作，就联合国2030年可持续发展议程、气候变化、非洲和平与发展等国际和地区问题加强沟通和协调。</p><p style=\"font-size: 16px;text-align: justify;\"><br/></p><p style=\"font-size: 16px;text-align: justify;\"><img src=\"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492105228958_1?Expires=2122825175&amp;OSSAccessKeyId=LTAImvg3z9iZRy2n&amp;Signature=3gA%2BJohAw18jKqhHSCoyhgMj9MQ%3D\" style=\"width: 25%;float: right;\"/>\u200B</p><p style=\"font-size: 16px;text-align: justify;\">习近平指出，我提出发展中非关系要秉持真实亲诚的政策理念和正确义利观，其核心要义就是把中国发展同助力非洲发展紧密结合起来，实现互利共赢。中方愿支持非洲致力于联合自强和发展振兴，实现自主可持续发展，携手推进构建中非命运共同体和利益共同体。</p><p style=\"font-size: 16px;text-align: justify;\">特罗瓦达表示，圣普人民同中国人民的友谊源远流长。圣普人民从来没有忘记中国人民给予的帮助和支持。与中国复交在圣普受到广泛支持。圣普政府坚定奉行一个中国政策，高度赞赏中国真实亲诚的对非政策，愿本着互尊互信的精神，增进同中方高层交往，加强经贸、基础设施、旅游、安全等领域合作，深化非洲同中国的传统友谊，密切在国际事务中相互支持。</p><p style=\"font-size: 16px;text-align: justify;\">国务委员杨洁篪等参加会见。</p>",
@@ -204,29 +208,29 @@ public class DetailData {
                 1.5f
         );
 
-        Artical artical = new Artical(
+        Article article = new Article(
                 1,
-                articalInfo,
+                articleInfo,
                 user,
                 category
         );
 
-        thisArtical = artical;
+        thisArticle = article;
 
-        return artical;
+        return article;
     }
 
-    public static ArticalReader getArticalReader(int articalId) {
-        ArticalReader articalReader = new ArticalReader(
+    public static ArticleReader getarticleReader(int articleId) {
+        ArticleReader articleReader = new ArticleReader(
                 thisUser,
-                thisArtical,
+                thisArticle,
                 3,
                 false,
                 0,
                 false,
                 false
         );
-        return articalReader;
+        return articleReader;
     }
 
 

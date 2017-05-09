@@ -5,19 +5,20 @@ package com.oh.my.news.model.vo.detail;
  */
 public class UserSubmitInfo {/////用户是否已打赏、已收藏等信息
     private User user;
-    private boolean colleted;
+    private boolean collected;
     private boolean thumbUp;
     private float donation;
     private boolean report;
     private int score;
     private SubmitComment submitComment;
+    private int readnum;//浏览次数，没登陆时userid是-1，需要加锁控制readnum变化
 
     public UserSubmitInfo() {
     }
 
-    public UserSubmitInfo(User user, boolean colleted, boolean thumbUp, float donation, boolean report, int score, SubmitComment submitComment) {
+    public UserSubmitInfo(User user, boolean collected, boolean thumbUp, float donation, boolean report, int score, SubmitComment submitComment) {
         this.user = user;
-        this.colleted = colleted;
+        this.collected = collected;
         this.thumbUp = thumbUp;
         this.donation = donation;
         this.report = report;
@@ -33,12 +34,12 @@ public class UserSubmitInfo {/////用户是否已打赏、已收藏等信息
         this.user = user;
     }
 
-    public boolean isColleted() {
-        return colleted;
+    public boolean iscollected() {
+        return collected;
     }
 
-    public void setColleted(boolean colleted) {
-        this.colleted = colleted;
+    public void setcollected(boolean collected) {
+        this.collected = collected;
     }
 
     public boolean isThumbUp() {
@@ -85,7 +86,7 @@ public class UserSubmitInfo {/////用户是否已打赏、已收藏等信息
     public String toString() {
         return "UserSubmitInfo{" +
                 "user=" + user +
-                ", colleted=" + colleted +
+                ", collected=" + collected +
                 ", thumbUp=" + thumbUp +
                 ", donation=" + donation +
                 ", report=" + report +

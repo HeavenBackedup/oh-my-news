@@ -7,18 +7,18 @@ public class SubmitComment {//    这是用户提交的评论
     private int id;
     private User replier;
     private Comment formerComment;
-    private int articalId;
+    private int articleId;
     //    private User formerReplier;
     private String date;
     private String content;
 
 
 
-    public SubmitComment(int id, User replier, Comment formerComment, int articalId, String date, String content) {
+    public SubmitComment(int id, User replier, Comment formerComment, int articleId, String date, String content) {
         this.id = id;
         this.replier = replier;
         this.formerComment = formerComment;
-        this.articalId = articalId;
+        this.articleId = articleId;
         this.date = date;
         this.content = content;
     }
@@ -47,12 +47,12 @@ public class SubmitComment {//    这是用户提交的评论
         this.formerComment = formerComment;
     }
 
-    public int getArticalId() {
-        return articalId;
+    public int getarticleId() {
+        return articleId;
     }
 
-    public void setArticalId(int articalId) {
-        this.articalId = articalId;
+    public void setarticleId(int articleId) {
+        this.articleId = articleId;
     }
 
     public String getDate() {
@@ -77,7 +77,7 @@ public class SubmitComment {//    这是用户提交的评论
                 "id=" + id +
                 ", replier=" + replier +
                 ", formerComment=" + formerComment +
-                ", articalId=" + articalId +
+                ", articleId=" + articleId +
                 ", date='" + date + '\'' +
                 ", content='" + content + '\'' +
                 '}';

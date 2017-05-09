@@ -4,6 +4,7 @@ import com.oh.my.news.model.po.Article;
 import com.oh.my.news.model.po.Category;
 import com.oh.my.news.model.po.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,15 +13,15 @@ import java.util.List;
 public class ArticleDto{
     private Pagination pagination;
     private List<ArticleCategoryDto> article;
-    private UserSnapshot userSnapshot;
 
 
-    public ArticleDto(Pagination pagination, List<ArticleCategoryDto> article, UserSnapshot userSnapshot) {
+    public ArticleDto(Pagination pagination, List<ArticleCategoryDto> article) {
         this.pagination = pagination;
         this.article = article;
-        this.userSnapshot = userSnapshot;
     }
+
     public ArticleDto() {
+        this.article = new ArrayList<ArticleCategoryDto>();
     }
 
     @Override
@@ -28,7 +29,6 @@ public class ArticleDto{
         return "ArticleDto{" +
                 "pagination=" + pagination +
                 ", article=" + article +
-                ", userSnapshot=" + userSnapshot +
                 '}';
     }
 
@@ -40,15 +40,13 @@ public class ArticleDto{
         ArticleDto that = (ArticleDto) o;
 
         if (pagination != null ? !pagination.equals(that.pagination) : that.pagination != null) return false;
-        if (article != null ? !article.equals(that.article) : that.article != null) return false;
-        return userSnapshot != null ? userSnapshot.equals(that.userSnapshot) : that.userSnapshot == null;
+        return article != null ? article.equals(that.article) : that.article == null;
     }
 
     @Override
     public int hashCode() {
         int result = pagination != null ? pagination.hashCode() : 0;
         result = 31 * result + (article != null ? article.hashCode() : 0);
-        result = 31 * result + (userSnapshot != null ? userSnapshot.hashCode() : 0);
         return result;
     }
 
@@ -68,11 +66,4 @@ public class ArticleDto{
         this.article = article;
     }
 
-    public UserSnapshot getUserSnapshot() {
-        return userSnapshot;
-    }
-
-    public void setUserSnapshot(UserSnapshot userSnapshot) {
-        this.userSnapshot = userSnapshot;
-    }
 }

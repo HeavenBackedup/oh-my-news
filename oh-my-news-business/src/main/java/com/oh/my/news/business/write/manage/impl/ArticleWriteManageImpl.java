@@ -28,8 +28,8 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
     private ArticleReadDao articleReadDao;
     @Autowired
     private ArticleWriteDao articleWriteDao;
-    @Autowired
-    private SearchContentApi searchContentApi;
+//    @Autowired
+//    private SearchContentApi searchContentApi;
     @Autowired
     private UserReadDao userReadDao;
     @Autowired
@@ -81,18 +81,18 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
         searchContent.setAuthor(userSnapshot.getNickname());
         searchContent.setContent(editContentWrite.getContentSnapshot());
         searchContent.setTopic(editContentWrite.getTopic());
-        if(editContentWrite.getId()<=0){
-            article.setIsPublished(1);
-             int id= articleWriteDao.insertArticleReturnId(article);
-             articleWriteDao.saveMedia(editContentWrite.getMediaIds(),id);
-            searchContent.setId(id);
-            searchContentApi.insert(searchContent);
-        }else {
-            articleWriteDao.publishArticle(article);
-            articleWriteDao.saveMedia(editContentWrite.getMediaIds(),editContentWrite.getId());
-            searchContent.setId(editContentWrite.getId());
-            searchContentApi.insert(searchContent);
-        }
+//        if(editContentWrite.getId()<=0){
+//            article.setIsPublished(1);
+//             int id= articleWriteDao.insertArticleReturnId(article);
+//             articleWriteDao.saveMedia(editContentWrite.getMediaIds(),id);
+//            searchContent.setId(id);
+//            searchContentApi.insert(searchContent);
+//        }else {
+//            articleWriteDao.publishArticle(article);
+//            articleWriteDao.saveMedia(editContentWrite.getMediaIds(),editContentWrite.getId());
+//            searchContent.setId(editContentWrite.getId());
+//            searchContentApi.insert(searchContent);
+//        }
 
     }
 

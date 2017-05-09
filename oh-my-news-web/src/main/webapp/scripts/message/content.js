@@ -11,6 +11,9 @@ app.factory('content',function () {
     content.setId = function (id) {
         c_id = id;
     };
+    content.getArticalId = function () {
+        return c_id;
+    };
     content.setTopic = function (topic) {
         c_topic = topic;
     };

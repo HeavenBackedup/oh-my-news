@@ -14,11 +14,17 @@
                     <div class="body">
                         <h1 ng-bind-template="{{topic}}"></h1>
                         <div class="meta">
-                            <i class="fa fa-user"></i> {{author}} <i class="fa fa-calendar"></i>{{articalTime}}<i
-                                class="fa fa-comments"></i><span class="data"><a ng-click="goto('comments')">{{commentNum}} Comments</a></span>
-                            <i class="fa fa-eye"></i><span class="data">{{readed}} Readed</span>
-                            <i class="fa fa-thumbs-o-up"></i><span class="data">{{thumbupNum}} Thumbs Up</span>
-                            <i class="fa fa-trophy"></i><span class="data">评分：{{articalScore}}</span>
+
+                            <a ng-click="goto('comments')"><i class="fa fa-user"></i>{{author}}</a>
+
+                            <span class="data"><i class="fa fa-calendar"></i>{{articleTime}}</span>
+
+                            <span class="data"><i class="fa fa-comments"></i><a ng-click="goto('comments')">{{commentNum}} Comments</a></span>
+
+                            <span class="data"><i class="fa fa-eye"></i>{{readed}} Readed</span>
+
+                            <span class="data"><i class="fa fa-thumbs-o-up"></i>{{thumbupNum}} Thumbs Up</span>
+                            <span class="data"><i class="fa fa-trophy"></i>评分：{{articleScore}}</span>
                         </div>
 
                         <div ng-bind-html="htmlContent">
@@ -33,14 +39,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h3>Share on</h3>
-                                <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
                                 <a href="#"><i class="fa fa-google"></i></a>
                             </div>
                             <div class="col-md-6">
                                 <h3>-</h3>
-                                <a ng-click="submit(6,true)"><i class="fa fa-bookmark"></i></a><a ng-click="submit(5,true)"><i
-                                    class="fa fa-thumbs-up"></i></a><a ng-click="openModal()" data-toggle="modal"><i class="fa fa-cny"></i></a><a
-                                    ng-click="submit(3,true)"><i>举报</i></a>
+                                <a ng-click="submit(6,true)"><i class="fa fa-bookmark"></i></a>
+                                <a ng-click="submit(5,true)"><i class="fa fa-thumbs-up"></i></a>
+                                <a ng-click="openModal()" data-toggle="modal"><i class="fa fa-cny"></i></a>
+                                <a ng-click="submit(3,true)"><i>举报</i></a>
                             </div>
                         </div>
                     </form>
@@ -178,7 +186,7 @@
                     </header>
                     <div class="body">
                         <ul class="clean-list">
-                            <li ng-repeat="AU in authorPost"><a href="">{{AU.articalInfo.topic}}</a></li>
+                            <li ng-repeat="AU in authorPost"><a href="">{{AU.articleInfo.topic}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -189,7 +197,7 @@
                     </header>
                     <div class="body">
                         <ul class="clean-list">
-                            <li ng-repeat="RE in relatedPost"><a href="">{{RE.articalInfo.topic}}</a></li>
+                            <li ng-repeat="RE in relatedPost"><a href="">{{RE.articleInfo.topic}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -230,7 +238,10 @@
             <div class="modal-body">
                 <form action="" autocomplete="on">
                     总余额: ￥{{totalMoney.toFixed(2)}}<br>
+                    已打赏: ￥{{donated.toFixed(2)}}<br>
                     打赏金额: <input type="number" name="lname" ng-model="reward" ng-change="(reward = (reward>totalMoney?totalMoney:(reward<0?0:reward)))"><br>
+                    打赏留言: <input type="text" name="lname" ng-model="rewardmessage"><br>
+
                     <!--<input type="submit">-->
                 </form>
             </div>

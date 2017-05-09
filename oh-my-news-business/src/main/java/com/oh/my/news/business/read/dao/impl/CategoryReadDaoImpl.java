@@ -18,6 +18,10 @@ public class CategoryReadDaoImpl implements CategoryReadDao {
     @Qualifier(value = "sqlMapClientRead")
     private SqlMapClient sqlMapClient;
 
+    public Category getCategoryById(int id)throws Exception{
+        return (Category)sqlMapClient.queryForObject("category_sqlMap.query_category",id);
+    }
+
     public List<Category> queryAllCategories() throws Exception{
         return (List<Category>) sqlMapClient.queryForList("category_sqlMap.query_all_categories");
     }

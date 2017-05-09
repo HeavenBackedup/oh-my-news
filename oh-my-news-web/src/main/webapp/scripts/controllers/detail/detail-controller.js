@@ -10,7 +10,7 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
 
         // $scope.topic = undefined;
         // $scope.htmlContent = undefined;
-        $scope.articalId = 1;
+        $scope.articleId = 1;
         $scope.category = undefined;
         $scope.author = undefined;
         $scope.authorPost = undefined;
@@ -18,13 +18,11 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         $scope.labels = undefined;
 
 
-        $scope.thumbupNum = 100;
-        $scope.readed = 1000;
-        $scope.articalTime = "23 Agustus 2017";
-        $scope.commentNum = 3;
-        $scope.articalScore = 1.5;
-
-        $scope.articalRequest();
+        $scope.thumbupNum = 0;
+        $scope.readed = 0;
+        $scope.articleTime = "";
+        $scope.commentNum = 0;
+        $scope.articleScore = 0;
 
         $scope.submitInfo = {};
         $scope.submitInfo.comment ={};
@@ -34,10 +32,12 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
 
         $scope.pagination = {};
         $scope.totalMoney = 1000.00;
+        $scope.donated = 0.00;
         $scope.reward = 0.00;
+        $scope.rewardmessage = "";
 
         $scope.collected = false;
-        $scope.score = undefined;
+        $scope.score = -1;
         $scope.thumbup = false;
         $scope.report = false;
 
@@ -45,9 +45,12 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         $scope.pagination.totalItems = 200;
         $scope.pagination.currentPage = 1;
         $scope.pagination.maxSize = 10;
+        $scope.articleId = content.getArticalId();
+        $scope.articleRequest();
         $scope.pageChange();
         var now = getNowFormatDate();
         console.info("info: "+now);
+        $scope.submit(7,$scope.readed+1);
     }
 
     function getNowFormatDate() {
@@ -95,14 +98,16 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             str = str.substring($scope.submitInfoCommentContentHeader.length);
             console.info("info: "+str);
             param.submitInfo.comment.content = str;
-            param.submitInfo.comment.formerComment = data;
+            param.submitInfo.comment.formerCommentId = data.id;
             param.submitInfo.comment.date = getNowFormatDate();
-            param.submitInfo.comment.articalId = $scope.articalId;
+            param.submitInfo.comment.articleId = $scope.articleId;
             param.type = 1;
             $scope.formerComment = {};
             $scope.submitInfo.comment.content = "";
         }else if (type == 2){
-            var radios = document.getElementsByName("radio");
+            var radios = document.getElementsByName("score");//getElementsByName
+            var radio;
+            console.info("info: radios.length："+radios.length);
             for (var i=0; i<radios.length; i++) {
                 radio = radios[i];
                 if (radio.checked === true) {
@@ -114,14 +119,18 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             param.submitInfo.report = data;
             param.type = 3;
         }else if (type == 4){
+            $scope.closeModal();
             param.submitInfo.donation = data;
             param.type = 4;
         }else if (type == 5){
             param.submitInfo.thumbUp = data;
             param.type = 5;
         }else if (type == 6){
-            param.submitInfo.colleted = data;
+            param.submitInfo.collected = data;
             param.type = 6;
+        }else if (type == 7){
+            param.submitInfo.readed = data;
+            param.type = 7;
         }
 
         detailService.submit(param,function (data) {
@@ -133,24 +142,32 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
 
 
     // 请求文章
-    $scope.articalRequest = function () {
+    $scope.articleRequest = function () {
         var param = {};
-        param.articalId = $scope.articalId;
+        if($scope.articleId ==-1){
+            $state.go('main');
+        }
+        param.articleId = $scope.articleId;
 
-        detailService.articalRequest(param,function (data) {
-            $scope.category = data.artical.category.catName;
-            $scope.author = data.artical.user.name;
 
-            $scope.topic = data.artical.articalInfo.catName;
-            $scope.htmlContent = data.artical.articalInfo.htmlContent;
-            $scope.thumbupNum = data.artical.articalInfo.thumbupNum;
-            $scope.readed = data.artical.articalInfo.readed;
-            $scope.articalTime = data.artical.articalInfo.articalTime;
-            $scope.commentNum = data.artical.articalInfo.commentNum;
-            $scope.articalScore = data.artical.articalInfo.articalScore;
-            $scope.labels = data.artical.articalInfo.labels;
-            $scope.authorPost = data.artical.articalInfo.authorPost;
-            $scope.relatedPost = data.artical.articalInfo.relatedPost;
+        detailService.articleRequest(param,function (data) {
+            $scope.category = data.article.category.catName;
+            $scope.author = data.article.user.name;
+
+            $scope.topic = data.article.articleInfo.catName;
+            $scope.htmlContent = data.article.articleInfo.htmlContent;
+            $scope.thumbupNum = data.article.articleInfo.thumbupNum;
+            $scope.readed = data.article.articleInfo.readed;
+            $scope.articleTime = data.article.articleInfo.articleTime;
+            $scope.commentNum = data.article.articleInfo.commentNum;
+            $scope.articleScore = data.article.articleInfo.articleScore;
+            $scope.labels = data.article.articleInfo.labels;
+            $scope.authorPost = data.article.articleInfo.authorPost;
+            $scope.relatedPost = data.article.articleInfo.relatedPost;
+
+
+            $scope.totalMoney = data.articleReader.reader.totalMoney;
+            $scope.donated = data.articleReader.donation;
 
             console.info("info: "+angular.toJson(data));
         },function (data) {
@@ -180,6 +197,11 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         },function (data) {
             console.info("error: "+data);
         });
+    }
+
+
+    $scope.goPage = function (state) {
+        $state.go(state);
     };
 
 
@@ -204,8 +226,5 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
     $scope.closeModal = function () {
         $('#myModal').modal('hide');
     };
-
-
-
 
 }]);

@@ -5,24 +5,24 @@ import java.util.List;
 /**
  * Created by Prometheus on 2017/4/25.
  */
-public class ArticalInfo {//文章的属性信息
+public class ArticleInfo {//文章的属性信息
     private int id;
     private String topic;
     private String htmlContent;
     private List<String> labels;
-    private List<Artical> authorPost;
-    private List<Artical> relatedPost;
+    private List<Article> authorPost;
+    private List<Article> relatedPost;
     private int thumbupNum;
     private int readed;
-    private String articalTime;
+    private String articleTime;
     private int commentNum;
-    private float articalScore;
+    private float articleScore;
 
-    public ArticalInfo() {
+    public ArticleInfo() {
         super();
     }
 
-    public ArticalInfo(int id, String topic, String htmlContent, List<String> labels, List<Artical> authorPost, List<Artical> relatedPost, int thumbupNum, int readed, String articalTime, int commentNum, float articalScore) {
+    public ArticleInfo(int id, String topic, String htmlContent, List<String> labels, List<Article> authorPost, List<Article> relatedPost, int thumbupNum, int readed, String articleTime, int commentNum, float articleScore) {
         this.id = id;
         this.topic = topic;
         this.htmlContent = htmlContent;
@@ -31,9 +31,9 @@ public class ArticalInfo {//文章的属性信息
         this.relatedPost = relatedPost;
         this.thumbupNum = thumbupNum;
         this.readed = readed;
-        this.articalTime = articalTime;
+        this.articleTime = articleTime;
         this.commentNum = commentNum;
-        this.articalScore = articalScore;
+        this.articleScore = articleScore;
     }
 
     public int getId() {
@@ -68,19 +68,19 @@ public class ArticalInfo {//文章的属性信息
         this.labels = labels;
     }
 
-    public List<Artical> getAuthorPost() {
+    public List<Article> getAuthorPost() {
         return authorPost;
     }
 
-    public void setAuthorPost(List<Artical> authorPost) {
+    public void setAuthorPost(List<Article> authorPost) {
         this.authorPost = authorPost;
     }
 
-    public List<Artical> getRelatedPost() {
+    public List<Article> getRelatedPost() {
         return relatedPost;
     }
 
-    public void setRelatedPost(List<Artical> relatedPost) {
+    public void setRelatedPost(List<Article> relatedPost) {
         this.relatedPost = relatedPost;
     }
 
@@ -100,12 +100,12 @@ public class ArticalInfo {//文章的属性信息
         this.readed = readed;
     }
 
-    public String getArticalTime() {
-        return articalTime;
+    public String getarticleTime() {
+        return articleTime;
     }
 
-    public void setArticalTime(String articalTime) {
-        this.articalTime = articalTime;
+    public void setarticleTime(String articleTime) {
+        this.articleTime = articleTime;
     }
 
     public int getCommentNum() {
@@ -116,17 +116,17 @@ public class ArticalInfo {//文章的属性信息
         this.commentNum = commentNum;
     }
 
-    public float getArticalScore() {
-        return articalScore;
+    public float getarticleScore() {
+        return articleScore;
     }
 
-    public void setArticalScore(float articalScore) {
-        this.articalScore = articalScore;
+    public void setarticleScore(float articleScore) {
+        this.articleScore = articleScore;
     }
 
     @Override
     public String toString() {
-        return "ArticalInfo{" +
+        return "ArticleInfo{" +
                 "id=" + id +
                 ", topic='" + topic + '\'' +
                 ", htmlContent='" + htmlContent + '\'' +
@@ -135,9 +135,9 @@ public class ArticalInfo {//文章的属性信息
                 ", relatedPost=" + relatedPost +
                 ", thumbupNum=" + thumbupNum +
                 ", readed=" + readed +
-                ", articalTime='" + articalTime + '\'' +
+                ", articleTime='" + articleTime + '\'' +
                 ", commentNum=" + commentNum +
-                ", articalScore=" + articalScore +
+                ", articleScore=" + articleScore +
                 '}';
     }
 }

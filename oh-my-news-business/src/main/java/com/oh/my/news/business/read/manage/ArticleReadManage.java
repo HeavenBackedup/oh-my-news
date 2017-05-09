@@ -1,9 +1,7 @@
 package com.oh.my.news.business.read.manage;
 
-import com.oh.my.news.model.dto.ArticalReader;
 import com.oh.my.news.model.dto.ArticleDetail;
 import com.oh.my.news.model.dto.ArticleDto;
-import java.util.List;
 
 /**
  * Created by shj on 2017/5/1.
@@ -56,7 +54,7 @@ public interface ArticleReadManage {
      * @return 根据关键词搜索的文章列表
      * @throws Exception
      */
-    List<ArticleDto> search(String text,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto search(String text,int currentPage,int pageItemNum)throws Exception;
 
 
 
