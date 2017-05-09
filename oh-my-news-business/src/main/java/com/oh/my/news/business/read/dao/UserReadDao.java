@@ -1,6 +1,7 @@
 package com.oh.my.news.business.read.dao;
 
 import com.oh.my.news.model.dto.UserDto;
+import com.oh.my.news.model.dto.UserSnapshot;
 import com.oh.my.news.model.po.User;
 
 /**
@@ -13,4 +14,5 @@ public interface UserReadDao {
     Integer queryUserbyemail(String email,String password) throws Exception;
     UserDto queryUserDetail(int userId) throws Exception;
     Integer verifyUserLimit(String username,String email) throws  Exception;
+    UserSnapshot getUserSnapshotById(int id)throws Exception;
 }
