@@ -2,13 +2,12 @@ package com.oh.my.news.business.write.manage.impl;
 
 import com.oh.my.news.business.read.dao.ArticleReadDao;
 import com.oh.my.news.business.read.dao.UserReadDao;
+import com.oh.my.news.business.read.dao.WalletReadDao;
 import com.oh.my.news.business.write.dao.ArticleWriteDao;
 import com.oh.my.news.business.write.dao.TransactionWriteDao;
+import com.oh.my.news.business.write.dao.WalletWriteDao;
 import com.oh.my.news.business.write.manage.ArticleWriteManage;
-import com.oh.my.news.model.dto.EditContentWrite;
-import com.oh.my.news.model.dto.SearchContent;
-import com.oh.my.news.model.dto.UARelTypeEnum;
-import com.oh.my.news.model.dto.UserSnapshot;
+import com.oh.my.news.model.dto.*;
 import com.oh.my.news.model.po.Article;
 import com.oh.my.news.model.vo.edit.EditContent;
 import com.oh.my.news.search.api.SearchContentApi;
@@ -33,15 +32,30 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
     private SearchContentApi searchContentApi;
     @Autowired
     private UserReadDao userReadDao;
+    @Autowired
+    private WalletWriteDao walletWriteDao;
+    @Autowired
+    private WalletReadDao walletReadDao;
     @Override
     public void collect(int userId, int articleId) throws Exception {
         articleWriteDao.insertUARelReturnId(userId,articleId,UARelTypeEnum.COLLECT.getType(),0.0f);
     }
 
     @Override
-    public void donate(int userId, int articleId, int num, String message) throws Exception {
+    public boolean donate(int userId, int articleId, int num, String message) throws Exception {
         int authorId = articleReadDao.queryUserIdById(articleId);
-        transactionWriteDao.insertTransactionByIds(userId,articleId,num,articleId,message);
+
+        synchronized (this){
+
+            float figure = walletReadDao.getFigure(userId);
+            if(figure<num)
+                return false;
+            transactionWriteDao.insertTransactionByIds(userId,articleId,num,articleId,message);
+            walletWriteDao.updateWalletFigure(userId,-num);
+            walletWriteDao.updateWalletFigure(authorId,+num);
+            return true;
+        }
+
     }
 
     @Override

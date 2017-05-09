@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/myconcern")
-public class MyConcernController extends BaseAction{
+public class MyConcernAction extends BaseAction{
 
     /*这个类返回该用户关注的人的列表*/
     @Deprecated

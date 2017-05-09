@@ -17,6 +17,9 @@ public class OthersInfomation {
         this.signature = signature;
     }
 
+    public OthersInfomation() {
+    }
+
     public int getUserId() {
         return userId;
     }

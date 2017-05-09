@@ -45,7 +45,7 @@ public interface ArticleWriteManage {
      * @throws Exception
      */
 
-    void donate(int userId,int articleId,int num,String message)throws Exception;
+    boolean donate(int userId,int articleId,int num,String message)throws Exception;
 
     /**
      * 某用户给某新闻评分
