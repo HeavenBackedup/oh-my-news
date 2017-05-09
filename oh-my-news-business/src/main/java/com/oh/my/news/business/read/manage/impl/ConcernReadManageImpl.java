@@ -4,12 +4,14 @@ import com.oh.my.news.business.read.dao.ConcernReadDao;
 import com.oh.my.news.business.read.manage.ConcernReadManage;
 import com.oh.my.news.model.dto.UserSnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Dzhaoooo on 17/5/3.
  */
+@Service
 public class ConcernReadManageImpl implements ConcernReadManage {
     @Autowired
     private ConcernReadDao concernReadDao;

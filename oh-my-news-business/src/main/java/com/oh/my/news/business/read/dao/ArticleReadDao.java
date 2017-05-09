@@ -10,5 +10,5 @@ public interface ArticleReadDao {
     Article getArticleById(int id)throws Exception;
 
 
-
+    Integer queryUserIdById(int id)throws Exception;
 }

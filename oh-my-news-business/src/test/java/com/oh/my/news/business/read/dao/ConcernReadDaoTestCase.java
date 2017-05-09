@@ -12,7 +12,8 @@ public class ConcernReadDaoTestCase extends TestCase {
     private ConcernReadDao concernReadDao;
 
     public ConcernReadDaoTestCase(){
-        System.setProperty("global.config.path","/Users/Dzhaoooo/GitProjects/env/env-dev");
+//        System.setProperty("global.config.path","/Users/Dzhaoooo/GitProjects/env/env-dev");
+        System.setProperty("global.config.path","/Users/shj/dev/env/env/env-dev");
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:oh-my-news-business/spring-service.xml");
         this.concernReadDao=(ConcernReadDao)applicationContext.getBean("concernReadDaoImpl");
     }

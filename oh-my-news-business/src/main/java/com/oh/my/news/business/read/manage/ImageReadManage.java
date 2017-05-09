@@ -23,7 +23,7 @@ public interface ImageReadManage {
      * @return  通过该文章的id返回该文章对应的图片list
      * @throws Exception
      */
-    List<Image> getImagesByArticleId(int articleId)throws Exception;
+    List<File> getImagesByArticleId(int articleId)throws Exception;
 
 
 

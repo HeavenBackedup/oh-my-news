@@ -20,7 +20,7 @@ public class ImageReadManageImpl implements ImageReadManage{
     public File getImageById(Integer id) throws Exception {
         return imageReadDao.queryImageById(id);
     }
-    public List<Image> getImagesByArticleId(int articleId) throws Exception {
-        return null;
+    public List<File> getImagesByArticleId(int articleId) throws Exception {
+        return  imageReadDao.QueryImageByArticleId(articleId);
     }
 }

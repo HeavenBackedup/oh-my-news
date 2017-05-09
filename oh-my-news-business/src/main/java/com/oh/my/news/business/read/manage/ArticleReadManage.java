@@ -17,7 +17,7 @@ public interface ArticleReadManage {
      * @return  返回历史文章列表
      * @throws Exception
      */
-    List<ArticleDto> getHistoryArticles(int userId,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto getHistoryArticles(int userId,int currentPage,int pageItemNum)throws Exception;
 
     /**
      *
@@ -27,7 +27,7 @@ public interface ArticleReadManage {
      * @return  返回收藏文章列表
      * @throws Exception
      */
-    List<ArticleDto> getCollectedArticles(int userId,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto getCollectedArticles(int userId,int currentPage,int pageItemNum)throws Exception;
 
     /**
      *
@@ -37,7 +37,7 @@ public interface ArticleReadManage {
      * @return 返回草稿箱内文章列表
      * @throws Exception
      */
-    List<ArticleDto> getDraftArticles(int userId,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto getDraftArticles(int userId,int currentPage,int pageItemNum)throws Exception;
 
     /**
      *
@@ -45,7 +45,7 @@ public interface ArticleReadManage {
      * @return 根据文章的id来返回文章的具体信息
      * @throws Exception
      */
-    ArticleDetail getArticleDetail(int articleId)throws Exception;
+    ArticleDetail getArticleDetail(int articleId,int userId)throws Exception;
 
 
     /**

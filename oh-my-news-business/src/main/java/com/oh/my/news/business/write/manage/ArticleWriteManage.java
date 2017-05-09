@@ -1,5 +1,6 @@
 package com.oh.my.news.business.write.manage;
 
+import com.oh.my.news.model.dto.EditContentWrite;
 import com.oh.my.news.model.vo.mainpage.EditContent;
 
 /**
@@ -8,17 +9,17 @@ import com.oh.my.news.model.vo.mainpage.EditContent;
 public interface ArticleWriteManage {
     /**
      *  发表该新闻
-     * @param editContent  编辑的新闻内容
+     * @param editContentWrite  编辑的新闻内容
      * @throws Exception
      */
-    void publish(EditContent editContent)throws Exception;
+    void publish(EditContentWrite editContentWrite)throws Exception;
 
     /**
      * 将新闻保存在草稿箱中
-     * @param editContent
+     * @param editContentWrite
      * @throws Exception
      */
-    void save(EditContent editContent)throws Exception;
+    void save(EditContentWrite editContentWrite)throws Exception;
 
     /**
      * 某用户对某新闻点赞

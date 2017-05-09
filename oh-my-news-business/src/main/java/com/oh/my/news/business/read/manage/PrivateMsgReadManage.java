@@ -16,6 +16,10 @@ public interface PrivateMsgReadManage {
      */
     List<PrivateMessage> getPrivateMsg(int userId)throws Exception;
 
+    List<PrivateMessage> getReadedPrivateMsg(int userId)throws Exception;
+
+    List<PrivateMessage> getUnReadedPrivateMsg(int userId)throws Exception;
+
     /**
      *
      * @param sourceUserId 登录用户的id
