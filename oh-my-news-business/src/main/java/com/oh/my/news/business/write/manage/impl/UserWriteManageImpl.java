@@ -1,6 +1,7 @@
 package com.oh.my.news.business.write.manage.impl;
 
 import com.oh.my.news.business.write.dao.UserWriteDao;
+import com.oh.my.news.business.write.dao.WalletWriteDao;
 import com.oh.my.news.business.write.manage.UserWriteManage;
 import com.oh.my.news.model.dto.UserFont;
 import com.oh.my.news.model.dto.UserFontWrite;
@@ -18,8 +19,11 @@ import org.springframework.stereotype.Service;
 public class UserWriteManageImpl implements UserWriteManage {
     @Autowired
     private UserWriteDao userWriteDao;
+    @Autowired
+    private WalletWriteDao walletWriteDao;
     public void register(UserWrite user) throws Exception {
-        userWriteDao.insertUser(user);
+        Integer id = userWriteDao.insertUser(user);
+        walletWriteDao.insertWalletByUserId(id);
     }
     public void editSignature(Integer userId, String signature) throws Exception {
         userWriteDao.insertSignature(userId,signature);
