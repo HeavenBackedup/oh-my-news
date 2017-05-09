@@ -57,6 +57,12 @@ public class UserReadManageImpl implements UserReadManage {
         userFont.setImageUrl(userDto.getImageUrl());
         userFont.setIsDelete(userDto.getIsDelete());
         userFont.setIsLimit(userDto.getIsLimit());
+        userFont.setSignature(userDto.getSignature());
         return userFont;
+    }
+
+    public Integer getUserLimit(String username, String email) throws Exception {
+
+        return userReadDao.verifyUserLimit(username,email);
     }
 }

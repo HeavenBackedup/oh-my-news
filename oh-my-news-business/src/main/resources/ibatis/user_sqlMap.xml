@@ -3,9 +3,9 @@
 <sqlMap namespace="user_sqlMap">
     <resultMap id="user_resultMap" class="com.oh.my.news.model.po.User">
         <result property="id" column="id" jdbcType="INTEGER"></result>
-        <result property="username" column="username" jdbcType="VARCHAR"></result>
-        <result property="email" column="email" jdbcType="VARCHAR"></result>
-        <result property="password" column="password" jdbcType="VARCHAR"></result>
+        <result property="username" column="username" jdbcType="VARCHER"></result>
+        <result property="email" column="email" jdbcType="VARCHER"></result>
+        <result property="password" column="password" jdbcType="VARCHER"></result>
         <result property="date" column="date" jdbcType="TIMESTAMP"></result>
         <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
         <result property="address" column="address" jdbcType="VARCHAR"></result>
@@ -13,14 +13,6 @@
         <result property="signature" column="signature" jdbcType="VARCHAR"></result>
         <result property="announcement" column="announcement" jdbcType="VARCHAR"></result>
         <result property="nickname" column="nickname" jdbcType="VARCHAR"></result>
-        <result property="isLimit" column="is_limit" jdbcType="INTEGER"></result>
-    </resultMap>
-
-    <resultMap id="user_snapshot_resultMap" class="com.oh.my.news.model.dto.UserSnapshot">
-        <result property="id" column="id" jdbcType="INTEGER"></result>
-        <result property="imageUrl" column="url" jdbcType="INTEGER"></result>
-        <result property="nickname" column="nickname" jdbcType="VARCHAR"></result>
-        <result property="signature" column="signature" jdbcType="INTEGER"></result>
     </resultMap>
     <resultMap id="user_writeMap" class="com.oh.my.news.model.po.UserWrite">
         <result property="id" column="id" jdbcType="INTEGER"></result>
@@ -73,9 +65,15 @@
     <select id="query_user_detail" parameterClass="java.lang.Integer" resultMap="user_resultMap">
         SELECT `user`.id,`user`.username,`user`.email,`user`.password,`user`.address,`user`.signature,`user`.announcement,`user`.`date`,`user`.nickname,`user`.is_delete,`user`.is_limit,media.url from `user`,media where `user`.id=#userId# and `user`.media_id=media.id and `user`.is_delete=0;
     </select>
-
-
-
-
-
+    <select id="verify_user_limit" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+        select is_limit from `user`
+        <dynamic prepend="where">
+            <isNotEmpty prepend="and" property="username">
+                username=#username#;
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="email">
+                email=#email#;
+            </isNotEmpty>
+        </dynamic>
+    </select>
 </sqlMap>

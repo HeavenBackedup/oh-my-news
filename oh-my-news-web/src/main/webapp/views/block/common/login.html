@@ -5,10 +5,11 @@
         </div>
         <div class="form-group has-feedback">
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            <input type="text " class="form-control "ng-model="usernameOremail" name="usernameOremail" id="usernameOemail" placeholder="用户名或邮箱" required>
+            <input type="text " class="form-control "ng-model="usernameOremail" name="usernameOremail" id="usernameOemail"  ng-blur="verifyInfo()" placeholder="用户名或邮箱" required>
             <span style="color:red" ng-show="myForm.usernameOremail.$dirty && myForm.usernameOremail.$invalid">
                 <span ng-show="myForm.usernameOremail.$error.required">请输入用户名或邮箱</span>
             </span>
+            <span style="color:red" ng-show="isform==false">该用户名或邮箱已经被封禁</span>
         </div>
 
         <div class="form-group has-feedback">
@@ -21,7 +22,7 @@
         </div>
 
         <button type="submit" class="btn btn-lg btn-primary btn-block"
-            ng-click="submitInfo()"    ng-disabled="myForm.usernameOremail.$invalid||myForm.pwd.$invalid">登录
+            ng-click="submitInfo()"    ng-disabled="myForm.usernameOremail.$invalid||myForm.pwd.$invalid||isform==false">登录
         </button>
         <br>
         还没有账号？<a ui-sref="register">注册</a>

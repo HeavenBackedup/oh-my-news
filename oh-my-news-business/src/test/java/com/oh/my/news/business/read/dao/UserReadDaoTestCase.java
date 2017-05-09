@@ -56,4 +56,12 @@ public class UserReadDaoTestCase extends TestCase {
             Assert.fail();
         }
     }
+    public void testVerifyUserLimit(){
+        try {
+            System.out.println(this.userReadDao.verifyUserLimit("","123456@qq.com"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }

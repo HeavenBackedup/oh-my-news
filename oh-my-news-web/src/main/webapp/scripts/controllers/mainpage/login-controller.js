@@ -7,6 +7,22 @@ app.controller('loginController',['$scope','loginService','$state','user',functi
         $scope.pwd="";
         $scope.usernameOremail="";
         $scope.userId=0;
+        $scope.isform=true;
+    }
+    $scope.verifyInfo=function () {
+        var verifyInfo={username:"",email:""};
+        var reg=new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$");
+        if(reg.test($scope.usernameOremail)){
+            verifyInfo.email=$scope.usernameOremail;
+        }else{
+            verifyInfo.username=$scope.usernameOremail;
+        }
+        loginService.verifyInfo(verifyInfo,function (data) {
+             $scope.isform=data;
+             console.info($scope.isform);
+        },function (data) {
+
+        })
     }
     $scope.submitInfo=function () {
         var userInfo={username:"",password:"",email:""};
