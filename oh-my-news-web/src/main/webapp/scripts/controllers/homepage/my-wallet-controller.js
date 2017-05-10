@@ -1,45 +1,97 @@
 
-app.controller('myWalletController',['$scope','mywalletService',function ($scope,mywalletService) {
-                $scope.init=function () {
-                    $scope.money=Number(1000.0);
-                    $scope.valuenow=0;
-                    $scope.inputrecharge="";
-                    $scope.inputwithdraw="";
+app.controller('myWalletController',['$scope','mywalletService','user',function ($scope,mywalletService,user) {
 
-                }
+    $scope.init = function () {
+            var param1={};
+            var MaxMoney;
+            $scope.userId = user.getId();
+            param1.userId=$scope.userId;
+            mywalletService.getPayevents(param1,function(data){
+                $scope.eventsout=data.Paylist
+            },function (data) {
+                console.error(data);
+            })
+            mywalletService.getIncomeevents(param1,function (data) {
+                $scope.eventsin=data.Incomelist
+            },function (data) {
+                console.error(data);
+            })
+            mywalletService.getFigure(param1,function (data) {
+                $scope.money=data.figure;
+            },function (data) {
+                console.error(data);
+            })
+            mywalletService.getMaxFigure(param1,function (data) {
+                MaxMoney=data.maxFigure
+            },function (data) {
+                console.error(data);
+            })
+            $scope.valuenow = $scope.money/MaxMoney/0.01;
+            $scope.inputrecharge = "";
+            $scope.inputwithdraw = "";
 
-                $scope.ballance=function () {
-                    var add=0.0;
-                    var minus=0.0;
-                    add=Number($scope.inputrecharge);
-                    minus=Number($scope.inputwithdraw);
-                    $scope.money=Number(1000+add-minus);
-                    $scope.valuenow=$scope.money/1000;
+        }
 
-            }
 
-                $scope.withdraw=function(){
-                    var param={};
-                    param.value=$scope.inputwithdraw;
-                    alert('get');
-                    mywalletService.getPayevents(param,function (data) {
-                        alert('dataget');
-                        console.info(angular.toJson(data));
-                        $scope.eventsout = data.myWallet;
-                    },function (data) {
+        $scope.ballance = function () {
+
+            mywalletService.getFigure(param1,function (data) {
+                $scope.money=data.figure;
+            },function (data) {
+                console.error(data);
+            })
+            mywalletService.getMaxFigure(param1,function (data) {
+                MaxMoney=data.maxFigure
+            },function (data) {
+                console.error(data);
+            })
+
+            $scope.valuenow = $scope.money/MaxMoney/0.01;
+
+        }
+
+
+
+        $scope.withdraw = function () {
+            var param = {};
+            $scope.userId = user.getId();
+            param.inputwithdraw = $scope.inputwithdraw;
+            param.userId= $scope.userId;
+            mywalletService.setWithdraw(param, function (data) {
+                  $scope.eventsout=data.Paylist;
+                 },function (data) {
                         console.error(data);
-                    })
-                }
+            })
 
-                $scope.recharge=function(){
-                    var param={};
-                    param.value=$scope.inputrecharge;
-                    mywalletService.getIncomeevents(param,function (data) {
-                        $scope.eventsin = data.myWallet;
-                    })
+            mywalletService.getPayevents(param, function (data) {
+
+                $scope.inputOutRes=data;
+            },function (data) {
+                console.error("error:  "+data);
+            })
+
+        }
+
+        $scope.recharge = function () {
+            var param = {};
+            $scope.userId = user.getId();
+            param.inputrecharge = $scope.inputrecharge;
+            param.userId= $scope.userId;
+            mywalletService.getIncomeevents(param, function (data) {
+
+                $scope.eventsin=data.Incomelist;
+            },function (data) {
+                console.error(data);
+            })
+            mywalletService.setRecharge(param, function (data) {
+
+                $scope.inputInRes=data;
+            },function (data) {
+                console.error("error:  "+data);
+            })
 
 
-                }
+        }
 
 
 

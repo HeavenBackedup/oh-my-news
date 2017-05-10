@@ -2,6 +2,7 @@ package com.oh.my.news.business.read.manage;
 
 import com.oh.my.news.model.dto.ArticleDetail;
 import com.oh.my.news.model.dto.ArticleDto;
+import com.oh.my.news.model.dto.SortType;
 
 /**
  * Created by shj on 2017/5/1.
@@ -17,6 +18,8 @@ public interface ArticleReadManage {
      */
     ArticleDto getHistoryArticles(int userId,int currentPage,int pageItemNum)throws Exception;
 
+
+    ArticleDto getHistoryArticles(int userId,int currentPage,int pageItemNum,SortType sortType)throws Exception;
     /**
      *
      * @param userId
@@ -25,7 +28,10 @@ public interface ArticleReadManage {
      * @return  返回收藏文章列表
      * @throws Exception
      */
-    ArticleDto getCollectedArticles(int userId,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto getCollectedArticles(int userId, int currentPage, int pageItemNum)throws Exception;
+
+    ArticleDto getCollectedArticles(int userId, int currentPage, int pageItemNum,SortType sortType)throws Exception;
+
 
     /**
      *

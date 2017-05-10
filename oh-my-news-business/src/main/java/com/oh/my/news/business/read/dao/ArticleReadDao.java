@@ -15,10 +15,12 @@ public interface ArticleReadDao {
     ArticleReader getArticleReaderById(Integer articleId, Integer userId)throws Exception;
 
     List<Article> getHistoryArticlesByUserId(int userId, int currentPage, int pageItemNum)throws Exception;
+    List<Article> getHistoryArticlesByUserId(int userId, int currentPage, int pageItemNum,int sortType)throws Exception;
 
     List<Article> getDraftArticlesByUserId(int userId, int currentPage, int pageItemNum)throws Exception;
 
     List<Article> getCollectedArticlesByUserId(int userId, int currentPage, int pageItemNum)throws Exception;
+    List<Article> getCollectedArticlesByUserId(int userId, int currentPage, int pageItemNum,int sortType)throws Exception;
 
     Integer getHistoryArticlesCountByUserId(int userId)throws Exception;
 

@@ -114,5 +114,27 @@ public class ArticleReadDaoImpl implements ArticleReadDao {
     public Integer getCollectedArticlesCountByUserId(int userId)throws Exception {
         return (Integer) sqlMapClient.queryForObject("article_sqlMap.query_collected_article_count",userId);
     }
+
+
+    @Override
+    public List<Article> getCollectedArticlesByUserId(int userId, int currentPage, int pageItemNum, int sortType) throws Exception {
+        Map<String,Object> map=new HashMap<String, Object>();
+//        map.put("userId",erId);
+        map.put("userId",userId);
+        map.put("pageItemNum",pageItemNum);
+        map.put("currentPage",(currentPage-1)*pageItemNum);
+        map.put("sortType",sortType);
+        return (List<Article>) sqlMapClient.queryForList("article_sqlMap.query_collected_article_sort",map);
+    }
+
+    @Override
+    public List<Article> getHistoryArticlesByUserId(int userId, int currentPage, int pageItemNum, int sortType) throws Exception {
+        Map<String,Object> map=new HashMap<String, Object>();
+        map.put("userId",userId);
+        map.put("pageItemNum",pageItemNum);
+        map.put("currentPage",(currentPage-1)*pageItemNum);
+        map.put("sortType",sortType);
+        return (List<Article>) sqlMapClient.queryForList("article_sqlMap.query_history_article_sort",map);
+    }
 }
 

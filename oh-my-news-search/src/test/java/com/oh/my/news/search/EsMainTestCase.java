@@ -158,7 +158,7 @@ public class EsMainTestCase extends TestCase {
 
     public void testQuery(){
         try {
-            System.out.println(searchContentApi.search("校长党委书记",0,10));
+            System.out.println(searchContentApi.search("测试文章",0,10));
         }catch (Exception e){
             e.printStackTrace();
             Assert.fail();

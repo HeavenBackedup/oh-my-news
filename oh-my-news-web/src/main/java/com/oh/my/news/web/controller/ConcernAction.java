@@ -41,8 +41,6 @@ public class ConcernAction extends BaseAction{
                 concernList.add(item);
             }
             return successReturnObject(concernList);
-
-
         } catch (Exception e) {
             e.printStackTrace();
             return failReturnObject("get concerns fail");
