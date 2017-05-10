@@ -28,7 +28,7 @@ public class MyWalletAction extends BaseAction{
                 int id=random.nextInt(10000);
                 Map<String,Object> map=new HashMap<String, Object>();
                 List<Wallet> list=new ArrayList<Wallet>();
-                list.add(new Wallet(rightnow.getTimeInMillis(),"提现",inputMap.get("rmb").toString(),"自己用户名和ID","",id));
+                list.add(new Wallet(rightnow.getTimeInMillis()+"","提现",inputMap.get("rmb").toString(),"自己用户名和ID","",id));
                 map.put("myWallet",list);
                 return map;
         }
@@ -42,7 +42,7 @@ public class MyWalletAction extends BaseAction{
                 int id=random.nextInt(10000);
                 Map<String,Object> map=new HashMap<String, Object>();
                 List<Wallet> list=new ArrayList<Wallet>();
-                list.add(new Wallet(rightnow.getTimeInMillis(),"充值",inputMap.get("rmb").toString(),"自己用户名和ID","",id));
+                list.add(new Wallet(rightnow.getTimeInMillis()+"","充值",inputMap.get("rmb").toString(),"自己用户名和ID","",id));
                 map.put("myWallet",list);
                 return map;
         }

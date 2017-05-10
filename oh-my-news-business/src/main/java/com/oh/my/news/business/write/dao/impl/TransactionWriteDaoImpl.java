@@ -17,7 +17,7 @@ public class TransactionWriteDaoImpl implements TransactionWriteDao {
     @Autowired
     @Qualifier(value = "sqlMapClientWrite")
     private SqlMapClient sqlMapClient;
-    @Override
+
     public  void insertTransactionByIds(Integer source_user_id,Integer target_user_id,Integer amount,Integer article_id,String message) throws Exception{
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("source_user_id",source_user_id);

@@ -18,6 +18,7 @@
 	http://www.springframework.org/schema/util/spring-util-3.1.xsd
 	  http://www.odianyun.com/schema/occ-client
       ">
+    <import resource="classpath*:oh-my-news-search/spring-service.xml"></import>
     <bean id="dcenterCommonPropertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>

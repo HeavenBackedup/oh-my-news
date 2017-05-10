@@ -1,7 +1,7 @@
 /**
  * Created by shj on 2017/4/10.
  */
-app.controller('editController',['$scope','$state','textAngularManager','commonService','user','editService','fileService','content',function ($scope,$state,textAngular,commonService,user,editService,fileService,content) {
+app.controller('editController',['$scope','$state','textAngularManager','commonService','user','editService','fileService','content','htmlParseService',function ($scope,$state,textAngular,commonService,user,editService,fileService,content,htmlParseService) {
 
     //初始化函数
     $scope.init = function () {
@@ -9,6 +9,7 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
         $scope.userId = user.getId();
         $scope.version = textAngular.getVersion();
         $scope.versionNumber = $scope.version.substring(1);
+        $scope.updatePic = [];
         $scope.orightml = '在这里编辑您的新闻...';
         $scope.htmlContent = $scope.orightml;
         $scope.disabled = false;
@@ -27,16 +28,26 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
 
     //初始化文章，判断是否是新增还是修改
     $scope.editContentInit = function () {
-        var editContent = content.getTemplate();
-        if(editContent.id == -1){
+        // var editContent = content.getTemplate();
+        var articleId = content.getEditContent().id;
+        var editContent;
+        if(articleId == -1){
             $scope.articleId = -1;
             $scope.categorySelected = $scope.categories[0];
             return;
+        }else {
+            editService.getArticle(param,function (data) {
+              editContent = data;
+              $scope.articleId = articleId;
+              $scope.topic = editContent.topic;
+              $scope.htmlContent = editContent.htmlContent;
+              $scope.labels = editContent.labels;
+              $scope.categoryId = editContent.categoryId;
+            },function (data) {
+                console.error(angular.toJson(data));
+            })
         }
-        $scope.articleId = editContent.id;
-        $scope.topic = editContent.topic;
-        $scope.htmlContent = editContent.htmlContent;
-        $scope.labels = editContent.labels;
+
         angular.forEach($scope.categories,function (item, index,array) {
             if(item.id==editContent.categoryId){
                 $scope.categorySelected = item;
@@ -127,6 +138,7 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
             }
             data.isChosen=false;
             $scope.allPics.push(data);
+            $scope.updatePic.push(data);
         },function (data) {
             console.error('error: '+angular.toJson(data));
         })
@@ -136,12 +148,19 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
 
     //点击提交上传函数，0为保存草稿箱，1为直接发布
     $scope.commit = function (index) {
+        var mediaIds = [];
+        angular.forEach($scope.updatePic,function (item,index,array) {
+            mediaIds.push(item.id);
+        });
         var param = {
+            userId : $scope.userId,
             topic: $scope.topic,
             htmlContent: $scope.htmlContent,
             labels: $scope.labels,
-            categoryId : $scope.categorySelected.id
-        }
+            categoryId : $scope.categorySelected.id,
+            htmlSnapshot: htmlParseService.parseHtml($scope.htmlContent),
+            mediaIds: mediaIds
+        };
         if(index==0){
 
             editService.commit(param,function (data) {

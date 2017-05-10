@@ -8,7 +8,7 @@ import com.oh.my.news.model.po.UserWrite;
  */
 public interface UserWriteDao {
 
-    void insertUser(UserWrite user)throws Exception;
+    Integer insertUser(UserWrite user)throws Exception;
     void insertSignature(Integer userId,String signature)throws Exception;
     void insertAnnouncement(Integer userId,String announcement)throws Exception;
     void updateUser(UserWrite user)throws Exception;

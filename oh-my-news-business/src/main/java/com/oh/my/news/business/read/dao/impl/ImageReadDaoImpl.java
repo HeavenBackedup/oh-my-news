@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import javax.xml.ws.Action;
+import java.util.List;
 
 /**
  * Created by shj on 2017/4/13.
@@ -22,5 +23,10 @@ public class ImageReadDaoImpl implements ImageReadDao{
     public File queryImageById(Integer id) throws Exception {
         return (File) sqlMapClient.queryForObject("image_sqlMap.query_image",id);
 
+    }
+
+    @Override
+    public List<File> QueryImageByArticleId(Integer articleId) throws Exception {
+        return (List<File>) sqlMapClient.queryForList("image_sqlMap.query_image_by_article_id",articleId);
     }
 }

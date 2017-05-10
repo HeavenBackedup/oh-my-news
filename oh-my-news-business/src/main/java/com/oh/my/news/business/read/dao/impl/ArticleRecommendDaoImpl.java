@@ -34,7 +34,6 @@ public class ArticleRecommendDaoImpl implements ArticleRecommendDao {
 
     public List<ArticleSnapshot> queryLastList() throws Exception {
         return (List<ArticleSnapshot>)sqlMapClient.queryForList("article_sqlMap.query_last_list");
-
     }
 
     public List<EditContent> queryRecommendByCategoryId(int categoryId, int currentPage, int pageItemNum) throws Exception {

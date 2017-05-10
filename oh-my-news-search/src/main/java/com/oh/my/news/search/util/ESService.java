@@ -106,6 +106,7 @@ public class ESService {
               .setTypes(indexType)
               .setSearchType(SearchType.DFS_QUERY_AND_FETCH)
               .setQuery(queryBuilder)
+              .setNoFields()
                .setFrom(from)
                .setSize(size)
                .setExplain(false)

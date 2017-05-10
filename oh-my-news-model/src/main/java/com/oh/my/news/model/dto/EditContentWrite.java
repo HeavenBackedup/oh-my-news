@@ -1,11 +1,11 @@
-package com.oh.my.news.model.vo.edit;
+package com.oh.my.news.model.dto;
 
 import java.util.List;
 
 /**
- * Created by shj on 2017/4/16.
+ * Created by shj on 2017/5/8.
  */
-public class EditContent {
+public class EditContentWrite {
     private int id;
     private int userId;
     private String topic;
@@ -15,8 +15,7 @@ public class EditContent {
     private String contentSnapshot;
     private List<Integer> mediaIds;
 
-
-    public EditContent(int id, int userId, String topic, String htmlContent, String labels, int categoryId, String contentSnapshot, List<Integer> mediaIds) {
+    public EditContentWrite(int id, int userId, String topic, String htmlContent, String labels, int categoryId, String contentSnapshot, List<Integer> mediaIds) {
         this.id = id;
         this.userId = userId;
         this.topic = topic;
@@ -27,12 +26,13 @@ public class EditContent {
         this.mediaIds = mediaIds;
     }
 
-    public EditContent() {
+    public EditContentWrite() {
     }
+
 
     @Override
     public String toString() {
-        return "EditContent{" +
+        return "EditContentWrite{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", topic='" + topic + '\'' +
@@ -49,7 +49,7 @@ public class EditContent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EditContent that = (EditContent) o;
+        EditContentWrite that = (EditContentWrite) o;
 
         if (id != that.id) return false;
         if (userId != that.userId) return false;

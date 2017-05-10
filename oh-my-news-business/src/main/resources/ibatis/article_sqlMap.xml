@@ -16,23 +16,172 @@
      <result property="categoryId" column="category_id" jdbcType="INTEGER"></result>
  </resultMap>
 
-
+    <sql id="limit_article_sql"  >
+        (is_limit = 0 or (is_limit = 1
+        <![CDATA[
+        and deadline < now()
+        ]]>
+        ))
+    </sql>
     <select id="query_collect_list" resultMap="articleSnapshot_resultMap">
-      select id,topic from article where is_delete=0 and is_limit=0 order by collected desc limit 10;
+      select id,topic from article where is_delete=0 and
+      <include refid="limit_article_sql"></include>
+      order by collected desc limit 10;
     </select>
 
     <select id="query_mark_list" resultMap="articleSnapshot_resultMap">
-        select id,topic from article where is_delete=0 and is_limit=0 order by mark_num desc limit 10;
+        select id,topic from article where is_delete=0 and
+         <include refid="limit_article_sql"></include>
+         order by mark_num desc limit 10;
     </select>
 
     <select id="query_last_list" resultMap="articleSnapshot_resultMap">
-        select id,topic from article where is_delete=0 and is_limit=0 order by `date` desc limit 10;
+        select id,topic from article where is_delete=0 and
+         <include refid="limit_article_sql"></include>
+         order by `date` desc limit 10;
     </select>
 
     <select id="query_all" resultMap="editContent_resultMap">
-        select article.id,username,article.date,topic,content,label,category_id from article,`user` where `user`.id=article.user_id and `user`.is_delete=0 and `user`.is_limit=0 and article.is_delete=0 and article.is_published=1 and article.is_limit=0 order by score+thumb_up+collected+mark_num desc limit #currentPage#,#pageItemNum#;
+        select article.id,username,article.date,topic,content,label,category_id from article,`user` where `user`.id=article.user_id and `user`.is_delete=0 and
+        (`user`.is_limit = 0 or (`user`.is_limit = 1
+        <![CDATA[
+        and `user`.deadline < now()
+        ]]>
+
+         and article.is_delete=0 and article.is_published=1 and
+
+        (article.is_limit = 0 or (article.is_limit = 1
+        <![CDATA[
+        and article.deadline < now()
+        ]]>
+        ))
+        order by score+thumb_up+collected+mark_num desc limit #currentPage#,#pageItemNum#;
     </select>
+
     <select id="query_by_category_id" resultMap="editContent_resultMap">
-      select article.id,`username`,article.date,topic,content,label,category_id from article,`user` where `user`.id=article.user_id and article.category_id=#categoryId# and `user`.is_delete=0 and `user`.is_limit=0 and article.is_delete=0 and article.is_published=1 and article.is_limit=0 order by score+thumb_up+collected+mark_num desc limit #currentPage#,#pageItemNum#;
+      select article.id,`username`,article.date,topic,content,label,category_id from article,`user` where `user`.id=article.user_id and article.category_id=#categoryId# and `user`.is_delete=0 and
+       (`user`.is_limit = 0 or (`user`.is_limit = 1
+        <![CDATA[
+        and `user`.deadline < now()
+        ]]>
+       and article.is_delete=0 and article.is_published=1 and
+        (article.is_limit = 0 or (article.is_limit = 1
+        <![CDATA[
+        and article.deadline < now()
+        ]]>
+        ))
+        order by score+thumb_up+collected+mark_num desc limit #currentPage#,#pageItemNum#;
     </select>
+
+    <select id="query_user_id_by_id" parameterClass="Integer" resultClass="Integer">
+        select user_id from article where id = #id#;
+    </select>
+
+    <insert id="insert_article" parameterClass="com.oh.my.news.model.po.Article" >
+        insert into article (is_delete,topic,user_id,content,label,category_id,is_published,content_snapshot,is_limit,score,thumb_up,report,donation,collected,`date`,mark_num,root_num,deadline)
+        values (0,#topic#,#userId#,#content#,#labels#,#categoryId#,#isPublished#,#contentSnapshot#,0,0,0,0,0,0,now(),0,0,null)
+        <selectKey keyProperty="id" resultClass="Integer">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+    </insert>
+    <select id="if_op_done" parameterClass="java.util.Map" resultClass="Integer">
+        select id from u_a_rel where u_a_rel.user_id = #user_id# and u_a_rel.article_id = #articleId# and u_a_rel.is_delete = 0 and u_a_rel.type = #type#;
+    </select>
+    <update id="article_publish" parameterClass="com.oh.my.news.model.po.Article">
+        update article set topic = #topic#,content=#content#,label=#labels#,category_id=#categoryId#,content_snapshot=#contentSnapshot#,`date`=now(),is_published=1 WHERE id = #id#;
+    </update>
+    <update id="article_save" parameterClass="com.oh.my.news.model.po.Article">
+        update article set topic = #topic#,content=#content#,label=#labels#,category_id=#categoryId#,content_snapshot=#contentSnapshot#,`date`=now() WHERE id = #id#;
+    </update>
+    <update id="update_mark" parameterClass="java.util.Map">
+         update article set score = score*mark_num+#value#/mark_num+1,mark_num = mark_num+1 where id = #id#;
+    </update>
+
+    <update id="update_collect">
+        update article set collected = collected +1 where id = #id#;
+    </update>
+
+    <update id="update_report">
+        update article set report = report+1 where id = #id#;
+    </update>
+
+    <update id="update_thumb_up">
+        update article set thumb_up = thumb_up+1 WHERE id = #id#;
+    </update>
+
+
+
+    <resultMap id="article_resultMap" class="com.oh.my.news.model.po.Article">
+        <result property="id" column="id" jdbcType="INTEGER"></result>
+        <result property="userId" column="user_id" jdbcType="INTEGER"></result>
+        <result property="topic" column="topic" jdbcType="VARCHAR"></result>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
+        <result property="content" column="content" jdbcType="TEXT"></result>
+
+        <result property="labels" column="label" jdbcType="VARCHAR"></result>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"></result>
+        <result property="isPublished" column="is_published" jdbcType="VARCHAR"></result>
+        <result property="contentSnapshot" column="content_snapshot" jdbcType="TEXT"></result>
+        <result property="isLimit" column="is_limit" jdbcType="INTEGER"></result>
+
+        <result property="score" column="score" jdbcType="FLOAT"></result>
+        <result property="thumbUp" column="thumb_up" jdbcType="INTEGER"></result>
+        <result property="report" column="report" jdbcType="INTEGER"></result>
+        <result property="donation" column="donation" jdbcType="DOUBLE"></result>
+        <result property="collected" column="collected" jdbcType="INTEGER"></result>
+
+        <result property="date" column="date" jdbcType="TIMESTAMP"></result>
+        <result property="mark_num" column="mark_num" jdbcType="INTEGER"></result>
+        <!--markNum 打分人数-->
+        <result property="root_num" column="root_num" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <select id="query_article"  resultMap="article_resultMap">
+        select `id`,`user_id`,`topic`,`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,`date`,`mark_num`,`root_num` from article where `id` = #id# and is_delete = 0;
+    </select>
+
+    <select id="query_history_article"  resultMap="article_resultMap">
+        select `id`,`user_id`,`topic`,`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,`date`,`mark_num`,`root_num` from article where `user_id` = #userId# and `is_published` = 1 and is_delete = 0 order by `date` desc limit #currentPage#,#pageItemNum#;
+    </select>
+
+    <select id="query_history_article_count"  resultClass="java.lang.Integer">
+        select COUNT(*) from article where `user_id` = #userId# and `is_published` = 1 and is_delete = 0;
+    </select>
+
+    <select id="query_draft_article"  resultMap="article_resultMap">
+        select `id`,`user_id`,`topic`,`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,`date`,`mark_num`,`root_num` from article where `user_id` = #userId# and `is_published` = 0 and is_delete = 0 order by `date` desc limit #currentPage#,#pageItemNum#;
+    </select>
+
+    <select id="query_draft_article_count"  resultClass="java.lang.Integer">
+        select COUNT(*) from article where `user_id` = #userId# and `is_published` = 0 and is_delete = 0;
+    </select>
+
+    <select id="query_collected_article" resultMap="article_resultMap">
+        select article.`id`,article.`user_id`,`topic`,article.`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,article.`date`,`mark_num`,`root_num` from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0 order by article.`date` desc limit #currentPage#,#pageItemNum#;
+    </select>
+
+    <!--select article.`id`,article.`user_id`,`topic`,article.`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,article.`date`,`mark_num`,`root_num` from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0 order by article.`date` desc limit #currentPage#,#pageItemNum#;-->
+
+
+    <select id="query_collected_article_count"  resultClass="java.lang.Integer">
+        select COUNT(*) from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0;
+    </select>
+
+
+
+    <resultMap id="articleReaderType_resultMap" class="com.oh.my.news.model.po.ArticleReaderType">
+        <result property="id" column="id" jdbcType="INTEGER"></result>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
+        <result property="type" column="type" jdbcType="INTEGER"></result>
+        <result property="value" column="value" jdbcType="FLOAT"></result>
+        <result property="date" column="date" jdbcType="TIMESTAMP"></result>
+        <result property="articleId" column="article_id" jdbcType="INTEGER"></result>
+        <result property="userId" column="user_id" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <select id="query_articleReaderType"  resultMap="articleReaderType_resultMap">
+        select `id`,`is_delete`,`type`,`value`,`date`,`article_id`,`user_id` from u_a_rel where `article_id` = #articleId# and `user_id` = #userId# and is_delete = 0;
+    </select>
+
+
 </sqlMap>

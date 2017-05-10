@@ -36,7 +36,5 @@ public class ConcernReadDaoImpl implements ConcernReadDao{
         map.put("followerId",followerId);
         int num=(Integer)sqlMapClient.queryForObject("concern_sqlMap.check_concern_rel_by_ids",map);
         return num==0?false:true;
-
-
     }
 }

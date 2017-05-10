@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.oh.my.news.web.controller.detailData.DetailData.getRootCommentsList;
 
 /**
  * Created by Prometheus on 2017/4/20.
@@ -26,7 +23,7 @@ import static com.oh.my.news.web.controller.detailData.DetailData.getRootComment
 public class DetailAction extends BaseAction {
 
 
-    @RequestMapping(value = "/pageReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)
+    @RequestMapping(value = "/pageReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)//请求评论
     public @ResponseBody Object pageReq(@RequestBody Map pageMap) throws IOException {
         System.out.println("smy: "+pageMap);
         int currentPage = Integer.parseInt(pageMap.get("currentPage").toString().trim());
@@ -44,18 +41,18 @@ public class DetailAction extends BaseAction {
         return successReturnObject(map);
     }
 
-    @RequestMapping(value = "/articalReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)
-    public @ResponseBody Object articalReq(@RequestBody Map articalMap) throws IOException {
+    @RequestMapping(value = "/articleReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)//请求文章
+    public @ResponseBody Object articleReq(@RequestBody Map articleMap) throws IOException {
         Map<String,Object> map = new HashMap();
-        System.out.println("smy: "+ articalMap);
-        int articalId = Integer.parseInt(articalMap.get("articalId").toString().trim());
+        System.out.println("smy: "+ articleMap);
+        int articleId = Integer.parseInt(articleMap.get("articleId").toString().trim());
 
-        Artical artical = DetailData.getArtical(articalId);
-        ArticalReader articalReader = DetailData.getArticalReader(articalId);
+        Article article = DetailData.getarticle(articleId);
+        ArticleReader articleReader = DetailData.getarticleReader(articleId);
 
-        System.out.println("smy: "+artical);
-        map.put("artical",artical);
-        map.put("articalReader",articalReader);
+        System.out.println("smy: "+ article);
+        map.put("article", article);
+        map.put("articleReader", articleReader);
 
         return successReturnObject(map);
     }

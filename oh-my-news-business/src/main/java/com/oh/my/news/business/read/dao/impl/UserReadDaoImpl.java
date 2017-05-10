@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -52,6 +53,7 @@ public class UserReadDaoImpl implements UserReadDao{
         user.setUsername(u.getUsername());
 //        System.out.println(user.getUsername());
         user.setEmail(u.getEmail());
+        user.setSignature(u.getSignature());
 //        System.out.println(user.getEmail());
         user.setAddress(u.getAddress());
         user.setAnnouncement(u.getAnnouncement());
@@ -67,12 +69,15 @@ public class UserReadDaoImpl implements UserReadDao{
         return user;
     }
 
+    public Integer verifyUserLimit(String username, String email) throws Exception {
+        Map<String,Object> map=new HashMap<String, Object>();
+        map.put("username",username);
+        map.put("email",email);
 
-    public UserSnapshot getUserSnapshotById(int id) throws Exception {
-        return (UserSnapshot)sqlMapClient.queryForObject("user_sqlMap.query_user_snapshot_by_id",id);
+        return (Integer)sqlMapClient.queryForObject("user_sqlMap.verify_user_limit",map);
     }
 
-    public User getUserById(int id) throws Exception {
-        return null;
+    public UserSnapshot getUserSnapshotById(int id) throws Exception {
+        return (UserSnapshot) sqlMapClient.queryForObject("user_sqlMap.query_user_snapshot_by_id",id);
     }
 }

@@ -7,11 +7,17 @@ public class User {////给前端显示的用户信息
     private int userId;
     private String name;
     private String userImgSrc;
+    private float totalMoney;//新加的
 
-    public User(int userId, String name, String userImgSrc) {
+
+    public User() {
+    }
+
+    public User(int userId, String name, String userImgSrc, float totalMoney) {
         this.userId = userId;
         this.name = name;
         this.userImgSrc = userImgSrc;
+        this.totalMoney = totalMoney;
     }
 
     public int getUserId() {
@@ -38,25 +44,12 @@ public class User {////给前端显示的用户信息
         this.userImgSrc = userImgSrc;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (userId != user.userId) return false;
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        return userImgSrc != null ? userImgSrc.equals(user.userImgSrc) : user.userImgSrc == null;
+    public float getTotalMoney() {
+        return totalMoney;
     }
 
-    @Override
-    public int hashCode() {
-        int result = userId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (userImgSrc != null ? userImgSrc.hashCode() : 0);
-        return result;
+    public void setTotalMoney(float totalMoney) {
+        this.totalMoney = totalMoney;
     }
 
     @Override
@@ -65,8 +58,7 @@ public class User {////给前端显示的用户信息
                 "userId=" + userId +
                 ", name='" + name + '\'' +
                 ", userImgSrc='" + userImgSrc + '\'' +
+                ", totalMoney=" + totalMoney +
                 '}';
     }
-
-
 }

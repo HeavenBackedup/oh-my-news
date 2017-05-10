@@ -12,5 +12,9 @@
         select `id`,`parent_id`,`name`,`is_delete` from category where is_delete = 0;
     </select>
 
+    <select id="query_category"  resultMap="category_resultMap">
+        select `id`,`parent_id`,`name`,`is_delete` from category where id = #id# and is_delete = 0;
+    </select>
+
 
 </sqlMap>

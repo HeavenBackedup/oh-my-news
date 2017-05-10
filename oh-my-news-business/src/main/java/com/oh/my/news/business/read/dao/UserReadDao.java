@@ -13,5 +13,6 @@ public interface UserReadDao {
     Integer queryUserbyusername(String username,String password) throws Exception;
     Integer queryUserbyemail(String email,String password) throws Exception;
     UserDto queryUserDetail(int userId) throws Exception;
+    Integer verifyUserLimit(String username,String email) throws  Exception;
     UserSnapshot getUserSnapshotById(int id)throws Exception;
 }

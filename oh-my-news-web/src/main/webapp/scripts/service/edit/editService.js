@@ -7,6 +7,7 @@ app.service('editService',['$http','routeUtil','ajaxRollback',function($http,rou
     var GET_PICS = '/edit/getPics';
     var EDIT_COMMIT = '/edit/editCommit';
     var PUBLISH = '/edit/publish';
+    var GET_ARTICLE = '/edit/getArticle';
 
     editService.getPics = function (param,success,failed,otherwise) {
         routeUtil.postUrl(GET_PICS,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
@@ -16,6 +17,9 @@ app.service('editService',['$http','routeUtil','ajaxRollback',function($http,rou
     }
     editService.publish = function (param,success,failed,otherwise) {
         routeUtil.postUrl(PUBLISH,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
+    }
+    editService.getArticle = function (param,success,failed,otherwise) {
+        routeUtil.postUrl(GET_ARTICLE,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
     }
     return editService;
 }])

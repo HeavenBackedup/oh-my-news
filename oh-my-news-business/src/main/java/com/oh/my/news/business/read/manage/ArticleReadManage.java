@@ -1,9 +1,7 @@
 package com.oh.my.news.business.read.manage;
 
-import com.oh.my.news.model.dto.ArticalReader;
 import com.oh.my.news.model.dto.ArticleDetail;
 import com.oh.my.news.model.dto.ArticleDto;
-import java.util.List;
 
 /**
  * Created by shj on 2017/5/1.
@@ -17,7 +15,7 @@ public interface ArticleReadManage {
      * @return  返回历史文章列表
      * @throws Exception
      */
-    List<ArticleDto> getHistoryArticles(int userId,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto getHistoryArticles(int userId,int currentPage,int pageItemNum)throws Exception;
 
     /**
      *
@@ -27,7 +25,7 @@ public interface ArticleReadManage {
      * @return  返回收藏文章列表
      * @throws Exception
      */
-    List<ArticleDto> getCollectedArticles(int userId,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto getCollectedArticles(int userId,int currentPage,int pageItemNum)throws Exception;
 
     /**
      *
@@ -37,7 +35,7 @@ public interface ArticleReadManage {
      * @return 返回草稿箱内文章列表
      * @throws Exception
      */
-    List<ArticleDto> getDraftArticles(int userId,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto getDraftArticles(int userId,int currentPage,int pageItemNum)throws Exception;
 
     /**
      *
@@ -45,7 +43,7 @@ public interface ArticleReadManage {
      * @return 根据文章的id来返回文章的具体信息
      * @throws Exception
      */
-    ArticleDetail getArticleDetail(int articleId)throws Exception;
+    ArticleDetail getArticleDetail(int articleId,int userId)throws Exception;
 
 
     /**
@@ -56,7 +54,7 @@ public interface ArticleReadManage {
      * @return 根据关键词搜索的文章列表
      * @throws Exception
      */
-    List<ArticleDto> search(String text,int currentPage,int pageItemNum)throws Exception;
+    ArticleDto search(String text,int currentPage,int pageItemNum)throws Exception;
 
 
 

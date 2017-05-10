@@ -25,6 +25,21 @@
 
     <!--</select>-->
 
+    <resultMap id="transaction_raw_mapResult" class="com.oh.my.news.model.po.Transaction">
+        <result property="id" column="id" jdbcType="INTEGER"></result>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
+        <result property="sourceUserId" column="source_user_id" jdbcType="INTEGER"></result>
+        <result property="targetUserId" column="target_user_id" jdbcType="INTEGER"></result>
+        <result property="articleId" column="article_id" jdbcType="INTEGER"></result>
+        <result property="date" column="date" jdbcType="DATE"></result>
+        <result property="amount" column="amount" jdbcType="FLOAT"></result>
+        <result property="message" column="message" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+    <select id="queryOut_raw_transaction_by_id" parameterClass="Integer" resultMap="transaction_raw_mapResult" >
+        select `id`,`is_delete`,`source_user_id`,`target_user_id`,`article_id`,`date`,`amount`,`message` from `transaction` where `source_user_id`=#userId#;
+    </select>
+
 
 
 </sqlMap>

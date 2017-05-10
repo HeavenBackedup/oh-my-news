@@ -1,7 +1,7 @@
  /**
  * Created by shj on 2017/4/11.
  */
-app.controller('templateController',['$scope','templateService',function ($scope,templateService) {
+app.controller('templateController',['$scope','templateService','htmlParseService','content','$location','fileService',function ($scope,templateService,htmlParseService,content,$lacation,fileService) {
 
 
 
@@ -109,6 +109,10 @@ app.controller('templateController',['$scope','templateService',function ($scope
         alert(angular.toJson(htmlParseService.parseHtml(content.getTemplate().htmlContent)));
     };
 
+
+    $scope.parseNoImg = function () {
+        alert(angular.toJson(htmlParseService.parseHtml(content.getTemplateNoImg().htmlContent)));
+    };
 
     $scope.getResource = function () {
         templateService.getTemplateJson(function (data) {
