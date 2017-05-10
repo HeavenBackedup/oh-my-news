@@ -6,7 +6,7 @@
 <!--进度条和余额变动-->
             <div   class="progress">
                      <div class="progress-bar" role="progressbar" ng-model="valuenow" aria-valuenow="{{valuenow}}" aria-valuemin="0" aria-valuemax="100" style="width:10%;">
-                                10%
+                                        {{valuenow}}%
                      </div>
             </div>
 
@@ -27,6 +27,8 @@
         <div id="u178" class="text" style="visibility: visible;">
             <input placeholder="此处输入提现金额" ng-model="inputwithdraw" ng-model="inputRes1">
             <p> <button ng-click="withdraw()">提现</button></p>
+            <span>{{inputOutRes}}</span>
+
 
 
         </div>
@@ -39,6 +41,8 @@
         <div id="u180" class="text" style="visibility: visible;">
             <input placeholder="此处输入充值金额" ng-model="inputrecharge" ng-model="inputRes2">
             <p> <button ng-click="recharge()">充值</button></p>
+            <span>{{inputInRes}}</span>
+
 
         </div>
     </div>
@@ -55,17 +59,17 @@
                                     <th>  金额（元）     </th>
                                     <th>  收款方   </th>
                                     <th>  留言     </th>
-                                    <th>  流水号   </th>
+
                                 </tr>
                         </thead>
                         <tbody>
                                 <tr ng-repeat="item in eventsout">
-                                    <td>{{item.time}}</td>
-                                    <td>{{item.goal}}</td>
-                                    <td>{{item.sum}}</td>
-                                    <td>{{item.person}}</td>
-                                    <td>{{item.note}}</td>
-                                    <td>{{item.id}}</td>
+                                    <td>{{item.date}}</td>
+                                    <td>{{item.targetName==null?'提现':'打赏'}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.targetName}}</td>
+                                    <td>{{item.message}}</td>
+
                                 </tr>
                         </tbody>
                  </table>
@@ -80,18 +84,17 @@
                                         <th>  金额(元)     </th>
                                         <th>  收款方   </th>
                                         <th>  留言     </th>
-                                        <th>  流水号   </th>
+
                                     </tr>
                             </thead>
 
                             <tbody>
                                 <tr ng-repeat="item in eventsin">
-                                    <td>{{item.time}}</td>
-                                    <td>{{item.goal}}</td>
-                                    <td>{{item.sum}}</td>
-                                    <td>{{item.person}}</td>
-                                    <td>{{item.note}}</td>
-                                    <td>{{item.id}}</td>
+                                    <td>{{item.date}}</td>
+                                    <td>{{item.targetName==null?'充值':'打赏'}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.targetName}}</td>
+                                    <td>{{item.message}}</td>
                                 </tr>
                             </tbody>
                     </table>
