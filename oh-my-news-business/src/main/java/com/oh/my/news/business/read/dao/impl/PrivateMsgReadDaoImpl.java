@@ -1,5 +1,6 @@
 package com.oh.my.news.business.read.dao.impl;
 
+
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.oh.my.news.business.read.dao.PrivateMsgReadDao;
 import com.oh.my.news.model.dto.PrivateMessage;

@@ -19,7 +19,10 @@ public class TransactionWriteManageImpl implements TransactionWriteManage{
     @Autowired
     private WalletWriteDao walletWriteDao;
 
-
+    @Override
+    public void addEvents(Integer source_user_id,Integer target_user_id,Integer amount,Integer article_id,String message) throws Exception {
+        transactionWriteDao.insertTransactionByIds(source_user_id,target_user_id, amount, article_id,message);
+    }
 
 
     @Override
@@ -27,7 +30,7 @@ public class TransactionWriteManageImpl implements TransactionWriteManage{
         synchronized(this) {
             float ballance = walletReadDao.getFigure(userId);
             int sum_after = -sum;
-            if (sum < ballance) {
+            if (sum <= ballance) {
                 walletWriteDao.updateWalletFigure(userId, sum_after);
                 walletWriteDao.setWalletMaxFigure(userId);
                 return 0;

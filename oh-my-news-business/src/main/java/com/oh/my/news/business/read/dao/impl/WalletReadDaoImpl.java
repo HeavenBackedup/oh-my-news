@@ -24,8 +24,7 @@ public class WalletReadDaoImpl implements WalletReadDao {
     }
 
     public float getMaxFigure(int userId) throws Exception{
-        System.out.println(sqlMapClient);
-        System.out.println(sqlMapClient.queryForObject("wallet_sqlMap.queryMaxfigure_wallet_by_id",userId));
+
 
         float maxFigure=(Float) sqlMapClient.queryForObject("wallet_sqlMap.queryMaxfigure_wallet_by_id",userId);
 
