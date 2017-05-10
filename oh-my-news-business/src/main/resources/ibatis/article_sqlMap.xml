@@ -23,6 +23,7 @@
         ]]>
         ))
     </sql>
+
     <select id="query_collect_list" resultMap="articleSnapshot_resultMap">
       select id,topic from article where is_delete=0 and
       <include refid="limit_article_sql"></include>
@@ -137,15 +138,36 @@
     </resultMap>
 
     <select id="query_article"  resultMap="article_resultMap">
-        select `id`,`user_id`,`topic`,`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,`date`,`mark_num`,`root_num` from article where `id` = #id# and is_delete = 0;
+        select `id`,`user_id`,`topic`,`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,`date`,`mark_num`,`root_num` from article where `id` = #id# and is_delete = 0 and
+        <include refid="limit_article_sql"></include>
+        ;
     </select>
 
     <select id="query_history_article"  resultMap="article_resultMap">
-        select `id`,`user_id`,`topic`,`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,`date`,`mark_num`,`root_num` from article where `user_id` = #userId# and `is_published` = 1 and is_delete = 0 order by `date` desc limit #currentPage#,#pageItemNum#;
+        select `id`,`user_id`,`topic`,`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,`date`,`mark_num`,`root_num` from article where `user_id` = #userId# and `is_published` = 1 and is_delete = 0 and
+        <include refid="limit_article_sql"></include>
+        order by `date` desc limit #currentPage#,#pageItemNum#;
+    </select>
+    <select id="query_history_article_sort"  resultMap="article_resultMap">
+        select `id`,`user_id`,`topic`,`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,`date`,`mark_num`,`root_num` from article where `user_id` = #userId# and `is_published` = 1 and is_delete = 0 and
+        <include refid="limit_article_sql"></include>
+        <isEqual property="sortType" compareValue="0" >
+            order by  article.`date` desc
+        </isEqual>
+        <isEqual property="sortType" compareValue="1">
+            order by  article.`thumb_up` desc
+        </isEqual>
+        <isEqual property="sortType" compareValue="2">
+            order by  article.`donation` desc
+        </isEqual>
+          limit #currentPage#,#pageItemNum#;
     </select>
 
+
     <select id="query_history_article_count"  resultClass="java.lang.Integer">
-        select COUNT(*) from article where `user_id` = #userId# and `is_published` = 1 and is_delete = 0;
+        select COUNT(*) from article where `user_id` = #userId# and `is_published` = 1 and is_delete = 0 and
+        <include refid="limit_article_sql"></include>
+          ;
     </select>
 
     <select id="query_draft_article"  resultMap="article_resultMap">
@@ -157,14 +179,34 @@
     </select>
 
     <select id="query_collected_article" resultMap="article_resultMap">
-        select article.`id`,article.`user_id`,`topic`,article.`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,article.`date`,`mark_num`,`root_num` from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0 order by article.`date` desc limit #currentPage#,#pageItemNum#;
+        select article.`id`,article.`user_id`,`topic`,article.`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,article.`date`,`mark_num`,`root_num` from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0 and
+        <include refid="limit_article_sql"></include>
+        order by article.`date` desc limit #currentPage#,#pageItemNum#;
     </select>
+
+    <select id="query_collected_article_sort" parameterClass="java.util.Map" resultMap="article_resultMap">
+        select article.`id`,article.`user_id`,`topic`,article.`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,article.`date`,`mark_num`,`root_num` from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0 and
+        <include refid="limit_article_sql"></include>
+        <isEqual property="sortType" compareValue="0">
+            order by  article.`date` desc
+        </isEqual>
+        <isEqual property="sortType" compareValue="1">
+            order by  article.`thumb_up` desc
+        </isEqual>
+        <isEqual property="sortType" compareValue="2">
+            order by  article.`donation` desc
+        </isEqual>
+         limit #currentPage#,#pageItemNum#;
+    </select>
+
 
     <!--select article.`id`,article.`user_id`,`topic`,article.`is_delete`,`content`,`label`,`category_id`,`is_published`,`content_snapshot`,`is_limit`,`score`,`thumb_up`,`report`,`donation`,`collected`,article.`date`,`mark_num`,`root_num` from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0 order by article.`date` desc limit #currentPage#,#pageItemNum#;-->
 
 
     <select id="query_collected_article_count"  resultClass="java.lang.Integer">
-        select COUNT(*) from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0;
+        select COUNT(*) from article,u_a_rel where u_a_rel.`user_id` = #userId# and article.`id` = u_a_rel.`article_id` and u_a_rel.`type` = 6 and u_a_rel.is_delete = 0 and article.is_delete = 0 and
+        <include refid="limit_article_sql"></include>
+        ;
     </select>
 
 

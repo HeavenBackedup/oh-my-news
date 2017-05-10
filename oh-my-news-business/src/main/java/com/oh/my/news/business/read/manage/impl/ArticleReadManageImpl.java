@@ -33,60 +33,64 @@ public class ArticleReadManageImpl implements ArticleReadManage{
     private SearchContentApi searchContentApi;
 
     public ArticleDto getHistoryArticles(int userId, int currentPage, int pageItemNum)throws Exception{
-        ArticleDto articleDto = new ArticleDto();
+//        ArticleDto articleDto = new ArticleDto();
+//        int totalItem = articleReadDao.getHistoryArticlesCountByUserId(userId);
+//        Pagination pagination = new Pagination((totalItem%pageItemNum==0?totalItem/pageItemNum:totalItem/pageItemNum+1)*10,currentPage);
+//        UserSnapshot userSnapshot = userReadDao.getUserSnapshotById(userId);
+//        articleDto.setPagination(pagination);
+//
+//        List<Article> historyArticles = articleReadDao.getHistoryArticlesByUserId(userId,currentPage,pageItemNum);
+//        for (Article hA:historyArticles){
+//            ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
+//            List<File> files = imageReadDao.QueryImageByArticleId(hA.getId());
+//            List<Image> images = new ArrayList<Image>();
+//            for (File file:files){
+//                Image image = new Image();
+//                image.setId(file.getId());
+//                image.setUrl(file.getUrl());
+//                images.add(image);
+//            }
+//            articleCategoryDto.setImages(images);
+//            articleCategoryDto.setCategory(categoryReadDao.getCategoryById(hA.getCategoryId()));
+//            articleCategoryDto.setArticle(hA);
+//            articleCategoryDto.setUserSnapshot(userSnapshot);
+//
+//            articleDto.getArticle().add(articleCategoryDto);
+//        }
         int totalItem = articleReadDao.getHistoryArticlesCountByUserId(userId);
-        Pagination pagination = new Pagination((totalItem%pageItemNum==0?totalItem/pageItemNum:totalItem/pageItemNum+1)*10,currentPage);
-        UserSnapshot userSnapshot = userReadDao.getUserSnapshotById(userId);
-        articleDto.setPagination(pagination);
-
         List<Article> historyArticles = articleReadDao.getHistoryArticlesByUserId(userId,currentPage,pageItemNum);
-        for (Article hA:historyArticles){
-            ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
-            List<File> files = imageReadDao.QueryImageByArticleId(hA.getId());
-            List<Image> images = new ArrayList<Image>();
-            for (File file:files){
-                Image image = new Image();
-                image.setId(file.getId());
-                image.setUrl(file.getUrl());
-                images.add(image);
-            }
-            articleCategoryDto.setImages(images);
-            articleCategoryDto.setCategory(categoryReadDao.getCategoryById(hA.getCategoryId()));
-            articleCategoryDto.setArticle(hA);
-            articleCategoryDto.setUserSnapshot(userSnapshot);
-
-            articleDto.getArticle().add(articleCategoryDto);
-        }
-
-        return articleDto;
+        return articleDtoPackage(totalItem,pageItemNum,currentPage,historyArticles);
     }
 
     public ArticleDto getCollectedArticles(int userId,int currentPage,int pageItemNum)throws Exception{
-        ArticleDto articleDto = new ArticleDto();
+//        ArticleDto articleDto = new ArticleDto();
+//        int totalItem = articleReadDao.getCollectedArticlesCountByUserId(userId);
+//        Pagination pagination = new Pagination((totalItem%pageItemNum==0?totalItem/pageItemNum:totalItem/pageItemNum+1)*10,currentPage);
+//        articleDto.setPagination(pagination);
+//
+//        List<Article> collectedArticles = articleReadDao.getCollectedArticlesByUserId(userId,currentPage,pageItemNum);
+////        System.out.println("smy......."+collectedArticles);
+//        for (Article cA:collectedArticles){
+//            ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
+//            List<File> files = imageReadDao.QueryImageByArticleId(cA.getId());
+//            List<Image> images = new ArrayList<Image>();
+//            for (File file:files){
+//                Image image = new Image();
+//                image.setId(file.getId());
+//                image.setUrl(file.getUrl());
+//                images.add(image);
+//            }
+//            articleCategoryDto.setImages(images);
+//            articleCategoryDto.setCategory(categoryReadDao.getCategoryById(cA.getCategoryId()));
+//            articleCategoryDto.setArticle(cA);
+//            articleCategoryDto.setUserSnapshot(userReadDao.getUserSnapshotById(cA.getUserId()));
+//
+//            articleDto.getArticle().add(articleCategoryDto);
+//        }\
         int totalItem = articleReadDao.getCollectedArticlesCountByUserId(userId);
-        Pagination pagination = new Pagination((totalItem%pageItemNum==0?totalItem/pageItemNum:totalItem/pageItemNum+1)*10,currentPage);
-        articleDto.setPagination(pagination);
-
         List<Article> collectedArticles = articleReadDao.getCollectedArticlesByUserId(userId,currentPage,pageItemNum);
-//        System.out.println("smy......."+collectedArticles);
-        for (Article cA:collectedArticles){
-            ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
-            List<File> files = imageReadDao.QueryImageByArticleId(cA.getId());
-            List<Image> images = new ArrayList<Image>();
-            for (File file:files){
-                Image image = new Image();
-                image.setId(file.getId());
-                image.setUrl(file.getUrl());
-                images.add(image);
-            }
-            articleCategoryDto.setImages(images);
-            articleCategoryDto.setCategory(categoryReadDao.getCategoryById(cA.getCategoryId()));
-            articleCategoryDto.setArticle(cA);
-            articleCategoryDto.setUserSnapshot(userReadDao.getUserSnapshotById(cA.getUserId()));
+        return articleDtoPackage(totalItem,pageItemNum,currentPage,collectedArticles);
 
-            articleDto.getArticle().add(articleCategoryDto);
-        }
-        return articleDto;
     }
 
     public ArticleDto getDraftArticles(int userId,int currentPage,int pageItemNum)throws Exception{
@@ -100,14 +104,14 @@ public class ArticleReadManageImpl implements ArticleReadManage{
         for (Article dA:draftArticles){
             ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
             List<File> files = imageReadDao.QueryImageByArticleId(dA.getId());
-            List<Image> images = new ArrayList<Image>();
-            for (File file:files){
-                Image image = new Image();
-                image.setId(file.getId());
-                image.setUrl(file.getUrl());
-                images.add(image);
-            }
-            articleCategoryDto.setImages(images);
+//            List<Image> images = new ArrayList<Image>();
+//            for (File file:files){
+//                Image image = new Image();
+//                image.setId(file.getId());
+//                image.setUrl(file.getUrl());
+//                images.add(image);
+//            }
+            articleCategoryDto.setImages(filesToImages(files));
             articleCategoryDto.setCategory(categoryReadDao.getCategoryById(dA.getCategoryId()));
             articleCategoryDto.setArticle(dA);
             articleCategoryDto.setUserSnapshot(userSnapshot);
@@ -123,14 +127,14 @@ public class ArticleReadManageImpl implements ArticleReadManage{
         Article article = articleReadDao.getArticleById(articleId);
         ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
         List<File> files = imageReadDao.QueryImageByArticleId(articleId);
-        List<Image> images = new ArrayList<Image>();
-        for (File file:files){
-            Image image = new Image();
-            image.setId(file.getId());
-            image.setUrl(file.getUrl());
-            images.add(image);
-        }
-        articleCategoryDto.setImages(images);
+//        List<Image> images = new ArrayList<Image>();
+//        for (File file:files){
+//            Image image = new Image();
+//            image.setId(file.getId());
+//            image.setUrl(file.getUrl());
+//            images.add(image);
+//        }
+        articleCategoryDto.setImages(filesToImages(files));
         articleCategoryDto.setCategory(categoryReadDao.getCategoryById(article.getCategoryId()));
         articleCategoryDto.setArticle(article);
 
@@ -160,17 +164,19 @@ public class ArticleReadManageImpl implements ArticleReadManage{
         articleDto.setPagination(pagination);
         for (Integer articleId:articleIds){
             Article article = articleReadDao.getArticleById(articleId);
+            if(article==null)
+            continue;
             ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
             List<File> files = imageReadDao.QueryImageByArticleId(articleId);
-            List<Image> images = new ArrayList<Image>();
-            for (File file:files){
-                Image image = new Image();
-                image.setId(file.getId());
-                image.setUrl(file.getUrl());
-                images.add(image);
-            }
+//            List<Image> images = new ArrayList<Image>();
+//            for (File file:files){
+//                Image image = new Image();
+//                image.setId(file.getId());
+//                image.setUrl(file.getUrl());
+//                images.add(image);
+//            }
 
-            articleCategoryDto.setImages(images);
+            articleCategoryDto.setImages(filesToImages(files));
             articleCategoryDto.setCategory(categoryReadDao.getCategoryById(article.getCategoryId()));
             articleCategoryDto.setArticle(article);
             articleCategoryDto.setUserSnapshot(userReadDao.getUserSnapshotById(article.getUserId()));
@@ -179,4 +185,55 @@ public class ArticleReadManageImpl implements ArticleReadManage{
         }
         return articleDto;
     }
+
+    private ArticleDto articleDtoPackage(int totalItem,int pageItemNum,int currentPage,List<Article> articles)throws Exception{
+        ArticleDto articleDto = new ArticleDto();
+        Pagination pagination = new Pagination((totalItem%pageItemNum==0?totalItem/pageItemNum:totalItem/pageItemNum+1)*10,currentPage);
+
+        articleDto.setPagination(pagination);
+        for (Article cA:articles){
+            ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
+            List<File> files = imageReadDao.QueryImageByArticleId(cA.getId());
+//            List<Image> images = new ArrayList<Image>();
+//            for (File file:files){
+//                Image image = new Image();
+//                image.setId(file.getId());
+//                image.setUrl(file.getUrl());
+//                images.add(image);
+//            }
+            articleCategoryDto.setImages(filesToImages(files));
+            articleCategoryDto.setCategory(categoryReadDao.getCategoryById(cA.getCategoryId()));
+            articleCategoryDto.setArticle(cA);
+            articleCategoryDto.setUserSnapshot(userReadDao.getUserSnapshotById(cA.getUserId()));
+
+            articleDto.getArticle().add(articleCategoryDto);
+        }
+        return articleDto;
+    }
+
+    private List<Image> filesToImages(List<File> files){
+        List<Image> images = new ArrayList<Image>();
+        for (File file:files){
+            Image image = new Image();
+            image.setId(file.getId());
+            image.setUrl(file.getUrl());
+            images.add(image);
+        }
+        return images;
+    }
+
+
+    public ArticleDto getCollectedArticles(int userId, int currentPage, int pageItemNum, SortType sortType) throws Exception {
+        int totalItem = articleReadDao.getCollectedArticlesCountByUserId(userId);
+        List<Article> collectedArticles = articleReadDao.getCollectedArticlesByUserId(userId,currentPage,pageItemNum,sortType.getValue());
+        return articleDtoPackage(totalItem,pageItemNum,currentPage,collectedArticles);    }
+
+
+    public ArticleDto getHistoryArticles(int userId, int currentPage, int pageItemNum, SortType sortType) throws Exception {
+        int totalItem = articleReadDao.getHistoryArticlesCountByUserId(userId);
+        List<Article> collectedArticles = articleReadDao.getHistoryArticlesByUserId(userId,currentPage,pageItemNum,sortType.getValue());
+        return articleDtoPackage(totalItem,pageItemNum,currentPage,collectedArticles);
+    }
+
 }
+

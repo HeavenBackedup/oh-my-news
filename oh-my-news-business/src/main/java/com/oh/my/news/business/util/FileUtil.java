@@ -42,7 +42,6 @@ public class FileUtil {
         return System.currentTimeMillis()+ "_" + String.valueOf(++index%max_loop);
     }
 
-
     public com.oh.my.news.model.po.File fileUpload(InputStream in)throws Exception{
         ObjectMetadata objectMetadata = new ObjectMetadata();
         String key = getKey();
