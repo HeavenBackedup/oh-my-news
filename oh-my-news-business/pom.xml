@@ -182,6 +182,11 @@
             <artifactId>oh-my-news-search</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>oh-my-news</groupId>
+            <artifactId>oh-my-news-search</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
