@@ -1,5 +1,6 @@
 package com.oh.my.news.model.vo.detail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,10 @@ public class RootComments {///一篇文章的根评论
     public RootComments(boolean unfold, List<Comment> comments) {
         this.unfold = unfold;
         this.comments = comments;
+    }
+
+    public RootComments() {
+        this.comments = new ArrayList<Comment>();
     }
 
     public boolean isUnfold() {

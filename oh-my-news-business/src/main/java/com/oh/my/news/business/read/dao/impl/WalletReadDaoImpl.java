@@ -18,16 +18,16 @@ public class WalletReadDaoImpl implements WalletReadDao {
 
     public float getFigure(int userId) throws Exception{
 
-        float figure=(Float) sqlMapClient.queryForObject("wallet_sqlMap.queryfigure_wallet_by_id",userId);
-
+        Float figure=(Float) sqlMapClient.queryForObject("wallet_sqlMap.queryfigure_wallet_by_id",userId);
+        if(figure==null)
+            return 0;
         return figure;
     }
 
     public float getMaxFigure(int userId) throws Exception{
-
-
-        float maxFigure=(Float) sqlMapClient.queryForObject("wallet_sqlMap.queryMaxfigure_wallet_by_id",userId);
-
+        Float maxFigure=(Float) sqlMapClient.queryForObject("wallet_sqlMap.queryMaxfigure_wallet_by_id",userId);
+        if(maxFigure==null)
+            return 0;
         return maxFigure;
     }
 

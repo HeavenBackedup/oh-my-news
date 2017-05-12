@@ -4,7 +4,7 @@
             <div class="col-md-8 blog-main">
                 <article class="blog-post">
                     <header>
-                        <h3><a>OhmyNews</a> >> <a>{{category}}</a></h3>
+                        <h3><a>OhmyNews</a> >> <a ng-click="gotoMain(category.id)">{{category.catName}}</a></h3>
 
                         <div class="lead-image">
                             <img src="images/img/single-post.jpg" alt="" class="img-responsive">
@@ -12,7 +12,7 @@
                         </div>
                     </header>
                     <div class="body">
-                        <h1 ng-bind-template="{{topic}}"></h1>
+                        <h1 >{{topic}}</h1>
                         <div class="meta">
 
                             <a ng-click="goto('comments')"><i class="fa fa-user"></i>{{author}}</a>
@@ -45,10 +45,13 @@
                             </div>
                             <div class="col-md-6">
                                 <h3>-</h3>
-                                <a ng-click="submit(6,true)"><i class="fa fa-bookmark"></i></a>
-                                <a ng-click="submit(5,true)"><i class="fa fa-thumbs-up"></i></a>
-                                <a ng-click="openModal()" data-toggle="modal"><i class="fa fa-cny"></i></a>
-                                <a ng-click="submit(3,true)"><i>举报</i></a>
+                                <a ng-show="!(articleReader==null?false:articleReader.collected)" ng-click="submit(6,true)"><i class="fa fa-bookmark"></i></a>
+                                <a ng-show="articleReader==null?false:articleReader.collected" ng-click="submit(8,true)"><i>取消收藏</i></a>
+                                <a ng-show="!(articleReader==null?false:articleReader.thumbUp)" ng-click="submit(5,true)"><i class="fa fa-thumbs-up"></i></a>
+                                <a ng-show="articleReader==null?false:articleReader.thumbUp" ng-click="submit(9,true)"><i>取消点赞</i></a>
+                                <a    ng-click="openModal()" data-toggle="modal"><i class="fa fa-cny"></i></a>
+                                <a ng-show="!(articleReader==null?false:articleReader.report)"  ng-click="submit(3,true)"><i>举报</i></a>
+                                <label ng-show="articleReader==null?false:articleReader.report" ><i>已举报</i></label>
                             </div>
                         </div>
                     </form>
@@ -58,16 +61,17 @@
                 <aside>
                     <div>
                         <span style="color:darkviolet;text-align:center;font-size: 120%"><b>打分：</b></span>
-                        <label><input name="score" type="radio" value="0" style="width:15px;height:15px"/><b style="font-size: 150%">0</b></label>
-                        <label><input name="score" type="radio" value="1" style="width:15px;height:15px"/><b style="font-size: 150%">1</b></label>
-                        <label><input name="score" type="radio" value="2" style="width:15px;height:15px" checked/><b style="font-size: 150%">2</b></label>
-                        <label><input name="score" type="radio" value="3" style="width:15px;height:15px"/><b style="font-size: 150%">3</b></label>
-                        <label><input name="score" type="radio" value="4" style="width:15px;height:15px"/><b style="font-size: 150%">4</b></label>
-                        <label><input name="score" type="radio" value="5" style="width:15px;height:15px"/><b style="font-size: 150%">5</b></label>
+                        <label><input name="score" type="radio" value="0" style="width:15px;height:15px" ng-checked="articleReader.score==0"/><b style="font-size: 150%">0</b></label>
+                        <label><input name="score" type="radio" value="1" style="width:15px;height:15px" ng-checked="articleReader.score==1"/><b style="font-size: 150%">1</b></label>
+                        <label><input name="score" type="radio" value="2" style="width:15px;height:15px" ng-checked="articleReader.score==2"/><b style="font-size: 150%">2</b></label>
+                        <label><input name="score" type="radio" value="3" style="width:15px;height:15px" ng-checked="articleReader.score==3"/><b style="font-size: 150%">3</b></label>
+                        <label><input name="score" type="radio" value="4" style="width:15px;height:15px" ng-checked="articleReader.score==4"/><b style="font-size: 150%">4</b></label>
+                        <label><input name="score" type="radio" value="5" style="width:15px;height:15px" ng-checked="articleReader.score==5"/><b style="font-size: 150%">5</b></label>
                         <span>
                             &nbsp &nbsp
                             <!--<div class="buttons clearfix">-->
-                            <button type="submit" class="btn btn-primary btn-xs" ng-click="submit(2,null)">提交</button>
+                            <button ng-show="!(articleReader==null?false:articleReader.score!=-1)"  type="submit" class="btn btn-primary btn-xs" ng-click="submit(2,null)">提交</button>
+                            <label ng-show="articleReader==null?false:articleReader.score!=-1"><i>已评分</i></label>
                         <!--</div>-->
                         </span>
                     </div>
@@ -237,10 +241,10 @@
             </div>
             <div class="modal-body">
                 <form action="" autocomplete="on">
-                    总余额: ￥{{totalMoney.toFixed(2)}}<br>
+                    <!--总余额: ￥{{totalMoney.toFixed(2)}}<br>-->
                     已打赏: ￥{{donated.toFixed(2)}}<br>
-                    打赏金额: <input type="number" name="lname" ng-model="reward" ng-change="(reward = (reward>totalMoney?totalMoney:(reward<0?0:reward)))"><br>
-                    打赏留言: <input type="text" name="lname" ng-model="rewardmessage"><br>
+                    打赏金额: <input type="number" name="lname" ng-model="reward.num" ng-change="(reward = (reward.num>totalMoney?totalMoney:(reward.num<0?0:reward.num)))"><br>
+                    打赏留言: <input type="text" name="lname" ng-model="reward.rewardmessage"><br>
 
                     <!--<input type="submit">-->
                 </form>

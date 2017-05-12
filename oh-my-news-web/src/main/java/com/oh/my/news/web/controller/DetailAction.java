@@ -1,19 +1,35 @@
 package com.oh.my.news.web.controller;
 
+import com.oh.my.news.business.read.manage.ArticleReadManage;
+import com.oh.my.news.business.read.manage.CommentReadManage;
+import com.oh.my.news.business.write.manage.ArticleWriteManage;
+import com.oh.my.news.business.write.manage.CommentWriteManage;
+import com.oh.my.news.model.dto.ArticleDetail;
+import com.oh.my.news.model.dto.CommentDto;
+import com.oh.my.news.model.dto.CommentPageDto;
+import com.oh.my.news.model.po.*;
 import com.oh.my.news.model.vo.detail.*;
 import com.oh.my.news.model.template.Pagination;
+import com.oh.my.news.model.vo.detail.Article;
+import com.oh.my.news.model.vo.detail.ArticleReader;
+import com.oh.my.news.model.vo.detail.Comment;
+import com.oh.my.news.model.vo.detail.User;
+import com.oh.my.news.model.vo.edit.*;
+import com.oh.my.news.model.vo.edit.Category;
 import com.oh.my.news.web.controller.detailData.DetailData;
 import com.oh.my.news.web.util.BaseAction;
+import org.apache.commons.collections.map.HashedMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Prometheus on 2017/4/20.
@@ -23,47 +39,191 @@ import java.util.Map;
 public class DetailAction extends BaseAction {
 
 
+    @Autowired
+    private CommentReadManage commentReadManage;
+
+    @Autowired
+    private ArticleReadManage articleReadManage;
+    @Autowired
+    private ArticleWriteManage articleWriteManage;
+    @Autowired
+    private CommentWriteManage commentWriteManage;
+
     @RequestMapping(value = "/pageReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)//请求评论
-    public @ResponseBody Object pageReq(@RequestBody Map pageMap) throws IOException {
-        System.out.println("smy: "+pageMap);
+    public @ResponseBody Object pageReq(@RequestBody Map pageMap) throws IOException,Exception{
+        System.out.println("smy pageReq: "+pageMap);
         int currentPage = Integer.parseInt(pageMap.get("currentPage").toString().trim());
+        int articleId  = (Integer) pageMap.get("articleId");
         Map<String,Object> map = new HashMap();
+        CommentPageDto commentPageDto = commentReadManage.getComments(articleId,currentPage,10);
 
-        List<RootComments> rootCommentsList = DetailData.getRootCommentsList(currentPage);
+        List<RootComments> rootCommentss = new ArrayList<RootComments>();
+        for(List<CommentDto> l:commentPageDto.getComments()){
+            System.out.println(l);
+            if(CollectionUtils.isEmpty(l))
+                continue;
+            RootComments rootComments = new RootComments();
+            rootComments.setUnfold(false);
+            for(CommentDto c:l){
+                Comment comment = new Comment();
+                comment.setId(c.getComment().getId());
+                comment.setContent(c.getComment().getContent());
+                comment.setarticleId(c.getComment().getArticleId());
+                comment.setDate(c.getComment().getDate().toString());
+                User user = new User();
+                user.setName(c.getReplier().getNickname());
+                user.setUserId(c.getReplier().getId());
+                user.setUserImgSrc(c.getReplier().getImageUrl());
+                user.setTotalMoney(1000.0f);
+                comment.setReplier(user);
+                if(c.getFormerComment()==null){
+                    rootComments.getComments().add(comment);
+                    continue;
+                }
 
-//        ObjectMapper mapper = new ObjectMapper();
-//        String Json =  mapper.writeValueAsString(commentList);
+                if(c.getFormerReplier()==null) {
+                    rootComments.getComments().add(comment);
+                    continue;
+                }
+                User fomerUser = new User();
+                Comment formerComment =  new Comment();
+                fomerUser.setTotalMoney(1000.f);
+                fomerUser.setUserImgSrc(c.getFormerReplier().getImageUrl());
+                fomerUser.setUserId(c.getFormerReplier().getId());
+                fomerUser.setTotalMoney(1000.0f);
+                fomerUser.setName(c.getFormerReplier().getNickname());
+                formerComment.setReplier(fomerUser);
+                formerComment.setDate(c.getFormerComment().getDate().toString());
+                formerComment.setarticleId(c.getFormerComment().getArticleId());
+                formerComment.setContent(c.getFormerComment().getContent());
+                formerComment.setId(c.getFormerComment().getId());
+                comment.setFormerComment(formerComment);
+                rootComments.getComments().add(comment);
+            }
+            rootCommentss.add(rootComments);
+        }
 
-        System.out.println("smy: "+rootCommentsList);
 
-        map.put("pagination",new Pagination(200,currentPage));
-        map.put("comments",rootCommentsList);
+//        List<RootComments> rootCommentsList = DetailData.getRootCommentsList(currentPage);
+//
+////        ObjectMapper mapper = new ObjectMapper();
+////        String Json =  mapper.writeValueAsString(commentList);
+//
+//        System.out.println("smy: "+rootCommentsList);
+
+        map.put("comments",rootCommentss);
+        map.put("pagination",commentPageDto.getPagination());
         return successReturnObject(map);
     }
 
     @RequestMapping(value = "/articleReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)//请求文章
-    public @ResponseBody Object articleReq(@RequestBody Map articleMap) throws IOException {
+    public @ResponseBody Object articleReq(@RequestBody Map articleMap) throws IOException,Exception {
         Map<String,Object> map = new HashMap();
         System.out.println("smy: "+ articleMap);
         int articleId = Integer.parseInt(articleMap.get("articleId").toString().trim());
+        Integer userId =(Integer) articleMap.get("userId");
+//        Article article = DetailData.getarticle(articleId);
+//        ArticleReader articleReader = DetailData.getarticleReader(articleId);
+//        System.out.println("smy: "+ article);
+//        map.put("article", article);
+//        map.put("articleReader", articleReader);
 
-        Article article = DetailData.getarticle(articleId);
-        ArticleReader articleReader = DetailData.getarticleReader(articleId);
-
-        System.out.println("smy: "+ article);
+        ArticleDetail articleDetail = articleReadManage.getArticleDetail(articleId,userId);
+        Article article = new Article();
+        ArticleInfo articleInfo = new ArticleInfo();
+        article.setId(articleDetail.getArticleCategoryDto().getArticle().getId());
+        articleInfo.setId(articleDetail.getArticleCategoryDto().getArticle().getId());
+        articleInfo.setarticleScore(articleDetail.getArticleCategoryDto().getArticle().getScore());
+        articleInfo.setAuthorPost(new ArrayList<Article>());
+        articleInfo.setRelatedPost(new ArrayList<Article>());
+        articleInfo.setarticleTime(articleDetail.getArticleCategoryDto().getArticle().getDate().toString());
+        articleInfo.setHtmlContent(articleDetail.getArticleCategoryDto().getArticle().getContent());
+        articleInfo.setCommentNum(articleDetail.getCommentNum());
+        articleInfo.setLabels(Arrays.asList(new String[]{articleDetail.getArticleCategoryDto().getArticle().getLabels()}));
+        articleInfo.setThumbupNum(articleDetail.getArticleCategoryDto().getArticle().getThumbUp());
+        articleInfo.setReaded(1000);
+        articleInfo.setTopic(articleDetail.getArticleCategoryDto().getArticle().getTopic());
+        article.setArticleInfo(articleInfo);
+        com.oh.my.news.model.vo.edit.Category category = new Category();
+        category.setCatName(articleDetail.getArticleCategoryDto().getCategory().getName());
+        category.setId(articleDetail.getArticleCategoryDto().getCategory().getId());
+        article.setCategory(category);
         map.put("article", article);
-        map.put("articleReader", articleReader);
 
+        User user = new User();
+        user.setName(articleDetail.getArticleCategoryDto().getUserSnapshot().getNickname());
+        user.setTotalMoney(articleDetail.getTotalMoney());
+        user.setUserId(articleDetail.getArticleCategoryDto().getUserSnapshot().getId());
+        user.setUserImgSrc(articleDetail.getArticleCategoryDto().getUserSnapshot().getImageUrl());
+        article.setUser(user);
+        if(userId==null||userId==-1||userId==0){
+            map.put("articleReader",null);
+            return successReturnObject(map);
+        }
+        ArticleReader reader = new ArticleReader();
+        reader.setcollected(articleDetail.isCollected());
+        reader.setDonation(articleDetail.getDonation());
+        reader.setReport(articleDetail.isReport());
+        reader.setScore(articleDetail.getScore());
+        reader.setReport(articleDetail.isReport());
+        reader.setThumbUp(articleDetail.isThumbUp());
+        reader.setReader(user);
+        map.put("articleReader",reader);
+//        map.put("articleReader", articleReader);
         return successReturnObject(map);
     }
 
-
     @RequestMapping(value = "/submit",consumes = APPLICATION_JSON, method = RequestMethod.POST)
-    public @ResponseBody Object submit(@RequestBody Map submitMap) throws IOException {
+    public @ResponseBody Object submit(@RequestBody Map submitMap) throws IOException,Exception {
 //        Map<String,Object> map = new HashMap();
         System.out.println(submitMap);
+        Map<String,Object> submitInfoMap = (Map<String, Object>) submitMap.get("submitInfo");
 
-        return successReturnObject("submitsuccess");
+        Integer userId = (Integer) submitInfoMap.get("userId");
+        Integer articleId = (Integer) submitInfoMap.get("articleId");
+//        Integer
+        Integer type = (Integer)submitMap.get("type");
+        if(userId==null||userId==-1)
+            throw new Exception("userid is null");
+        if(articleId==null||articleId==-1)
+            throw new Exception("articleId is null");
+        if(type==null||type<1)
+            throw new Exception("type is incorrect or is null");
+        switch (type){
+            case 1:
+                Map<String,Object> commentMap = (Map<String, Object>) submitInfoMap.get("comment");
+                String content = "";
+                if(commentMap.get("content")!=null)
+                    content = commentMap.get("content").toString();
+                Integer formerCommentId = (Integer) commentMap.get("formerCommentId");
+                if(formerCommentId ==null)
+                    formerCommentId = 0;
+                commentWriteManage.writeComment(userId,formerCommentId,articleId,content);
+                return successReturnObject(true);
+            case 2:
+                Float score = Float.parseFloat(submitInfoMap.get("score").toString());
+                articleWriteManage.mark(userId,articleId,score);
+                return successReturnObject(true);
+            case 3:
+                articleWriteManage.report(userId,articleId);
+                return successReturnObject(true);
+            case 4:
+                Map<String,Object> rewardMap = (Map<String, Object>) ((Map<String, Object>) submitInfoMap.get("donation")).get("reward");
+                String message = "";
+                if(!StringUtils.isEmpty(rewardMap.get("rewardmessage").toString()))
+                    message = rewardMap.get("rewardmessage").toString();
+                Integer num = Integer.parseInt(rewardMap.get("num").toString());
+                articleWriteManage.donate(userId,articleId,num,message);
+                return successReturnObject(true);
+            case 5:
+                articleWriteManage.thumUp(userId,articleId);
+                return successReturnObject(true);
+            case 6:
+                articleWriteManage.collect(userId,articleId);
+                return successReturnObject(true);
+
+        }
+        return successReturnObject(true);
     }
 
 }

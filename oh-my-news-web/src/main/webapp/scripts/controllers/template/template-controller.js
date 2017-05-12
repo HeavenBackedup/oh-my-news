@@ -1,7 +1,7 @@
  /**
  * Created by shj on 2017/4/11.
  */
-app.controller('templateController',['$scope','templateService','htmlParseService','content','$location','fileService',function ($scope,templateService,htmlParseService,content,$lacation,fileService) {
+app.controller('templateController',['$scope','templateService','htmlParseService','content','$location','fileService','$state',function ($scope,templateService,htmlParseService,content,$lacation,fileService,$state) {
 
 
 
@@ -75,7 +75,7 @@ app.controller('templateController',['$scope','templateService','htmlParseServic
             function (data) {
             alert(angular.toJson(data));
         });
-    }
+    };
 
 
 
@@ -128,6 +128,16 @@ app.controller('templateController',['$scope','templateService','htmlParseServic
         $anchorScroll();
     };
 
+    $scope.paramGo = function () {
+        $state.go('app.detail',{articleId:1});
+    }
+
+
+    $scope.editGo = function () {
+        content.setId(1);
+        alert("get");
+        $state.go('app.edit');
+    }
 
 
 

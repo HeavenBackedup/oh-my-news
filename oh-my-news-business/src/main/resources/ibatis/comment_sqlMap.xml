@@ -41,6 +41,11 @@
         select article_id from comment where id=#formerCommentId# and is_delete=0;
     </select>
 
+    <select id="query_count_by_article_id" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+
+        select count(*) from comment where article_id=#articleId# and is_delete=0;
+    </select>
+
     <insert id="insert_comment" parameterClass="com.oh.my.news.model.po.Comment" >
         insert into comment(is_delete,user_id,former_comment_id,content,`date`,article_id,root_comment_id) values (0,#userId#,#formerCommentId#,#content#,now(),#articleId#,#rootCommentId#);
         <selectKey resultClass="java.lang.Integer" keyProperty="id">

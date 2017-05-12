@@ -11,6 +11,16 @@ public class CommentDto {
     private Comment comment;
     private UserSnapshot replier;
     private Comment formerComment;
+    private UserSnapshot formerReplier;
+
+
+    public CommentDto(Comment comment, UserSnapshot replier, Comment formerComment, UserSnapshot formerReplier) {
+        this.comment = comment;
+        this.replier = replier;
+        this.formerComment = formerComment;
+        this.formerReplier = formerReplier;
+    }
+
     public CommentDto(Comment comment, UserSnapshot replier, Comment formerComment) {
         this.comment = comment;
         this.replier = replier;
@@ -26,6 +36,7 @@ public class CommentDto {
                 "comment=" + comment +
                 ", replier=" + replier +
                 ", formerComment=" + formerComment +
+                ", formerReplier=" + formerReplier +
                 '}';
     }
 
@@ -38,7 +49,9 @@ public class CommentDto {
 
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (replier != null ? !replier.equals(that.replier) : that.replier != null) return false;
-        return formerComment != null ? formerComment.equals(that.formerComment) : that.formerComment == null;
+        if (formerComment != null ? !formerComment.equals(that.formerComment) : that.formerComment != null)
+            return false;
+        return formerReplier != null ? formerReplier.equals(that.formerReplier) : that.formerReplier == null;
     }
 
     @Override
@@ -46,6 +59,7 @@ public class CommentDto {
         int result = comment != null ? comment.hashCode() : 0;
         result = 31 * result + (replier != null ? replier.hashCode() : 0);
         result = 31 * result + (formerComment != null ? formerComment.hashCode() : 0);
+        result = 31 * result + (formerReplier != null ? formerReplier.hashCode() : 0);
         return result;
     }
 
@@ -71,5 +85,13 @@ public class CommentDto {
 
     public void setFormerComment(Comment formerComment) {
         this.formerComment = formerComment;
+    }
+
+    public UserSnapshot getFormerReplier() {
+        return formerReplier;
+    }
+
+    public void setFormerReplier(UserSnapshot formerReplier) {
+        this.formerReplier = formerReplier;
     }
 }

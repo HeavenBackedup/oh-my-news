@@ -13,10 +13,8 @@ app.controller('appController',['$scope','homeService','user','$stateParams','$s
         $scope.show={
             login:null
         }
-
         $scope.userInfoOfLogin={};
-
-        if ($scope.id.userId!=-1){
+        if ($scope.id.userId!==-1){
             $scope.uploadInformation($scope.id.userId)
             $scope.show.login=true;
             // if ($scope.id.paramsUserId=$scope.id.userId){

@@ -1,6 +1,7 @@
 package com.oh.my.news.business.read.manage;
 
 import com.oh.my.news.model.dto.SortType;
+import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -39,5 +40,14 @@ public class ArticleReadManageTestCase extends TestCase {
 
     public void testSearch() throws Exception{
         System.out.println(this.articleReadManage.search("测试",1,10));
+    }
+
+    public void testGetArticleDetail(){
+        try {
+            System.out.println(this.articleReadManage.getArticleDetail(2,-1));
+        }catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
     }
 }

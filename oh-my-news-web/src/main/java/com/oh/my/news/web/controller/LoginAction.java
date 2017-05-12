@@ -37,26 +37,43 @@ public class LoginAction extends BaseAction {
 //        }else{
 //            u.setId(1);
 //        }
-        if(user.getUsername()!=null)
-            return successReturnObject(userReadManage.usernamelogin(user.getUsername(),user.getPassword()));
+        if(user.getUsername()!=null){
+           Integer id = userReadManage.usernamelogin(user.getUsername(),user.getPassword());
+           if(id ==null||id==0||id==-1){
+             return   successReturnObject(-1);
+           }
+          return successReturnObject(id);
+
+        }
         else if (user.getEmail()!=null){
-            return successReturnObject(userReadManage.emaillogin(user.getEmail(),user.getPassword()));
+            Integer id = userReadManage.emaillogin(user.getEmail(),user.getPassword());
+            if(id ==null||id==0||id==-1){
+               return successReturnObject(-1);
+            }
+           return successReturnObject(id);
         }else {
-            throw new Exception("username and email is null");
+            return successReturnObject(-1);
         }
 //        return successReturnObject(u.getId());
     }
     @RequestMapping(value = "/verifyInfo",consumes = APPLICATION_JSON,method = RequestMethod.POST)
-    public  @ResponseBody Object verifyInfo(@RequestBody User user){
+    public  @ResponseBody Object verifyInfo(@RequestBody User user)throws Exception{
         String username=user.getUsername();
         String email=user.getEmail();
-        System.out.println(username+email);
-        //根据manage层传来的is_limit判断isformde 值（is_limit=0,则isform=true,否则为false);
-        boolean isform=true;
-        if(username.equals("zxc")||email.equals("12345@qq.com")){
-            isform=false;
+//        System.out.println(username+email);
+//        //根据manage层传来的is_limit判断isformde 值（is_limit=0,则isform=true,否则为false);
+//        boolean isform=true;
+//        if(username.equals("zxc")||email.equals("12345@qq.com")){
+//            isform=false;
+//        }
+//        System.out.println(isform);
+        boolean isform =  false;
+        System.out.println(userReadManage.userValidation(username));
+        if(username!=null){
+         return successReturnObject(userReadManage.userValidation(username));
+        }else if(email!=null){
+            return successReturnObject(userReadManage.emailValidation(email));
         }
-        System.out.println(isform);
         return successReturnObject(isform);
     }
 }
