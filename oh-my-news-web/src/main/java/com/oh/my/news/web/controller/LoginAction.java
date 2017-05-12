@@ -57,22 +57,21 @@ public class LoginAction extends BaseAction {
 //        return successReturnObject(u.getId());
     }
     @RequestMapping(value = "/verifyInfo",consumes = APPLICATION_JSON,method = RequestMethod.POST)
-    public  @ResponseBody Object verifyInfo(@RequestBody User user)throws Exception{
+    public  @ResponseBody Object verifyInfo(@RequestBody User user) throws Exception{
+        boolean isform=true;
         String username=user.getUsername();
         String email=user.getEmail();
-//        System.out.println(username+email);
-//        //根据manage层传来的is_limit判断isformde 值（is_limit=0,则isform=true,否则为false);
-//        boolean isform=true;
-//        if(username.equals("zxc")||email.equals("12345@qq.com")){
-//            isform=false;
-//        }
-//        System.out.println(isform);
-        boolean isform =  false;
-        System.out.println(userReadManage.userValidation(username));
-        if(username!=null){
-         return successReturnObject(userReadManage.userValidation(username));
-        }else if(email!=null){
-            return successReturnObject(userReadManage.emailValidation(email));
+        //根据manage层传来的is_limit判断isformde 值（is_limit=0,则isform=true,否则为false);
+        System.out.println(username+" "+email);
+        if(username==""&&email==""){
+            isform=true;
+        }else{
+
+            Integer status=userReadManage.getUserLimit(username,email);
+            System.out.println(status);
+            if(status==1||status==2){
+                isform=false;
+            }
         }
         return successReturnObject(isform);
     }

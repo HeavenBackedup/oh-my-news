@@ -8,6 +8,7 @@ app.controller('loginController',['$scope','loginService','$state','user',functi
         $scope.usernameOremail="";
         $scope.userId=0;
         $scope.isform=true;
+        $scope.remind="";
     }
     $scope.verifyInfo=function () {
         var verifyInfo={username:"",email:""};
@@ -38,8 +39,8 @@ app.controller('loginController',['$scope','loginService','$state','user',functi
         loginService.submitInfo(userInfo,function (data) {
             $scope.userId=data;
             if($scope.userId==-1){
-                $scope.inputRes="用户名或邮箱或密码错误";
-                alert($scope.inputRes);
+                $scope.remind="用户名或邮箱或密码错误";
+                $('#remindModal').modal();
             }else{
                  user.setId($scope.userId);
                  $state.go("app.personalHomepage.hpTabset.myHomePage",{userId:$scope.userId});
