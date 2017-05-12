@@ -73,8 +73,6 @@ public class LoginAction extends BaseAction {
                 isform=false;
             }
         }
-
-        System.out.println(isform);
         return successReturnObject(isform);
     }
 }
