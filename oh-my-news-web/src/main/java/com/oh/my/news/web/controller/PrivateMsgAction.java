@@ -2,6 +2,7 @@ package com.oh.my.news.web.controller;
 
 import com.oh.my.news.business.read.manage.PrivateMsgReadManage;
 import com.oh.my.news.business.write.manage.PrivateMsgWriteManage;
+import com.oh.my.news.model.dto.PrivateMessage;
 import com.oh.my.news.model.vo.PrivateMsg;
 import com.oh.my.news.web.util.BaseAction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +104,7 @@ public class PrivateMsgAction extends BaseAction{
 //        privateMsgList.add(pm1);
 //        privateMsgList.add(pm2);
 //        privateMsgList.add(pm3);
+//
 //        System.out.println(privateMsgList.size());
 
 

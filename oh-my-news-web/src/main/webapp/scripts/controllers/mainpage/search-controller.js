@@ -4,7 +4,13 @@
 app.controller('searchController',['$scope','$stateParams','searchService',function ($scope,$stateParams,searchService) {
     $scope.init=function () {
         $scope.searchText =$stateParams.search;  //路由传参结果显示在输入框中
+        $scope.pagination = {};
+        $scope.pagination.totalItems = 200;
+        $scope.pagination.currentPage = 1;
         $scope.searchItems={};
+        $scope.totalItems=200;
+        $scope.maxSize=5;
+        $scope.currentPage=1;
         //初始化加载方法
         $scope.showSearch();
     }
@@ -12,7 +18,7 @@ app.controller('searchController',['$scope','$stateParams','searchService',funct
         var param={};
         param.KeyWord=$scope.searchText;
         searchService.search(param,function (data) {
-            $scope.searchItems=data.resultList;
+            $scope.searchItems=data.contents;
         },function (data) {
             console.info("error:"+data);
         });
@@ -22,12 +28,11 @@ app.controller('searchController',['$scope','$stateParams','searchService',funct
         var param={};
         param.KeyWord=$scope.searchText;
         searchService.search(param,function (data) {
-            $scope.searchItems=data.resultList;
+            $scope.searchItems=data.contents;
         },function (data) {
             console.info("error:"+data);
         });
 
     }
-
 
 }]);

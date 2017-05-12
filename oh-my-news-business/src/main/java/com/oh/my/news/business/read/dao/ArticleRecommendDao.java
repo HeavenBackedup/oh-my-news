@@ -1,6 +1,7 @@
 package com.oh.my.news.business.read.dao;
 
 import com.oh.my.news.model.dto.ArticleSnapshot;
+import com.oh.my.news.model.dto.EditContentDto;
 import com.oh.my.news.model.vo.mainpage.EditContent;
 
 import java.util.List;
@@ -39,4 +40,13 @@ public interface ArticleRecommendDao {
      * @throws Exception
      */
     List<EditContent> queryRecommendByCategoryId(int categoryId,int currentPage,int pageItemNum) throws Exception;
+
+    /**
+     *
+     * @param categoryId
+     * @return 根据新闻所属类别返回对应的总条数
+     * @throws Exception
+     */
+
+    Integer getRecommendCountByCategoryId(int categoryId)throws Exception;
 }

@@ -144,7 +144,8 @@ var app =angular
         .state('main',{
           url: '/main',
           templateUrl: 'views/block/mainpage/main.html',
-            controller: 'mainController'
+            controller: 'mainController',
+            params:{'categoryId':{}}
         })
           //新闻搜索模块
           .state('search',{

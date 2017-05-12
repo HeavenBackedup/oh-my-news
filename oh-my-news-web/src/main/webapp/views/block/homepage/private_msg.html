@@ -1,45 +1,67 @@
 <div ng-controller="privateMsgController"ng-init="init()">
 
-  <div class="row" style="margin-left: 30px">
-    <select ng-change="getPrivateMsg()" ng-model="selectedValue" >
-      <option ng-value="0" selected="selected">未读</option>
-      <option  ng-value="1">已读</option>
-      <option  ng-value="2">全部</option>
-    </select>
-  </div>
+  <!--<div class="row" style="margin-left: 30px">-->
+    <!--<select ng-change="getPrivateMsg()" ng-model="selectedValue" >-->
+      <!--<option ng-value="0" selected="selected">未读</option>-->
+      <!--<option  ng-value="1">已读</option>-->
+      <!--<option  ng-value="2">全部</option>-->
+    <!--</select>-->
+  <!--</div>-->
 
   <div class="row"  ng-repeat="privateMsg in privateMsgs">
     <!--头像-->
-    <div class="col-sm-2"> <img class="img-responsive" ng-src="{{privateMsg.avatar}}" style="width: auto" /></div>
-    <!--用户名-->
-    <div class="col-sm-1"><span ng-bind="privateMsg.username"></span></div>
-    <!--私信内容-->
-    <div class="col-sm-8" >
-      <div><span ng-bind="privateMsg.message" ></span></div>
-      <div ><span ng-bind="privateMsg.time" ></span></div>
+    <div class="col-sm-2">
+      <div class="row">
+        <img class="img-responsive" ng-src="{{privateMsg.avatar}}" style="width: auto" />
+      </div>
+      <div class="row">
+        <span style="font-weight: bolder;text-align: center;" ng-bind="privateMsg.username"></span>
+      </div>
 
-      <div class="row" ng-repeat="exMsg in exMsgs" ng-show="!privateMsg.isUnfold">
+    </div>
+    <!--用户名-->
+
+    <!--私信内容-->
+    <div class="col-sm-8 col-sm-offset-1" >
+      <div class="row"><textarea class="text-area ng-binding " style="width: 472px; margin: 0px; height: 84px;"  ng-disabled="true" ng-readonly="true" ng-bind="privateMsg.message" ></textarea></div>
+      <div class="row"><span ng-bind="privateMsg.time|date:'yyyy-MM-dd hh:mm:ss'" ></span></div>
+
+      <div  ng-repeat="exMsg in exMsgs" ng-show="!privateMsg.isUnfold">
         <hr>
-        <div class="col-sm-2"> <img class="img-responsive" ng-src="{{privateMsg.avatar}}"  style="width: auto"/></div>
-        <div class="col-sm-2"><span ng-bind="exMsg.username"></span></div>
-        <div class="col-sm-5" ><span ng-bind="exMsg.message" ></span></div>
-        <div class="col-sm-1" ><span ng-bind="exMsg.time" ></span></div>
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="row">
+              <img class="img-responsive" ng-src="{{exMsg.avatar}}"  style="width: auto"/>
+            </div>
+            <div class="row">
+              <span style="font-weight: bolder" ng-bind="exMsg.username"></span>
+            </div>
+          </div>
+          <div class="col-sm-9 col-sm-offset-1">
+            <div  ><textarea class="text-area ng-pristine ng-untouched ng-valid ng-not-empty" style="width: 329px; margin: 0px; height: 72px;" ng-disabled="true" ng-readonly="true" ng-model="exMsg.message"></textarea></div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-sm-offset-8" ><span style="font-size: smaller">{{exMsg.time|date:'yyyy-MM-dd hh:mm:ss'}}</span></div>
+        </div>
+
       </div>
 
       <hr>
 
       <div class="row">
         <div class="col-sm-2">
-          <div><a ng-click="unfold(privateMsg.id)" ng-show="privateMsg.isUnfold">展开</a></div>
-          <div><a ng-click="packUp(privateMsg.id)" ng-show="!privateMsg.isUnfold">收起</a></div>
+          <div><a ng-click="unfold(privateMsg)" ng-show="privateMsg.isUnfold">展开</a></div>
+          <div><a ng-click="packUp(privateMsg)" ng-show="!privateMsg.isUnfold">收起</a></div>
         </div>
 
-        <div class="col-sm-2"><a ng-click="reply(privateMsg.id)">回复</a></div>
+        <div class="col-sm-2"><a ng-click="reply(privateMsg)">回复</a></div>
       </div>
 
       <div class="col-sm-3 row" >
         <textarea ng-model="privateMsg.rMessage" rows="2" cols="60" ng-show="privateMsg.isReply"></textarea>
-        <button ng-click="privateMsgReply(privateMsg.id)" ng-show="privateMsg.isReply">发送</button>
+        <button class="btn-sm btn-success" ng-click="privateMsgReply(privateMsg)" ng-show="privateMsg.isReply">发送</button>
       </div>
 
     </div>

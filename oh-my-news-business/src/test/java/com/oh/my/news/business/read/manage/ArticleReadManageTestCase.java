@@ -14,7 +14,7 @@ public class ArticleReadManageTestCase extends TestCase {
 
     public ArticleReadManageTestCase(){
 //        System.setProperty("global.config.path","D:\\env\\env-dev");
-        System.setProperty("global.config.path","/Users/shj/dev/env/env/env-dev");
+        System.setProperty("global.config.path","/Users/Dzhaoooo/GitProjects/env/env-dev");
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:oh-my-news-business/spring-service.xml");
         this.articleReadManage=(ArticleReadManage)applicationContext.getBean("articleReadManageImpl");
 
@@ -40,14 +40,5 @@ public class ArticleReadManageTestCase extends TestCase {
 
     public void testSearch() throws Exception{
         System.out.println(this.articleReadManage.search("测试",1,10));
-    }
-
-    public void testGetArticleDetail(){
-        try {
-            System.out.println(this.articleReadManage.getArticleDetail(2,-1));
-        }catch (Exception e){
-            e.printStackTrace();
-            Assert.fail();
-        }
     }
 }

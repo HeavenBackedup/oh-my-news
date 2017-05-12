@@ -70,6 +70,7 @@ public class UserReadDaoImpl implements UserReadDao{
         user.setSignature(u.getSignature());
 //        System.out.println(user.getEmail());
         user.setAddress(u.getAddress());
+        user.setSignature(u.getSignature());
         user.setAnnouncement(u.getAnnouncement());
         user.setImageUrl(u.getImageUrl());
         user.setDate(u.getDate());

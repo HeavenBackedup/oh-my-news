@@ -1,6 +1,8 @@
 package com.oh.my.news.business.read.manage;
 
 import com.oh.my.news.model.dto.ArticleSnapshot;
+import com.oh.my.news.model.dto.EditContentDto;
+import com.oh.my.news.model.po.File;
 import com.oh.my.news.model.vo.mainpage.EditContent;
 
 import java.util.List;
@@ -42,5 +44,6 @@ public interface ArticleRecommendManage {
      * @throws Exception
      */
 
-    List<EditContent> getRecommendByCategoryId(int categoryId,int currentPage,int pageItemNum)throws Exception;
+    EditContentDto getRecommendByCategoryId(int categoryId, int currentPage, int pageItemNum)throws Exception;
+
 }

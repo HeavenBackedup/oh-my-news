@@ -51,11 +51,14 @@ public class ArticleRecommendManageTestCase extends TestCase {
 
     public void testGetRecommendByCategoryId(){
         try {
-            System.out.println(this.articleRecommendManage.getRecommendByCategoryId(2,1,1));
+
+            System.out.println(this.articleRecommendManage.getRecommendByCategoryId(1,1,1));
         }catch (Exception e){
             e.printStackTrace();
             Assert.fail();
         }
     }
+
+
 
 }

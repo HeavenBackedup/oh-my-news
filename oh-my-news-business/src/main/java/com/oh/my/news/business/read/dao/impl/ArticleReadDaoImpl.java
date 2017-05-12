@@ -3,6 +3,7 @@ package com.oh.my.news.business.read.dao.impl;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.oh.my.news.business.read.dao.ArticleReadDao;
 import com.oh.my.news.business.read.dao.TransactionReadDao;
+import com.oh.my.news.model.dto.ArticleSnapshot;
 import com.oh.my.news.model.po.ArticleReader;
 import com.oh.my.news.model.po.ArticleReaderType;
 import com.oh.my.news.model.po.Article;
@@ -135,6 +136,11 @@ public class ArticleReadDaoImpl implements ArticleReadDao {
         map.put("currentPage",(currentPage-1)*pageItemNum);
         map.put("sortType",sortType);
         return (List<Article>) sqlMapClient.queryForList("article_sqlMap.query_history_article_sort",map);
+    }
+
+    @Override
+    public List<ArticleSnapshot> queryArticlesByUserId(int userId) throws Exception {
+        return (List<ArticleSnapshot>)sqlMapClient.queryForList("article_sqlMap.query_article_list_by_user_id",userId);
     }
 }
 
