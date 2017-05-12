@@ -26,7 +26,7 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
             },function (data) {
                 console.error(data);
             })
-            $scope.valuenow = ($scope.money/MaxMoney/0.01)*100;
+            $scope.valuenow = $scope.money/MaxMoney/0.01;
             $scope.inputrecharge = "";
             $scope.inputwithdraw = "";
 
@@ -46,7 +46,7 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
                 console.error(data);
             })
 
-            $scope.valuenow = ($scope.money/MaxMoney/0.01)*100;
+            $scope.valuenow = $scope.money/MaxMoney/0.01;
 
         }
 
