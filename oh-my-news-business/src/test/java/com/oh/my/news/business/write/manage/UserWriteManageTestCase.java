@@ -21,8 +21,8 @@ public class UserWriteManageTestCase extends TestCase{
     }
     public void testRegister(){
         UserWrite user=new UserWrite();
-        user.setUsername("llf");
-        user.setEmail("1234567@qq.com");
+        user.setUsername("llf3");
+        user.setEmail("123456736@qq.com");
         user.setPassword("123456");
         try {
             this.userWriteManage.register(user);

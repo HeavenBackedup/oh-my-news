@@ -30,17 +30,31 @@ public class UserReadDaoImpl implements UserReadDao{
     }
 
     public Integer queryUserbyusername(String username,String password) throws Exception {
+        Integer result=-1;
         Map<String,Object> map=new HashedMap();
         map.put("username",username);
         map.put("password",password);
-        return (Integer) sqlMapClient.queryForObject("user_sqlMap.username_query_user",map);
+        result =(Integer)sqlMapClient.queryForObject("user_sqlMap.username_query_user",map);
+        if(result!=null){
+            return  result;
+        }
+        else {
+            return -1;
+        }
     }
 
     public Integer queryUserbyemail(String email,String password) throws Exception {
+        Integer result=-1;
         Map<String,Object> map=new HashedMap();
         map.put("email",email);
         map.put("password",password);
-        return (Integer) sqlMapClient.queryForObject("user_sqlMap.email_query_user",map);
+        result=(Integer)sqlMapClient.queryForObject("user_sqlMap.email_query_user",map);
+        if(result!=null){
+            return result;
+        }
+        else {
+            return -1;
+        }
     }
 
     public UserDto queryUserDetail(int userId) throws Exception {
@@ -70,11 +84,16 @@ public class UserReadDaoImpl implements UserReadDao{
     }
 
     public Integer verifyUserLimit(String username, String email) throws Exception {
+        Integer result=-1;
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("username",username);
         map.put("email",email);
-
-        return (Integer)sqlMapClient.queryForObject("user_sqlMap.verify_user_limit",map);
+        result=(Integer)sqlMapClient.queryForObject("user_sqlMap.verify_user_limit",map);
+        if(result!=null){
+            return result;
+        }else{
+            return -1;
+        }
     }
 
     public UserSnapshot getUserSnapshotById(int id) throws Exception {

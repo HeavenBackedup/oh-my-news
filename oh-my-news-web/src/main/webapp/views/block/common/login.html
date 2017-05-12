@@ -29,3 +29,20 @@
     </div>
 
 </form>
+<div class="modal" id="remindModal" role="dialog"tabindex="-1"  aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" ng-click="closeModal()" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3  style="text-align: center" class="modal-title" id="myModalLabel1">提示信息</h3>
+
+            </div>
+            <div class="modal-body " style="text-align: center">
+                <h4>{{remind}}</h4>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="closeModal()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

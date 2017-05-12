@@ -15,6 +15,7 @@ public class UserReadManageImpl implements UserReadManage {
     @Autowired
     private UserReadDao userReadDao;
     public Integer usernamelogin(String username, String password) throws Exception {
+
         return userReadDao.queryUserbyusername(username,password);
     }
 
