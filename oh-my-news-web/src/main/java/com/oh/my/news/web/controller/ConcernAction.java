@@ -26,10 +26,9 @@ public class ConcernAction extends BaseAction{
 
     @RequestMapping(value = "/getConcern")
     public @ResponseBody
-    Object getFansInformation(@RequestBody Map userMap) {
+    Object getFansInformation(@RequestBody Map userMap) throws Exception {
         //获取关注人列表
         int userId = (Integer) userMap.get("userId");
-        try {
             List<UserSnapshot> concerns = concernReadManage.getMyConcerns(userId);
             List<OthersInfomation> concernList = new ArrayList<OthersInfomation>();
             for (UserSnapshot u : concerns) {
@@ -41,10 +40,6 @@ public class ConcernAction extends BaseAction{
                 concernList.add(item);
             }
             return successReturnObject(concernList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return failReturnObject("get concerns fail");
-        }
 
 
     }

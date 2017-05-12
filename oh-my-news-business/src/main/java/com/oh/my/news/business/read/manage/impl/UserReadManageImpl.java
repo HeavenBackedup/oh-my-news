@@ -43,8 +43,10 @@ public class UserReadManageImpl implements UserReadManage {
 
     public UserFont getUserDetail(int userId) throws Exception {
         UserDto userDto=userReadDao.queryUserDetail(userId);
+        System.out.println(userDto);
         String[] address=userDto.getAddress().split(",");
         UserFont userFont=new UserFont();
+        userFont.setSignature(userDto.getSignature());
         userFont.setId(userDto.getId());
         userFont.setUsername(userDto.getUsername());
         userFont.setPassword(userDto.getPassword());

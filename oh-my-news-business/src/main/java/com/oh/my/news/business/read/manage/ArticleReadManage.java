@@ -2,7 +2,10 @@ package com.oh.my.news.business.read.manage;
 
 import com.oh.my.news.model.dto.ArticleDetail;
 import com.oh.my.news.model.dto.ArticleDto;
+import com.oh.my.news.model.dto.ArticleSnapshot;
 import com.oh.my.news.model.dto.SortType;
+
+import java.util.List;
 
 /**
  * Created by shj on 2017/5/1.
@@ -62,7 +65,22 @@ public interface ArticleReadManage {
      */
     ArticleDto search(String text,int currentPage,int pageItemNum)throws Exception;
 
+    /**
+     * 新闻显示页面（用户新闻推荐）
+     * @param userId
+     * @return 通过userId返回该用户的新闻推荐
+     * @throws Exception
+     */
+    List<ArticleSnapshot> getAuthorPost(int userId) throws Exception;
 
+    /**
+     * 新闻显示页面（相关类型新闻推荐）
+     * @param label
+     * @return 通过新闻标签返回相关类型的新闻推荐
+     * @throws Exception
+     */
+
+    List<ArticleSnapshot> getRelatePost(String label) throws Exception;
 
 
 

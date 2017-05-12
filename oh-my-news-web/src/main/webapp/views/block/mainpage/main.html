@@ -25,14 +25,13 @@
 
   <div  class="navbar navbar-inverse col-md-offset-1 col-md-10" role="navigation">
     <ul class="nav navbar-nav">
-      <li><a class="navbar-brand" ng-click="changePage(0,currentPage)">首页</a> </li>
-      <li><a class="navbar-brand" ng-click="changePage(1,currentPage)">文化</a> </li>
-      <li><a class="navbar-brand" ng-click="changePage(2,currentPage)">时尚</a> </li>
-      <li><a class="navbar-brand" ng-click="changePage(3,currentPage)">娱乐</a> </li>
-      <li><a class="navbar-brand" ng-click="changePage(4,currentPage)">房产</a> </li>
-      <li><a class="navbar-brand" ng-click="changePage(5,currentPage)">科技</a> </li>
-      <li><a class="navbar-brand" ng-click="changePage(6,currentPage)">汽车</a> </li>
-      <li><a class="navbar-brand" ng-click="changePage(7,currentPage)">财经</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(1,currentPage)">首页</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(2,currentPage)">文化</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(3,currentPage)">时尚</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(4,currentPage)">娱乐</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(5,currentPage)">房产</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(6,currentPage)">科技</a> </li>
+      <li><a class="navbar-brand" ng-click="changePage(7,currentPage)">汽车</a> </li>
       <li><a class="navbar-brand" ng-click="changePage(8,currentPage)">游戏</a> </li>
       <li><a class="navbar-brand" ng-click="changePage(9,currentPage)">体育</a> </li>
       <li><a class="navbar-brand" ng-click="changePage(10,currentPage)">书城</a> </li>
@@ -49,17 +48,17 @@
 <div class="col-md-3">
 <button class="btn btn-primary col-md-offset-2 btn-block" ng-click="collectList()">收藏排行</button>
   <ol>
-    <li ng-repeat="item in collectItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside; margin: 10px;"><a  ui-sref="app.detail">{{item.title}}</a> </li>
+    <li ng-repeat="item in collectItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside; margin: 10px;"><a  ng-click="articleDetail(item.id)">{{item.topic}}</a> </li>
   </ol>
 
   <button class="btn btn-primary col-md-offset-2 btn-block" ng-click="markList()">评论排行</button>
   <ol>
-    <li ng-repeat="item in markItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside;margin: 10px;"><a ui-sref="app.detail">{{item.title}}</a> </li>
+    <li ng-repeat="item in markItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside;margin: 10px;"><a ng-click="articleDetail(item.id)">{{item.topic}}</a> </li>
   </ol>
 
   <button class="btn btn-primary col-md-offset-2 btn-block" ng-click="lastList()">最新动态</button>
   <ol>
-    <li ng-repeat="item in lastItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside;margin: 10px;"><a ui-sref="app.detail">{{item.title}}</a> </li>
+    <li ng-repeat="item in lastItems" style="width: 200px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;list-style-position: inside;margin: 10px;"><a ng-click="articleDetail(item.id)">{{item.topic}}</a> </li>
   </ol>
 
   <button class="btn btn-primary glyphicon glyphicon-refresh col-md-offset-2 btn-block" ng-click="refreshAll()">点击刷新</button>
@@ -79,22 +78,22 @@
             </div>
 
             <!--正文显示部分 当正文文本超过8行时剩余部分显示省略号-->
-            <div style="display: -webkit-box;-webkit-line-clamp: 8;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;">
-              {{item.text}}
+            <div ng-bind-html="item.text" style="display: -webkit-box;-webkit-line-clamp: 8;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;">
             </div>
             <!--跳转新闻显示页面-->
-            <a class="pull-right" ui-sref="app.detail">
+            <a class="pull-right" ng-click="articleDetail(item.id)">
               点击查看全文>>
             </a>
           </div>
 
-          <div ng-show="item.picUrl.length==0" style="display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">
-            {{item.text}}
-            <a class="pull-right" ui-sref="app.detail">
-              点击查看全文>>
 
-            </a>
+        <div ng-show="item.picUrl.length==0">
+          <div ng-bind-html="item.text" style="display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">
           </div>
+          <a class="pull-right" ng-click="articleDetail(item.id)">
+            点击查看全文>>
+          </a>
+        </div>
 
 
 

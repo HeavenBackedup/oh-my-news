@@ -24,16 +24,12 @@ public class CommonAction extends BaseAction{
 
     @RequestMapping(value = "/getCategories")
     public @ResponseBody
-    Object getCategoties(){
+    Object getCategoties()throws Exception{
         List<com.oh.my.news.model.po.Category>categories=new ArrayList<com.oh.my.news.model.po.Category>();
-        try {
             categories=categoryReadManage.getCategories();
             System.out.println(categories);
             return successReturnObject(categories);
-        }catch (Exception e){
-            e.printStackTrace();
-            return failReturnObject("get categories fail");
-        }
+
 
 
 
