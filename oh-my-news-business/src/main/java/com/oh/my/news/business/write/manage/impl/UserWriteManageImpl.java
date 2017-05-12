@@ -21,9 +21,9 @@ public class UserWriteManageImpl implements UserWriteManage {
     private UserWriteDao userWriteDao;
     @Autowired
     private WalletWriteDao walletWriteDao;
-    public void register(UserWrite user) throws Exception {
+    public Integer register(UserWrite user) throws Exception {
         Integer id = userWriteDao.insertUser(user);
-        walletWriteDao.insertWalletByUserId(id);
+        return id;
     }
     public void editSignature(Integer userId, String signature) throws Exception {
         userWriteDao.insertSignature(userId,signature);

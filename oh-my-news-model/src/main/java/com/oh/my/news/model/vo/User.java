@@ -1,5 +1,7 @@
 package com.oh.my.news.model.vo;
 
+import java.util.List;
+
 /**
  * Created by llf on 2017/4/16.
  */
@@ -8,6 +10,9 @@ public class User {
     private String username;
     private String password;
     private String photoid;
+
+
+
 
     public String[] getAddress() {
         return address;

@@ -103,7 +103,6 @@ public class PrivateMsgAction extends BaseAction{
 //        privateMsgList.add(pm1);
 //        privateMsgList.add(pm2);
 //        privateMsgList.add(pm3);
-//
 //        System.out.println(privateMsgList.size());
 
 

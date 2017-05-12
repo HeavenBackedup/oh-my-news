@@ -39,6 +39,7 @@ public class RegisterAction extends BaseAction {
         userWrite.setUsername(user.getUsername());
         userWrite.setEmail(user.getEmail());
         userWrite.setPassword(user.getPassword());
+        userWrite.setNickname(user.getUsername());
         userWriteManage.register(userWrite);
 
         return successReturnObject(true);
@@ -68,7 +69,7 @@ public class RegisterAction extends BaseAction {
 //        if (inputusername.equals("abc")) {
 //            isform = false;
 //        }
-        return successReturnObject(isform);
+        return successReturnObject(!isform);
 
 
     }
@@ -76,10 +77,12 @@ public class RegisterAction extends BaseAction {
     public  @ResponseBody Object verifyemailInfo(@RequestBody Map map)throws Exception{
         boolean isform=true;
         String email=map.get("value").toString();
+
         isform = userReadManage.emailValidation(email);
 //        if(inputemail.equals("123@qq.com")){
 //            isform=false;
 //        }
-        return successReturnObject(isform);
+        System.out.println("emailValidation"+isform);
+        return successReturnObject(!isform);
     }
 }

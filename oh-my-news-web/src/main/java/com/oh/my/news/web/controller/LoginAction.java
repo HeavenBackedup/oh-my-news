@@ -63,7 +63,7 @@ public class LoginAction extends BaseAction {
         String email=user.getEmail();
         //根据manage层传来的is_limit判断isformde 值（is_limit=0,则isform=true,否则为false);
         System.out.println(username+" "+email);
-        if(username==""&&email==""){
+        if((username==""||username==null)&&(email==""||email==null)){
             isform=true;
         }else{
 

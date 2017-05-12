@@ -18,7 +18,7 @@ public interface UserWriteManage {
      * @param user
      * @throws Exception
      */
-    void register(UserWrite user)throws Exception;
+    Integer register(UserWrite user)throws Exception;
 
     /**
      * 编辑用户主页的signature

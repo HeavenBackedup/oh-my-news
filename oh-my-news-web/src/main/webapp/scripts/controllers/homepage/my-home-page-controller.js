@@ -46,7 +46,10 @@ app.controller('myHomePageController',['$scope','homeService','user','$statePara
             privateLetter:''
         }
 
-
+        if((isNaN($scope.id.paramsUserId)||$scope.id.paramsUserId<=0)){
+            alert("个人主页跳转出错，将返回新闻主页");
+            $state.go('main');
+        }
         $scope.uploadInformation($scope.id.paramsUserId);
 
 
