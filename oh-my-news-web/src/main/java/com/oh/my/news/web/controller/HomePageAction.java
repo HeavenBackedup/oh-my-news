@@ -117,6 +117,7 @@ public class HomePageAction extends BaseAction {
             if(concernReadManage.concernValidation(userIdOfLogin,userIdOfShow))
                 return successReturnObject(0);
             else {
+
                 return failReturnObject(1);
             }
 
