@@ -12,6 +12,7 @@ var app =angular
     'ngAnimate',
     'ngAria',
     'ngCookies',
+      'ngStorage',
     'ngMessages',
     'ngResource',
     'ngSanitize',

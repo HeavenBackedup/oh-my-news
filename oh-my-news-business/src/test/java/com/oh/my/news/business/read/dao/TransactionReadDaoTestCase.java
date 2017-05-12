@@ -11,7 +11,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TransactionReadDaoTestCase extends TestCase {
     private TransactionReadDao transactionReadDao;
     public TransactionReadDaoTestCase() {
-        System.setProperty("global.config.path", "F:\\thefirstproject\\env\\env\\env-dev");
+//        System.setProperty("global.config.path", "F:\\thefirstproject\\env\\env\\env-dev");
+        System.setProperty("global.config.path","/Users/shj/dev/env/env/env-dev");
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:oh-my-news-business/spring-service.xml");
        this.transactionReadDao=(TransactionReadDao)applicationContext.getBean("transactionReadDaoImpl");
     }
@@ -35,6 +36,14 @@ public class TransactionReadDaoTestCase extends TestCase {
             Assert.fail();
         }
 
+    }
+    public void testDonated(){
+        try {
+            System.out.println(this.transactionReadDao.donated(2));
+        }catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
     }
 
 

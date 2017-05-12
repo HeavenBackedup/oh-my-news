@@ -5,8 +5,8 @@
     <resultMap id="transaction_mapResult" class="com.oh.my.news.model.po.TransactionPo">
         <result property="id" column="id" jdbcType="INTEGER"></result>
         <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
-        <result property="targetName" column="username" jdbcType="INTEGER"></result>
-        <result property="date" column="date" jdbcType="DATE"></result>
+        <result property="targetName" column="username" jdbcType="VARCHAR"></result>
+        <result property="date" column="date" jdbcType="TIMSTAMP"></result>
         <result property="amount" column="amount" jdbcType="FLOAT"></result>
         <result property="message" column="message" jdbcType="VARCHAR"></result>
     </resultMap>
@@ -31,7 +31,7 @@
         <result property="sourceUserId" column="source_user_id" jdbcType="INTEGER"></result>
         <result property="targetUserId" column="target_user_id" jdbcType="INTEGER"></result>
         <result property="articleId" column="article_id" jdbcType="INTEGER"></result>
-        <result property="date" column="date" jdbcType="DATE"></result>
+        <result property="date" column="date" jdbcType="TIMESTAMP"></result>
         <result property="amount" column="amount" jdbcType="FLOAT"></result>
         <result property="message" column="message" jdbcType="VARCHAR"></result>
     </resultMap>

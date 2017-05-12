@@ -160,7 +160,7 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
                 case 4:
                     break;
                 case 5:
-                    $scope.articleReader.thumbup = true;
+                    $scope.articleReader.thumbUp = true;
                     break;
                 case 6:
                     $scope.articleReader.collected = true;

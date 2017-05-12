@@ -4,16 +4,16 @@ import java.util.Date;
  * Created by shj on 2017/5/2.
  */
 public class Transaction {
-    private int id;
-    private int isDelete;
-    private int sourceUserId;
-    private int targetUserId;
+    private Integer id;
+    private Integer isDelete;
+    private Integer sourceUserId;
+    private Integer targetUserId;
     private Date date;
-    private float amount;
-    private int articleId;
+    private Float amount;
+    private Integer articleId;
     private String message;
 
-    public Transaction(int id, int isDelete, int sourceUserId, int targetUserId, Date date, float amount, int articleId, String message) {
+    public Transaction(Integer id, Integer isDelete, Integer sourceUserId, Integer targetUserId, Date date, Float amount, Integer articleId, String message) {
         this.id = id;
         this.isDelete = isDelete;
         this.sourceUserId = sourceUserId;
@@ -26,6 +26,7 @@ public class Transaction {
 
     public Transaction() {
     }
+
 
     @Override
     public String toString() {
@@ -48,58 +49,58 @@ public class Transaction {
 
         Transaction that = (Transaction) o;
 
-        if (id != that.id) return false;
-        if (isDelete != that.isDelete) return false;
-        if (sourceUserId != that.sourceUserId) return false;
-        if (targetUserId != that.targetUserId) return false;
-        if (Float.compare(that.amount, amount) != 0) return false;
-        if (articleId != that.articleId) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (isDelete != null ? !isDelete.equals(that.isDelete) : that.isDelete != null) return false;
+        if (sourceUserId != null ? !sourceUserId.equals(that.sourceUserId) : that.sourceUserId != null) return false;
+        if (targetUserId != null ? !targetUserId.equals(that.targetUserId) : that.targetUserId != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
+        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
+        if (articleId != null ? !articleId.equals(that.articleId) : that.articleId != null) return false;
         return message != null ? message.equals(that.message) : that.message == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + isDelete;
-        result = 31 * result + sourceUserId;
-        result = 31 * result + targetUserId;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (isDelete != null ? isDelete.hashCode() : 0);
+        result = 31 * result + (sourceUserId != null ? sourceUserId.hashCode() : 0);
+        result = 31 * result + (targetUserId != null ? targetUserId.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (amount != +0.0f ? Float.floatToIntBits(amount) : 0);
-        result = 31 * result + articleId;
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + (articleId != null ? articleId.hashCode() : 0);
         result = 31 * result + (message != null ? message.hashCode() : 0);
         return result;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getIsDelete() {
+    public Integer getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(int isDelete) {
+    public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
     }
 
-    public int getSourceUserId() {
+    public Integer getSourceUserId() {
         return sourceUserId;
     }
 
-    public void setSourceUserId(int sourceUserId) {
+    public void setSourceUserId(Integer sourceUserId) {
         this.sourceUserId = sourceUserId;
     }
 
-    public int getTargetUserId() {
+    public Integer getTargetUserId() {
         return targetUserId;
     }
 
-    public void setTargetUserId(int targetUserId) {
+    public void setTargetUserId(Integer targetUserId) {
         this.targetUserId = targetUserId;
     }
 
@@ -111,19 +112,19 @@ public class Transaction {
         this.date = date;
     }
 
-    public float getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
-    public int getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(int articleId) {
+    public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
 
