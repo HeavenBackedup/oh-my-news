@@ -30,40 +30,35 @@ public class MyWalletAction extends BaseAction {
         private TransactionReadManage transactionReadManage;
         @Resource
         private TransactionWriteManage transactionWriteManage;
-        @Resource
-        private WalletWriteDao walletWriteDao;
 
 
         @RequestMapping(value = "/setWithdraw", consumes = APPLICATION_JSON, method = RequestMethod.POST)
         //将提现金额写入Wallet表，将该提现事项写入Transaction表，并返回成功或不成功的提示
         public
         @ResponseBody
-        Object setWithdraw(@RequestBody Map inputMap) {
-                int WithdrawMoney = (Integer) inputMap.get("inputwithdraw");
-                int UserId = (Integer) inputMap.get("userId");
+        Object setWithdraw(@RequestBody Map inputMap) throws Exception{
+                int WithdrawMoney= Integer.parseInt(inputMap.get("inputwithdraw").toString());
+                int UserId = Integer.parseInt(inputMap.get("userId").toString());
                 String res = "";
                 int code;
                 //将该提现事项写入Transaction表
-                try {
+
                         transactionWriteManage.addEvents(UserId, null, WithdrawMoney, 0, "提现");
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+
                 //将提现金额写入Wallet表
-                try {
+
                         code = transactionWriteManage.setWithDraw(UserId, WithdrawMoney);
+
                         if (code == 1) {
                                 res = "提现失败";
 
                         } else {
                                 res = "提现成功";
                         }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
 
 
-                return res;
+
+                return successReturnObject(res);
 
 
         }
@@ -73,19 +68,16 @@ public class MyWalletAction extends BaseAction {
 
         public
         @ResponseBody
-        Object setRecharge(@RequestBody Map inputMap) {
-                int RechargeMoney = (Integer) inputMap.get("inputrecharge");
-                int UserId = (Integer) inputMap.get("userId");
+        Object setRecharge(@RequestBody Map inputMap)throws Exception {
+
+                int RechargeMoney = Integer.parseInt(inputMap.get("inputrecharge").toString());
+                int UserId = Integer.parseInt(inputMap.get("userId").toString());
                 String res = "";
                 int code;
                 //将该充值事项写入Transaction表
-                try {
-                        transactionWriteManage.addEvents(null, UserId, RechargeMoney, 0, "充值");
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+                        transactionWriteManage.addEvents(UserId, null, RechargeMoney, 0, "充值");
+
                 //将充值金额写入Wallet表
-                try {
                         code = transactionWriteManage.setRecharge(UserId, RechargeMoney);
                         if (code == 0) {
                                 res = "充值成功";
@@ -93,10 +85,8 @@ public class MyWalletAction extends BaseAction {
                         } else {
                                 res = "充值失败";
                         }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
-                return res;
+
+                return successReturnObject(res);
 
         }
 
@@ -105,15 +95,14 @@ public class MyWalletAction extends BaseAction {
         @RequestMapping(value = "/getPayevents", consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public
         @ResponseBody
-        Object getPayevents(@RequestBody Map inputMap) {
-                int UserId = (Integer) inputMap.get("userId");
-
+        Object getPayevents(@RequestBody Map inputMap)throws Exception {
+                int UserId = Integer.parseInt(inputMap.get("userId").toString());
+                List<TransactionPo> PaylistSelf = new ArrayList<TransactionPo>();
                 List<TransactionPo> Paylist = new ArrayList<TransactionPo>();
-                try {
-                        Paylist = transactionReadManage.getPayevents(UserId);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+                PaylistSelf= transactionReadManage.getPayeventsSelf(UserId);
+                Paylist=transactionReadManage.getPayevents(UserId);
+                Paylist.addAll(PaylistSelf);
+
                 return successReturnObject(Paylist);
         }
 
@@ -121,14 +110,17 @@ public class MyWalletAction extends BaseAction {
         @RequestMapping(value = "/getIncomeevents", consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public
         @ResponseBody
-        Object getIncomeevents(@RequestBody Map inputMap) {
-                int UserId = (Integer) inputMap.get("userId");
+        Object getIncomeevents(@RequestBody Map inputMap) throws Exception {
+                int UserId = Integer.parseInt(inputMap.get("userId").toString());
                 List<TransactionPo> Incomelist = new ArrayList<TransactionPo>();
-                try {
-                        Incomelist = transactionReadManage.getIncomeevents(UserId);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+                List<TransactionPo> IncomelistSelf = new ArrayList<TransactionPo>();
+                System.out.println("action"+UserId);
+                IncomelistSelf=transactionReadManage.getIncomeeventsSelf(UserId);
+                System.out.println(IncomelistSelf);
+                Incomelist = transactionReadManage.getIncomeevents(UserId);
+                Incomelist.addAll(IncomelistSelf);
+                System.out.println(Incomelist);
+
                 return successReturnObject(Incomelist);
         }
 
@@ -136,14 +128,12 @@ public class MyWalletAction extends BaseAction {
         @RequestMapping(value = "/getFigure", consumes = APPLICATION_JSON, method = RequestMethod.POST)
         public
         @ResponseBody
-        Object getFigure(@RequestBody Map inputMap) {
-                int UserId = (Integer) inputMap.get("userId");
+        Object getFigure(@RequestBody Map inputMap) throws Exception {
+                int UserId = Integer.parseInt(inputMap.get("userId").toString());
                 float figure = 1000;
-                try {
+
                         figure = transactionReadManage.getFigure(UserId);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+
                 return successReturnObject(figure);
         }
 
@@ -152,14 +142,11 @@ public class MyWalletAction extends BaseAction {
 
         public
         @ResponseBody
-        Object getMaxFigure(@RequestBody Map inputMap) {
-                int UserId = (Integer) inputMap.get("userId");
+        Object getMaxFigure(@RequestBody Map inputMap) throws Exception{
+                int UserId = Integer.parseInt(inputMap.get("userId").toString());
                 float maxFigure = 1000;
-                try {
                         maxFigure = transactionReadManage.getMaxFigure(UserId);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+
                 return successReturnObject(maxFigure);
 
         }

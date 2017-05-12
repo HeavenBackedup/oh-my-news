@@ -5,8 +5,8 @@
     <resultMap id="transaction_mapResult" class="com.oh.my.news.model.po.TransactionPo">
         <result property="id" column="id" jdbcType="INTEGER"></result>
         <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>
-        <result property="targetName" column="username" jdbcType="INTEGER"></result>
-        <result property="date" column="date" jdbcType="DATE"></result>
+        <result property="targetName" column="username" jdbcType="VARCHAR"></result>
+        <result property="date" column="date" jdbcType="TIMESTAMP"></result>
         <result property="amount" column="amount" jdbcType="FLOAT"></result>
         <result property="message" column="message" jdbcType="VARCHAR"></result>
     </resultMap>
@@ -17,9 +17,18 @@
     <select id="queryIn_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
           select `transaction`.id,`transaction`.is_delete,`user`.username username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.source_user_id and `transaction`.target_user_id=#id#;
     </select>
+
+    <select id="queryInSelf_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
+        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` where isempty(`transaction`.target_user_id) and `transaction`.source_user_id=#id#;
+    </select>
+    <select id="queryOutSelf_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
+        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` where isempty(`transaction`.target_user_id) and `transaction`.source_user_id=#id#;
+    </select>
     <select id="queryOut_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
         select `transaction`.id,`transaction`.is_delete,`user`.username username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.target_user_id and `transaction`.source_user_id=#id#;
     </select>
+
+
     <!--<select id="querySum_transaction_by_id" parameterClass="Map" resultClass="integer">-->
           <!--select wallet.figure from wallet,transaction,user where user.id=wallet.user_id and user.id=#id# and user.id=transaction.target_user_id ;-->
 

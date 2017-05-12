@@ -22,23 +22,41 @@ public class TransactionReadDaoImpl implements TransactionReadDao {
     @Qualifier(value = "sqlMapClientRead")
     private SqlMapClient sqlMapClient;
 
-
+    @Override
     public List<TransactionPo> Payevents(int userId)throws Exception{
-        return (List<TransactionPo>)sqlMapClient.queryForList("transaction_sqlMap.queryOut_transaction_by_id",userId);
-    }
 
+
+        return (List<TransactionPo>)sqlMapClient.queryForList("transaction_sqlMap.queryOut_transaction_by_id",userId);
+
+    }
+    @Override
+    public List<TransactionPo> PayeventsSelf(int userId)throws Exception{
+
+
+        return (List<TransactionPo>)sqlMapClient.queryForList("transaction_sqlMap.queryOutSelf_transaction_by_id",userId);
+
+    }
+    @Override
     public List<TransactionPo> Incomeevents(int userId)throws Exception{
+        System.out.println(userId);
+        System.out.println(sqlMapClient.queryForList("transaction_sqlMap.queryIn_transaction_by_id",userId));
 
         return (List<TransactionPo>)sqlMapClient.queryForList("transaction_sqlMap.queryIn_transaction_by_id",userId);
     }
+    @Override
+    public List<TransactionPo> IncomeeventsSelf(int userId)throws Exception{
+        System.out.println("self"+userId);
 
+        System.out.println(sqlMapClient.queryForList("transaction_sqlMap.queryInSelf_transaction_by_id",userId));
+
+        return (List<TransactionPo>)sqlMapClient.queryForList("transaction_sqlMap.queryInSelf_transaction_by_id",userId);
+    }
+
+    @Override
     public List<Transaction> donated(int userId)throws Exception{///与数据库清单保持一致smy
 
         return (List<Transaction>)sqlMapClient.queryForList("transaction_sqlMap.queryOut_raw_transaction_by_id",userId);
     }
-
-
-
 
 
 

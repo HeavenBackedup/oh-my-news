@@ -12,5 +12,8 @@ import java.util.List;
 public interface TransactionReadDao {
     List<TransactionPo> Payevents(int userId)throws Exception;
     List<TransactionPo> Incomeevents(int userId)throws Exception;
+    List<TransactionPo> PayeventsSelf(int userId)throws Exception;
+    List<TransactionPo> IncomeeventsSelf(int userId)throws Exception;
     List<Transaction> donated(int userId)throws Exception;///与数据库清单保持一致smy
+
 }

@@ -30,9 +30,11 @@ public class TransactionWriteManageImpl implements TransactionWriteManage{
         synchronized(this) {
             float ballance = walletReadDao.getFigure(userId);
             int sum_after = -sum;
+            int Id;
             if (sum <= ballance) {
-                walletWriteDao.updateWalletFigure(userId, sum_after);
-                walletWriteDao.setWalletMaxFigure(userId);
+                Id=walletReadDao.queryIdByUserId(userId);
+                walletWriteDao.updateWalletFigure(Id, sum_after);
+                walletWriteDao.setWalletMaxFigure(Id);
                 return 0;
             } else {
                 return 1;
@@ -41,10 +43,14 @@ public class TransactionWriteManageImpl implements TransactionWriteManage{
     }
     @Override
     public int setRecharge(int userId,int sum)throws Exception{
-          walletWriteDao.updateWalletFigure(userId,sum);
-          walletWriteDao.setWalletMaxFigure(userId);
+        int ID;
+        ID=walletReadDao.queryIdByUserId(userId);
+          walletWriteDao.updateWalletFigure(ID,sum);
+          walletWriteDao.setWalletMaxFigure(ID);
           return 0;
     }
+
+
 
 
 

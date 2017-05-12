@@ -27,6 +27,8 @@ private SqlMapClient sqlMapClient;
     @Override
     public void updateWalletFigure(Integer userId,Integer sum)throws Exception{
         Map<String,Object> map=new HashMap<String, Object>();
+        System.out.println("uss"+userId);
+        System.out.println("suum"+sum);
         map.put("userId",userId);
         map.put("Sum",sum);
         sqlMapClient.update("wallet_sqlMap.updatefigure_wallet_by_id", map);

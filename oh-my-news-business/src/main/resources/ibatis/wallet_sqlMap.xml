@@ -16,12 +16,16 @@
         </selectKey>
     </insert>
 
-    <update id="updatefigure_wallet_by_id" parameterClass="Map">
-        update `wallet` set figure=figure+#sum# where `wallet`.user_id=#id#;
+    <update id="updatefigure_wallet_by_id" parameterClass="java.util.Map">
+        update `wallet` set figure=figure+#sum# where `wallet`.id=#id#;
     </update>
 
-    <update id="updateMaxfigure_wallet_by_id" parameterClass="Integer">
-        update `wallet` set max_figure=figure where `wallet`.user_id=#id# and figure>max_figure;
+    <update id="updateMaxfigure_wallet_by_id" >
+        update `wallet` set max_figure=figure where `wallet`.id=#id# and figure>max_figure;
     </update>
+
+    <select id="query_id_by_user_id" parameterClass="Integer" resultClass="Integer">
+        select id from wallet where user_id = #userId#;
+    </select>
 
 </sqlMap>

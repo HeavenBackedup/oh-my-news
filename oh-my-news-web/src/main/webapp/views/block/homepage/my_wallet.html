@@ -5,8 +5,8 @@
     </div>
 <!--进度条和余额变动-->
             <div   class="progress">
-                     <div class="progress-bar" role="progressbar" ng-model="valuenow" aria-valuenow="{{valuenow}}" aria-valuemin="0" aria-valuemax="100" style="width:10%;">
-                                        {{valuenow}}%
+                     <div class="progress-bar" role="progressbar" ng-model="MaxMoney" aria-valuenow="{{money/MaxMoney/0.01}}" aria-valuemin="0" aria-valuemax="100" style="width:{{money/MaxMoney/0.01}}%;">
+                                            {{money/MaxMoney/0.01}}%
                      </div>
             </div>
 

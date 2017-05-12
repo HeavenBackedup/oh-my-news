@@ -7,6 +7,7 @@ import com.oh.my.news.model.po.TransactionPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,20 +15,36 @@ import java.util.List;
  */
 @Service
 public class TransactionReadManageImpl implements TransactionReadManage {
-
+     @Autowired
     private TransactionReadDao transactionReadDao;
+    @Autowired
     private WalletReadDao walletReadDao;
 
+    public List<TransactionPo> getPayeventsSelf(int userId)throws Exception{
+
+
+        return  transactionReadDao.PayeventsSelf(userId);
+
+    }
     public List<TransactionPo> getPayevents(int userId)throws Exception{
-        return  transactionReadDao.Payevents(userId);
+
+        return   transactionReadDao.Payevents(userId);
+
     }
 
     public List<TransactionPo> getIncomeevents(int userId)throws Exception{
-        return transactionReadDao.Incomeevents(userId);
+
+        return   transactionReadDao.Incomeevents(userId);
+
+    }
+    public List<TransactionPo> getIncomeeventsSelf(int userId)throws Exception{
+        System.out.println("dfdsf"+userId);
+
+        return  transactionReadDao.IncomeeventsSelf(userId);
     }
 
-
     public float getFigure(int userId)throws Exception{
+
         return walletReadDao.getFigure(userId);
     }
 

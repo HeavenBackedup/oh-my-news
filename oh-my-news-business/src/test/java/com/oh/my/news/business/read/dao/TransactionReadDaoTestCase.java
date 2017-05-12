@@ -18,7 +18,7 @@ public class TransactionReadDaoTestCase extends TestCase {
     public void testPayevents(){
 
         try {
-            System.out.println(this.transactionReadDao.Payevents(3));
+            System.out.println(this.transactionReadDao.Payevents(2));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();

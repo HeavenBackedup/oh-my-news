@@ -7,4 +7,5 @@ public interface WalletReadDao {
 
     float getFigure(int userId) throws Exception;
     float getMaxFigure(int userId) throws Exception;
+    Integer queryIdByUserId(int userId)throws Exception;
 }

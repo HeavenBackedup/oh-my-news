@@ -19,6 +19,7 @@ public class WalletReadDaoImpl implements WalletReadDao {
     public float getFigure(int userId) throws Exception{
 
         Float figure=(Float) sqlMapClient.queryForObject("wallet_sqlMap.queryfigure_wallet_by_id",userId);
+
         if(figure==null)
             return 0;
         return figure;
@@ -30,6 +31,11 @@ public class WalletReadDaoImpl implements WalletReadDao {
             return 0;
         return maxFigure;
     }
+     public Integer queryIdByUserId(int userId)throws Exception{
+
+         return (Integer) sqlMapClient.queryForObject("wallet_sqlMap.query_id_by_user_id",userId);
+
+     }
 
 
 }
