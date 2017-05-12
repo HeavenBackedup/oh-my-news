@@ -10,6 +10,7 @@ app.controller('registerController', ['$scope', '$state','registerService', func
         $scope.email="";
         $scope.isform=true;
         $scope.isform1=true;
+        $scope.remind="";
     }
     $scope.verifyusername=function () {
         var inputusername={};
@@ -50,8 +51,12 @@ app.controller('registerController', ['$scope', '$state','registerService', func
            $scope.isform=data;
             if($scope.isform==true){
                 console.info("注册成功")
-                alert("注册成功!")
-                $state.go("login");
+                $scope.remind="注册成功！"
+                $('#remindModal').modal('show');
+                $('#remindModal').on('hidden.bs.modal',function () {
+                    $state.go("login");
+                })
+
             }
         }, function (data) {
             console.info("error" + data)
