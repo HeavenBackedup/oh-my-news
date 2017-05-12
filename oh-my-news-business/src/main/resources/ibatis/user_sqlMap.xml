@@ -52,7 +52,7 @@
         SELECT  `id` from `user` where email=#email# and password=#password# and is_delete=0;
     </select>
     <insert id="insert_user" parameterClass="com.oh.my.news.model.po.UserWrite">
-        INSERT  INTO `user`(`username`,`email`,`password`,`date`,`is_delete`,`is_limit`)VALUES (#username#,#email#,#password#,now(),0,0);
+        INSERT  INTO `user`(`username`,`email`,`password`,`date`,`is_delete`,`is_limit`,`nickname`,`media_id`)VALUES (#username#,#email#,#password#,now(),0,0,#username#,8);
         <selectKey keyProperty="id" resultClass="java.lang.Integer">
             SELECT  LAST_INSERT_ID() as id;
         </selectKey>

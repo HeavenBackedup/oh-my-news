@@ -5,6 +5,7 @@ import com.oh.my.news.business.read.manage.CommentReadManage;
 import com.oh.my.news.business.write.manage.ArticleWriteManage;
 import com.oh.my.news.business.write.manage.CommentWriteManage;
 import com.oh.my.news.model.dto.ArticleDetail;
+import com.oh.my.news.model.dto.ArticleSnapshot;
 import com.oh.my.news.model.dto.CommentDto;
 import com.oh.my.news.model.dto.CommentPageDto;
 import com.oh.my.news.model.po.*;
@@ -134,8 +135,30 @@ public class DetailAction extends BaseAction {
         article.setId(articleDetail.getArticleCategoryDto().getArticle().getId());
         articleInfo.setId(articleDetail.getArticleCategoryDto().getArticle().getId());
         articleInfo.setarticleScore(articleDetail.getArticleCategoryDto().getArticle().getScore());
-        articleInfo.setAuthorPost(new ArrayList<Article>());
-        articleInfo.setRelatedPost(new ArrayList<Article>());
+        List<Article> authorPost = new ArrayList<Article>();
+        List<ArticleSnapshot> authorPostSnapshot = articleReadManage.getAuthorPost(articleDetail.getArticleCategoryDto().getArticle().getUserId());
+        for(ArticleSnapshot a:authorPostSnapshot){
+            Article authorPostArticle = new Article();
+            ArticleInfo articleInfoAuthor = new ArticleInfo();
+            articleInfoAuthor.setId(a.getId());
+            articleInfoAuthor.setTopic(a.getTopic());
+
+            authorPostArticle.setArticleInfo(articleInfoAuthor);
+            authorPost.add(authorPostArticle);
+        }
+        List<Article> relatedPost = new ArrayList<Article>();
+        List<ArticleSnapshot> relatePost = articleReadManage.getRelatePost(articleDetail.getArticleCategoryDto().getArticle().getLabels());
+        for(ArticleSnapshot a:relatePost){
+            Article authorPostArticle = new Article();
+            ArticleInfo articleInfoAuthor = new ArticleInfo();
+            articleInfoAuthor.setId(a.getId());
+            articleInfoAuthor.setTopic(a.getTopic());
+            authorPostArticle.setArticleInfo(articleInfoAuthor);
+            relatedPost.add(authorPostArticle);
+        }
+
+        articleInfo.setAuthorPost(authorPost);
+        articleInfo.setRelatedPost(relatedPost);
         articleInfo.setarticleTime(articleDetail.getArticleCategoryDto().getArticle().getDate().toString());
         articleInfo.setHtmlContent(articleDetail.getArticleCategoryDto().getArticle().getContent());
         articleInfo.setCommentNum(articleDetail.getCommentNum());

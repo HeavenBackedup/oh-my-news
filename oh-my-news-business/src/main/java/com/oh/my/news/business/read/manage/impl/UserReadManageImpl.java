@@ -6,6 +6,7 @@ import com.oh.my.news.model.dto.UserDto;
 import com.oh.my.news.model.dto.UserFont;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by llf on 2017/5/4.
@@ -43,8 +44,9 @@ public class UserReadManageImpl implements UserReadManage {
 
     public UserFont getUserDetail(int userId) throws Exception {
         UserDto userDto=userReadDao.queryUserDetail(userId);
-        System.out.println(userDto);
-        String[] address=userDto.getAddress().split(",");
+        String[] address = new String[]{};
+        if(!StringUtils.isEmpty(userDto.getAddress()))
+            address=userDto.getAddress().split(",");
         UserFont userFont=new UserFont();
         userFont.setSignature(userDto.getSignature());
         userFont.setId(userDto.getId());

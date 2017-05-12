@@ -74,7 +74,6 @@ public class UserReadDaoImpl implements UserReadDao{
         user.setAnnouncement(u.getAnnouncement());
         user.setImageUrl(u.getImageUrl());
         user.setDate(u.getDate());
-//        System.out.println(user.getDate());
         user.setIsDelete(u.getIsDelete());
         user.setIsLimit(u.getIsLimit());
         user.setFollowers(followers);
