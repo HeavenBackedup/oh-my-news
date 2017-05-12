@@ -33,7 +33,7 @@ app.controller('registerController', ['$scope', '$state','registerService', func
             registerService.verifyemailInfo(inputemail,function (data) {
                 $scope.isform1=data;
                 if($scope.isform1==false){
-                    $scope.inputRes="!该邮箱已经被注册过";
+                    $scope.inputRes="该邮箱已经被注册过!";
                 }
             },function (data) {
                 console.info("error" + data)

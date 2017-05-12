@@ -50,5 +50,9 @@ public interface UserReadManage {
      * @throws Exception
      */
     UserFont getUserDetail(int userId)throws Exception;
+
+
     Integer getUserLimit(String username,String email) throws Exception;
+
+    Integer getMediaId(int id)throws Exception;
 }

@@ -44,51 +44,42 @@ public class PrivateMsgAction extends BaseAction{
         System.out.println(userId+"...."+selectedValue);
         //返回的私信的列表
         List<PrivateMsg> privateMsgList=new ArrayList<PrivateMsg>();
-        List<PrivateMessage> messages=new ArrayList<PrivateMessage>();
+
+        PrivateMsg pm1,pm2,pm3;
+        //根据用户请求的私信列表的类型返回对应的私信列表,下面的是我的模拟数据
+//        if(selectedValue==0){
+//            pm1=new PrivateMsg(1,"AAA","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            pm2=new PrivateMsg(2,"BBB","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            pm3=new PrivateMsg(3,"CCC","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            privateMsgList.add(pm1);
+//            privateMsgList.add(pm2);
+//            privateMsgList.add(pm3);
+//        }else if(selectedValue==1){
+//            pm1=new PrivateMsg(2,"BBB","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            pm2=new PrivateMsg(1,"AAA","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            pm3=new PrivateMsg(3,"CCC","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            privateMsgList.add(pm1);
+//            privateMsgList.add(pm2);
+//            privateMsgList.add(pm3);
+//        }else{
+//            pm1=new PrivateMsg(3,"CCC","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            pm2=new PrivateMsg(2,"BBB","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            pm3=new PrivateMsg(1,"AAA","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//            privateMsgList.add(pm1);
+//            privateMsgList.add(pm2);
+//            privateMsgList.add(pm3);
+//        }
+//        System.out.println(privateMsgList.size());
         switch (selectedValue){
             case 0:
-                messages=privateMsgReadManage.getUnReadedPrivateMsg(userId);
-//                System.out.println(messages);
-                for(PrivateMessage message:messages){
-                    PrivateMsg items=new PrivateMsg();
-                    items.setId(message.getId());
-                    items.setAvatar(message.getImageUrl());
-                    items.setMessage(message.getContent());
-                    items.setTime(message.getDate());
-                    items.setUsername(message.getSourceUsername());
-                    privateMsgList.add(items);
-                }
-                System.out.println(privateMsgList);
-                return successReturnObject(privateMsgList);
-
+                return successReturnObject(privateMsgReadManage.getPrivateMsg(userId));
             case 1:
-                messages=privateMsgReadManage.getReadedPrivateMsg(userId);
-                for(PrivateMessage message:messages){
-                    PrivateMsg items=new PrivateMsg();
-                    items.setId(message.getId());
-                    items.setAvatar(message.getImageUrl());
-                    items.setMessage(message.getContent());
-                    items.setTime(message.getDate());
-                    items.setUsername(message.getSourceUsername());
-                    privateMsgList.add(items);
-                }
-                return successReturnObject(privateMsgList);
-
+                return successReturnObject(privateMsgReadManage.getReadedPrivateMsg(userId));
             case 2:
-                messages=privateMsgReadManage.getPrivateMsg(userId);
-                for(PrivateMessage message:messages){
-                    PrivateMsg items=new PrivateMsg();
-                    items.setId(message.getId());
-                    items.setAvatar(message.getImageUrl());
-                    items.setMessage(message.getContent());
-                    items.setTime(message.getDate());
-                    items.setUsername(message.getSourceUsername());
-                    privateMsgList.add(items);
-                }
-                return successReturnObject(privateMsgList);
-
+                return successReturnObject(privateMsgReadManage.getUnReadedPrivateMsg(userId));
         }
         return failReturnObject("读取私信失败");
+//        return successReturnObject(privateMsgList);
     }
 
 
@@ -103,18 +94,22 @@ public class PrivateMsgAction extends BaseAction{
         //和我发私信交流的另一个用户的ID
         Integer otherUserId=Integer.parseInt(inputMap.get("otherUserId").toString());
         System.out.println(myUserId+"...."+otherUserId);
-        List<PrivateMessage> privateMessages = privateMsgReadManage.getExMsg(otherUserId,myUserId);
-        List<PrivateMsg> privateMsgs = new ArrayList<PrivateMsg>();
-        for(PrivateMessage message:privateMessages){
-            PrivateMsg items=new PrivateMsg();
-            items.setId(message.getId());
-            items.setAvatar(message.getImageUrl());
-            items.setMessage(message.getContent());
-            items.setTime(message.getDate());
-            items.setUsername(message.getSourceUsername());
-            privateMsgs.add(items);
-        }
-        return successReturnObject(privateMsgs);
+        //返回的私信的列表
+//        List<PrivateMsg> privateMsgList=new ArrayList<PrivateMsg>();
+//
+//        //我的模拟数据
+//        PrivateMsg pm1=new PrivateMsg(1,"AAA","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//        PrivateMsg pm2=new PrivateMsg(2,"BBB","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//        PrivateMsg pm3=new PrivateMsg(3,"CCC","images/hpic.jpeg","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum","20170423");
+//        privateMsgList.add(pm1);
+//        privateMsgList.add(pm2);
+//        privateMsgList.add(pm3);
+//
+//        System.out.println(privateMsgList.size());
+
+
+
+        return successReturnObject(privateMsgReadManage.getExMsg(otherUserId,myUserId));
     }
 
     /*用户发送一条私信，新私信成功存入数据库返回true，否则返回false*/

@@ -100,4 +100,9 @@ public class UserReadDaoImpl implements UserReadDao{
     public UserSnapshot getUserSnapshotById(int id) throws Exception {
         return (UserSnapshot) sqlMapClient.queryForObject("user_sqlMap.query_user_snapshot_by_id",id);
     }
+
+    @Override
+    public Integer getMediaIdByUserId(int id) throws Exception {
+        return (Integer)sqlMapClient.queryForObject("user_sqlMap.get_media_id_by_user_id",id);
+    }
 }

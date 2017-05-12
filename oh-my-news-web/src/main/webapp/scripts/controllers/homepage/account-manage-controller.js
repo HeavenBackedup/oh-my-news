@@ -1,10 +1,10 @@
 /**
  * Created by wangyan on 2017/4/10.
  */
-app.controller('accountManageController',['$scope','accountManageService','Upload','fileService',function ($scope,accountManageService,Upload,fileService) {
+app.controller('accountManageController',['$scope','accountManageService','Upload','fileService','user',function ($scope,accountManageService,Upload,fileService,user) {
 
     $scope.init = function () {
-        $scope.userId="123";
+        $scope.userId=user.getId();
         $scope.isExitUsername=false;//判断用户名是否存在
         $scope.isAddressConserve=false;  //是否点击地址保存按钮(由于地址是以数组形式传送，以字符形式显示)
         $scope.isTrue=false;  //保存信息后的返回值
@@ -14,7 +14,7 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
         $scope.myrepwd="";
         $scope.myemailaddr="";
         var myaddrCtrlInput=[];//数组，用来接收地址和上传地址
-
+        $scope.userValidation();
         $scope.User= {
             username: "",     //刷新姓名
             path:"",   //刷新图片
@@ -30,6 +30,7 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
     //判断用户是否已登录
     $scope.userValidation = function () {
         if($scope.userId==-1){
+            alert('用户未登陆');
             $state.go('login');
         }
     }
@@ -40,25 +41,28 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
         }else{
            return myaddrCtrlInput[0]+myaddrCtrlInput[1]+myaddrCtrlInput[2];
         }
+
     }
+
+
 
     //数据请求
     $scope.getUserList=function () {
         var userIdMap = {};
          userIdMap.userId = $scope.userId;
          accountManageService.getUser(userIdMap,function(data){
-             alert("success:"+angular.toJson(data));
              for (var key in data){
                  console.log(key+"..."+data[key]);
              }
-             myaddrCtrlInput = data["address"];
-
+             myaddrCtrlInput = data.address;
              console.log(myaddrCtrlInput[0]);
              $scope.User= {
-                 username: data["username"],     //刷新姓名
+                 username: data.username,     //刷新姓名
                  path:data["url"],   //刷新图片
-                  myaddrCtrl:$scope.RefreshAddress(myaddrCtrlInput),          //刷新地址
-                 myemCtrl:data["email"],   //刷新邮箱
+                 myaddrCtrl:$scope.RefreshAddress(myaddrCtrlInput),          //刷新地址
+                 myemCtrl:data.email,   //刷新邮箱
+                 myPassword: data.password,
+                 photoid:data.photoid
                  // mypwd:"123",
              }
              // $scope.User.myaddrCtrlInput =  data.address;
@@ -92,12 +96,12 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
    // 用户修改后信息上传
     $scope.inputCommit=function(){
         var User={
+            id: $scope.userId,
             username:"",
             photoid:"",
             address:[],
             email:"",
-            password:"",
-
+            password:""
         }
         $scope.all=true;
         //需要进行判断，如果没有输入内容，默认将接收的数组复制给它
@@ -110,7 +114,7 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
             User.username = $scope.User.username;
             User.photoid = $scope.User.photoid;
             User.email = $scope.User.myemCtrl;
-            User.password = $scope.User.mypwd;
+            User.password = $scope.User.myPassword;
         accountManageService.getInputUser(User,function (data) {
             $scope.isTrue = data;
            if($scope.isTrue==true){
@@ -175,7 +179,9 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
     $scope.city=function(){
         $scope.myarea="";
     }
-    $scope.area=function(){}
+    $scope.area=function(){
+
+    }
     $scope.dataConserve=function(){
         $scope.isAddressConserve = true;
         if($scope.myprovince.name==$scope.mycity.name){
@@ -190,6 +196,11 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
     // 修改邮箱
     $scope.dataConserve2=function(){
         $scope.User.myemCtrl=$scope.myemailaddr;
+    }
+
+
+    $scope.dataConserve3 = function () {
+        $scope.User.myPassword = $scope.User.mypwd;
     }
 
 }])

@@ -12,7 +12,10 @@ app.factory('user',['$cookieStore',function ($cookieStore) {
 
     user.getId = function () {
         try {
-            return parseInt($cookieStore.userId);
+            var res= parseInt($cookieStore.userId);
+            if(isNaN(res))
+                $cookieStore.userId=-1;
+            return $cookieStore.userId;
         }catch (e){
             $cookieStore.userId = -1;
             return $cookieStore.userId;

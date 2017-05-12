@@ -87,4 +87,8 @@
             </isNotEmpty>
         </dynamic>
     </select>
+
+    <select id="get_media_id_by_user_id" parameterClass="Integer" resultClass="Integer">
+        select media_id from `user` where id=#id# and is_delete = 0;
+    </select>
 </sqlMap>
