@@ -12,6 +12,7 @@ app.factory('content',function () {
         c_id = id;
     };
     content.getArticalId = function () {
+        alert(c_id);
         return c_id;
     };
     content.setTopic = function (topic) {

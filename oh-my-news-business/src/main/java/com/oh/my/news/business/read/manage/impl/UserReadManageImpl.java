@@ -25,18 +25,18 @@ public class UserReadManageImpl implements UserReadManage {
     public boolean userValidation(String username) throws Exception {
 
         if( userReadDao.verifyUserbyuername(username)!=null){
-            return false;
-        }else{
             return true;
+        }else{
+            return false;
         }
     }
 
     public boolean emailValidation(String email) throws Exception {
 
         if(userReadDao.verifyUserbyemail(email)!=null){
-            return false;
-        }else {
             return true;
+        }else {
+            return false;
         }
     }
 

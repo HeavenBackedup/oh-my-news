@@ -12,17 +12,45 @@ public class ArticleDetail {
     private float donation;
     private boolean thumbUp;
     private boolean collected;
+    private int commentNum;
+    private float totalMoney;
 
-    public ArticleDetail(ArticleCategoryDto articleCategoryDto, int score, boolean report, float donation, boolean thumbUp, boolean collected) {
+    public ArticleDetail(ArticleCategoryDto articleCategoryDto, int score, boolean report, float donation, boolean thumbUp, boolean collected, int commentNum) {
         this.articleCategoryDto = articleCategoryDto;
         this.score = score;
         this.report = report;
         this.donation = donation;
         this.thumbUp = thumbUp;
         this.collected = collected;
+        this.commentNum = commentNum;
+    }
+
+    public ArticleDetail(ArticleCategoryDto articleCategoryDto, int score, boolean report, float donation, boolean thumbUp, boolean collected, int commentNum, float totalMoney) {
+        this.articleCategoryDto = articleCategoryDto;
+        this.score = score;
+        this.report = report;
+        this.donation = donation;
+        this.thumbUp = thumbUp;
+        this.collected = collected;
+        this.commentNum = commentNum;
+        this.totalMoney = totalMoney;
     }
 
     public ArticleDetail() {
+    }
+
+    @Override
+    public String toString() {
+        return "ArticleDetail{" +
+                "articleCategoryDto=" + articleCategoryDto +
+                ", score=" + score +
+                ", report=" + report +
+                ", donation=" + donation +
+                ", thumbUp=" + thumbUp +
+                ", collected=" + collected +
+                ", commentNum=" + commentNum +
+                ", totalMoney=" + totalMoney +
+                '}';
     }
 
     @Override
@@ -37,6 +65,8 @@ public class ArticleDetail {
         if (Float.compare(that.donation, donation) != 0) return false;
         if (thumbUp != that.thumbUp) return false;
         if (collected != that.collected) return false;
+        if (commentNum != that.commentNum) return false;
+        if (Float.compare(that.totalMoney, totalMoney) != 0) return false;
         return articleCategoryDto != null ? articleCategoryDto.equals(that.articleCategoryDto) : that.articleCategoryDto == null;
     }
 
@@ -48,19 +78,9 @@ public class ArticleDetail {
         result = 31 * result + (donation != +0.0f ? Float.floatToIntBits(donation) : 0);
         result = 31 * result + (thumbUp ? 1 : 0);
         result = 31 * result + (collected ? 1 : 0);
+        result = 31 * result + commentNum;
+        result = 31 * result + (totalMoney != +0.0f ? Float.floatToIntBits(totalMoney) : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "ArticleDetail{" +
-                "articleCategoryDto=" + articleCategoryDto +
-                ", score=" + score +
-                ", report=" + report +
-                ", donation=" + donation +
-                ", thumbUp=" + thumbUp +
-                ", collected=" + collected +
-                '}';
     }
 
     public ArticleCategoryDto getArticleCategoryDto() {
@@ -103,11 +123,27 @@ public class ArticleDetail {
         this.thumbUp = thumbUp;
     }
 
-    public boolean iscollected() {
+    public boolean isCollected() {
         return collected;
     }
 
-    public void setcollected(boolean collected) {
+    public void setCollected(boolean collected) {
         this.collected = collected;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
+    }
+
+    public float getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(float totalMoney) {
+        this.totalMoney = totalMoney;
     }
 }

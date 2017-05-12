@@ -161,7 +161,7 @@ var app =angular
         })
         // 新闻显示页面模块
         .state('app.detail',{
-          url: '/detail',
+          url: '/detail/:articleId',
           templateUrl: 'views/block/detail/detail.html',
             controller: 'detailController'
         })

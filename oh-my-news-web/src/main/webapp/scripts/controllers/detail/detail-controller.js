@@ -1,7 +1,7 @@
 /**
  * Created by shj on 2017/4/10.
  */
-app.controller('detailController',['$scope','$state','$location','$anchorScroll','detailService','user','content',function ($scope,$state,$location,$anchorScroll,detailService,user,content) {
+app.controller('detailController',['$scope','$state','$location','$anchorScroll','detailService','user','content','$stateParams',function ($scope,$state,$location,$anchorScroll,detailService,user,content,$stateParams) {
     $scope.init = function () {
         $scope.userId = user.getId();
         // $scope.topic = content.getTemplate().topic;
@@ -10,12 +10,16 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
 
         // $scope.topic = undefined;
         // $scope.htmlContent = undefined;
-        $scope.articleId = 1;
+        // alert("$stateParams:"+angular.toJson($stateParams));
+        // alert("$state"+angular.toJson($state.params));
+        $scope.articleId = -1;
         $scope.category = undefined;
         $scope.author = undefined;
         $scope.authorPost = undefined;
         $scope.relatedPost = undefined;
         $scope.labels = undefined;
+        $scope.categoyId = -1;
+        $scope.articleReader;
 
 
         $scope.thumbupNum = 0;
@@ -33,8 +37,9 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         $scope.pagination = {};
         $scope.totalMoney = 1000.00;
         $scope.donated = 0.00;
-        $scope.reward = 0.00;
-        $scope.rewardmessage = "";
+        $scope.reward = {}
+        $scope.reward.num = 0.00;
+        $scope.reward.rewardmessage = "";
 
         $scope.collected = false;
         $scope.score = -1;
@@ -45,12 +50,14 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         $scope.pagination.totalItems = 200;
         $scope.pagination.currentPage = 1;
         $scope.pagination.maxSize = 10;
-        $scope.articleId = content.getArticalId();
+        $scope.articleId = parseInt($stateParams.articleId);
+
+
         $scope.articleRequest();
         $scope.pageChange();
         var now = getNowFormatDate();
         console.info("info: "+now);
-        $scope.submit(7,$scope.readed+1);
+        // $scope.submit(7,$scope.readed+1);
     }
 
     function getNowFormatDate() {
@@ -87,12 +94,17 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         var param = {};
         var str = "";
         param.submitInfo = {};
-        param.submitInfo.comment = {};
-        $scope.submitInfo.comment.userId = $scope.userId;
-        param.submitInfo.userId = $scope.submitInfo.comment.userId;
 
+        if($scope.userId==-1||$scope.userId==null||$scope.userId==undefined){
+            alert("用户没有登陆，请先登陆");
+            return;
+        }
+        param.submitInfo.userId = $scope.userId;
+        param.submitInfo.articleId = $scope.articleId;
         console.info("info: smysmysmy"+data);
         if (type == 1){
+            param.submitInfo.comment = {};
+            $scope.submitInfo.comment.userId = $scope.userId;
             str = $scope.submitInfo.comment.content;
             // $scope.submitInfoCommentContentHeader///
             str = str.substring($scope.submitInfoCommentContentHeader.length);
@@ -132,8 +144,14 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             param.submitInfo.readed = data;
             param.type = 7;
         }
-
         detailService.submit(param,function (data) {
+            if(param.type==7)
+            return;
+            if(param.type==1){
+                $scope.formerComment = {};
+                $scope.submitInfo.comment.content = "";
+            }
+            alert("操作成功");
             console.info("info: "+data);
         },function (data) {
             console.info("error: "+data);
@@ -148,10 +166,11 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             $state.go('main');
         }
         param.articleId = $scope.articleId;
-
+        param.userId = $scope.userId;
 
         detailService.articleRequest(param,function (data) {
-            $scope.category = data.article.category.catName;
+            console.info(angular.toJson(data));
+            $scope.category = data.article.category;
             $scope.author = data.article.user.name;
 
             $scope.topic = data.article.articleInfo.catName;
@@ -168,6 +187,7 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
 
             $scope.totalMoney = data.articleReader.reader.totalMoney;
             $scope.donated = data.articleReader.donation;
+            $scope.articleReader = data.articleReader;
 
             console.info("info: "+angular.toJson(data));
         },function (data) {
@@ -183,6 +203,7 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
     $scope.pageChange = function () {
         var param = {};
         param.currentPage = $scope.pagination.currentPage;
+        param.articleId = $scope.articleId;
         detailService.pageChange(param,function (data) {
             $scope.pagination.totalItems = data.pagination.totalItems;
             $scope.pagination.currentPage = data.pagination.currentPage;
@@ -220,11 +241,25 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
 
     //显示模板函数
     $scope.openModal = function () {
+        if($scope.userId==-1||$scope.userId==null||$scope.userId==undefined){
+            alert("用户没有登陆，请先登陆");
+            return;
+        }
         $('#myModal').modal('show');
     };
     //隐藏模板函数
     $scope.closeModal = function () {
         $('#myModal').modal('hide');
     };
+
+    //清空缓存，当脱离该页面时，执行该方法
+    $scope.$on("$destroy",function(){
+        console.info("error destroyed");
+        content.destroy();
+    })
+
+    $scope.gotoMain = function (id) {
+        $state.go('main',{categoryId:id});
+    }
 
 }]);

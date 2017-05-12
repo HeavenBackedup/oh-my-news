@@ -66,7 +66,7 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
     }
 
     @Override
-    public void publish(EditContentWrite editContentWrite) throws Exception {
+    public Integer publish(EditContentWrite editContentWrite) throws Exception {
         Article article = new Article();
         article.setId(editContentWrite.getId());
         article.setTopic(editContentWrite.getTopic());
@@ -81,6 +81,18 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
         searchContent.setAuthor(userSnapshot.getNickname());
         searchContent.setContent(editContentWrite.getContentSnapshot());
         searchContent.setTopic(editContentWrite.getTopic());
+        if(editContentWrite.getId()<=0){
+            article.setIsPublished(1);
+
+            int id= articleWriteDao.insertArticleReturnId(article);
+            articleWriteDao.saveMedia(editContentWrite.getMediaIds(),id);
+            return id;
+        }else {
+            article.setIsPublished(1);
+            articleWriteDao.saveArticle(article);
+            articleWriteDao.saveMedia(editContentWrite.getMediaIds(),editContentWrite.getId());
+            return article.getId();
+        }
 //        if(editContentWrite.getId()<=0){
 //            article.setIsPublished(1);
 //             int id= articleWriteDao.insertArticleReturnId(article);

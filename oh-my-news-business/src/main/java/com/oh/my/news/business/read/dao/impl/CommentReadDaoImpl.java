@@ -62,4 +62,9 @@ public class CommentReadDaoImpl implements CommentReadDao {
     public Integer queryArticleIdByFormerCommentId(int formerCommentId) throws Exception {
         return (Integer)sqlMapClient.queryForObject("comment_sqlMap.query_article_id_by_former_comment_id",formerCommentId);
     }
+
+    @Override
+    public Integer queryCountByArticleId(int articleId) throws Exception {
+        return (Integer)sqlMapClient.queryForObject("comment_sqlMap.query_count_by_article_id",articleId);
+    }
 }
