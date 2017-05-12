@@ -20,7 +20,6 @@ app.service('htmlParseService',['constant',function (constant) {
         if(node==undefined||node==null){
             return;
         }
-        alert(node.tagName+" length: "+node.childNodes.length);
         if(node.tagName!=undefined&&node.tagName.toLowerCase()==constant.getImgTagName().toLowerCase()){
             var src = node.getAttribute('src');
             if(src!=undefined&&src!=null&&src!=''){

@@ -12,7 +12,7 @@ public interface ArticleWriteManage {
      * @param editContentWrite  编辑的新闻内容
      * @throws Exception
      */
-    void publish(EditContentWrite editContentWrite)throws Exception;
+    Integer publish(EditContentWrite editContentWrite)throws Exception;
 
     /**
      * 将新闻保存在草稿箱中

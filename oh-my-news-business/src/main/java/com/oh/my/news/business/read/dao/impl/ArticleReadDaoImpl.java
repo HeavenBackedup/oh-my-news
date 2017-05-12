@@ -44,7 +44,7 @@ public class ArticleReadDaoImpl implements ArticleReadDao {
         ArticleReader articleReader = new ArticleReader();
         articleReader.setarticleId(articleId);
         articleReader.setUserId(userId);
-        articleReader.setScore(3);
+        articleReader.setScore(-1);
         articleReader.setDonation(0);
         articleReader.setcollected(false);
         articleReader.setReport(false);

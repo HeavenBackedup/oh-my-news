@@ -115,9 +115,9 @@ public class EditAction extends BaseAction{
         editContentWrite.setMediaIds(editContent.getMediaIds());
         editContentWrite.setUserId(editContent.getUserId());
         editContentWrite.setTopic(editContent.getTopic());
-        articleWriteManage.publish(editContentWrite);
-        System.out.println(editContent);
-        return successReturnObject("publish_success");
+        int id =articleWriteManage.publish(editContentWrite);
+        System.out.println("publish_id"+id);
+        return successReturnObject(id);
     }
 
 }

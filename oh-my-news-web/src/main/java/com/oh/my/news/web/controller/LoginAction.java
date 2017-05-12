@@ -37,12 +37,22 @@ public class LoginAction extends BaseAction {
 //        }else{
 //            u.setId(1);
 //        }
-        if(user.getUsername()!=null)
-            return successReturnObject(userReadManage.usernamelogin(user.getUsername(),user.getPassword()));
+        if(user.getUsername()!=null){
+           Integer id = userReadManage.usernamelogin(user.getUsername(),user.getPassword());
+           if(id ==null||id==0||id==-1){
+             return   successReturnObject(-1);
+           }
+          return successReturnObject(id);
+
+        }
         else if (user.getEmail()!=null){
-            return successReturnObject(userReadManage.emaillogin(user.getEmail(),user.getPassword()));
+            Integer id = userReadManage.emaillogin(user.getEmail(),user.getPassword());
+            if(id ==null||id==0||id==-1){
+               return successReturnObject(-1);
+            }
+           return successReturnObject(id);
         }else {
-            throw new Exception("username and email is null");
+            return successReturnObject(-1);
         }
 //        return successReturnObject(u.getId());
     }

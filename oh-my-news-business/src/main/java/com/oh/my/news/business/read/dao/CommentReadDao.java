@@ -73,4 +73,6 @@ public interface CommentReadDao {
     Integer queryArticleIdByFormerCommentId(int formerCommentId) throws Exception;
 
 
+    Integer queryCountByArticleId(int articleId)throws Exception;
+
 }

@@ -20,6 +20,10 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
         $scope.chosenPic = null;
         $scope.allPics = {};
         $scope.isPreview = false;
+        if($scope.userId==undefined||$scope.userId==null||$scope.userId<1){
+            alert("未登陆，将跳转登陆页面");
+            $state.go('login');
+        }
         $scope.categoriesInIt(true);
 
     }
@@ -36,6 +40,9 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
             $scope.categorySelected = $scope.categories[0];
             return;
         }else {
+            param = {
+                articleId:articleId
+            }
             editService.getArticle(param,function (data) {
               editContent = data;
               $scope.articleId = articleId;
@@ -43,17 +50,19 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
               $scope.htmlContent = editContent.htmlContent;
               $scope.labels = editContent.labels;
               $scope.categoryId = editContent.categoryId;
+                angular.forEach($scope.categories,function (item, index,array) {
+                    if(item.id==$scope.categoryId){
+                        $scope.categorySelected=item;
+                        return;
+                    }
+                });
             },function (data) {
                 console.error(angular.toJson(data));
             })
         }
 
-        angular.forEach($scope.categories,function (item, index,array) {
-            if(item.id==editContent.categoryId){
-                $scope.categorySelected = item;
-                return;
-            }
-        });
+
+
     }
 
     //判断用户是否已登录
@@ -75,9 +84,10 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
         commonService.getCategories(function (data) {
 
                 $scope.categories = data;
-                $scope.categories = [{id: -1,parent:null,catName:"请选择类别"}].concat($scope.categories);
+                console.info(angular.toJson(data));
+                $scope.categories = [{id: -1,parentId:null,name:"请选择类别"}].concat($scope.categories);
                 if(isInit){
-                    $scope.EditContentInit();
+                    $scope.editContentInit();
                 }else {
                     $scope.categorySelected = $scope.categories[0];
                 }
@@ -143,6 +153,9 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
             console.error('error: '+angular.toJson(data));
         })
 
+
+
+
     }
 
 
@@ -153,24 +166,28 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
             mediaIds.push(item.id);
         });
         var param = {
+            id:$scope.articleId,
             userId : $scope.userId,
             topic: $scope.topic,
             htmlContent: $scope.htmlContent,
             labels: $scope.labels,
             categoryId : $scope.categorySelected.id,
-            htmlSnapshot: htmlParseService.parseHtml($scope.htmlContent),
+            contentSnapshot: htmlParseService.parseHtml($scope.htmlContent).text,
             mediaIds: mediaIds
         };
+
         if(index==0){
 
             editService.commit(param,function (data) {
                 alert("保存成功");
+                $state.go('app.personalHomepage.hpTabset.draft');
             },function (data) {
                 console.error("error: "+angular.toJson(data));
             })
         }else {
             editService.publish(param,function (data) {
                 alert("发表成功");
+                $state.go('app.detail',{articleId:parseInt(data)});
             },function (data) {
                console.error("publish error: "+angular.toJson(data))
             })

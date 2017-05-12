@@ -41,6 +41,9 @@ public class CommentReadManageImpl implements CommentReadManage {
                 CommentDto commentDto = new CommentDto();
                 commentDto.setComment(co);
                 commentDto.setReplier(userReadDao.getUserSnapshotById(co.getUserId()));
+                if(co.getFormerCommentId()>0){
+                    commentDto.setFormerReplier(userReadDao.getUserSnapshotById(co.getFormerCommentId()));
+                }
                 //遍历评论列表，找出所有评论的前一条评论
                 for(Comment coFormer:childrenComment){
                     if(coFormer.getId()==co.getFormerCommentId()){

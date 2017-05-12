@@ -24,6 +24,8 @@ public class Comment {//给前端显示的单个评论
         this.content = content;
     }
 
+    public Comment() {
+    }
 
     public int getId() {
         return id;

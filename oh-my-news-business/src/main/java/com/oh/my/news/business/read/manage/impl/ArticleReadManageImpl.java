@@ -1,11 +1,9 @@
 package com.oh.my.news.business.read.manage.impl;
 
 
-import com.oh.my.news.business.read.dao.ArticleReadDao;
-import com.oh.my.news.business.read.dao.CategoryReadDao;
-import com.oh.my.news.business.read.dao.ImageReadDao;
-import com.oh.my.news.business.read.dao.UserReadDao;
+import com.oh.my.news.business.read.dao.*;
 import com.oh.my.news.business.read.manage.ArticleReadManage;
+import com.oh.my.news.business.read.manage.CommentReadManage;
 import com.oh.my.news.model.dto.*;
 import com.oh.my.news.model.po.*;
 import com.oh.my.news.model.po.ArticleReader;
@@ -31,6 +29,10 @@ public class ArticleReadManageImpl implements ArticleReadManage{
     private CategoryReadDao categoryReadDao;
     @Autowired
     private SearchContentApi searchContentApi;
+    @Autowired
+    private CommentReadDao commentReadDao;
+    @Autowired
+    private WalletReadDao walletReadDao;
 
     public ArticleDto getHistoryArticles(int userId, int currentPage, int pageItemNum)throws Exception{
 //        ArticleDto articleDto = new ArticleDto();
@@ -138,21 +140,23 @@ public class ArticleReadManageImpl implements ArticleReadManage{
         articleCategoryDto.setCategory(categoryReadDao.getCategoryById(article.getCategoryId()));
         articleCategoryDto.setArticle(article);
 
-        if (userId == -1){
+        UserSnapshot author = userReadDao.getUserSnapshotById(article.getUserId());
+
+        articleCategoryDto.setUserSnapshot(author);
+        if (userId == -1||userId==0){
             articleDetail.setArticleCategoryDto(articleCategoryDto);
             return articleDetail;
         }
-        UserSnapshot userSnapshot = userReadDao.getUserSnapshotById(userId);
+
         ArticleReader articleReader = articleReadDao.getArticleReaderById(articleId,userId);
-        articleCategoryDto.setUserSnapshot(userSnapshot);
         articleDetail.setArticleCategoryDto(articleCategoryDto);
-        articleDetail.setcollected(articleReader.iscollected());
+        articleDetail.setCollected(articleReader.iscollected());
         articleDetail.setDonation(articleReader.getDonation());
         articleDetail.setReport(articleReader.isReport());
         articleDetail.setScore(articleReader.getScore());
         articleDetail.setThumbUp(articleReader.isThumbUp());
-
-
+        articleDetail.setCommentNum(commentReadDao.queryCountByArticleId(articleId));
+        articleDetail.setTotalMoney(walletReadDao.getFigure(userId));
 
         return articleDetail;
     }
