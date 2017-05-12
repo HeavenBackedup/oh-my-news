@@ -160,6 +160,22 @@ public class ArticleReadManageImpl implements ArticleReadManage{
 
         return articleDetail;
     }
+    @Override
+    public List<ArticleSnapshot> getRelatePost(String label) throws Exception {
+        List<Integer> articleIds = searchContentApi.search(label,0,6);
+        List<ArticleSnapshot> relatePosts=new ArrayList<ArticleSnapshot>();
+        for (Integer articleId:articleIds){
+            Article article=articleReadDao.getArticleById(articleId);
+            ArticleSnapshot relateItem=new ArticleSnapshot();
+            if(article==null)
+                continue;
+            relateItem.setId(article.getId());
+            relateItem.setTopic(article.getTopic());
+            relatePosts.add(relateItem);
+        }
+        return relatePosts;
+
+    }
 
     public ArticleDto search(String text,int currentPage,int pageItemNum)throws Exception{
         List<Integer> articleIds = searchContentApi.search(text,(currentPage-1)*pageItemNum,pageItemNum);
@@ -238,6 +254,12 @@ public class ArticleReadManageImpl implements ArticleReadManage{
         List<Article> collectedArticles = articleReadDao.getHistoryArticlesByUserId(userId,currentPage,pageItemNum,sortType.getValue());
         return articleDtoPackage(totalItem,pageItemNum,currentPage,collectedArticles);
     }
+
+    @Override
+    public List<ArticleSnapshot> getAuthorPost(int userId) throws Exception {
+        return articleReadDao.queryArticlesByUserId(userId);
+    }
+
 
 }
 

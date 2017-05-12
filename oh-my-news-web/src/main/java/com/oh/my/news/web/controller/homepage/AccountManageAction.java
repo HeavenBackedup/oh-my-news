@@ -49,12 +49,17 @@ public class AccountManageAction extends BaseAction{
 //        System.out.print(userList);
 
         int userId = Integer.parseInt(userIdMap.get("userId").toString().trim());
+        System.out.println("getUser"+userId);
         UserFont userFont =  userReadManage.getUserDetail(userId);
         Map<String,Object> userList = new HashMap<String, Object>();
-        userList.put("username",userFont.getUsername());
+        userList.put("username",userFont.getNickname());
         userList.put("url",userFont.getImageUrl());
         userList.put("address",userFont.getAddress());
         userList.put("email",userFont.getEmail());
+        userList.put("password",userFont.getPassword());
+        System.out.println(userFont);
+        System.out.println(userReadManage.getMediaId(userId));
+        userList.put("photoid",userReadManage.getMediaId(userId));
         return successReturnObject(userList);
 
     }
@@ -90,7 +95,7 @@ public class AccountManageAction extends BaseAction{
 //        }
 //        System.out.println(isTrue);
 //        return successReturnObject(isTrue);
-
+        System.out.println(user);
         UserFontWrite userFontWrite = new UserFontWrite();
         UserFont userFont = userReadManage.getUserDetail(user.getId());
         BeanUtils.copyProperties(userFont,userFontWrite);

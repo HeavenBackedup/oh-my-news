@@ -3,6 +3,8 @@ package com.oh.my.news.business.read.manage.impl;
 import com.oh.my.news.business.read.dao.ArticleRecommendDao;
 import com.oh.my.news.business.read.manage.ArticleRecommendManage;
 import com.oh.my.news.model.dto.ArticleSnapshot;
+import com.oh.my.news.model.dto.EditContentDto;
+import com.oh.my.news.model.dto.Pagination;
 import com.oh.my.news.model.vo.mainpage.EditContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,8 +70,16 @@ public class ArticleRecommendManageImpl implements ArticleRecommendManage {
         return this.lastArticleSnapshot;
     }
 
-    public List<EditContent> getRecommendByCategoryId( int categoryId,  int currentPage, int pageItemNum)throws Exception{
-      return articleRecommendDao.queryRecommendByCategoryId(categoryId,currentPage,pageItemNum);
+    public EditContentDto getRecommendByCategoryId(int categoryId, int currentPage, int pageItemNum)throws Exception{
+        EditContentDto editContentDto=new EditContentDto();
+        int totalItem=articleRecommendDao.getRecommendCountByCategoryId(categoryId);
+        List<EditContent> editContents=articleRecommendDao.queryRecommendByCategoryId(categoryId,currentPage,pageItemNum);
+        System.out.println(editContents);
+        Pagination pagination = new Pagination((totalItem%pageItemNum==0?totalItem/pageItemNum:totalItem/pageItemNum+1)*10,currentPage);
+        editContentDto.setContents(editContents);
+        editContentDto.setPagination(pagination);
+        System.out.println(editContentDto);
+        return editContentDto;
 
     }
 

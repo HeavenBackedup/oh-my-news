@@ -1,26 +1,29 @@
 /**
  * Created by shj on 2017/4/15.
  */
-app.factory('user',['$cookieStore',function ($cookieStore) {
+app.factory('user',function ($sessionStorage) {
     var user = {};
 
     // var user = {};
     // var userId = -1;
     user.setId = function (id) {
-        $cookieStore.userId = id;
+        $sessionStorage.userId = id;
     };
 
     user.getId = function () {
         try {
-            return parseInt($cookieStore.userId);
+            var res= parseInt($sessionStorage.userId);
+            if(isNaN(res))
+                $sessionStorage.userId=-1;
+            return $sessionStorage.userId;
         }catch (e){
-            $cookieStore.userId = -1;
-            return $cookieStore.userId;
+            $sessionStorage.userId = -1;
+            return $sessionStorage.userId;
         }
 
     };
     user.clearData = function () {
-        $cookieStore.userId= -1;
+        $sessionStorage.userId= -1;
     };
     return user;
-}])
+})

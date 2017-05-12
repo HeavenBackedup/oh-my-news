@@ -48,4 +48,13 @@ public class ArticleRecommendDaoImpl implements ArticleRecommendDao {
             return (List<EditContent>)sqlMapClient.queryForList("article_sqlMap.query_by_category_id",map);
         }
     }
+
+    @Override
+    public Integer getRecommendCountByCategoryId(int categoryId) throws Exception {
+        if(categoryId==1){
+            return (Integer)sqlMapClient.queryForObject("article_sqlMap.query_main_recommend_count");
+        }else {
+            return (Integer)sqlMapClient.queryForObject("article_sqlMap.query_recommend_count_by_category_id",categoryId);
+        }
+    }
 }

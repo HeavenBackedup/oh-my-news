@@ -1,5 +1,6 @@
 package com.oh.my.news.business.read.dao;
 
+import com.oh.my.news.model.dto.ArticleSnapshot;
 import com.oh.my.news.model.po.ArticleReader;
 import com.oh.my.news.model.po.Article;
 
@@ -30,4 +31,7 @@ public interface ArticleReadDao {
 
 
     Integer queryUserIdById(int id)throws Exception;
+
+    List<ArticleSnapshot> queryArticlesByUserId(int userId) throws Exception;
+
 }

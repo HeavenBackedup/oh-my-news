@@ -1,7 +1,7 @@
 
 app.controller('mainController',['$scope','$state','$stateParams','mainService','htmlParseService',function ($scope,$state,$stateParams,mainService,htmlParseService) {
     $scope.init = function () {
-        $scope.pageIndex=0;
+        $scope.pageIndex=1;
         $scope.newsItems={}; //新闻列表
         $scope.searchContent=""; //搜索框输入内容
         $scope.pagination = {};
@@ -31,7 +31,7 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
         $scope.totalItems=200;
         $scope.maxSize=5;
         $scope.currentPage=1;
-        $scope.index=0;
+        $scope.index=1;
         $scope.categoryId=$stateParams.categoryId;
 
 
@@ -39,7 +39,7 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
 
     var initParams=function () {
         if($stateParams.categoryId==null){
-            $scope.changePage(0,1);
+            $scope.changePage(1,1);
         }else {
             $scope.changePage(categoryId,1);
         }
@@ -110,5 +110,9 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
         $scope.collectList();
         $scope.markList();
         $scope.lastList();
+    }
+
+    $scope.articleDetail=function (id) {
+        $state.go('app.detail',{articleId:id})
     }
 }]);

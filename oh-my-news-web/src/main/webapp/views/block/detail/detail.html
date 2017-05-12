@@ -37,18 +37,13 @@
                     <!-- <hr>   -->
                     <form action="#" method="get" accept-charset="utf-8">
                         <div class="row">
-                            <div class="col-md-6">
-                                <h3>Share on</h3>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-google"></i></a>
-                            </div>
-                            <div class="col-md-6">
+
+                            <div class="col-md-offset-4 col-md-8">
                                 <h3>-</h3>
                                 <a ng-show="!(articleReader==null?false:articleReader.collected)" ng-click="submit(6,true)"><i class="fa fa-bookmark"></i></a>
-                                <a ng-show="articleReader==null?false:articleReader.collected" ng-click="submit(8,true)"><i>取消收藏</i></a>
+                                <label ng-show="articleReader==null?false:articleReader.collected" ><i>已收藏</i></label>
                                 <a ng-show="!(articleReader==null?false:articleReader.thumbUp)" ng-click="submit(5,true)"><i class="fa fa-thumbs-up"></i></a>
-                                <a ng-show="articleReader==null?false:articleReader.thumbUp" ng-click="submit(9,true)"><i>取消点赞</i></a>
+                                <label ng-show="articleReader==null?false:articleReader.thumbUp" ><i>已点赞</i></label>
                                 <a    ng-click="openModal()" data-toggle="modal"><i class="fa fa-cny"></i></a>
                                 <a ng-show="!(articleReader==null?false:articleReader.report)"  ng-click="submit(3,true)"><i>举报</i></a>
                                 <label ng-show="articleReader==null?false:articleReader.report" ><i>已举报</i></label>
@@ -190,7 +185,7 @@
                     </header>
                     <div class="body">
                         <ul class="clean-list">
-                            <li ng-repeat="AU in authorPost"><a href="">{{AU.articleInfo.topic}}</a></li>
+                            <li ng-repeat="AU in authorPost"><a ng-click="goOtherDetail(AU.articleInfo.id)">{{AU.articleInfo.topic}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -201,7 +196,7 @@
                     </header>
                     <div class="body">
                         <ul class="clean-list">
-                            <li ng-repeat="RE in relatedPost"><a href="">{{RE.articleInfo.topic}}</a></li>
+                            <li ng-repeat="RE in relatedPost"><a ng-click="goOtherDetail(AU.articleInfo.id)">{{RE.articleInfo.topic}}</a></li>
                         </ul>
                     </div>
                 </div>

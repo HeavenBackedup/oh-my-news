@@ -6,6 +6,7 @@ import com.oh.my.news.model.dto.UserDto;
 import com.oh.my.news.model.dto.UserFont;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by llf on 2017/5/4.
@@ -26,25 +27,28 @@ public class UserReadManageImpl implements UserReadManage {
     public boolean userValidation(String username) throws Exception {
 
         if( userReadDao.verifyUserbyuername(username)!=null){
-            return false;
-        }else{
             return true;
+        }else{
+            return false;
         }
     }
 
     public boolean emailValidation(String email) throws Exception {
-
-        if(userReadDao.verifyUserbyemail(email)!=null){
-            return false;
-        }else {
+            Integer res = userReadDao.verifyUserbyemail(email);
+        if(res!=null){
             return true;
+        }else {
+            return false;
         }
     }
 
     public UserFont getUserDetail(int userId) throws Exception {
         UserDto userDto=userReadDao.queryUserDetail(userId);
-        String[] address=userDto.getAddress().split(",");
+        String[] address = new String[]{};
+        if(!StringUtils.isEmpty(userDto.getAddress()))
+            address=userDto.getAddress().split(",");
         UserFont userFont=new UserFont();
+        userFont.setSignature(userDto.getSignature());
         userFont.setId(userDto.getId());
         userFont.setUsername(userDto.getUsername());
         userFont.setPassword(userDto.getPassword());
@@ -65,5 +69,10 @@ public class UserReadManageImpl implements UserReadManage {
     public Integer getUserLimit(String username, String email) throws Exception {
 
         return userReadDao.verifyUserLimit(username,email);
+    }
+
+    @Override
+    public Integer getMediaId(int id) throws Exception {
+        return userReadDao.getMediaIdByUserId(id);
     }
 }

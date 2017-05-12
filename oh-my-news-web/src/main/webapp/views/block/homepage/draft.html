@@ -2,19 +2,13 @@
 <div ng-init="init()">
   <p>
   草稿箱:
-  <select ng-change="selectTest()" ng-model="selectValue" >
-    <option ng-value="0">排序方式</option>
-    <option  ng-value="1">时间</option>
-    <option  ng-value="2">点赞数</option>
-    <option  ng-value="3">打赏数</option>
-  </select>
   </p>
   <div ng-repeat="Message in messages">
     <!--<textarea ng-model="message"   style="width:200px;display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;"-->
   <!--&gt; </textarea>-->
     <div style="font-weight:bold;"><a ui-sref="app.edit">{{Message.topic}}</a></div>
     <div style="width:500px; display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">{{Message.article}}</div>
-    <button ui-sref="app.edit">编辑</button>
+    <button ng-click="editDraft(Message.id)">编辑</button>
   </div>
   <div class="row">
     <div uib-pagination ng-change="pageChange()" total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页" class="pagination-sm" boundary-links="true" rotate="false" ></div>

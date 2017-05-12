@@ -5,6 +5,7 @@ import com.oh.my.news.business.read.manage.PrivateMsgReadManage;
 import com.oh.my.news.model.dto.PrivateMessage;
 import com.oh.my.news.model.po.PrivateMsgSnapshot;
 import com.oh.my.news.model.vo.PrivateMsg;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class PrivateMsgReadManageImpl implements PrivateMsgReadManage {
    public List<PrivateMessage> getExMsg(int sourceUserId,int targetUserId)throws Exception{
        List<PrivateMessage> targetPrivateMsg = privateMsgReadDao.querySourceMsgBySourceIdAndTargetId(sourceUserId,targetUserId);
        List<PrivateMessage> sourcePrivateMsg = privateMsgReadDao.querySourceMsgBySourceIdAndTargetId(targetUserId,sourceUserId);
-       if(sourcePrivateMsg.size()==0)throw new Exception("source private Msg is null");
+       if(targetPrivateMsg.size()==0)throw new Exception("source private Msg is null");
        PrivateMessage target = targetPrivateMsg.get(0);
        List<PrivateMessage> res = new ArrayList<PrivateMessage>();
        for(PrivateMessage t:sourcePrivateMsg){
@@ -70,7 +71,6 @@ public class PrivateMsgReadManageImpl implements PrivateMsgReadManage {
 //        List<PrivateMessage> privateMessageSource = privateMsgReadDao.querySourceMessageByIds(distinctTargetId(privateMsgSnapshotSources));
 //        privateMessageSource.addAll(privateMsgReadDao.queryTargetMessageByIds(distinctTargetId(privateMsgSnapshotTargets)));
 //        return privateMessageSource;
-
         List<PrivateMsgSnapshot> privateMsgSnapshotSources = privateMsgReadDao.querySouceIdsByUserId(userId,0);
         List<PrivateMessage> res = privateMsgReadDao.querySourceMessageByIds(distinctTargetId(privateMsgSnapshotSources));
         return res;
@@ -89,6 +89,8 @@ public class PrivateMsgReadManageImpl implements PrivateMsgReadManage {
         for(PrivateMsgSnapshot p:map.values()){
             res.add(p.getId());
         }
+        if(CollectionUtils.isEmpty(res))
+            res.add(-1);
         return res;
     }
 }

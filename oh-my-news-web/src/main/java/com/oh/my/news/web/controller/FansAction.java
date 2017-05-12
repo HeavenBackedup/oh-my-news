@@ -25,10 +25,9 @@ public class FansAction extends BaseAction{
     private ConcernReadManage concernReadManage;
 
     @RequestMapping(value = "/getFans")
-    public @ResponseBody Object getFansInformation(@RequestBody Map userMap){
+    public @ResponseBody Object getFansInformation(@RequestBody Map userMap)throws Exception{
         //获取粉丝列表
         int userId = (Integer) userMap.get("userId");
-        try {
             List<UserSnapshot> fans=concernReadManage.getMyFans(userId);
             List<OthersInfomation> fansList=new ArrayList<OthersInfomation>();
             for (UserSnapshot fan:fans){
@@ -37,15 +36,14 @@ public class FansAction extends BaseAction{
                 item.setAvatarPath(fan.getImageUrl());
                 item.setNickName(fan.getNickname());
                 item.setSignature(fan.getSignature());
+                if(concernReadManage.concernValidation(userId,fan.getId())){
+                    item.setConcernRel(true);
+                }else {
+                    item.setConcernRel(false);
+                }
                 fansList.add(item);
             }
             return successReturnObject(fansList);
-        }catch (Exception e){
-            e.printStackTrace();
-            return failReturnObject("get fans fail");
-        }
-
-
     }
 
 

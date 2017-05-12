@@ -25,10 +25,6 @@ public class UserInformation {
         this.fans = fans;
         this.date = date;
     }
-    public UserInformation(){
-
-
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -73,6 +69,10 @@ public class UserInformation {
                 ", fans=" + fans +
                 ", date=" + date +
                 '}';
+    }
+
+
+    public UserInformation() {
     }
 
     public int getUsersId() {

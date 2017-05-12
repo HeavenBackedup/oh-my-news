@@ -145,13 +145,27 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             param.type = 7;
         }
         detailService.submit(param,function (data) {
-            if(param.type==7)
-            return;
-            if(param.type==1){
-                $scope.formerComment = {};
-                $scope.submitInfo.comment.content = "";
-            }
             alert("操作成功");
+            switch(param.type){
+                case 1:
+                    $scope.formerComment = {};
+                    $scope.submitInfo.comment.content = "";
+                    break;
+                case 2:
+                    $scope.articleReader.score = param.submitInfo.score;
+                    break;
+                case 3:
+                    $scope.articleReader.report = true;
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    $scope.articleReader.thumbUp = true;
+                    break;
+                case 6:
+                    $scope.articleReader.collected = true;
+                    break;
+            }
             console.info("info: "+data);
         },function (data) {
             console.info("error: "+data);
@@ -260,6 +274,11 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
 
     $scope.gotoMain = function (id) {
         $state.go('main',{categoryId:id});
+    }
+
+    $scope.goOtherDetail = function (id) {
+        $state.go('app.detail',{articleId:id});
+
     }
 
 }]);

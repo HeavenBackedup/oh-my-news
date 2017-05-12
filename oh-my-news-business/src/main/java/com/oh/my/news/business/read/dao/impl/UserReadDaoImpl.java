@@ -70,10 +70,10 @@ public class UserReadDaoImpl implements UserReadDao{
         user.setSignature(u.getSignature());
 //        System.out.println(user.getEmail());
         user.setAddress(u.getAddress());
+        user.setSignature(u.getSignature());
         user.setAnnouncement(u.getAnnouncement());
         user.setImageUrl(u.getImageUrl());
         user.setDate(u.getDate());
-//        System.out.println(user.getDate());
         user.setIsDelete(u.getIsDelete());
         user.setIsLimit(u.getIsLimit());
         user.setFollowers(followers);
@@ -98,5 +98,10 @@ public class UserReadDaoImpl implements UserReadDao{
 
     public UserSnapshot getUserSnapshotById(int id) throws Exception {
         return (UserSnapshot) sqlMapClient.queryForObject("user_sqlMap.query_user_snapshot_by_id",id);
+    }
+
+    @Override
+    public Integer getMediaIdByUserId(int id) throws Exception {
+        return (Integer)sqlMapClient.queryForObject("user_sqlMap.get_media_id_by_user_id",id);
     }
 }
