@@ -38,10 +38,10 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
     };
 
     var initParams=function () {
-        if($stateParams.categoryId==null){
+        if($stateParams.categoryId==null||$.isEmptyObject($stateParams.categoryId)){
             $scope.changePage(1,1);
         }else {
-            $scope.changePage(categoryId,1);
+            $scope.changePage($stateParams.categoryId,1);
         }
     };
     //搜索模块
@@ -55,7 +55,6 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
         param.pageIndex=index;
         param.currentPage=currentPage;
         mainService.showOtherPage(param,function (data) {
-            console.info(angular.toJson(data));
             $scope.currentPage=data.pagination.currentPage;
             $scope.index=data.pageIndex;
             $scope.totalItems=data.pagination.totalItems;
@@ -77,7 +76,6 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
     $scope.collectList=function () {
         var param={};
         param.index=1;
-        console.info('mainService: '+angular.toJson(mainService));
         mainService.collectList(param,function (data) {
             $scope.collectItems=data.collectList;
 

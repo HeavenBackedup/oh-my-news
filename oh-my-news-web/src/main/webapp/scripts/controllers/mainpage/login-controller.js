@@ -20,7 +20,6 @@ app.controller('loginController',['$scope','loginService','$state','user',functi
         }
         loginService.verifyInfo(verifyInfo,function (data) {
              $scope.isform=data;
-             console.info($scope.isform);
         },function (data) {
 
         })
@@ -35,7 +34,6 @@ app.controller('loginController',['$scope','loginService','$state','user',functi
             console.info(userInfo.username);
         }
         userInfo.password=$scope.pwd;
-        console.info(userInfo);
         loginService.submitInfo(userInfo,function (data) {
             $scope.userId=data;
             if($scope.userId==-1){
@@ -43,7 +41,7 @@ app.controller('loginController',['$scope','loginService','$state','user',functi
                 $('#remindModal').modal();
             }else{
                  user.setId($scope.userId);
-                 $state.go("app.personalHomepage.hpTabset.myHomePage",{userId:$scope.userId});
+                 $state.go("app.personalHomepage.hpTabset.history",{userId:$scope.userId});
                 // $location.reload('personal_home_page')
             }
         },function (data) {

@@ -14,9 +14,20 @@ app.controller('myFansController',['$scope','fansService','user','$stateParams',
             // avatarPath:'',
             // nickName:'',
             // signature:''
+        };
+
+        if((isNaN($scope.id.paramsUserId)||$scope.id.paramsUserId<=0)){
+            $scope.id.paramsUserId = user.getParamId();
+
+        }else {
+            user.setParamId($scope.id.paramsUserId);
+        }
+        if($scope.id.paramId==-1){
+            alert("个人主页跳转出错，将返回新闻主页");
+            $state.go('main');
         }
 
-        $scope.getFansList($scope.id.paramsUserId)
+        $scope.getFansList($scope.id.paramsUserId);
 
     }
     
@@ -27,7 +38,6 @@ app.controller('myFansController',['$scope','fansService','user','$stateParams',
         fansService.getInfo(param,function (data) {
             $scope.fansInformation=data;
 
-            
         },function (data) {
             console.log("getFansList error"+data);
 
@@ -35,7 +45,7 @@ app.controller('myFansController',['$scope','fansService','user','$stateParams',
 
     }
     $scope.skipPage=function (id) {
-        $state.go('app.personalHomepage.hpTabset.myHomePage',{userId:id},{reload:true});
+        $state.go('app.personalHomepage.hpTabset.history',{userId:id},{reload:true});
 
     }
 

@@ -4,11 +4,11 @@
 
     <div>
 
-        <div class="raw">
-            <div class="col-dm-12">
-                <img src="images\title.PNG" alt="" class="img-responsive">
-            </div>
-        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-dm-12">-->
+                <!--<img src="images\title.PNG" alt="" class="img-responsive">-->
+            <!--</div>-->
+        <!--</div>-->
         <br>
 
         <!--用户名设置     -->
@@ -218,16 +218,16 @@
   <span style="color:red" ng-show="emailForm.email.$dirty && emailForm.email.$invalid">
 <span ng-show="emailForm.email.$error.required"><small>*请输入邮箱</small></span>
 <span ng-show="emailForm.email.$error.pattern"><small>*非法的邮箱地址</small></span>
+</span><span style="color:red" ng-show="isEmailRegist"><small>*该邮箱已被注册*</small></span>
 
-</span>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-default" ng-click="closeEmailModal()">关闭</button>
                     <button type="button" class="btn btn-primary" ng-disabled="emailForm.email.$invalid"
-                            ng-click="dataConserve2()" data-dismiss="modal">保存
+                            ng-click="dataConserve2()">保存
                     </button>
                 </div>
             </div><!-- /.modal-content -->

@@ -37,8 +37,8 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         $scope.pagination = {};
         $scope.totalMoney = 1000.00;
         $scope.donated = 0.00;
-        $scope.reward = {}
-        $scope.reward.num = 0.00;
+        $scope.reward = {};
+        $scope.reward.num = 0;
         $scope.reward.rewardmessage = "";
 
         $scope.collected = false;
@@ -101,7 +101,6 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         }
         param.submitInfo.userId = $scope.userId;
         param.submitInfo.articleId = $scope.articleId;
-        console.info("info: smysmysmy"+data);
         if (type == 1){
             param.submitInfo.comment = {};
             $scope.submitInfo.comment.userId = $scope.userId;
@@ -109,6 +108,10 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             // $scope.submitInfoCommentContentHeader///
             str = str.substring($scope.submitInfoCommentContentHeader.length);
             console.info("info: "+str);
+            if(str==''){
+                alert('评论不能为空');
+                return;
+            }
             param.submitInfo.comment.content = str;
             param.submitInfo.comment.formerCommentId = data.id;
             param.submitInfo.comment.date = getNowFormatDate();
@@ -132,7 +135,12 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             param.type = 3;
         }else if (type == 4){
             $scope.closeModal();
-            param.submitInfo.donation = data;
+            var donation = {
+                num:data.num,
+                rewardmessage:data.rewardmessage
+            }
+            param.submitInfo.donation = donation;
+            // param.submitInfo.rewardmessage = data.rewardmessage;
             param.type = 4;
         }else if (type == 5){
             param.submitInfo.thumbUp = data;
@@ -145,27 +153,37 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             param.type = 7;
         }
         detailService.submit(param,function (data) {
-            alert("操作成功");
-            switch(param.type){
-                case 1:
-                    $scope.formerComment = {};
-                    $scope.submitInfo.comment.content = "";
-                    break;
-                case 2:
-                    $scope.articleReader.score = param.submitInfo.score;
-                    break;
-                case 3:
-                    $scope.articleReader.report = true;
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    $scope.articleReader.thumbUp = true;
-                    break;
-                case 6:
-                    $scope.articleReader.collected = true;
-                    break;
+            if(data){
+                alert("操作成功");
+                switch(param.type){
+                    case 1:
+                        $scope.formerComment = {};
+                        $scope.submitInfo.comment.content = "";
+                        $scope.pageChange();
+                        break;
+                    case 2:
+                        $scope.articleReader.score = param.submitInfo.score;
+                        break;
+                    case 3:
+                        $scope.articleReader.report = true;
+                        break;
+                    case 4:
+                            $scope.totalMoney = $scope.totalMoney-$scope.reward.num;
+                        $scope.reward.num = 0;
+                        $scope.reward.rewardmessage = "";
+                        break;
+                    case 5:
+                        $scope.articleReader.thumbUp = true;
+                        break;
+                    case 6:
+                        $scope.articleReader.collected = true;
+                        break;
+                }
+            }else {
+                alert("操作失败，请重试");
             }
+
+
             console.info("info: "+data);
         },function (data) {
             console.info("error: "+data);
@@ -183,7 +201,6 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         param.userId = $scope.userId;
 
         detailService.articleRequest(param,function (data) {
-            console.info(angular.toJson(data));
             $scope.category = data.article.category;
             $scope.author = data.article.user.name;
 
@@ -198,12 +215,12 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             $scope.authorPost = data.article.articleInfo.authorPost;
             $scope.relatedPost = data.article.articleInfo.relatedPost;
 
-
+            if($scope.userId==-1)
+                return;
             $scope.totalMoney = data.articleReader.reader.totalMoney;
             $scope.donated = data.articleReader.donation;
             $scope.articleReader = data.articleReader;
 
-            console.info("info: "+angular.toJson(data));
         },function (data) {
             console.info("error: "+data);
         });
@@ -219,7 +236,7 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         param.currentPage = $scope.pagination.currentPage;
         param.articleId = $scope.articleId;
         detailService.pageChange(param,function (data) {
-            $scope.pagination.totalItems = data.pagination.totalItems;
+            $scope.pagination.totalItems = data.pagination.totalItems*10;
             $scope.pagination.currentPage = data.pagination.currentPage;
             $scope.pageComments = data.comments;
             // $scope.tempComments = $scope.x.comments;
@@ -227,8 +244,6 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
             //     item.showReplyComment =false;
             // })
 
-            console.info("info: "+angular.toJson(data));
-            console.info('comment: '+angular.toJson(data.comments));
         },function (data) {
             console.info("error: "+data);
         });

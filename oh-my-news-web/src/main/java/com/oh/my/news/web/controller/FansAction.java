@@ -4,6 +4,7 @@ import com.oh.my.news.business.read.manage.ConcernReadManage;
 import com.oh.my.news.model.dto.UserSnapshot;
 import com.oh.my.news.model.vo.myHomePage.home.OthersInfomation;
 import com.oh.my.news.web.util.BaseAction;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +25,13 @@ public class FansAction extends BaseAction{
     @Resource
     private ConcernReadManage concernReadManage;
 
+    private Logger logger = Logger.getLogger(FansAction.class);
+
     @RequestMapping(value = "/getFans")
     public @ResponseBody Object getFansInformation(@RequestBody Map userMap)throws Exception{
-        //获取粉丝列表
-        int userId = (Integer) userMap.get("userId");
+        try {
+            //获取粉丝列表
+            int userId = (Integer) userMap.get("userId");
             List<UserSnapshot> fans=concernReadManage.getMyFans(userId);
             List<OthersInfomation> fansList=new ArrayList<OthersInfomation>();
             for (UserSnapshot fan:fans){
@@ -44,6 +48,11 @@ public class FansAction extends BaseAction{
                 fansList.add(item);
             }
             return successReturnObject(fansList);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 
 

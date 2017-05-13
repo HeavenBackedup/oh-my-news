@@ -49,7 +49,6 @@ public class EsMainTestCase extends TestCase {
                     .build();
            Client client = new TransportClient(settings)
                     .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("123.206.210.75"),9300));//TCP 连接地址
-            System.out.println(client);
             System.out.println(client.admin().indices().prepareCreate("test2_index").execute().actionGet());
             client.close();
         }catch (Exception e){

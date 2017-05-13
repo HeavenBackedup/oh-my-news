@@ -66,7 +66,6 @@ app.controller('templateController',['$scope','templateService','htmlParseServic
             // 图片上传成功处理逻辑，data包含两个属性，id，数据库存储id,url图片访问的url
             function (data) {
            var name= file.name;
-            console.info("file data: "+angular.toJson(data));
             $scope.fileName = name;
             $scope.path = data.url;
 

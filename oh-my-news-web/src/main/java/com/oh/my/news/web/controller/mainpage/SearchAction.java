@@ -8,13 +8,12 @@ import com.oh.my.news.model.dto.EditContentDto;
 import com.oh.my.news.model.vo.detail.Article;
 import com.oh.my.news.web.util.BaseAction;
 import mainpage.News;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.jvm.hotspot.utilities.Assert;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,10 +29,14 @@ public class SearchAction extends BaseAction {
     @Resource
     private ArticleReadManage articleReadManage;
 
+    private static Logger logger = Logger.getLogger(SearchAction.class);
+
+
     @RequestMapping(value = "/showResult",consumes = APPLICATION_JSON,method = RequestMethod.POST)
     public @ResponseBody Object showResult(@RequestBody Map searchMap) throws Exception{
-        String keyword = searchMap.get("KeyWord").toString().trim();
-        int pageItemNum = 10;
+        try {
+            String keyword = searchMap.get("KeyWord").toString().trim();
+            int pageItemNum = 10;
             ArticleDto searchLists = articleReadManage.search(keyword, 1, pageItemNum);
             List<ArticleCategoryDto> searchContents = searchLists.getArticle();
             List<EditContent> editContents = new ArrayList<EditContent>();
@@ -48,5 +51,10 @@ public class SearchAction extends BaseAction {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("contents", editContents);
             return successReturnObject(map);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 }

@@ -9,6 +9,7 @@ import com.oh.my.news.business.write.manage.UserWriteManage;
 import com.oh.my.news.model.dto.UserFont;
 import com.oh.my.news.model.vo.myHomePage.home.UserInformation;
 import com.oh.my.news.web.util.BaseAction;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,12 +36,13 @@ public class HomePageAction extends BaseAction {
     @Resource
     private ConcernReadManage concernReadManage;
 
+    private Logger logger = Logger.getLogger(HomePageAction.class);
 //请求userId的信息
     @RequestMapping(value = "/common")
     public @ResponseBody
     Object getInformation(@RequestBody Map userMap)throws Exception{
-
-        int userId = (Integer) userMap.get("userId");
+        try {
+            int userId = (Integer) userMap.get("userId");
             UserFont userDetail=userReadManage.getUserDetail(userId);
             System.out.print(userDetail);
             UserInformation user=new UserInformation();
@@ -53,6 +55,12 @@ public class HomePageAction extends BaseAction {
             user.setNickName(userDetail.getNickname());
             user.setSignature(userDetail.getSignature());
             return successReturnObject(user);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
+
 
 
 
@@ -64,9 +72,10 @@ public class HomePageAction extends BaseAction {
 
     @RequestMapping(value = "/sendInformation")
     public @ResponseBody Object checkSuc(@RequestBody Map userMap)throws Exception{
-        int code= (Integer) userMap.get("code");
-        int userIdOfLogin;
-        int userIdOfShow;
+        try {
+            int code= (Integer) userMap.get("code");
+            int userIdOfLogin;
+            int userIdOfShow;
             switch (code){
                 //接收登陆用户userIdOfLogin的signature
                 case 0:
@@ -103,6 +112,11 @@ public class HomePageAction extends BaseAction {
             }
             return successReturnObject("operation success");
 
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
 
 
 
@@ -111,15 +125,23 @@ public class HomePageAction extends BaseAction {
 
     @RequestMapping(value = "/getConfirmInfo")
     public @ResponseBody Object getConfirmInfo(@RequestBody Map userMap) throws Exception{
-        int userIdOfLogin= (Integer) userMap.get("userIdOfLogin");
-        int userIdOfShow= (Integer) userMap.get("userIdOfShow");
-        //如果userIdOfShow在userIdOfLogin的关注人列表里，返回0，否则返回1；
+        try {
+            Integer userIdOfLogin= (Integer) userMap.get("userIdOfLogin");
+            Integer userIdOfShow= (Integer) userMap.get("userIdOfShow");
+            if(userIdOfShow==null)
+                userIdOfShow = userIdOfLogin;
+            //如果userIdOfShow在userIdOfLogin的关注人列表里，返回0，否则返回1；
             if(concernReadManage.concernValidation(userIdOfLogin,userIdOfShow))
                 return successReturnObject(0);
             else {
 
-                return failReturnObject(1);
+                return successReturnObject(1);
             }
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
 
     }
 }

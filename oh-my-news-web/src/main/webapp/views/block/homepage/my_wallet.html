@@ -1,5 +1,5 @@
-<body>
-<div>
+
+<div ng-init="init()">
     <div style="font-size: larger;font-weight: bolder;color: #0f0f0f">
                  <h1>我的钱包：</h1>
     </div>
@@ -15,19 +15,21 @@
                     <!-- Unnamed () -->
              <div id="u170" class="text" style="visibility: visible;">
                  <br> <p><span ng-model="money">余额：{{money}}</span></p>
-                 <p><button ng-click="ballance()"> 显示余额 </button></p>
+                 <!--<p><button ng-click="ballance()"> 显示余额 </button></p>-->
              </div>
             </div>
 </div>
 
 <!--提现功能-->
+<form name="submit">
     <div  id="u177" class="ax_default link_button">
         <div id="u177_div" class=""></div>
         <!-- Unnamed () -->
         <div id="u178" class="text" style="visibility: visible;">
-            <input placeholder="此处输入提现金额" ng-model="inputwithdraw" ng-model="inputRes1">
-            <p> <button ng-click="withdraw()">提现</button></p>
-            <span>{{inputOutRes}}</span>
+
+            <input type="number"  ng-model="inputwithdraw" ng-change="inputwithdraw = (inputwithdraw==undefined||inputwithdraw==null?0:inputwithdraw>money?money:inputwithdraw<0?0:inputwithdraw)">
+            <p> <button class="btn-sm btn-info" ng-click="withdraw()">提现</button></p>
+            <!--<span>{{inputOutRes}}</span>-->
 
 
 
@@ -39,14 +41,14 @@
         <div id="u179_div" class=""></div>
         <!-- Unnamed () -->
         <div id="u180" class="text" style="visibility: visible;">
-            <input placeholder="此处输入充值金额" ng-model="inputrecharge" ng-model="inputRes2">
-            <p> <button ng-click="recharge()">充值</button></p>
-            <span>{{inputInRes}}</span>
+            <input type="number" ng-model="inputrecharge" ng-change="inputrecharge = (inputrecharge==undefined||inputrecharge==null?0:inputrecharge<0?0:inputrecharge)">
+            <p> <button class="btn-sm btn-info" ng-click="recharge()">充值</button></p>
+            <!--<span>{{inputInRes}}</span>-->
 
 
         </div>
     </div>
-
+</form>
 <!--支出收入事项简记-->
 
     <div  class="container" >
@@ -64,7 +66,7 @@
                         </thead>
                         <tbody>
                                 <tr ng-repeat="item in eventsout">
-                                    <td>{{item.date}}</td>
+                                    <td>{{item.date|date:'yyyy-MM-dd hh:mm:ss'}}</td>
                                     <td>{{item.targetName==null?'提现':'打赏'}}</td>
                                     <td>{{item.amount}}</td>
                                     <td>{{item.targetName}}</td>
@@ -82,7 +84,7 @@
                                         <th>  交易时间 </th>
                                         <th>  收入事项 </th>
                                         <th>  金额(元)     </th>
-                                        <th>  收款方   </th>
+                                        <th>  付款方   </th>
                                         <th>  留言     </th>
 
                                     </tr>
@@ -90,7 +92,7 @@
 
                             <tbody>
                                 <tr ng-repeat="item in eventsin">
-                                    <td>{{item.date}}</td>
+                                    <td>{{item.date|date:'yyyy-MM-dd hh:mm:ss'}}</td>
                                     <td>{{item.targetName==null?'充值':'打赏'}}</td>
                                     <td>{{item.amount}}</td>
                                     <td>{{item.targetName}}</td>
@@ -101,4 +103,3 @@
     </div>
 
 </div>
-</body>

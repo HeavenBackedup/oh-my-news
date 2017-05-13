@@ -9,6 +9,7 @@ import com.oh.my.news.model.template.Pagination;
 import com.oh.my.news.model.vo.mainpage.EditContent;
 import com.oh.my.news.web.util.BaseAction;
 import mainpage.News;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,16 +34,18 @@ public class MainAction extends BaseAction {
     @Resource
     private ImageReadManage imageReadManage;
 
+    private static Logger logger = Logger.getLogger(MainAction.class);
     //新闻显示
     @RequestMapping(value = "/showPage", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public @ResponseBody
         Object showPage(@RequestBody Map showPageMap) throws Exception {
 //        System.out.println(showPageMap);
-        int index = Integer.parseInt(showPageMap.get("pageIndex").toString().trim());
-        int currentPage = Integer.parseInt(showPageMap.get("currentPage").toString().trim());
-        int pageItemNum=3;
+        try {
+            int index = Integer.parseInt(showPageMap.get("pageIndex").toString().trim());
+            int currentPage = Integer.parseInt(showPageMap.get("currentPage").toString().trim());
+            int pageItemNum=3;
 
-        EditContentDto editContentDto=new EditContentDto();
+            EditContentDto editContentDto=new EditContentDto();
 
             editContentDto=articleRecommendManage.getRecommendByCategoryId(index,currentPage,pageItemNum);
             Map<String, Object> itemsmap = new HashMap<String, Object>();
@@ -50,6 +53,11 @@ public class MainAction extends BaseAction {
             itemsmap.put("pageIndex",index);
             itemsmap.put("pagination",editContentDto.getPagination());
             return successReturnObject(itemsmap);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
 
 
     }
@@ -58,9 +66,10 @@ public class MainAction extends BaseAction {
     @RequestMapping(value = "/androidShowPage",consumes = APPLICATION_JSON,method = RequestMethod.POST)
     public @ResponseBody
     Object mainPage(@RequestBody Map pageMap )throws Exception{
-        int index=Integer.parseInt(pageMap.get("index").toString().trim());
-        int addValue=Integer.parseInt(pageMap.get("addValue").toString().trim());
-        int pageItemNum=6;
+        try {
+            int index=Integer.parseInt(pageMap.get("index").toString().trim());
+            int addValue=Integer.parseInt(pageMap.get("addValue").toString().trim());
+            int pageItemNum=6;
             EditContentDto editContentDto=articleRecommendManage.getRecommendByCategoryId(index,addValue,pageItemNum);
             List<EditContent> editContents=editContentDto.getContents();
             Map<String,Object> resultMap=new HashMap<String, Object>();
@@ -68,7 +77,6 @@ public class MainAction extends BaseAction {
 
             for(EditContent editContent:editContents){
                 Map<String,Object>map=new HashMap<String, Object>();
-                System.out.println(editContent);
                 int articleId=editContent.getId();
                 List<File> imageUrls=imageReadManage.getImagesByArticleId(articleId);
                 map.put("id",articleId);
@@ -80,12 +88,15 @@ public class MainAction extends BaseAction {
                 }else {
                     map.put("url",null);
                 }
-                System.out.println(map);
                 list.add(map);
             }
-            System.out.println(list);
             resultMap.put("newList",list);
             return successReturnObject(resultMap);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
 
 
 
@@ -96,25 +107,35 @@ public class MainAction extends BaseAction {
     @RequestMapping(value = "/collectList", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public @ResponseBody
         Object collect(@RequestBody Map indexMap) throws Exception{
-        List<ArticleSnapshot> lists = new ArrayList<ArticleSnapshot>();
-        System.out.println("collectList"+indexMap);
+        try {
+            List<ArticleSnapshot> lists = new ArrayList<ArticleSnapshot>();
 
             lists=articleRecommendManage.getCollect();
             Map<String, Object> collectmap = new HashMap<String, Object>();
             collectmap.put("collectList", lists);
             return successReturnObject(collectmap);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
 
     }
     //评论排行
     @RequestMapping(value = "/markList", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public @ResponseBody
         Object mark(@RequestBody Map indexMap) throws Exception{
-        List<ArticleSnapshot> lists = new ArrayList<ArticleSnapshot>();
-        System.out.println("markList"+indexMap);
+        try {
+            List<ArticleSnapshot> lists = new ArrayList<ArticleSnapshot>();
             lists=articleRecommendManage.getMark();
             Map<String, Object> markmap = new HashMap<String, Object>();
             markmap.put("markList", lists);
             return successReturnObject(markmap);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 
 
@@ -122,12 +143,17 @@ public class MainAction extends BaseAction {
     @RequestMapping(value = "/lastList", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public @ResponseBody
     Object last(@RequestBody Map indexMap) throws Exception{
-        List<ArticleSnapshot> lists = new ArrayList<ArticleSnapshot>();
-        System.out.println("lastList"+indexMap);
+        try {
+            List<ArticleSnapshot> lists = new ArrayList<ArticleSnapshot>();
             lists=articleRecommendManage.getLast();
             Map<String, Object> lastmap = new HashMap<String, Object>();
             lastmap.put("lastList", lists);
             return successReturnObject(lastmap);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
 
     }
 

@@ -7,6 +7,7 @@ import com.oh.my.news.model.po.UserWrite;
 import com.oh.my.news.model.vo.User;
 import com.oh.my.news.web.util.BaseAction;
 import com.sun.javafx.collections.MappingChange;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,19 +31,27 @@ public class RegisterAction extends BaseAction {
     @Autowired
     private UserReadManage userReadManage;
 
+    private Logger logger = Logger.getLogger(RegisterAction.class);
+
     @RequestMapping(value = "/submitInfo", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public
     @ResponseBody
     Object submitInfo(@RequestBody User user)throws Exception{
-        UserWrite userWrite = new UserWrite();
-        userWrite.setDate(new Date());
-        userWrite.setUsername(user.getUsername());
-        userWrite.setEmail(user.getEmail());
-        userWrite.setPassword(user.getPassword());
-        userWrite.setNickname(user.getUsername());
-        userWriteManage.register(userWrite);
+        try {
+            UserWrite userWrite = new UserWrite();
+            userWrite.setDate(new Date());
+            userWrite.setUsername(user.getUsername());
+            userWrite.setEmail(user.getEmail());
+            userWrite.setPassword(user.getPassword());
+            userWrite.setNickname(user.getUsername());
+            userWriteManage.register(userWrite);
 
-        return successReturnObject(true);
+            return successReturnObject(true);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
 //        boolean isform=false;
 //        System.out.println("success");
 //        User u = new User();
@@ -61,18 +70,24 @@ public class RegisterAction extends BaseAction {
     public
     @ResponseBody
     Object verifynameInfo(@RequestBody Map map)throws Exception {
+        try {
 
-        String username = map.get("value").toString();
-        boolean isform = userReadManage.userValidation(username);
+            String username = map.get("value").toString();
+            boolean isform = userReadManage.userValidation(username);
 //        boolean isform = true;
 //        String inputusername = map.get("value").toString();
 //        if (inputusername.equals("abc")) {
 //            isform = false;
 //        }
-        return successReturnObject(!isform);
-
+            return successReturnObject(!isform);
+        } catch (Exception e) {
+            logger.error(e);
+            throw e;
+        }
 
     }
+
+
     @RequestMapping(value = "/verifyemailInfo", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public  @ResponseBody Object verifyemailInfo(@RequestBody Map map)throws Exception{
         boolean isform=true;
@@ -82,7 +97,32 @@ public class RegisterAction extends BaseAction {
 //        if(inputemail.equals("123@qq.com")){
 //            isform=false;
 //        }
-        System.out.println("emailValidation"+isform);
         return successReturnObject(!isform);
+    }
+
+    @RequestMapping(value = "/androidSubmitInfo",consumes = APPLICATION_JSON,method = RequestMethod.POST)
+    public @ResponseBody Object androidSubmitInfo(@RequestBody Map map)throws Exception{
+        try {
+            String username = (String) map.get("username");
+            String pwd = (String)map.get("pwd");
+            if(userReadManage.userValidation(username))
+                return successReturnObject(false);
+            UserWrite userWrite = new UserWrite();
+            userWrite.setDate(new Date());
+            userWrite.setNickname(username);
+            userWrite.setUsername(username);
+            userWrite.setPassword(pwd);
+            userWrite.setDate(new Date());
+//        userWrite.setUsername(user.getUsername());
+//        userWrite.setEmail(user.getEmail());
+//        userWrite.setPassword(user.getPassword());
+//        userWrite.setNickname(user.getUsername());
+            userWriteManage.register(userWrite);
+            return successReturnObject(true);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 }

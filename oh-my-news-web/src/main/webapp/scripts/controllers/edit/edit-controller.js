@@ -84,7 +84,6 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
         commonService.getCategories(function (data) {
 
                 $scope.categories = data;
-                console.info(angular.toJson(data));
                 $scope.categories = [{id: -1,parentId:null,name:"请选择类别"}].concat($scope.categories);
                 if(isInit){
                     $scope.editContentInit();
@@ -118,7 +117,6 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
 
     //粘贴板函数
     $scope.copyClipboard = function (pic) {
-        console.info(angular.toJson(pic))
         pic.isChosen = true;
 
         if($scope.chosenPic==null){
@@ -180,7 +178,7 @@ app.controller('editController',['$scope','$state','textAngularManager','commonS
 
             editService.commit(param,function (data) {
                 alert("保存成功");
-                $state.go('app.personalHomepage.hpTabset.draft');
+                $state.go('app.personalHomepage.hpTabset.draft',{userId:$scope.userId});
             },function (data) {
                 console.error("error: "+angular.toJson(data));
             })

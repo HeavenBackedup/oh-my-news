@@ -1,7 +1,7 @@
 /**
  * Created by wangyan on 2017/4/10.
  */
-app.controller('accountManageController',['$scope','accountManageService','Upload','fileService','user',function ($scope,accountManageService,Upload,fileService,user) {
+app.controller('accountManageController',['$scope','accountManageService','Upload','fileService','user','registerService',function ($scope,accountManageService,Upload,fileService,user,registerService) {
 
     $scope.init = function () {
         $scope.userId=user.getId();
@@ -13,6 +13,7 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
         $scope.myprovince="";
         $scope.myrepwd="";
         $scope.myemailaddr="";
+        $scope.isEmailRegist = false;
         var myaddrCtrlInput=[];//数组，用来接收地址和上传地址
         $scope.userValidation();
         $scope.User= {
@@ -143,7 +144,6 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
             // 图片上传成功处理逻辑，data包含两个属性，id，数据库存储id,url图片访问的url
             function (data) {
                 var name= file.name;
-                console.info("file data: "+angular.toJson(data));
                 $scope.fileName = name;
                 $scope.User.path = data.url;
                 $scope.User.photoid=data.id;
@@ -195,12 +195,35 @@ app.controller('accountManageController',['$scope','accountManageService','Uploa
 
     // 修改邮箱
     $scope.dataConserve2=function(){
-        $scope.User.myemCtrl=$scope.myemailaddr;
+        registerService.verifyemailInfo({
+            value:$scope.myemailaddr
+        },function (data) {
+            if(data){
+                alert("保存成功");
+                $scope.User.myemCtrl=$scope.myemailaddr;
+                $('#mymodal2').modal('hide');
+                $scope.isEmailRegist=false;
+            }else {
+                $scope.isEmailRegist=true;
+            }
+
+        },function (data) {
+            console.error(angular.toJson(data));
+        })
+
     }
 
 
     $scope.dataConserve3 = function () {
         $scope.User.myPassword = $scope.User.mypwd;
     }
+
+    $scope.closeEmailModal = function () {
+        $('#mymodal2').modal('hide');
+        $scope.isEmailRegist=false;
+    }
+
+    $('#mymodal2').on('hide.bs.modal', function () {
+        $scope.isEmailRegist=false;});
 
 }])

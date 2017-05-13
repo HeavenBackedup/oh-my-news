@@ -75,7 +75,7 @@
                 <aside class="comments" id="comments">
                     <hr>
 
-                    <h2><i class="fa fa-comments"></i> 3 Comments</h2>
+                    <h2><i class="fa fa-comments"></i>评论</h2>
 
                     <div>
                         <div ng-repeat="x in pageComments">
@@ -172,7 +172,7 @@
 
 
                         <div class="buttons clearfix">
-                            <button type="button" class="btn btn-xlarge btn-clean-one" ng-click="submit(1,formerComment)">Submit</button>
+                            <button type="button" class="btn btn-xlarge btn-clean-one" ng-click="submit(1,formerComment)">提交评论</button>
                         </div>
                     </form>
                 </aside>
@@ -236,9 +236,9 @@
             </div>
             <div class="modal-body">
                 <form action="" autocomplete="on">
-                    <!--总余额: ￥{{totalMoney.toFixed(2)}}<br>-->
+                    总余额: ￥{{totalMoney.toFixed(2)}}<br>
                     已打赏: ￥{{donated.toFixed(2)}}<br>
-                    打赏金额: <input type="number" name="lname" ng-model="reward.num" ng-change="(reward = (reward.num>totalMoney?totalMoney:(reward.num<0?0:reward.num)))"><br>
+                    打赏金额: <input type="number" name="lname" ng-model="reward.num" ng-change="(reward.num = (reward.num>totalMoney?totalMoney:(reward.num<0?0:reward.num)))"><br>
                     打赏留言: <input type="text" name="lname" ng-model="reward.rewardmessage"><br>
 
                     <!--<input type="submit">-->

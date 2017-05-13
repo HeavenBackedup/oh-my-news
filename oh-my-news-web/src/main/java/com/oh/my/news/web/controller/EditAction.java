@@ -11,6 +11,7 @@ import com.oh.my.news.model.dto.UserFont;
 import com.oh.my.news.model.po.File;
 import com.oh.my.news.model.vo.edit.EditContent;
 import com.oh.my.news.web.util.BaseAction;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -39,13 +40,15 @@ public class EditAction extends BaseAction{
 
     @Autowired
     private ImageReadManage imageReadManage;
+
+    private Logger logger = Logger.getLogger(EditAction.class);
     @RequestMapping(value = "/getPics")
     public @ResponseBody Object getPics(@RequestBody  Map picMap)throws Exception{
-        int userId =  (Integer) picMap.get("userId");
-        int articleId =  (Integer) picMap.get("articleId");
-        if(userId==-1)
-            return failReturnObject("userId is missing");
-        System.out.println(articleId);
+        try {
+            int userId =  (Integer) picMap.get("userId");
+            int articleId =  (Integer) picMap.get("articleId");
+            if(userId==-1)
+                return failReturnObject("userId is missing");
 //        if(articleId==-1){
 //            List<Image> images = new ArrayList<Image>();
 //            images.add(new Image(3,"http://oh-my-news.oss-cn-shanghai.aliyuncs.com/1492101116270_1?Expires=1807461113&OSSAccessKeyId=LTAImvg3z9iZRy2n&Signature=6RGGw112mdxa4QdT534b%2F0ul6vQ%3D"));
@@ -55,69 +58,91 @@ public class EditAction extends BaseAction{
 //        }else {
 //            return successReturnObject(null);
 //        }
-        if(articleId==-1)
-            return successReturnObject(new ArrayList<Image>());
-        List<File> files = imageReadManage.getImagesByArticleId(articleId);
-        if(CollectionUtils.isEmpty(files))
-            return successReturnObject(new ArrayList<Image>());
-        List<Image> images = new ArrayList<Image>();
-        for(File f:files){
-            Image image = new Image();
-            image.setId(f.getId());
-            image.setUrl(f.getUrl());
-            images.add(image);
+            if(articleId==-1)
+                return successReturnObject(new ArrayList<Image>());
+            List<File> files = imageReadManage.getImagesByArticleId(articleId);
+            if(CollectionUtils.isEmpty(files))
+                return successReturnObject(new ArrayList<Image>());
+            List<Image> images = new ArrayList<Image>();
+            for(File f:files){
+                Image image = new Image();
+                image.setId(f.getId());
+                image.setUrl(f.getUrl());
+                images.add(image);
+            }
+            return successReturnObject(images);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
         }
-        return successReturnObject(images);
+
 
     }
 
     @RequestMapping(value = "/getArticle")
     public @ResponseBody Object getArticle(@RequestBody Map map)throws Exception{
-        int articleId = (Integer) map.get("articleId");
-        if(articleId == -1)
-            throw new Exception("articleId is null");
-        ArticleDetail articleDetail=articleReadManage.getArticleDetail(articleId,-1);
-        EditContent content = new EditContent();
-        content.setTopic(articleDetail.getArticleCategoryDto().getArticle().getTopic());
-        content.setCategoryId(articleDetail.getArticleCategoryDto().getCategory().getId());
-        content.setHtmlContent(articleDetail.getArticleCategoryDto().getArticle().getContent());
-        content.setId(articleId);
-        content.setLabels(articleDetail.getArticleCategoryDto().getArticle().getLabels());
-        return successReturnObject(content);
+        try {
+            int articleId = (Integer) map.get("articleId");
+            if(articleId == -1)
+                throw new Exception("articleId is null");
+            ArticleDetail articleDetail=articleReadManage.getArticleDetail(articleId,-1);
+            EditContent content = new EditContent();
+            content.setTopic(articleDetail.getArticleCategoryDto().getArticle().getTopic());
+            content.setCategoryId(articleDetail.getArticleCategoryDto().getCategory().getId());
+            content.setHtmlContent(articleDetail.getArticleCategoryDto().getArticle().getContent());
+            content.setId(articleId);
+            content.setLabels(articleDetail.getArticleCategoryDto().getArticle().getLabels());
+            return successReturnObject(content);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 
 
     @RequestMapping(value = "/editCommit")
     public @ResponseBody Object commit(@RequestBody EditContent editContent)throws Exception{
-        EditContentWrite editContentWrite = new EditContentWrite();
-        UserFont userFont = userReadManage.getUserDetail(editContent.getUserId());
-        editContentWrite.setId(editContent.getId());
-        editContentWrite.setLabels(editContent.getLabels());
-        editContentWrite.setHtmlContent(editContent.getHtmlContent());
-        editContentWrite.setContentSnapshot(editContent.getContentSnapshot());
-        editContentWrite.setCategoryId(editContent.getCategoryId());
-        editContentWrite.setMediaIds(editContent.getMediaIds());
-        editContentWrite.setUserId(editContent.getUserId());
-        editContentWrite.setTopic(editContent.getTopic());
-        articleWriteManage.save(editContentWrite);
-        return successReturnObject("save_success");
+        try {
+            EditContentWrite editContentWrite = new EditContentWrite();
+            UserFont userFont = userReadManage.getUserDetail(editContent.getUserId());
+            editContentWrite.setId(editContent.getId());
+            editContentWrite.setLabels(editContent.getLabels());
+            editContentWrite.setHtmlContent(editContent.getHtmlContent());
+            editContentWrite.setContentSnapshot(editContent.getContentSnapshot());
+            editContentWrite.setCategoryId(editContent.getCategoryId());
+            editContentWrite.setMediaIds(editContent.getMediaIds());
+            editContentWrite.setUserId(editContent.getUserId());
+            editContentWrite.setTopic(editContent.getTopic());
+            articleWriteManage.save(editContentWrite);
+            return successReturnObject("save_success");
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 
     @RequestMapping(value = "/publish")
     public @ResponseBody Object publish(@RequestBody EditContent editContent)throws Exception{
-        EditContentWrite editContentWrite = new EditContentWrite();
-        UserFont userFont = userReadManage.getUserDetail(editContent.getUserId());
-        editContentWrite.setId(editContent.getId());
-        editContentWrite.setLabels(editContent.getLabels());
-        editContentWrite.setHtmlContent(editContent.getHtmlContent());
-        editContentWrite.setContentSnapshot(editContent.getContentSnapshot());
-        editContentWrite.setCategoryId(editContent.getCategoryId());
-        editContentWrite.setMediaIds(editContent.getMediaIds());
-        editContentWrite.setUserId(editContent.getUserId());
-        editContentWrite.setTopic(editContent.getTopic());
-        int id =articleWriteManage.publish(editContentWrite);
-        System.out.println("publish_id"+id);
-        return successReturnObject(id);
+        try {
+            EditContentWrite editContentWrite = new EditContentWrite();
+            UserFont userFont = userReadManage.getUserDetail(editContent.getUserId());
+            editContentWrite.setId(editContent.getId());
+            editContentWrite.setLabels(editContent.getLabels());
+            editContentWrite.setHtmlContent(editContent.getHtmlContent());
+            editContentWrite.setContentSnapshot(editContent.getContentSnapshot());
+            editContentWrite.setCategoryId(editContent.getCategoryId());
+            editContentWrite.setMediaIds(editContent.getMediaIds());
+            editContentWrite.setUserId(editContent.getUserId());
+            editContentWrite.setTopic(editContent.getTopic());
+            int id =articleWriteManage.publish(editContentWrite);
+            return successReturnObject(id);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 
 }

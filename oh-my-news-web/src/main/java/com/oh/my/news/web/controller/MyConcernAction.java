@@ -26,8 +26,6 @@ public class MyConcernAction extends BaseAction{
     public Object getConcernUser(@RequestBody Map inputMap){
         //用户自己的ID
         Integer userId = Integer.parseInt(inputMap.get("userId").toString());
-
-        System.out.println(userId);
         //返回的私信的列表
         List<ConcernUser> concernUserList=new ArrayList<ConcernUser>();
 
@@ -39,8 +37,6 @@ public class MyConcernAction extends BaseAction{
         concernUserList.add(cu1);
         concernUserList.add(cu2);
         concernUserList.add(cu3);
-
-        System.out.println(concernUserList.size());
         return successReturnObject(concernUserList);
     }
 
@@ -52,8 +48,6 @@ public class MyConcernAction extends BaseAction{
     public Object getHomepage(@RequestBody Map inputMap){
         //请求的用户的ID
         Integer id = Integer.parseInt(inputMap.get("id").toString());
-
-        System.out.println(id);
         //返回个人主页的html
         String url="http:";
 

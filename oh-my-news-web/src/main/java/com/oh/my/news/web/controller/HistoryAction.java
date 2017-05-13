@@ -8,6 +8,7 @@ import com.oh.my.news.model.dto.SortType;
 import com.oh.my.news.model.template.Pagination;
 import com.oh.my.news.model.vo.Content;
 import com.oh.my.news.web.util.BaseAction;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,32 +29,40 @@ public class HistoryAction extends BaseAction {
     @Resource
     private ArticleReadManage articleReadManage;
 
+    private Logger logger = Logger.getLogger(HistoryAction.class);
+
     @RequestMapping(value = "/getInit", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public
     @ResponseBody
-    Object getInit(@RequestBody Map initMap) {
-        List<Content> contents = new ArrayList<Content>();
-        int userId=Integer.parseInt(initMap.get("id").toString().trim());
-        int pageItemNum=3;
+    Object getInit(@RequestBody Map initMap)throws Exception {
         try {
-            ArticleDto historyLists=articleReadManage.getHistoryArticles(userId,1,pageItemNum,SortType.DATE);
-            List<ArticleCategoryDto> list=historyLists.getArticle();
-            for(ArticleCategoryDto article:list){
-                Content content=new Content();
-                content.setTopic(article.getArticle().getTopic());
-                content.setArticle(article.getArticle().getContentSnapshot());
-                content.setAuthor(article.getUserSnapshot().getNickname());
-                content.setId(article.getArticle().getId());
-                contents.add(content);
+            List<Content> contents = new ArrayList<Content>();
+            int userId=Integer.parseInt(initMap.get("id").toString().trim());
+            int pageItemNum=3;
+            try {
+                ArticleDto historyLists=articleReadManage.getHistoryArticles(userId,1,pageItemNum,SortType.DATE);
+                List<ArticleCategoryDto> list=historyLists.getArticle();
+                for(ArticleCategoryDto article:list){
+                    Content content=new Content();
+                    content.setTopic(article.getArticle().getTopic());
+                    content.setArticle(article.getArticle().getContentSnapshot());
+                    content.setAuthor(article.getUserSnapshot().getNickname());
+                    content.setId(article.getArticle().getId());
+                    contents.add(content);
+                }
+                Map<String,Object> map=new HashMap<String, Object>();
+                map.put("pagination",historyLists.getPagination());
+                map.put("contents",contents);
+                return successReturnObject(map);
+            }catch (Exception e){
+                e.printStackTrace();
+                return failReturnObject("get history article lists fail");
             }
-            Map<String,Object> map=new HashMap<String, Object>();
-            map.put("pagination",historyLists.getPagination());
-            map.put("contents",contents);
-            return successReturnObject(map);
         }catch (Exception e){
-            e.printStackTrace();
-            return failReturnObject("get history article lists fail");
+            logger.error(e);
+            throw e;
         }
+
     }
 
     //安卓端接受数据
@@ -61,8 +70,9 @@ public class HistoryAction extends BaseAction {
     public
     @ResponseBody
     Object getContents(@RequestBody Map indexMap) throws Exception{
-        int userId=Integer.parseInt(indexMap.get("userId").toString().trim());
-        int pageItemNum=100;
+        try {
+            int userId=Integer.parseInt(indexMap.get("userId").toString().trim());
+            int pageItemNum=100;
             ArticleDto historyLists=articleReadManage.getHistoryArticles(userId,1,pageItemNum,SortType.DATE);
             List<ArticleCategoryDto> list=historyLists.getArticle();
             List<Object> contents=new ArrayList<Object>();
@@ -83,18 +93,24 @@ public class HistoryAction extends BaseAction {
             }
             historyMap.put("data",contents);
             return successReturnObject(historyMap);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 
     @RequestMapping(value = "/getContent", consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public
     @ResponseBody
     Object getContent(@RequestBody Map ctgyMap) throws Exception{
-        List<Content> contents = new ArrayList<Content>();
-        int userId=Integer.parseInt(ctgyMap.get("id").toString().trim());
-        int currentPage = Integer.parseInt(ctgyMap.get("currentPage").toString().trim());
-        int value=Integer.parseInt(ctgyMap.get("value").toString().trim());
-        int pageItemNum=3;
-        SortType sortType=SortType.DATE;
+        try {
+            List<Content> contents = new ArrayList<Content>();
+            int userId=Integer.parseInt(ctgyMap.get("id").toString().trim());
+            int currentPage = Integer.parseInt(ctgyMap.get("currentPage").toString().trim());
+            int value=Integer.parseInt(ctgyMap.get("value").toString().trim());
+            int pageItemNum=3;
+            SortType sortType=SortType.DATE;
             switch (value){
                 case 1:
                     sortType = SortType.DATE;
@@ -120,6 +136,11 @@ public class HistoryAction extends BaseAction {
             map.put("pagination",historyLists.getPagination());
             map.put("contents",contents);
             return successReturnObject(map);
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
     }
 }
 

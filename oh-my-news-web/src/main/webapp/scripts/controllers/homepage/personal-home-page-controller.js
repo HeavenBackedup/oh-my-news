@@ -45,7 +45,16 @@ app.controller('personalHomePageController',['$scope','homeService','user','$sta
         $scope.private={
             privateLetter:''
         }
+        if((isNaN($scope.id.paramsUserId)||$scope.id.paramsUserId<=0)){
+            $scope.id.paramsUserId = user.getParamId();
 
+        }else {
+            user.setParamId($scope.id.paramsUserId);
+        }
+        if($scope.id.paramId==-1){
+            alert("个人主页跳转出错，将返回新闻主页");
+            $state.go('main');
+        }
 
         $scope.uploadInformation($scope.id.paramsUserId);
 
@@ -162,10 +171,24 @@ app.controller('personalHomePageController',['$scope','homeService','user','$sta
     $scope.sendInfo=function (param) {
         homeService.confirmInformation(param,function (data) {
 
-            alert("发送成功")
+            // alert("发送成功")
+            switch (param.code){
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    $scope.confirmTurn.turnOfCode="未关注";
+                    $scope.confirmTurn.showForY =!$scope.confirmTurn.showForY;
+                    break;
+                case 3:
+                    $scope.confirmTurn.turnOfCode="已关注";
+                    $scope.confirmTurn.showForY =!$scope.confirmTurn.showForY;
+                    break;
+            }
 
         },function (data) {
-            alert("请重新编辑")
+            alert("请重新编辑");
 
         })
 

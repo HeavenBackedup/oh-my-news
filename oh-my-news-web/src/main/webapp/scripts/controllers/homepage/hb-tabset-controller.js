@@ -4,5 +4,4 @@
 app.controller('hbTabsetController',['$scope','$controller',function ($scope,$controller){
 
     $controller('appController', {$scope: $scope});
-
 }])

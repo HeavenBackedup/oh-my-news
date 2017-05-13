@@ -1,11 +1,11 @@
 <div data-ng-model="index.curIndex">
     <div class="tab-container" ng-show="show.editable" >
         <ul class="nav nav-pills">
-            <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==0]"><a ng-click="index.curIndex=0" ui-sref="app.personalHomepage.hpTabset.myHomePage">我的主页</a></li>
-            <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==1]"><a ng-click="index.curIndex=1" ui-sref="app.personalHomepage.hpTabset.privateMsg">私信</a></li>
-            <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==5]"><a ng-click="index.curIndex=5" ui-sref="app.personalHomepage.hpTabset.draft">草稿箱</a></li>
-            <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==6]"><a ng-click="index.curIndex=6" ui-sref="app.personalHomepage.hpTabset.likeCollect">喜欢／收藏</a></li>
+            <!--<li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==0]"><a ng-click="index.curIndex=0" ui-sref="app.personalHomepage.hpTabset.myHomePage">我的主页</a></li>-->
             <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==4]"><a ng-click="index.curIndex=4" ui-sref="app.personalHomepage.hpTabset.history">历史文章</a></li>
+            <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==6]"><a ng-click="index.curIndex=6" ui-sref="app.personalHomepage.hpTabset.likeCollect">喜欢／收藏</a></li>
+            <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==5]"><a ng-click="index.curIndex=5" ui-sref="app.personalHomepage.hpTabset.draft">草稿箱</a></li>
+            <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==1]"><a ng-click="index.curIndex=1" ui-sref="app.personalHomepage.hpTabset.privateMsg">私信</a></li>
             <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==2]"><a ng-click="index.curIndex=2" ui-sref="app.personalHomepage.hpTabset.myConcern">我的关注</a></li>
             <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==3]"><a ng-click="index.curIndex=3" ui-sref="app.personalHomepage.hpTabset.myFans">我的粉丝</a></li>
         </ul>
@@ -16,7 +16,7 @@
     </div>
     <div class="tab-container" ng-show="!show.editable" >
         <ul class="nav nav-pills">
-            <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==0]"><a ng-click="index.curIndex=0" ui-sref="app.personalHomepage.hpTabset.myHomePage">他／她的主页</a></li>
+            <!--<li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==0]"><a ng-click="index.curIndex=0" ui-sref="app.personalHomepage.hpTabset.myHomePage">他／她的主页</a></li>-->
             <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==1]"><a ng-click="index.curIndex=1" ui-sref="app.personalHomepage.hpTabset.history">历史文章</a></li>
             <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==2]"><a ng-click="index.curIndex=2" ui-sref="app.personalHomepage.hpTabset.myConcern">他／她的关注</a></li>
             <li role="presentation" ng-class="{true:'active',false:'inactive'}[index.curIndex==3]"><a ng-click="index.curIndex=3" ui-sref="app.personalHomepage.hpTabset.myFans">他／她的粉丝</a></li>

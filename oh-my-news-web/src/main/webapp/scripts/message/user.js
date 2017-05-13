@@ -1,29 +1,43 @@
 /**
  * Created by shj on 2017/4/15.
  */
-app.factory('user',function ($sessionStorage) {
+app.factory('user',function ($localStorage) {
     var user = {};
 
     // var user = {};
     // var userId = -1;
     user.setId = function (id) {
-        $sessionStorage.userId = id;
+        $localStorage.userId = id;
     };
+    user.setParamId = function (id) {
+        $localStorage.paramId = id;
+    };
+    user.getParamId = function () {
+        try {
+            var res= parseInt($localStorage.paramId);
+            if(isNaN(res))
+                $localStorage.paramId=-1;
+            return $localStorage.paramId;
+        }catch (e){
+            $localStorage.paramId = -1;
+            return $localStorage.paramId;
+        }
+    }
 
     user.getId = function () {
         try {
-            var res= parseInt($sessionStorage.userId);
+            var res= parseInt($localStorage.userId);
             if(isNaN(res))
-                $sessionStorage.userId=-1;
-            return $sessionStorage.userId;
+                $localStorage.userId=-1;
+            return $localStorage.userId;
         }catch (e){
-            $sessionStorage.userId = -1;
-            return $sessionStorage.userId;
+            $localStorage.userId = -1;
+            return $localStorage.userId;
         }
 
     };
     user.clearData = function () {
-        $sessionStorage.userId= -1;
+        $localStorage.userId= -1;
     };
     return user;
 })

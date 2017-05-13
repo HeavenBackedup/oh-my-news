@@ -22,7 +22,6 @@ public class TemplateAction extends BaseAction {
 
     @RequestMapping(value = "/getInput",consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public @ResponseBody Object getInput(@RequestBody Map inputMap){
-        System.out.println(inputMap);
         String input = inputMap.get("value").toString();
 
         String res = "data is recieved,repeat the data: "+input;
@@ -31,7 +30,6 @@ public class TemplateAction extends BaseAction {
 
     @RequestMapping(value = "/pageReq",consumes = APPLICATION_JSON, method = RequestMethod.POST)
     public @ResponseBody Object pageReq(@RequestBody Map pageMap){
-        System.out.println(pageMap);
 
         int currentPage = Integer.parseInt(pageMap.get("currentPage").toString().trim());
         Map<String,Object> map = new HashMap();
@@ -48,8 +46,7 @@ public class TemplateAction extends BaseAction {
 
     @RequestMapping(value = "/upload",method = RequestMethod.POST)
     public @ResponseBody Object fileUpload(@RequestParam(value = "file")MultipartFile file){
-        String path="../../../../../../webapp/images/";
-        System.out.println(file.getOriginalFilename());
+        String path="../../../../../../webapp/images/";;
 
         return successReturnObject("file get");
     }

@@ -48,8 +48,13 @@ app.controller('appController',['$scope','homeService','user','$stateParams','$s
     $scope.backToPersondalPage=function () {
 
         // $scope.init();
-        $state.go('app.personalHomepage.hpTabset.myHomePage',{userId:$scope.id.userId},{reload:true});
+        $state.go('app.personalHomepage.hpTabset.history',{userId:$scope.id.userId},{reload:true});
 
+    }
+
+    $scope.quit = function () {
+        user.clearData();
+        $state.go('login');
     }
 
 }])

@@ -3,17 +3,19 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
 
     $scope.init = function () {
             var param1={};
+            $scope.inputwithdraw=0;
+            $scope.inputrecharge=0;
             var MaxMoney;
             $scope.userId = user.getId();
             param1.userId=$scope.userId;
 
             mywalletService.getPayevents(param1,function(data){
-                $scope.eventsout=data.Paylist
+                $scope.eventsout=data;
             },function (data) {
                 console.error(data);
             })
             mywalletService.getIncomeevents(param1,function (data) {
-                $scope.eventsin=data.Incomelist
+                $scope.eventsin=data;
             },function (data) {
                 console.error(data);
             })
@@ -28,8 +30,6 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
                 console.error(data);
             })
             $scope.valuenow = $scope.money/MaxMoney/0.01;
-            $scope.inputrecharge = "";
-            $scope.inputwithdraw = "";
 
         }
 
@@ -41,7 +41,6 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
             param1.userId=$scope.userId;
             mywalletService.getFigure(param1,function (data) {
                 $scope.money=data;
-                console.info($scope.money);
             },function (data) {
                 console.error(data);
             })
@@ -62,11 +61,10 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
 
         $scope.withdraw = function () {
             var param = {};
-            $scope.userId = user.getId();
             param.inputwithdraw = $scope.inputwithdraw;
             param.userId= $scope.userId;
             mywalletService.setWithdraw(param, function (data) {
-                  $scope.inputOutRes=data;
+                alert(data);
                 mywalletService.getPayevents(param, function (data) {
 
                     $scope.eventsout=data;
@@ -75,15 +73,17 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
                 })
                 mywalletService.getFigure(param,function (data) {
                     $scope.money=data;
+                    mywalletService.getMaxFigure(param,function (data) {
+                        $scope.MaxMoney=data;
+                        $scope.valuenow = $scope.money/$scope.MaxMoney/0.01;
+                    },function (data) {
+                        console.error(data);
+                    })
                 },function (data) {
                     console.error(data);
                 })
-                mywalletService.getMaxFigure(param,function (data) {
-                    $scope.MaxMoney=data;
-                },function (data) {
-                    console.error(data);
-                })
-                $scope.valuenow = $scope.money/$scope.MaxMoney/0.01;
+
+
             },function (data) {
                         console.error("error:  "+data);
             })
@@ -98,11 +98,10 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
 
             param.inputrecharge = $scope.inputrecharge;
             param.userId= $scope.userId;
-            console.info( param.userId)
             mywalletService.setRecharge(param, function (data) {
 
-                $scope.inputInRes=data;
-
+                // $scope.inputInRes=data;
+                alert(data);
                 mywalletService.getIncomeevents(param, function (data) {
                     $scope.eventsin=data;
 
@@ -111,15 +110,17 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
                 })
                 mywalletService.getFigure(param,function (data) {
                     $scope.money=data;
+                    mywalletService.getMaxFigure(param,function (data) {
+                        $scope.MaxMoney=data;
+                        $scope.valuenow = $scope.money/$scope.MaxMoney/0.01;
+                    },function (data) {
+                        console.error(data);
+                    })
                 },function (data) {
                     console.error(data);
                 })
-                mywalletService.getMaxFigure(param,function (data) {
-                    $scope.MaxMoney=data;
-                },function (data) {
-                    console.error(data);
-                })
-                $scope.valuenow = $scope.money/$scope.MaxMoney/0.01;
+
+
             },function (data) {
                 console.error(data);
             })

@@ -1,11 +1,11 @@
 <div class="row" ng-init="init()">
   <div class="col-sm-6">
-    <img class="img-responsive" ng-src="{{userInfo.avatarPath}}" style="width: auto" />
+    <img class="img-responsive img-circle" ng-src="{{userInfo.avatarPath}}" style="width: auto" />
   </div>
   <div class="col-sm-6">
     <div class="row"><span ng-click="linkToConcern()">关注{{userInfo.followers}}</span >&nbsp;&nbsp;&nbsp;<span ng-click="linkToFans()">粉丝{{userInfo.fans}}</span></div>
 
-    <div class="row"><span>{{userInfo.date}}加入</span></div>
+    <div class="row"><span>{{userInfo.date|date:'yyyy-MM-dd hh:mm:ss'}}加入</span></div>
     <div class="row" ng-show="!show.editable">
       <br>
      <div class="row">

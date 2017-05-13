@@ -19,7 +19,6 @@ app.controller('draftController',['$scope','draftService','user','$state','conte
             var param={};
             param.id=$scope.userId;
             draftService.getInit(param, function (data) {
-                console.info(angular.toJson(data));
                 $scope.pagination.totalItems = data.pagination.totalItems;
                 $scope.pagination.currentPage = data.pagination.currentPage;
                 $scope.messages = data.contents;
@@ -42,7 +41,6 @@ app.controller('draftController',['$scope','draftService','user','$state','conte
         param.currentPage = $scope.pagination.currentPage;
         // param.value = $scope.selectValue;
         draftService.getContent(param, function (data) {
-            console.info(angular.toJson(data));
             $scope.pagination.totalItems = data.pagination.totalItems;
             $scope.pagination.currentPage = data.pagination.currentPage;
             //console.info(angular.toJson(param));
