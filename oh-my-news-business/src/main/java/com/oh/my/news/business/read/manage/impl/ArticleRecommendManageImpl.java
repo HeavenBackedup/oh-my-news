@@ -74,11 +74,9 @@ public class ArticleRecommendManageImpl implements ArticleRecommendManage {
         EditContentDto editContentDto=new EditContentDto();
         int totalItem=articleRecommendDao.getRecommendCountByCategoryId(categoryId);
         List<EditContent> editContents=articleRecommendDao.queryRecommendByCategoryId(categoryId,currentPage,pageItemNum);
-        System.out.println(editContents);
         Pagination pagination = new Pagination((totalItem%pageItemNum==0?totalItem/pageItemNum:totalItem/pageItemNum+1)*10,currentPage);
         editContentDto.setContents(editContents);
         editContentDto.setPagination(pagination);
-        System.out.println(editContentDto);
         return editContentDto;
 
     }

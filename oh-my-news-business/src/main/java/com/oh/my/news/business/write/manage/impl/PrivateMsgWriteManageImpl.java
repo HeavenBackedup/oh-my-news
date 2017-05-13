@@ -21,7 +21,6 @@ public class PrivateMsgWriteManageImpl implements PrivateMsgWriteManage {
          privateMessagePo.setTargetId(targetId);
          privateMessagePo.setSourceId(sourceId);
          privateMessagePo.setContent(content);
-        System.out.println(privateMessagePo);
          privateMsgWriteDao.insertPrivateMessageReturnId(privateMessagePo);
 
      }

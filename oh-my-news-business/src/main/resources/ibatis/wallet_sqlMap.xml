@@ -17,7 +17,7 @@
     </insert>
 
     <update id="updatefigure_wallet_by_id" parameterClass="java.util.Map">
-        update `wallet` set figure=figure+#sum# where `wallet`.id=#id#;
+        update `wallet` set figure=#sum# where `wallet`.id=#id#;
     </update>
 
     <update id="updateMaxfigure_wallet_by_id" >

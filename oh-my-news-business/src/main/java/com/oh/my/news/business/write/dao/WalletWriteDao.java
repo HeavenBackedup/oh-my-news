@@ -6,8 +6,8 @@ package com.oh.my.news.business.write.dao;
 public interface WalletWriteDao {
 
     Integer insertWalletByUserId(Integer userId)throws Exception;
-    void updateWalletFigure(Integer userId,Integer sum)throws Exception;
-    void setWalletMaxFigure(Integer userId)throws Exception;
+    void updateWalletFigure(Integer id,Integer sum)throws Exception;
+    void setWalletMaxFigure(Integer id)throws Exception;
 
     }
 

@@ -126,6 +126,7 @@ public class ArticleReadManageImpl implements ArticleReadManage{
 
     public ArticleDetail getArticleDetail(int articleId,int userId)throws Exception{
         ArticleDetail articleDetail = new ArticleDetail();
+        System.out.println("articleId"+articleId);
         Article article = articleReadDao.getArticleById(articleId);
         ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
         List<File> files = imageReadDao.QueryImageByArticleId(articleId);
@@ -139,7 +140,7 @@ public class ArticleReadManageImpl implements ArticleReadManage{
         articleCategoryDto.setImages(filesToImages(files));
         articleCategoryDto.setCategory(categoryReadDao.getCategoryById(article.getCategoryId()));
         articleCategoryDto.setArticle(article);
-
+        System.out.println(article);
         UserSnapshot author = userReadDao.getUserSnapshotById(article.getUserId());
 
         articleCategoryDto.setUserSnapshot(author);
@@ -162,6 +163,8 @@ public class ArticleReadManageImpl implements ArticleReadManage{
     }
     @Override
     public List<ArticleSnapshot> getRelatePost(String label) throws Exception {
+        if(label==null)
+            return new ArrayList<ArticleSnapshot>();
         List<Integer> articleIds = searchContentApi.search(label,0,6);
         List<ArticleSnapshot> relatePosts=new ArrayList<ArticleSnapshot>();
         for (Integer articleId:articleIds){

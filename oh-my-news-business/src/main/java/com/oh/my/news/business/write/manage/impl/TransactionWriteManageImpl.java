@@ -29,12 +29,12 @@ public class TransactionWriteManageImpl implements TransactionWriteManage{
     public int setWithDraw(int userId, int sum)throws Exception{
         synchronized(this) {
             float ballance = walletReadDao.getFigure(userId);
-            int sum_after = -sum;
-            int Id;
+            int sum_after = (int)ballance-sum;
+            int id;
             if (sum <= ballance) {
-                Id=walletReadDao.queryIdByUserId(userId);
-                walletWriteDao.updateWalletFigure(Id, sum_after);
-                walletWriteDao.setWalletMaxFigure(Id);
+                transactionWriteDao.insertTransactionByIds(userId,null, -sum, 0,"提现");
+                id=walletReadDao.queryIdByUserId(userId);
+                walletWriteDao.updateWalletFigure(id, sum_after);
                 return 0;
             } else {
                 return 1;
@@ -43,11 +43,16 @@ public class TransactionWriteManageImpl implements TransactionWriteManage{
     }
     @Override
     public int setRecharge(int userId,int sum)throws Exception{
-        int ID;
-        ID=walletReadDao.queryIdByUserId(userId);
-          walletWriteDao.updateWalletFigure(ID,sum);
-          walletWriteDao.setWalletMaxFigure(ID);
-          return 0;
+        synchronized (this){
+            int id;
+            float ballance = walletReadDao.getFigure(userId);
+            id=walletReadDao.queryIdByUserId(userId);
+            transactionWriteDao.insertTransactionByIds(userId,null, sum, 0,"充值");
+            walletWriteDao.updateWalletFigure(id,(int)ballance+sum);
+            walletWriteDao.setWalletMaxFigure(id);
+            return 0;
+        }
+
     }
 
 

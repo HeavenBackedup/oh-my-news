@@ -25,20 +25,18 @@ private SqlMapClient sqlMapClient;
 
     }
     @Override
-    public void updateWalletFigure(Integer userId,Integer sum)throws Exception{
+    public void updateWalletFigure(Integer id,Integer sum)throws Exception{
         Map<String,Object> map=new HashMap<String, Object>();
-        System.out.println("uss"+userId);
-        System.out.println("suum"+sum);
-        map.put("userId",userId);
-        map.put("Sum",sum);
+        map.put("id",id);
+        map.put("sum",sum);
         sqlMapClient.update("wallet_sqlMap.updatefigure_wallet_by_id", map);
 
 
     }
     @Override
-    public void setWalletMaxFigure(Integer userId)throws Exception{
+    public void setWalletMaxFigure(Integer id)throws Exception{
 
-        sqlMapClient.update("wallet_sqlMap.updateMaxfigure_wallet_by_id", userId);
+        sqlMapClient.update("wallet_sqlMap.updateMaxfigure_wallet_by_id", id);
     }
 
 

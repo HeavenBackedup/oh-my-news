@@ -47,12 +47,14 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
 
         synchronized (this){
 
-            float figure = walletReadDao.getFigure(userId);
-            if(figure<num)
+            float sourcefigure = walletReadDao.getFigure(userId);
+            float authorfigure = walletReadDao.getFigure(authorId);
+            if(sourcefigure<num)
                 return false;
-            transactionWriteDao.insertTransactionByIds(userId,articleId,num,articleId,message);
-            walletWriteDao.updateWalletFigure(userId,-num);
-            walletWriteDao.updateWalletFigure(authorId,+num);
+            transactionWriteDao.insertTransactionByIds(userId,articleId,num,authorId,message);
+            walletWriteDao.updateWalletFigure(walletReadDao.queryIdByUserId(userId),(int)sourcefigure-num);
+            walletWriteDao.updateWalletFigure(walletReadDao.queryIdByUserId(authorId),(int)authorfigure+num);
+            walletWriteDao.setWalletMaxFigure(walletReadDao.queryIdByUserId(authorId));
             return true;
         }
 
@@ -124,6 +126,7 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
         article.setContent(editContentWrite.getHtmlContent());
         article.setContentSnapshot(editContentWrite.getContentSnapshot());
         article.setUserId(editContentWrite.getUserId());
+        article.setLabels(editContentWrite.getLabels());
         if(editContentWrite.getId()<=0){
             article.setIsPublished(0);
 

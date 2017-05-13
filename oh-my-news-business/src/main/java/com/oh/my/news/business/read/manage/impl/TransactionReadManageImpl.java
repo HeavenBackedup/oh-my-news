@@ -38,7 +38,6 @@ public class TransactionReadManageImpl implements TransactionReadManage {
 
     }
     public List<TransactionPo> getIncomeeventsSelf(int userId)throws Exception{
-        System.out.println("dfdsf"+userId);
 
         return  transactionReadDao.IncomeeventsSelf(userId);
     }

@@ -64,8 +64,8 @@
         update `user` set announcement=#announcement# where id=#userId# and is_delete=0;
     </update>
     <update id="update_user" parameterClass="com.oh.my.news.model.po.UserWrite">
-        update `user`,media set `user`.username=#username#,`user`.password=#password#,`user`.email=#email#,`user`.address=#address#,`user`.signature=#signature#,
-        `user`.announcement=#announcement#,`user`.`date`=now(),`user`.nickname=#nickname#,`user`.media_id=#media_id# where `user`.id=#id#  and `user`.is_delete=0;
+        update `user`,media set `user`.password=#password#,`user`.email=#email#,`user`.address=#address#,
+       `user`.`date`=now(),`user`.nickname=#nickname#,`user`.media_id=#media_id# where `user`.id=#id#  and `user`.is_delete=0;
     </update>
     <select id="calculate_followers" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
         select count(target_user_id) from concern where source_user_id=#userId# and is_delete=0 ;

@@ -22,7 +22,6 @@ public class WalletReadDaoTestCase extends TestCase {
         float figure=0;
         try {
             figure=this.walletReadDao.getFigure(1);
-            System.out.println(figure);
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -35,7 +34,6 @@ public class WalletReadDaoTestCase extends TestCase {
         float maxfigure=0;
         try {
             maxfigure=this.walletReadDao.getMaxFigure(1);
-           System.out.println(maxfigure);
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();

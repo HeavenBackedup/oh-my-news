@@ -11,21 +11,31 @@
         <result property="message" column="message" jdbcType="VARCHAR"></result>
     </resultMap>
     <insert id="insert_transaction_by_id">
-         insert into `transaction`(is_delete,source_user_id,target_user_id,`date`,amount,article_id) values(0,#source_user_id#,#target_user_id#,now(),#amount#,#article_id#);
+         insert into `transaction`(is_delete,source_user_id,target_user_id,`date`,amount,article_id,message) values(0,#source_user_id#,#target_user_id#,now(),#amount#,#article_id#,#message#);
     </insert>
         <!--select .user.username username from transaction,user where transaction.target_id = user.id and transaction.source_user_id = #id# ...-->
     <select id="queryIn_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
-          select `transaction`.id,`transaction`.is_delete,`user`.username username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.source_user_id and `transaction`.target_user_id=#id#;
+          select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.source_user_id and `transaction`.target_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0;;
     </select>
 
     <select id="queryInSelf_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
-        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` where isempty(`transaction`.target_user_id) and `transaction`.source_user_id=#id#;
+        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount>0
+        ]]>
+        and `transaction`.is_delete = 0;
+
     </select>
     <select id="queryOutSelf_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
-        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` where isempty(`transaction`.target_user_id) and `transaction`.source_user_id=#id#;
+        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,-`transaction`.amount amount,`transaction`.message from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+         <![CDATA[
+        and `transaction`.amount<0
+        ]]>
+        and `transaction`.is_delete = 0;
+        ;
     </select>
     <select id="queryOut_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
-        select `transaction`.id,`transaction`.is_delete,`user`.username username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.target_user_id and `transaction`.source_user_id=#id#;
+        select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.target_user_id and `transaction`.source_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0;;
     </select>
 
 

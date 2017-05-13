@@ -38,7 +38,6 @@ public class aliyunTestCase {
          */
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 
-        System.out.println("Getting Started with OSS SDK for Java\n");
 
         try {
 
@@ -49,7 +48,6 @@ public class aliyunTestCase {
                 /*
                  * Create a new OSS bucket
                  */
-                System.out.println("Creating bucket " + bucketName + "\n");
                 ossClient.createBucket(bucketName);
                 CreateBucketRequest createBucketRequest= new CreateBucketRequest(bucketName);
                 createBucketRequest.setCannedACL(CannedAccessControlList.PublicRead);
@@ -59,7 +57,6 @@ public class aliyunTestCase {
             /*
              * List the buckets in your account
              */
-            System.out.println("Listing buckets");
 
             ListBucketsRequest listBucketsRequest = new ListBucketsRequest();
             listBucketsRequest.setMaxKeys(500);
@@ -67,7 +64,6 @@ public class aliyunTestCase {
             for (Bucket bucket : ossClient.listBuckets()) {
                 System.out.println(" - " + bucket.getName());
             }
-            System.out.println();
 
             /*
              * Upload an object to your bucket
@@ -104,7 +100,6 @@ public class aliyunTestCase {
                 System.out.println(" - " + objectSummary.getKey() + "  " +
                         "(size = " + objectSummary.getSize() + ")");
             }
-            System.out.println();
 
             /*
              * Delete an object
