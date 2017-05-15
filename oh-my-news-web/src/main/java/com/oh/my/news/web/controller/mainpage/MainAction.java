@@ -43,7 +43,7 @@ public class MainAction extends BaseAction {
         try {
             int index = Integer.parseInt(showPageMap.get("pageIndex").toString().trim());
             int currentPage = Integer.parseInt(showPageMap.get("currentPage").toString().trim());
-            int pageItemNum=6;
+            int pageItemNum=4;
 
             EditContentDto editContentDto=new EditContentDto();
 

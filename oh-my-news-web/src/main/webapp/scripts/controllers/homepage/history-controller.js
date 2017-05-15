@@ -14,7 +14,7 @@ app.controller('historyController',['$scope','historyService','user','$state','c
     }
     $scope.getInit=function () {
         if((isNaN($scope.userId)||$scope.userId<=0)){
-            $scope.id.paramsUserId = user.getParamId();
+            $scope.userId = user.getParamId();
 
         }else {
             user.setParamId($scope.userId);

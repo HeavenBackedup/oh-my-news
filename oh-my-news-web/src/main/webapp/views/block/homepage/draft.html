@@ -1,14 +1,20 @@
 
 <div ng-init="init()">
-  <p>
-  草稿箱:
-  </p>
+ <br>
   <div ng-repeat="Message in messages">
     <!--<textarea ng-model="message"   style="width:200px;display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;"-->
   <!--&gt; </textarea>-->
-    <div style="font-weight:bold;"><a ui-sref="app.edit">{{Message.topic}}</a></div>
-    <div ng-bind-html="Message.article" style="width:500px; display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;"></div>
-    <button class="btn-sm btn-info" ng-click="editDraft(Message.id)">编辑</button>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div style="font-weight:bold;" class="panel-title"><a ui-sref="app.edit">{{Message.topic}}</a></div>
+      </div>
+      <div class="panel-body">
+        <div ng-bind-html="Message.article" style="width:500px; display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;"></div>
+
+      </div>
+      <a class="col-md-offset-10" ng-click="editDraft(Message.id)" style="text-decoration: underline;font-weight: bold"><small>编辑--></small></a>
+    </div>
+
   </div>
   <div class="row">
     <div uib-pagination ng-change="pageChange()" total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页" class="pagination-sm" boundary-links="true" rotate="false" ></div>

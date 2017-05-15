@@ -1,20 +1,23 @@
 
-<div ng-init="init()">
-    <p>
-        历史文章
-        <select ng-change="selectTest()" ng-model="selectValue" >
+<div class="row col-md-offset-1" ng-init="init()">
+    <br>
+    <p >
+        <select   ng-change="selectTest()" ng-model="selectValue" >
             <option ng-value="0">排序方式</option>
             <option  ng-value="1">时间</option>
             <option  ng-value="2">点赞数</option>
             <option  ng-value="3">打赏数</option>
         </select>
     </p>
-    <div ng-repeat="Message in messages">
+
+    <div class="row" ng-repeat="Message in messages">
         <div style="font-weight:bold;"><a ui-sref="app.detail">{{Message.topic}}</a></div>
-        <div>作者：{{Message.author}}</div>
         <div ng-bind-html="Message.article" style="width:500px; display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;"></div>
-        <button  class="btn-sm btn-info" ng-click="editHistory(Message.id)">查看详情</button>
+        <a class="col-md-offset-9" ng-click="editHistory(Message.id)" style="text-decoration: underline"><small>查看详情--></small></a>
+        <!--<button  class="btn-sm btn-info" ng-click="editHistory(Message.id)">查看详情</button>-->
+        <hr>
     </div>
+
     <div class="row">
         <div uib-pagination ng-change="pageChange()" total-items="pagination.totalItems" ng-model="pagination.currentPage" max-size="pagination.maxSize" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页" class="pagination-sm" boundary-links="true" rotate="false" ></div>
     </div>
