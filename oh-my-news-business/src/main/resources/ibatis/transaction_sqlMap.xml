@@ -19,7 +19,7 @@
     </select>
 
     <select id="queryInSelf_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
-        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id# and message="充值"
+        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
         <![CDATA[
         and `transaction`.amount>0
         ]]>
@@ -27,7 +27,7 @@
 
     </select>
     <select id="queryOutSelf_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
-        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,-`transaction`.amount amount,`transaction`.message from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id# and message="提现"
+        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,-`transaction`.amount amount,`transaction`.message from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
          <![CDATA[
         and `transaction`.amount<0
         ]]>
