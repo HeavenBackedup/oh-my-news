@@ -42,14 +42,14 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" ui-sref="main">ohmyNews</a>
+      <a class="navbar-brand" ui-sref="main" style="font-weight: bolder;font-size: xx-large;color: #0f0f0f">OhmyNews!</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a ui-sref="app.edit"><span class="navbar-brand"></span> 发新闻</a></li>
-      <li><a ui-sref="app.template"><span class="navbar-brand"></span> 模板(生产环境删除)</a></li>
+      <li><a ui-sref="app.edit" style="color: #0f0f0f;font-weight: bold"><span class="navbar-brand"></span> 发新闻&nbsp;&nbsp;<span class="glyphicon glyphicon-edit"></span></a></li>
+      <!--<li><a ui-sref="app.template"><span class="navbar-brand"></span> 模板(生产环境删除)</a></li>-->
       <li ng-show="show.login" role="presentation" class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {{userInfoOfLogin.nickName}}的账号 <span class="caret"></span>
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="color: #0f0f0f;font-weight: bold">
+          {{userInfoOfLogin.nickName}}的账号 <span class="glyphicon glyphicon-user"></span><span class="caret"></span>
         </a>
         <ul  class="dropdown-menu">
           <li ng-click="backToPersondalPage()" ><a>我的主页</a></li>

@@ -82,6 +82,7 @@ public class LikeCollectAction extends BaseAction {
                 }else {
                     map.put("articlePic",null);
                 }
+                map.put("authorId",articleCategoryDto.getUserSnapshot().getId());
                 map.put("nickname",articleCategoryDto.getUserSnapshot().getNickname());
                 map.put("avatar",articleCategoryDto.getUserSnapshot().getImageUrl());
                 map.put("articleContent",articleCategoryDto.getArticle().getContentSnapshot());

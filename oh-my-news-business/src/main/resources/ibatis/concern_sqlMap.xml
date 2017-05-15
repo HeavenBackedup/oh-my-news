@@ -25,7 +25,7 @@
     </select>
 
     <select id="check_concern_rel_by_ids" resultClass="java.lang.Integer">
-        select count(*) from concern where concern.source_user_id=#userId# and concern.target_user_id=#followerId#;
+        select count(*) from concern where concern.source_user_id=#userId# and concern.target_user_id=#followerId# and is_delete=0;
     </select>
 
     <update id="delete_concern_rel_by_ids">

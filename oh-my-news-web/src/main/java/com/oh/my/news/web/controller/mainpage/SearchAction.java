@@ -42,6 +42,7 @@ public class SearchAction extends BaseAction {
             List<EditContent> editContents = new ArrayList<EditContent>();
             for (ArticleCategoryDto searchList : searchContents) {
                 EditContent editContent = new EditContent();
+                editContent.setArticleId(searchList.getArticle().getId());
                 editContent.setCategoryId(searchList.getCategory().getId());
                 editContent.setContentSnapshot(searchList.getArticle().getContentSnapshot());
                 editContent.setLabels(searchList.getArticle().getLabels());

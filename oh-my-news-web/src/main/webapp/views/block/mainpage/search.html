@@ -23,7 +23,7 @@
         <div ng-show="radioValue">
             <ol>
                 <li  data-ng-repeat="item in searchItems">
-                    <a ui-sref="app.detail"><h4 style="color: #0f0f0f;text-decoration: underline">{{item.topic}}</h4></a>
+                    <a ng-click="goToDetail(item.articleId)"><h4 style="color: #0f0f0f;text-decoration: underline">{{item.topic}}</h4></a>
                     <div style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;width: 700px">
                         {{item.contentSnapshot}}
 
@@ -36,7 +36,7 @@
         <div ng-hide="radioValue">
             <ol>
                 <li  data-ng-repeat="item in searchItems">
-                    <a ui-sref="app.detail"><h5 style="color: #0f0f0f;text-decoration: underline">{{item.topic}}</h5></a>
+                    <a ng-click="goToDetail(item.articleId)"><h5 style="color: #0f0f0f;text-decoration: underline">{{item.topic}}</h5></a>
 
                 </li>
 

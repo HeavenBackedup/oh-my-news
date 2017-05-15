@@ -1,5 +1,5 @@
 
-app.controller('mainController',['$scope','$state','$stateParams','mainService','htmlParseService',function ($scope,$state,$stateParams,mainService,htmlParseService) {
+app.controller('mainController',['$scope','$state','$stateParams','mainService','htmlParseService','user','homeService',function ($scope,$state,$stateParams,mainService,htmlParseService,user,homeService) {
     $scope.init = function () {
         $scope.pageIndex=1;
         $scope.newsItems={}; //新闻列表
@@ -13,6 +13,7 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
         $scope.collectItems={}; //收藏排行列表
         $scope.markItems={};    //评论排行列表
         $scope.lastItems={};    //最新动态列表
+        $scope.userId=user.getId();
         //初始化加载函数
         initParams();
         $scope.collectList();
@@ -33,7 +34,7 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
         $scope.currentPage=1;
         $scope.index=1;
         $scope.categoryId=$stateParams.categoryId;
-
+        $scope.userInfoOfLogin={};
 
     };
 
@@ -42,6 +43,22 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
             $scope.changePage(1,1);
         }else {
             $scope.changePage($stateParams.categoryId,1);
+        }
+        if($scope.userId==-1){
+            $scope.isLogin=false;
+        }else {
+            $scope.isLogin=true;
+            var param = {};
+            param.userId=$scope.userId;
+            homeService.getInfo(param,function (data) {
+                console.info("main login"+angular.toJson(data));
+                $scope.userInfoOfLogin=data;
+
+            },function (data) {
+                console.info("error:  "+data)
+
+            })
+
         }
     };
     //搜索模块
@@ -70,6 +87,8 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
         });
 
     }
+
+
 
 
   //收藏排行模块
@@ -112,5 +131,10 @@ app.controller('mainController',['$scope','$state','$stateParams','mainService',
 
     $scope.articleDetail=function (id) {
         $state.go('app.detail',{articleId:id})
+    }
+
+    $scope.goToHomePage=function(){
+        $state.go('app.personalHomepage.hpTabset.history',{userId:$scope.userId},{reload:true});
+
     }
 }]);

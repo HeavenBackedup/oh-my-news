@@ -1,7 +1,7 @@
 /**
  * Created by Dzhaoooo on 17/4/18.
  */
-app.controller('searchController',['$scope','$stateParams','searchService',function ($scope,$stateParams,searchService) {
+app.controller('searchController',['$scope','$stateParams','searchService','$state',function ($scope,$stateParams,searchService,$state) {
     $scope.init=function () {
         $scope.searchText =$stateParams.search;  //路由传参结果显示在输入框中
         $scope.pagination = {};
@@ -22,6 +22,10 @@ app.controller('searchController',['$scope','$stateParams','searchService',funct
         },function (data) {
             console.info("error:"+data);
         });
+    }
+
+    $scope.goToDetail=function(id){
+        $state.go('app.detail',{articleId:id});
     }
     //点击搜索按钮触发的事件
     $scope.search=function () {
