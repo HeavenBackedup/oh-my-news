@@ -10,7 +10,7 @@
     </select>
   </p>
   <div ng-repeat="Message in messages">
-    <div style="font-weight:bold;"><a ui-sref="app.detail">{{Message.topic}}</a></div>
+    <div style="font-weight:bold;"><a ng-click="editHistory(Message.id)">{{Message.topic}}</a></div>
     <div class="col-md-offset-8">作者:{{Message.author}}</div>
     <div ng-bind-html="Message.article" style="width:500px; display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;"></div>
     <a class="col-md-offset-9" ng-click="editCollect(Message.id)" style="text-decoration: underline"><small>查看详情--></small></a>

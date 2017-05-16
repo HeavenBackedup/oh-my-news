@@ -32,7 +32,6 @@ public class FileAction extends BaseAction{
             Image image =imageWriteManage.saveImageReturnId(file.getInputStream());
             if(image==null)
                 return failReturnObject("upload failed,please retry");
-            System.out.println(image);
             return successReturnObject(image);
         }catch (Exception e){
             logger.error(e.getMessage());

@@ -10,6 +10,7 @@ public class PrivateMessage {
     private String imageUrl;
     private String content;
     private Date date;
+    private Integer userId;
 
 
     public PrivateMessage(int id, String sourceUsername, String imageUrl, String content, Date date) {
@@ -24,6 +25,16 @@ public class PrivateMessage {
     }
 
 
+    public PrivateMessage(int id, String sourceUsername, String imageUrl, String content, Date date, Integer userId) {
+        this.id = id;
+        this.sourceUsername = sourceUsername;
+        this.imageUrl = imageUrl;
+        this.content = content;
+        this.date = date;
+        this.userId = userId;
+    }
+
+
     @Override
     public String toString() {
         return "PrivateMessage{" +
@@ -32,6 +43,7 @@ public class PrivateMessage {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", content='" + content + '\'' +
                 ", date=" + date +
+                ", userId=" + userId +
                 '}';
     }
 
@@ -47,7 +59,8 @@ public class PrivateMessage {
             return false;
         if (imageUrl != null ? !imageUrl.equals(that.imageUrl) : that.imageUrl != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        return date != null ? date.equals(that.date) : that.date == null;
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+        return userId != null ? userId.equals(that.userId) : that.userId == null;
     }
 
     @Override
@@ -57,7 +70,16 @@ public class PrivateMessage {
         result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public int getId() {

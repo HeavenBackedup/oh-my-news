@@ -3,6 +3,8 @@ package com.oh.my.news.business.read.manage.impl;
 import com.oh.my.news.business.read.dao.TransactionReadDao;
 import com.oh.my.news.business.read.dao.WalletReadDao;
 import com.oh.my.news.business.read.manage.TransactionReadManage;
+import com.oh.my.news.model.dto.Pagination;
+import com.oh.my.news.model.dto.TransactionPageDto;
 import com.oh.my.news.model.po.TransactionPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +58,28 @@ public class TransactionReadManageImpl implements TransactionReadManage {
 
 
 
+    public TransactionPageDto getIncomeevents(int userId, int currentPage, int pageItemNum) throws Exception {
+        TransactionPageDto transactionPageDto = new TransactionPageDto();
+        List<TransactionPo> transactionPos = this.transactionReadDao.getIncomeEventAll(userId,currentPage,pageItemNum);
+        Integer count = this.transactionReadDao.getIncomeEventCount(userId);
+        Pagination pagination = new Pagination();
+        pagination.setTotalItems(count%pageItemNum==0?count/pageItemNum*10:(count/pageItemNum+1)*10);
+        pagination.setCurrentPage(currentPage);
+        transactionPageDto.setTransactionPos(transactionPos);
+        transactionPageDto.setPagination(pagination);
 
+        return transactionPageDto;
+    }
+
+
+    public TransactionPageDto getPayevents(int userId, int currentPage, int pageItemNum) throws Exception {
+        TransactionPageDto transactionPageDto = new TransactionPageDto();
+        transactionPageDto.setTransactionPos(this.transactionReadDao.getPayEventsAll(userId,currentPage,pageItemNum));
+        Integer count = this.transactionReadDao.getPayEventCount(userId);
+        Pagination pagination = new Pagination();
+        pagination.setCurrentPage(currentPage);
+        pagination.setTotalItems(count%pageItemNum==0?count/pageItemNum*10:(count/pageItemNum+1)*10);
+        transactionPageDto.setPagination(pagination);
+        return transactionPageDto;
+    }
 }

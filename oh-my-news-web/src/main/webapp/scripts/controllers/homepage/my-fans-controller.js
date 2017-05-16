@@ -1,9 +1,10 @@
 /**
  * Created by fanfan on 2017/4/22.
  */
-app.controller('myFansController',['$scope','fansService','user','$stateParams','$state',function ($scope,fansService,user,$stateParams,$state) {
+app.controller('myFansController',['$scope','fansService','user','$stateParams','$state','hbTabSet',function ($scope,fansService,user,$stateParams,$state,hbTabSet) {
     // alert('fuck shj');
     $scope.init=function () {
+        hbTabSet.curIndex = 3;
         $scope.id={
             userId:user.getId(),
             paramsUserId:$state.params.userId

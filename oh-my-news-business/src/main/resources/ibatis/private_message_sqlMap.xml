@@ -7,6 +7,7 @@
         <result property="imageUrl" column="url" jdbcType="STRING"></result>
         <result property="content" column="content" jdbcType="STRING"></result>
         <result property="date" column="date" jdbcType="TIMESTAMP"></result>
+        <result property="userId" column="user_id" jdbcType="INTEGER"></result>
     </resultMap>
     <resultMap id="private_msg_snaoshot_map" class="com.oh.my.news.model.po.PrivateMsgSnapshot">
         <result property="id" column="id" jdbcType="INTEGER"></result>
@@ -15,7 +16,7 @@
     </resultMap>
 
     <select id="queryList_private_message_by_id" resultMap="private_message_map">
-        select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.date from `private_message`,`user`,`media` where `private_message`.source_user_id=`user`.id and `private_message`.source_user_id=#sourceUserId# and  `private_message`.target_user_id=#targetUserId# and `media`.id=`private_message`.source_user_id;
+        select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.date,`user`.id user_id from `private_message`,`user`,`media` where `private_message`.source_user_id=`user`.id and `private_message`.source_user_id=#sourceUserId# and  `private_message`.target_user_id=#targetUserId# and `media`.id=`private_message`.source_user_id;
     </select>
     <select id="queryObject_private_message_by_id" resultClass="List" >
         select `private_message`.target_user_id ,`user`.username username from `private_message`,`user` where `private_message`.source_user_id=#id# and `private_message`.target_user_id=`user`.id;
@@ -25,8 +26,6 @@
            <isNotNull property="type" >
                and pmt.`is_read` = #type#;
            </isNotNull>
-
-
     </select>
     <select id="query_source_ids_by_user_id" resultMap="private_msg_snaoshot_map" parameterClass="java.util.Map">
        select pmt.id id,pmt.source_user_id target_id,pmt.`date` from private_message as pmt WHERE pmt.is_delete = 0 and pmt.target_user_id = #userId#
@@ -36,7 +35,7 @@
         ORDER BY pmt.`date` desc;
     </select>
     <select id="query_source_private_message_by_ids" resultMap="private_message_map" parameterClass="java.util.List">
-        select `private_message`.source_user_id id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.`date` FROM `private_message`,`user`,`media` WHERE `private_message`.source_user_id = `user`.id and `user`.media_id = `media`.id
+        select `private_message`.source_user_id id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.`date`,`user`.id user_id FROM `private_message`,`user`,`media` WHERE `private_message`.source_user_id = `user`.id and `user`.media_id = `media`.id
          <iterate open="and `private_message`.id in (" close=")" conjunction=",">
              #ids[]#
          </iterate>
@@ -44,7 +43,7 @@
         and `private_message`.is_delete = 0;
     </select>
     <select id="query_target_private_message_by_ids" resultMap="private_message_map" parameterClass="java.util.List">
-         select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.`date` FROM `private_message`,`user`,`media` WHERE `private_message`.target_user_id = `user`.id and `user`.media_id = `media`.id
+         select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.`date`,`user`.id user_id FROM `private_message`,`user`,`media` WHERE `private_message`.target_user_id = `user`.id and `user`.media_id = `media`.id
         <iterate open="and `private_message`.id in (" close=")" conjunction=",">
             #ids[]#
         </iterate>
@@ -52,10 +51,10 @@
     </select>
 
     <select id="query_source_private_message_by_source_id_and_target_id" resultMap="private_message_map" parameterClass="java.util.Map">
-        select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.`date` FROM `private_message`,`user`,`media` WHERE `private_message`.source_user_id = #sourceId# and  `private_message`.target_user_id = #targetId# and `private_message`.source_user_id = `user`.id and `user`.media_id = `media`.id and `private_message`.is_delete = 0 ORDER by `private_message`.`date` desc;
+        select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.`date`,`user`.id user_id FROM `private_message`,`user`,`media` WHERE `private_message`.source_user_id = #sourceId# and  `private_message`.target_user_id = #targetId# and `private_message`.source_user_id = `user`.id and `user`.media_id = `media`.id and `private_message`.is_delete = 0 ORDER by `private_message`.`date` desc;
     </select>
     <select id="query_target_private_message_by_target_id_and_target_id" resultMap="private_message_map" parameterClass="java.util.Map">
-        select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.`date` FROM `private_message`,`user`,`media` WHERE `private_message`.source_user_id = #sourceId# and  `private_message`.target_user_id = #targetId# and `private_message`.target_user_id = `user`.id and `user`.media_id = `media`.id and `private_message`.is_delete = 0 ORDER by `private_message`.`date` desc;
+        select `private_message`.id, `user`.username username, `media`.url url, `private_message`.content, `private_message`.`date`,`user`.id user_id FROM `private_message`,`user`,`media` WHERE `private_message`.source_user_id = #sourceId# and  `private_message`.target_user_id = #targetId# and `private_message`.target_user_id = `user`.id and `user`.media_id = `media`.id and `private_message`.is_delete = 0 ORDER by `private_message`.`date` desc;
     </select>
 
     <insert id="insert_private_message" parameterClass="com.oh.my.news.model.po.PrivateMessagePo">

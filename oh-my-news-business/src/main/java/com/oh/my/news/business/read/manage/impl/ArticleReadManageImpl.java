@@ -126,7 +126,6 @@ public class ArticleReadManageImpl implements ArticleReadManage{
 
     public ArticleDetail getArticleDetail(int articleId,int userId)throws Exception{
         ArticleDetail articleDetail = new ArticleDetail();
-        System.out.println("articleId"+articleId);
         Article article = articleReadDao.getArticleById(articleId);
         ArticleCategoryDto articleCategoryDto = new ArticleCategoryDto();
         List<File> files = imageReadDao.QueryImageByArticleId(articleId);
@@ -140,7 +139,6 @@ public class ArticleReadManageImpl implements ArticleReadManage{
         articleCategoryDto.setImages(filesToImages(files));
         articleCategoryDto.setCategory(categoryReadDao.getCategoryById(article.getCategoryId()));
         articleCategoryDto.setArticle(article);
-        System.out.println(article);
         UserSnapshot author = userReadDao.getUserSnapshotById(article.getUserId());
 
         articleCategoryDto.setUserSnapshot(author);

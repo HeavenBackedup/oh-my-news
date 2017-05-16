@@ -15,7 +15,7 @@
     </insert>
         <!--select .user.username username from transaction,user where transaction.target_id = user.id and transaction.source_user_id = #id# ...-->
     <select id="queryIn_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
-          select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.source_user_id and `transaction`.target_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0;;
+          select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.source_user_id and `transaction`.target_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0;
     </select>
 
     <select id="queryInSelf_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
@@ -35,9 +35,96 @@
         ;
     </select>
     <select id="queryOut_transaction_by_id" parameterClass="Integer" resultMap="transaction_mapResult" >
-        select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.target_user_id and `transaction`.source_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0;;
+        select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.target_user_id and `transaction`.source_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0;
     </select>
 
+    <select id="query_in_transaction_page_by_id" parameterClass="java.util.Map" resultMap="transaction_mapResult" >
+        select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.source_user_id and `transaction`.target_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0 limit #currentPage#,#pageItemNum#;
+    </select>
+    <select id="query_in_transaction_count_by_id" parameterClass="java.util.Map" resultClass="Integer" >
+        select count(*) from `transaction`,`user` where `user`.id=`transaction`.source_user_id and `transaction`.target_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0 limit #currentPage#,#pageItemNum#;
+    </select>
+
+    <select id="query_in_self_transaction_count_by_id" parameterClass="Integer" resultClass="Integer" >
+        select count(*) from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount>0
+        ]]>
+        and `transaction`.is_delete = 0 limit #currentPage#,#pageItemNum#;
+
+    </select>
+    <select id="query_in_self_transaction_page_by_id" parameterClass="java.util.Map" resultMap="transaction_mapResult" >
+        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount>0
+        ]]>
+        and `transaction`.is_delete = 0 limit #currentPage#,#pageItemNum#;
+
+    </select>
+
+    <select id="query_out_self_transaction_page_by_id" parameterClass="java.util.Map" resultMap="transaction_mapResult" >
+        select `transaction`.id,`transaction`.is_delete,`transaction`.target_user_id username,`transaction`.date,-`transaction`.amount amount,`transaction`.message from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount<0
+        ]]>
+        and `transaction`.is_delete = 0 limit #currentPage#,#pageItemNum#;
+        ;
+    </select>
+    <select id="query_out_self_transaction_count_by_id" parameterClass="java.util.Map" resultClass="Integer" >
+        select count(*) from `transaction` where  isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount<0
+        ]]>
+        and `transaction`.is_delete = 0 limit #currentPage#,#pageItemNum#;
+        ;
+    </select>
+
+    <select id="query_out_transaction_page_by_id" parameterClass="java.util.Map" resultMap="transaction_mapResult" >
+        select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction`,`user` where `user`.id=`transaction`.target_user_id and `transaction`.source_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0 limit #currentPage#,#pageItemNum#;
+    </select>
+    <select id="query_out_transaction_count_by_id" parameterClass="java.util.Map" resultClass="Integer" >
+        select count(*) from `transaction`,`user` where `user`.id=`transaction`.target_user_id and `transaction`.source_user_id=#id#  and `transaction`.is_delete = 0 and `user`.is_delete = 0 limit #currentPage#,#pageItemNum#;
+    </select>
+
+    <select id="query_in_page_by_id" parameterClass="java.util.Map" resultMap="transaction_mapResult">
+        select `transaction`.id,`transaction`.is_delete,case  when `transaction`.source_user_id = #id# then null else `user`.nickname end username ,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` left join `user` on `user`.id=`transaction`.source_user_id WHERE (( `transaction`.target_user_id=#id# and `user`.is_delete = 0 ) or (isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount>0
+        ]]>
+        ))
+        and `transaction`.is_delete = 0 order by `transaction`.`date` desc limit #currentPage#,#pageItemNum# ;
+
+    </select>
+
+    <select id="query_in_count_by_id" parameterClass="Integer" resultClass="Integer">
+        select count(*) from `transaction` left join `user` on `user`.id=`transaction`.source_user_id WHERE (( `transaction`.target_user_id=#id# and `user`.is_delete = 0 ) or (isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount>0
+        ]]>
+        ))
+        and `transaction`.is_delete = 0 ;
+    </select>
+
+
+    <select id="query_out_page_by_id" parameterClass="java.util.Map" resultMap="transaction_mapResult">
+
+                select `transaction`.id,`transaction`.is_delete,`user`.nickname username,`transaction`.date,`transaction`.amount,`transaction`.message from `transaction` left join `user` on `user`.id=`transaction`.target_user_id WHERE (( `transaction`.source_user_id=#id# and `user`.is_delete = 0 and not isnull(`transaction`.target_user_id)  ) or (isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount<0
+         ]]>
+        ))
+        and `transaction`.is_delete = 0 order by `transaction`.`date` desc limit #currentPage#,#pageItemNum#;
+    </select>
+
+    <select id="query_out_count_by_id" parameterClass="Integer" resultClass="Integer">
+
+        select count(*) from `transaction` left join `user` on `user`.id=`transaction`.target_user_id WHERE (( `transaction`.source_user_id=#id# and `user`.is_delete = 0 and not isnull(`transaction`.target_user_id)  ) or (isnull(`transaction`.target_user_id) and `transaction`.source_user_id=#id#
+        <![CDATA[
+        and `transaction`.amount<0
+         ]]>
+        ))
+        and `transaction`.is_delete = 0;
+    </select>
 
     <!--<select id="querySum_transaction_by_id" parameterClass="Map" resultClass="integer">-->
           <!--select wallet.figure from wallet,transaction,user where user.id=wallet.user_id and user.id=#id# and user.id=transaction.target_user_id ;-->
@@ -54,11 +141,7 @@
         <result property="amount" column="amount" jdbcType="FLOAT"></result>
         <result property="message" column="message" jdbcType="VARCHAR"></result>
     </resultMap>
-
     <select id="queryOut_raw_transaction_by_id" parameterClass="Integer" resultMap="transaction_raw_mapResult" >
         select `id`,`is_delete`,`source_user_id`,`target_user_id`,`article_id`,`date`,`amount`,`message` from `transaction` where `source_user_id`=#userId#;
     </select>
-
-
-
 </sqlMap>

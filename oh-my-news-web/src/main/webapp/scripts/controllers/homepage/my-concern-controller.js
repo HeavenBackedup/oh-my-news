@@ -1,9 +1,10 @@
 /**
  * Created by fanfan on 2017/4/26.
  */
-app.controller('myConcernController',['$scope','concernService','user','$stateParams','$state',function ($scope,concernService,user,$stateParams,$state) {
+app.controller('myConcernController',['$scope','concernService','user','$stateParams','$state','hbTabSet',function ($scope,concernService,user,$stateParams,$state,hbTabSet) {
 
     $scope.init=function () {
+        hbTabSet.curIndex = 2;
         $scope.id={
             userId:user.getId(),
             paramsUserId:$state.params.userId

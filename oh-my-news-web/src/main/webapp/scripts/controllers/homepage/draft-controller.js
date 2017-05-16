@@ -1,8 +1,9 @@
 /**
  * Created by shj on 2017/4/10.
  */
-app.controller('draftController',['$scope','draftService','user','$state','content',function ($scope,draftService,user,$state,content) {
+app.controller('draftController',['$scope','draftService','user','$state','content','hbTabSet',function ($scope,draftService,user,$state,content,hbTabSet) {
     $scope.init=function () {
+        hbTabSet.curIndex=5;
         // $scope.selectValue = 0;
         $scope.pagination = {};
         $scope.pagination.totalItems = 200;

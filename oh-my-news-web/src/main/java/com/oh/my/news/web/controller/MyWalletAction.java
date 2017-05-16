@@ -4,12 +4,15 @@ import com.oh.my.news.business.read.manage.TransactionReadManage;
 import com.oh.my.news.business.read.manage.UserReadManage;
 import com.oh.my.news.business.write.dao.WalletWriteDao;
 import com.oh.my.news.business.write.manage.TransactionWriteManage;
+import com.oh.my.news.model.dto.TransactionDto;
+import com.oh.my.news.model.dto.TransactionPageDto;
 import com.oh.my.news.model.dto.Wallet;
 import com.oh.my.news.model.po.Transaction;
 import com.oh.my.news.model.po.TransactionPo;
 import com.oh.my.news.web.util.BaseAction;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,9 +30,9 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/mywallet")
 public class MyWalletAction extends BaseAction {
-        @Resource
+        @Autowired
         private TransactionReadManage transactionReadManage;
-        @Resource
+        @Autowired
         private TransactionWriteManage transactionWriteManage;
         private static Logger logger = Logger.getLogger(MyWalletAction.class);
 
@@ -125,6 +128,27 @@ public class MyWalletAction extends BaseAction {
                 }
 
         }
+        @RequestMapping(value = "/getPayEventsPage", consumes = APPLICATION_JSON, method = RequestMethod.POST)
+        public
+        @ResponseBody
+        Object getPayeventsPage(@RequestBody Map inputMap)throws Exception {
+                Integer userId = (Integer) inputMap.get("userId");
+                Integer currentPage = (Integer)inputMap.get("currentPage");
+                Integer pageItemNum = (Integer)inputMap.get("pageItemNum");
+                return successReturnObject(this.transactionReadManage.getPayevents(userId,currentPage,10));
+        }
+
+        @RequestMapping(value = "/getIncomeEventsPage", consumes = APPLICATION_JSON, method = RequestMethod.POST)
+        public
+        @ResponseBody
+        Object getIncomeeventsPage(@RequestBody Map inputMap) throws Exception {
+                Integer userId = (Integer)inputMap.get("userId");
+                Integer currentPage = (Integer)inputMap.get("currentPage");
+                TransactionPageDto transactionPageDto = this.transactionReadManage.getIncomeevents(userId,currentPage,10);
+                return successReturnObject(transactionPageDto);
+        }
+
+
 
         //读收入事项
         @RequestMapping(value = "/getIncomeevents", consumes = APPLICATION_JSON, method = RequestMethod.POST)
@@ -169,6 +193,7 @@ public class MyWalletAction extends BaseAction {
         @ResponseBody
         Object getMaxFigure(@RequestBody Map inputMap) throws Exception{
                 try {
+
                         int UserId = Integer.parseInt(inputMap.get("userId").toString());
                         float maxFigure = 1000;
                         maxFigure = transactionReadManage.getMaxFigure(UserId);

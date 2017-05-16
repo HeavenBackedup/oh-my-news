@@ -50,6 +50,11 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
         $scope.pagination.totalItems = 200;
         $scope.pagination.currentPage = 1;
         $scope.pagination.maxSize = 10;
+
+        if($stateParams.articleId==undefined||$stateParams.articleId==null||$stateParams==-1){
+            alert('文章跳转出错，将跳回主页')
+            $state.go('main');
+        }
         $scope.articleId = parseInt($stateParams.articleId);
 
 
@@ -202,9 +207,9 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
 
         detailService.articleRequest(param,function (data) {
             $scope.category = data.article.category;
-            $scope.author = data.article.user.name;
+            $scope.author = data.article.user;
 
-            $scope.topic = data.article.articleInfo.catName;
+            $scope.topic = data.article.articleInfo.topic;
             $scope.htmlContent = data.article.articleInfo.htmlContent;
             $scope.thumbupNum = data.article.articleInfo.thumbupNum;
             $scope.readed = data.article.articleInfo.readed;
@@ -292,8 +297,13 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
     }
 
     $scope.goOtherDetail = function (id) {
-        $state.go('app.detail',{articleId:id});
+        var url = $state.href('app.detail',{articleId:id});
+        window.open(url,'_blank');
 
+    }
+
+    $scope.gotoPersonalHomepage = function (id) {
+        $state.go('app.personalHomepage.hpTabset.history',{userId:id});
     }
 
 }]);

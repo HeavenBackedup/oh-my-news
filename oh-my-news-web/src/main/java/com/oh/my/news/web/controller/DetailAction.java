@@ -63,7 +63,6 @@ public class DetailAction extends BaseAction {
 
             List<RootComments> rootCommentss = new ArrayList<RootComments>();
             for(List<CommentDto> l:commentPageDto.getComments()){
-                System.out.println(l);
                 if(CollectionUtils.isEmpty(l))
                     continue;
                 RootComments rootComments = new RootComments();
@@ -121,7 +120,6 @@ public class DetailAction extends BaseAction {
     public @ResponseBody Object articleReq(@RequestBody Map articleMap) throws IOException,Exception {
         try {
             Map<String,Object> map = new HashMap();
-            System.out.println("smy: "+ articleMap);
             int articleId = Integer.parseInt(articleMap.get("articleId").toString().trim());
             Integer userId =(Integer) articleMap.get("userId");
             ArticleDetail articleDetail = articleReadManage.getArticleDetail(articleId,userId);
@@ -201,7 +199,6 @@ public class DetailAction extends BaseAction {
 
         try {
             //        Map<String,Object> map = new HashMap();
-            System.out.println(submitMap);
             Map<String,Object> submitInfoMap = (Map<String, Object>) submitMap.get("submitInfo");
 
             Integer userId = (Integer) submitInfoMap.get("userId");
@@ -273,7 +270,18 @@ public class DetailAction extends BaseAction {
                     msg=submitMap.get("comment").toString();
                     if(StringUtils.isEmpty(msg))
                         throw new Exception("comment is null");
-                    commentWriteManage.writeComment(userId,0,articleId,msg);
+                    if(submitMap.get("formerCommentId")==null){
+                        commentWriteManage.writeComment(userId,0,articleId,msg);
+                        //将结果存入数据库
+                        return successReturnObject(true);
+                    }
+                    Integer formerCommentId = Integer.parseInt(submitMap.get("formerCommentId").toString());
+                    if(formerCommentId<0){
+                        commentWriteManage.writeComment(userId,0,articleId,msg);
+                        //将结果存入数据库
+                        return successReturnObject(true);
+                    }
+                    commentWriteManage.writeComment(userId,formerCommentId,articleId,msg);
                     //将结果存入数据库
                     return successReturnObject(true);
                 //提交打分

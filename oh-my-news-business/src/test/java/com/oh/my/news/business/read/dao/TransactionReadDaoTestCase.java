@@ -48,4 +48,43 @@ public class TransactionReadDaoTestCase extends TestCase {
 
 
 
+
+    public void testGetIncomeEventAll(){
+       try {
+           System.out.println(this.transactionReadDao.getIncomeEventAll(2,1,10));
+       }catch (Exception e){
+           e.printStackTrace();
+           Assert.fail();
+       }
+    }
+
+    public void testGetPayEventsAll(){
+        try {
+            System.out.println(this.transactionReadDao.getPayEventsAll(2,1,10));
+        }catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    public void testGetIncomeEventCount(){
+        try {
+            System.out.println(this.transactionReadDao.getIncomeEventCount(2));
+        }catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    public void testGetPayEventCount(){
+        try {
+            System.out.println(this.transactionReadDao.getPayEventCount(2));
+        }catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+
+
 }

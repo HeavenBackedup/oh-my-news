@@ -1,8 +1,9 @@
 /**
  * Created by shj on 2017/4/10.
  */
-app.controller('historyController',['$scope','historyService','user','$state','content',function ($scope,historyService,user,$state,content) {
+app.controller('historyController',['$scope','historyService','user','$state','content','hbTabSet',function ($scope,historyService,user,$state,content,hbTabSet) {
     $scope.init=function () {
+        hbTabSet.curIndex = 1;
         $scope.selectValue = 0;
         $scope.pagination = {};
         $scope.pagination.totalItems = 200;
@@ -70,6 +71,7 @@ app.controller('historyController',['$scope','historyService','user','$state','c
     }
 
     $scope.editHistory=function (id) {
-        $state.go('app.detail',{articleId:id});
+        var url = $state.href('app.detail',{articleId:id});
+        window.open(url,'_blank');
     }
 }])

@@ -1,5 +1,6 @@
 package com.oh.my.news.business.read.manage;
 
+import com.oh.my.news.model.dto.TransactionPageDto;
 import com.oh.my.news.model.po.TransactionPo;
 
 import java.util.List;
@@ -28,6 +29,11 @@ public interface TransactionReadManage {
     List<TransactionPo> getPayeventsSelf(int userId)throws Exception;
     //得到自身充值数据
     List<TransactionPo> getIncomeeventsSelf(int userId)throws Exception;
+
+
+    TransactionPageDto getIncomeevents(int userId, int currentPage, int pageItemNum)throws Exception;
+    TransactionPageDto getPayevents(int userId,int currentPage,int pageItemNum)throws Exception;
+
 
 
     float getFigure(int userId)throws Exception;

@@ -1,8 +1,9 @@
 /**
  * Created by shj on 2017/4/10.
  */
-app.controller('likeCollectController',['$scope','likeCollectService','user','$state','content',function ($scope,likeCollectService,user,$state,content) {
+app.controller('likeCollectController',['$scope','likeCollectService','user','$state','content','hbTabSet',function ($scope,likeCollectService,user,$state,content,hbTabSet) {
     $scope.init=function () {
+        hbTabSet.curIndex=6;
         $scope.selectValue = 0;
         $scope.userId = user.getId();
         $scope.pagination = {};
@@ -57,6 +58,7 @@ app.controller('likeCollectController',['$scope','likeCollectService','user','$s
     }
 
     $scope.editCollect=function (id) {
-        $state.go('app.detail',{articleId:id});
+        var url = $state.href('app.detail',{articleId:id});
+        window.open(url,'_blank');
     }
 }])

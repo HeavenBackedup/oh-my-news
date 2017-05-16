@@ -23,6 +23,7 @@ public class UserWriteManageImpl implements UserWriteManage {
     private WalletWriteDao walletWriteDao;
     public Integer register(UserWrite user) throws Exception {
         Integer id = userWriteDao.insertUser(user);
+        walletWriteDao.insertWalletByUserId(id);
         return id;
     }
     public void editSignature(Integer userId, String signature) throws Exception {

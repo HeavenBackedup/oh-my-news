@@ -1,10 +1,10 @@
 /**
  * Created by shj on 2017/4/10.
  */
-app.controller('privateMsgController',['$scope','privatemsgService','Upload','fileService','$timeout','user',function ($scope,privatemsgService,Upload,fileService,$timeout,user) {
+app.controller('privateMsgController',['$scope','privatemsgService','Upload','fileService','$timeout','user','$state','hbTabSet',function ($scope,privatemsgService,Upload,fileService,$timeout,user,$state,hbTabSet) {
     //初始化
     $scope.init=function () {
-
+        hbTabSet.curIndex = 4;
         $scope.selectedValue=0;
         $scope.privateMsgs=[];
         $scope.exMsgs=[];
@@ -25,8 +25,7 @@ app.controller('privateMsgController',['$scope','privatemsgService','Upload','fi
             $scope.privateMsgs=data;
             angular.forEach($scope.privateMsgs,function (item,index,array) {
                 item.isUnfold = true;
-            })
-            console.info(angular.toJson(data));
+            });
         },function(data){
             console.info("error:  "+data)
         });
@@ -118,6 +117,10 @@ app.controller('privateMsgController',['$scope','privatemsgService','Upload','fi
 
         // console.info(angular.toJson($scope.um[i].detail));
 
+    }
+
+    $scope.goToHomePage = function (id) {
+        $state.go('app.personalHomepage.hpTabset.history',{userId:id});
     }
 
 }])

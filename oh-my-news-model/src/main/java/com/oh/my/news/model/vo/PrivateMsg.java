@@ -6,11 +6,13 @@ import java.util.Date;
  * Created by yanyue on 2017/4/23.
  */
 public class PrivateMsg {
-    Integer  id;
-    String username;
-    String avatar;
-    String message;
-    Date time;
+    private Integer  id;
+    private String username;
+    private String avatar;
+    private String message;
+    private Date time;
+    private Integer userId;
+
 
     public PrivateMsg() {
     }
@@ -21,6 +23,23 @@ public class PrivateMsg {
         this.avatar = avatar;
         this.message = message;
         this.time = time;
+    }
+
+    public PrivateMsg(Integer id, String username, String avatar, String message, Date time, Integer userId) {
+        this.id = id;
+        this.username = username;
+        this.avatar = avatar;
+        this.message = message;
+        this.time = time;
+        this.userId = userId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getId() {
@@ -63,6 +82,19 @@ public class PrivateMsg {
         this.time = time;
     }
 
+
+    @Override
+    public String toString() {
+        return "PrivateMsg{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", message='" + message + '\'' +
+                ", time=" + time +
+                ", userId=" + userId +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,7 +106,8 @@ public class PrivateMsg {
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (avatar != null ? !avatar.equals(that.avatar) : that.avatar != null) return false;
         if (message != null ? !message.equals(that.message) : that.message != null) return false;
-        return time != null ? time.equals(that.time) : that.time == null;
+        if (time != null ? !time.equals(that.time) : that.time != null) return false;
+        return userId != null ? userId.equals(that.userId) : that.userId == null;
     }
 
     @Override
@@ -84,17 +117,7 @@ public class PrivateMsg {
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         result = 31 * result + (message != null ? message.hashCode() : 0);
         result = 31 * result + (time != null ? time.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "PrivateMsg{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", message='" + message + '\'' +
-                ", time=" + time +
-                '}';
     }
 }

@@ -47,7 +47,7 @@ var app =angular
       app.value      = $provide.value;
       $urlRouterProvider.otherwise('login');
         // /app/personal_home_page/hp_tabset/my_home_page
-
+        ngClipProvider.setPath(bootPATH+"/bower_components/zeroclipboard/dist/ZeroClipboard.swf");
       $stateProvider
       // 整体页面路由
           .state('app',{

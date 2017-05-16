@@ -9,6 +9,8 @@ app.service('mywalletService',['$http','routeUtil','ajaxRollback',function($http
     var GET_MAXFIGURE='/mywallet/getMaxFgigure';
     var SET_WITHDRAW='/mywallet/setWithdraw';
     var SET_RECHARGE='/mywallet/setRecharge';
+    var GET_PAYEVENT_ALL = '/mywallet/getPayEventsPage';
+    var GET_INCOME_EVENT_ALL = '/mywallet/getIncomeEventsPage';
 
 
     mywalletService.getPayevents = function (param,success,failed,otherwise) {
@@ -28,6 +30,13 @@ app.service('mywalletService',['$http','routeUtil','ajaxRollback',function($http
     }
     mywalletService.setRecharge = function (param,success,failed,otherwise) {
         routeUtil.postUrl(SET_RECHARGE,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
+    }
+
+    mywalletService.getPayEventsAll =function (param,success,failed,otherwise) {
+        routeUtil.postUrl(GET_PAYEVENT_ALL,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
+    }
+    mywalletService.getIncomeEventAll =function (param,success,failed,otherwise) {
+        routeUtil.postUrl(GET_INCOME_EVENT_ALL,param,ajaxRollback.successRollBack(success,failed,otherwise),ajaxRollback.errorRollBack());
     }
 
 

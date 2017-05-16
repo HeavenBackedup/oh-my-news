@@ -3,22 +3,24 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
 
     $scope.init = function () {
             var param1={};
+            $scope.index = {};
+            $scope.index.curIndex = 0;
             $scope.inputwithdraw=0;
             $scope.inputrecharge=0;
             var MaxMoney;
             $scope.userId = user.getId();
             param1.userId=$scope.userId;
+            $scope.maxSize = 5;
+            $scope.eventInPagination = {};
+            $scope.eventOutPagination = {};
+            $scope.eventInPagination.totalItems = 1;
+            $scope.eventInPagination.currentPage = 10;
+            $scope.eventOutPagination.totalItems = 1;
+            $scope.eventOutPagination.currentPage = 10;
+            $scope.incomeEventInit();
+            $scope.payEventInit();
 
-            mywalletService.getPayevents(param1,function(data){
-                $scope.eventsout=data;
-            },function (data) {
-                console.error(data);
-            })
-            mywalletService.getIncomeevents(param1,function (data) {
-                $scope.eventsin=data;
-            },function (data) {
-                console.error(data);
-            })
+
             mywalletService.getFigure(param1,function (data) {
                 $scope.money=data;
             },function (data) {
@@ -31,6 +33,37 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
             })
             $scope.valuenow = $scope.money/MaxMoney/0.01;
 
+        }
+
+        $scope.incomeEventInit = function () {
+            $scope.eventOutPagination.totalItems = 1;
+            $scope.eventOutPagination.currentPage = 10;
+            pageParam = {
+                userId:$scope.userId,
+                currentPage:1
+            }
+            mywalletService.getIncomeEventAll(pageParam,function (data) {
+                $scope.eventsin=data.transactionPos;
+                $scope.eventInPagination = data.pagination;
+            },function (data) {
+                console.error(data);
+            })
+
+        }
+
+        $scope.payEventInit = function () {
+            $scope.eventOutPagination.totalItems = 1;
+            $scope.eventOutPagination.currentPage = 10;
+            pageParam = {
+                userId:$scope.userId,
+                currentPage:1
+            }
+            mywalletService.getPayEventsAll(pageParam,function(data){
+                $scope.eventsout=data.transactionPos;
+                $scope.eventOutPagination = data.pagination;
+            },function (data) {
+                console.error(data);
+            })
         }
 
 
@@ -50,11 +83,6 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
             },function (data) {
                 console.error(data);
             })
-
-
-
-
-
         }
 
 
@@ -65,12 +93,7 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
             param.userId= $scope.userId;
             mywalletService.setWithdraw(param, function (data) {
                 alert(data);
-                mywalletService.getPayevents(param, function (data) {
-
-                    $scope.eventsout=data;
-                },function (data) {
-                    console.error("error:  "+data);
-                })
+                $scope.payEventInit();
                 mywalletService.getFigure(param,function (data) {
                     $scope.money=data;
                     mywalletService.getMaxFigure(param,function (data) {
@@ -102,12 +125,7 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
 
                 // $scope.inputInRes=data;
                 alert(data);
-                mywalletService.getIncomeevents(param, function (data) {
-                    $scope.eventsin=data;
-
-                },function (data) {
-                    console.error("error:  "+data);
-                })
+                $scope.incomeEventInit();
                 mywalletService.getFigure(param,function (data) {
                     $scope.money=data;
                     mywalletService.getMaxFigure(param,function (data) {
@@ -128,6 +146,33 @@ app.controller('myWalletController',['$scope','mywalletService','user',function 
 
 
         }
+
+        $scope.pageChange = function (type) {
+            if(type==0){
+                mywalletService.getPayEventsAll({
+                    userId:$scope.userId,
+                    currentPage:$scope.eventOutPagination.currentPage
+                },function(data){
+                    $scope.eventsout=data.transactionPos;
+                    $scope.eventOutPagination = data.pagination;
+                },function (data) {
+                    console.error(data);
+                })
+            }else {
+                mywalletService.getIncomeEventAll({
+                    userId:$scope.userId,
+                    currentPage:$scope.eventInPagination.currentPage
+                },function (data) {
+                    $scope.eventsin=data.transactionPos;
+                    $scope.eventInPagination = data.pagination;
+                },function (data) {
+                    console.error(data);
+                })
+            }
+
+
+        }
+
 
 
 

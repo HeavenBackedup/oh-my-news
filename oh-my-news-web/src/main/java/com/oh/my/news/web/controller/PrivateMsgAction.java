@@ -69,6 +69,7 @@ public class PrivateMsgAction extends BaseAction{
             privateMsg.setMessage(p.getContent());
             privateMsg.setTime(p.getDate());
             privateMsg.setUsername(p.getSourceUsername());
+            privateMsg.setUserId(p.getUserId());
             privateMsgs.add(privateMsg);
         }
         return privateMsgs;
@@ -103,15 +104,11 @@ public class PrivateMsgAction extends BaseAction{
         try {
             //用户自己的ID
             Integer myUserId = Integer.parseInt(inputMap.get("userId").toString());
-
             //和我发私信交流的另一个用户的ID
             Integer otherUserId=Integer.parseInt(inputMap.get("otherUserId").toString());
-
             //私信
             String privateMsg=inputMap.get("privateMsg").toString();
-
             //存入数据库
-
             //成功返回true。失败返回false。
             privateMsgWriteManage.sendMsg(myUserId,otherUserId,privateMsg);
             return successReturnObject(true);
