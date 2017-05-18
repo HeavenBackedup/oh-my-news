@@ -45,7 +45,7 @@ var app =angular
       app.service    = $provide.service;
       app.constant   = $provide.constant;
       app.value      = $provide.value;
-      $urlRouterProvider.otherwise('login');
+      $urlRouterProvider.otherwise('main');
         // /app/personal_home_page/hp_tabset/my_home_page
         ngClipProvider.setPath(bootPATH+"/bower_components/zeroclipboard/dist/ZeroClipboard.swf");
       $stateProvider

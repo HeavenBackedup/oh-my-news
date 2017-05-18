@@ -57,7 +57,10 @@ public class ArticleWriteDaoImpl implements ArticleWriteDao {
 
 
     public void updateMark(int id, float score) throws Exception {
-        sqlMapClient.update("article_sqlMap.update_mark",id);
+        Map<String,Object> map = new HashedMap();
+        map.put("id",id);
+        map.put("score",score);
+        sqlMapClient.update("article_sqlMap.update_mark",map);
     }
 
 
@@ -74,6 +77,14 @@ public class ArticleWriteDaoImpl implements ArticleWriteDao {
         sqlMapClient.update("article_sqlMap.article_publish",article);
     }
 
+
+    @Override
+    public void updateDonate(int id, int donate) throws Exception {
+        Map<String,Object>  map = new HashedMap();
+        map.put("id",id);
+        map.put("donate",donate);
+        sqlMapClient.update("article_sqlMap.update_donate",map);
+    }
 
     public void saveArticle(Article article) throws Exception {
         sqlMapClient.update("article_sqlMap.article_save",article);

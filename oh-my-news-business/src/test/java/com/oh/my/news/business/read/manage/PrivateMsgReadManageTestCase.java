@@ -15,14 +15,15 @@ public class PrivateMsgReadManageTestCase extends TestCase {
 
     public PrivateMsgReadManageTestCase() {
 
-        System.setProperty("global.config.path","/Users/Dzhaoooo/GitProjects/env/env-dev");
+//        System.setProperty("global.config.path","/Users/Dzhaoooo/GitProjects/env/env-dev");
+        System.setProperty("global.config.path","/Users/shj/dev/env/env/env-dev");
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:oh-my-news-business/spring-service.xml");
         this.privateMsgReadManage = (PrivateMsgReadManage) applicationContext.getBean("privateMsgReadManageImpl");
     }
 
     public void testGetPrivateMsg(){
         try {
-            System.out.println(this.privateMsgReadManage.getPrivateMsg(1));
+            System.out.println(this.privateMsgReadManage.getPrivateMsg(2));
         }catch (Exception e){
             e.printStackTrace();
             Assert.fail();
@@ -51,7 +52,17 @@ public class PrivateMsgReadManageTestCase extends TestCase {
 
     public void testGetExMsg(){
         try {
-            System.out.println(this.privateMsgReadManage.getExMsg(1,2));
+            System.out.println(this.privateMsgReadManage.getExMsg(28,2));
+        }catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+
+    public void testGetExMsgALl(){
+        try {
+            System.out.println(this.privateMsgReadManage.getExMsgALl(28,2));
         }catch (Exception e){
             e.printStackTrace();
             Assert.fail();

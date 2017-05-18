@@ -2,6 +2,7 @@ package com.oh.my.news.business.write.dao.impl;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.oh.my.news.business.write.dao.WalletWriteDao;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -19,8 +20,9 @@ public class WalletWriteDaoImpl implements WalletWriteDao{
 private SqlMapClient sqlMapClient;
     @Override
     public Integer insertWalletByUserId(Integer userId)throws Exception{
-
-        return (Integer)sqlMapClient.insert("wallet_sqlMap.insert_wallet_by_id",userId);
+        Map<String,Object> map = new HashedMap();
+        map.put("userId",userId);
+        return (Integer)sqlMapClient.insert("wallet_sqlMap.insert_wallet_by_id",map);
 
 
     }

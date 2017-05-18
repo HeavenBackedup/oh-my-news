@@ -44,7 +44,6 @@ public class HomePageAction extends BaseAction {
         try {
             int userId = (Integer) userMap.get("userId");
             UserFont userDetail=userReadManage.getUserDetail(userId);
-            System.out.print(userDetail);
             UserInformation user=new UserInformation();
             user.setUsersId(userId);
             user.setAvatarPath(userDetail.getImageUrl());

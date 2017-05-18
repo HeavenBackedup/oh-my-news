@@ -33,4 +33,8 @@ public interface ArticleWriteDao {
 
     void saveMedia(List<Integer> mediaIds,int articleId)throws Exception;
 
+
+    public void updateDonate(int id,int donate)throws Exception;
+
+
 }

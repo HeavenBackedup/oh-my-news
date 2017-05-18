@@ -28,33 +28,38 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
     private ArticleReadDao articleReadDao;
     @Autowired
     private ArticleWriteDao articleWriteDao;
-//    @Autowired
-//    private SearchContentApi searchContentApi;
+    @Autowired
+    private SearchContentApi searchContentApi;
     @Autowired
     private UserReadDao userReadDao;
     @Autowired
     private WalletWriteDao walletWriteDao;
     @Autowired
     private WalletReadDao walletReadDao;
+
+
     @Override
     public void collect(int userId, int articleId) throws Exception {
         articleWriteDao.insertUARelReturnId(userId,articleId,UARelTypeEnum.COLLECT.getType(),0.0f);
+        articleWriteDao.updateCollect(articleId);
     }
 
     @Override
     public boolean donate(int userId, int articleId, int num, String message) throws Exception {
         int authorId = articleReadDao.queryUserIdById(articleId);
-
+        if(userId==articleId)
+            return false;
         synchronized (this){
 
             float sourcefigure = walletReadDao.getFigure(userId);
             float authorfigure = walletReadDao.getFigure(authorId);
             if(sourcefigure<num)
                 return false;
-            transactionWriteDao.insertTransactionByIds(userId,articleId,num,authorId,message);
+            transactionWriteDao.insertTransactionByIds(userId,authorId,num,articleId,message);
             walletWriteDao.updateWalletFigure(walletReadDao.queryIdByUserId(userId),(int)sourcefigure-num);
             walletWriteDao.updateWalletFigure(walletReadDao.queryIdByUserId(authorId),(int)authorfigure+num);
             walletWriteDao.setWalletMaxFigure(walletReadDao.queryIdByUserId(authorId));
+            articleWriteDao.updateDonate(articleId,num);
             return true;
         }
 
@@ -64,7 +69,9 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
     public void mark(int userId, int articleId, float score) throws Exception {
         if(articleWriteDao.ifOpDone(userId,articleId,UARelTypeEnum.MARK.getType()))
             throw new Exception("the user has already marked");
+        System.out.println(score);
         articleWriteDao.insertUARelReturnId(userId,articleId, UARelTypeEnum.MARK.getType(),score);
+        articleWriteDao.updateMark(articleId,score);
     }
 
     @Override
@@ -85,14 +92,17 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
         searchContent.setTopic(editContentWrite.getTopic());
         if(editContentWrite.getId()<=0){
             article.setIsPublished(1);
-
             int id= articleWriteDao.insertArticleReturnId(article);
             articleWriteDao.saveMedia(editContentWrite.getMediaIds(),id);
+            searchContent.setId(id);
+            searchContentApi.insert(searchContent);
             return id;
         }else {
             article.setIsPublished(1);
-            articleWriteDao.saveArticle(article);
+            articleWriteDao.publishArticle(article);
             articleWriteDao.saveMedia(editContentWrite.getMediaIds(),editContentWrite.getId());
+            searchContent.setId(editContentWrite.getId());
+            searchContentApi.insert(searchContent);
             return article.getId();
         }
 //        if(editContentWrite.getId()<=0){
@@ -115,6 +125,7 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
         if(articleWriteDao.ifOpDone(userId,articleId,UARelTypeEnum.REPORT.getType()))
             throw new Exception("the user has already reported");
         articleWriteDao.insertUARelReturnId(userId, articleId,UARelTypeEnum.REPORT.getType(),0.0f);
+        articleWriteDao.updateReport(articleId);
     }
 
     @Override
@@ -143,6 +154,7 @@ public class ArticleWriteManageImpl implements ArticleWriteManage{
         if(articleWriteDao.ifOpDone(userId,articleId,UARelTypeEnum.THUMBUP.getType()))
             throw new Exception("the user has already thumuped");
         articleWriteDao.insertUARelReturnId(userId,articleId,UARelTypeEnum.THUMBUP.getType(),0.0f);
+        articleWriteDao.updateThumbUp(articleId);
     }
 
 }

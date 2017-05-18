@@ -58,7 +58,7 @@
     </select>
 
     <select id="query_all" resultMap="editContent_resultMap">
-        select article.id,username,article.date,topic,content,label,category_id from article,`user` where `user`.id=article.user_id and `user`.is_delete=0 and
+        select article.id,`user`.nickname username,article.date,topic,content,label,category_id from article,`user` where `user`.id=article.user_id and `user`.is_delete=0 and
         (`user`.is_limit = 0 or (`user`.is_limit = 1
         <![CDATA[
         and `user`.deadline < now()
@@ -102,9 +102,15 @@
             SELECT LAST_INSERT_ID() as id
         </selectKey>
     </insert>
+
     <select id="if_op_done" parameterClass="java.util.Map" resultClass="Integer">
         select id from u_a_rel where u_a_rel.user_id = #user_id# and u_a_rel.article_id = #articleId# and u_a_rel.is_delete = 0 and u_a_rel.type = #type#;
     </select>
+
+
+    <update id="update_donate"  parameterClass="java.util.Map">
+        update article set donation = donation+#donate# where id = #id#;
+    </update>
     <update id="article_publish" parameterClass="com.oh.my.news.model.po.Article">
         update article set topic = #topic#,content=#content#,label=#labels#,category_id=#categoryId#,content_snapshot=#contentSnapshot#,`date`=now(),is_published=1 WHERE id = #id#;
     </update>
@@ -112,8 +118,9 @@
         update article set topic = #topic#,content=#content#,label=#labels#,category_id=#categoryId#,content_snapshot=#contentSnapshot#,`date`=now() WHERE id = #id#;
     </update>
     <update id="update_mark" parameterClass="java.util.Map">
-         update article set score = score*mark_num+#value#/mark_num+1,mark_num = mark_num+1 where id = #id#;
+         update article set score = score*mark_num+#score#/(mark_num+1),mark_num=mark_num+1 where id = #id#;
     </update>
+
 
     <update id="update_collect">
         update article set collected = collected +1 where id = #id#;
@@ -126,6 +133,8 @@
     <update id="update_thumb_up">
         update article set thumb_up = thumb_up+1 WHERE id = #id#;
     </update>
+
+
 
 
 
@@ -225,9 +234,6 @@
         <include refid="limit_article_sql"></include>
         ;
     </select>
-
-
-
     <resultMap id="articleReaderType_resultMap" class="com.oh.my.news.model.po.ArticleReaderType">
         <result property="id" column="id" jdbcType="INTEGER"></result>
         <result property="isDelete" column="is_delete" jdbcType="INTEGER"></result>

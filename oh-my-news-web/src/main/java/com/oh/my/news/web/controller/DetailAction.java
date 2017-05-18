@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -60,7 +61,7 @@ public class DetailAction extends BaseAction {
             int articleId  = (Integer) pageMap.get("articleId");
             Map<String,Object> map = new HashMap();
             CommentPageDto commentPageDto = commentReadManage.getComments(articleId,currentPage,5);
-
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             List<RootComments> rootCommentss = new ArrayList<RootComments>();
             for(List<CommentDto> l:commentPageDto.getComments()){
                 if(CollectionUtils.isEmpty(l))
@@ -72,7 +73,7 @@ public class DetailAction extends BaseAction {
                     comment.setId(c.getComment().getId());
                     comment.setContent(c.getComment().getContent());
                     comment.setarticleId(c.getComment().getArticleId());
-                    comment.setDate(c.getComment().getDate().toString());
+                    comment.setDate(formatter.format(c.getComment().getDate()));
                     User user = new User();
                     user.setName(c.getReplier().getNickname());
                     user.setUserId(c.getReplier().getId());
@@ -96,7 +97,7 @@ public class DetailAction extends BaseAction {
                     fomerUser.setTotalMoney(1000.0f);
                     fomerUser.setName(c.getFormerReplier().getNickname());
                     formerComment.setReplier(fomerUser);
-                    formerComment.setDate(c.getFormerComment().getDate().toString());
+                    formerComment.setDate(formatter.format(c.getFormerComment().getDate()));
                     formerComment.setarticleId(c.getFormerComment().getArticleId());
                     formerComment.setContent(c.getFormerComment().getContent());
                     formerComment.setId(c.getFormerComment().getId());
@@ -173,9 +174,10 @@ public class DetailAction extends BaseAction {
             user.setUserImgSrc(articleDetail.getArticleCategoryDto().getUserSnapshot().getImageUrl());
             article.setUser(user);
             if(userId==null||userId==-1||userId==0){
-                map.put("articleReader",null);
+                map.put("articleReader",new ArticleReader());
                 return successReturnObject(map);
             }
+
             ArticleReader reader = new ArticleReader();
             reader.setcollected(articleDetail.isCollected());
             reader.setDonation(articleDetail.getDonation());

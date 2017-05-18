@@ -8,7 +8,7 @@
         <result property="userId" column="user_id" jdbcType="INTEGER"></result>
         <result property="formerCommentId" column="former_comment_id" jdbcType="INTEGER"></result>
         <result property="content" column="content" jdbcType="VARCHAR"></result>
-        <result property="date" column="date" jdbcType="DATE"></result>
+        <result property="date" column="date" jdbcType="TIMESTAMP"></result>
         <result property="articleId" column="article_id" jdbcType="INTEGER"></result>
         <result property="rootCommentId" column="root_comment_id" jdbcType="INTEGER"></result>
     </resultMap>

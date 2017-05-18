@@ -28,4 +28,7 @@ public interface PrivateMsgReadManage {
      * @throws Exception
      */
     List<PrivateMessage> getExMsg(int sourceUserId,int targetUserId)throws Exception;
+
+
+    List<PrivateMessage> getExMsgALl(int sourceUserId,int targetUserId)throws Exception;
 }

@@ -174,6 +174,7 @@ app.controller('detailController',['$scope','$state','$location','$anchorScroll'
                         break;
                     case 4:
                             $scope.totalMoney = $scope.totalMoney-$scope.reward.num;
+                        $scope.donated = $scope.donated+$scope.reward.num;
                         $scope.reward.num = 0;
                         $scope.reward.rewardmessage = "";
                         break;

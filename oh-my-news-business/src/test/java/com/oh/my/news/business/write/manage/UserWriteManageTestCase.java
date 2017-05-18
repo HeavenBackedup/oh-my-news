@@ -8,6 +8,8 @@ import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.Date;
+
 /**
  * Created by llf on 2017/5/6.
  */
@@ -15,7 +17,9 @@ public class UserWriteManageTestCase extends TestCase{
     private UserWriteManage userWriteManage;
 
     public UserWriteManageTestCase() {
-        System.setProperty("global.config.path","D:/gitcode/env/env-dev");
+//        System.setProperty("global.config.path","D:/gitcode/env/env-dev");
+        System.setProperty("global.config.path","/Users/shj/dev/env/env/env-dev");
+
         ApplicationContext applicationContext=new ClassPathXmlApplicationContext("classpath:oh-my-news-business/spring-service.xml");
         this.userWriteManage = (UserWriteManage)applicationContext.getBean("userWriteManageImpl");
     }
@@ -24,6 +28,20 @@ public class UserWriteManageTestCase extends TestCase{
         user.setUsername("llf3");
         user.setEmail("123456736@qq.com");
         user.setPassword("123456");
+        try {
+            this.userWriteManage.register(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    public void testRegisterNoEmail(){
+        UserWrite user=new UserWrite();
+        user.setUsername("sdfooihjio");
+        user.setNickname("sdfooihjio");
+        user.setPassword("123456");
+        user.setDate(new Date());
         try {
             this.userWriteManage.register(user);
         } catch (Exception e) {

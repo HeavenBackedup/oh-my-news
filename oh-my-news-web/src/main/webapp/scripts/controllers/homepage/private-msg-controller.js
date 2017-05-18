@@ -120,7 +120,7 @@ app.controller('privateMsgController',['$scope','privatemsgService','Upload','fi
     }
 
     $scope.goToHomePage = function (id) {
-        $state.go('app.personalHomepage.hpTabset.history',{userId:id});
+        $state.go('app.personalHomepage.hpTabset.history',{userId:id},{reload:true});
     }
 
 }])

@@ -97,6 +97,24 @@ public class PrivateMsgAction extends BaseAction{
 
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/getAndroidExMsg",consumes = APPLICATION_JSON, method = RequestMethod.POST)
+    public Object getAndroidExMsg(@RequestBody Map inputMap)throws Exception{
+        try {
+            //用户自己的ID
+            Integer myUserId = Integer.parseInt(inputMap.get("userId").toString());
+
+            //和我发私信交流的另一个用户的ID
+            Integer otherUserId=Integer.parseInt(inputMap.get("otherUserId").toString());
+            return privateMsgReadManage.getExMsgALl(otherUserId,myUserId);
+//
+        }catch (Exception e){
+            logger.error(e);
+            throw e;
+        }
+
+    }
+
     /*用户发送一条私信，新私信成功存入数据库返回true，否则返回false*/
     @ResponseBody
     @RequestMapping(value = "/postPrivateMsg",consumes = APPLICATION_JSON, method = RequestMethod.POST)
@@ -120,5 +138,7 @@ public class PrivateMsgAction extends BaseAction{
         logger.error(e);
         throw e;
     }
+
+
 
 }}

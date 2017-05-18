@@ -2,7 +2,7 @@
   <div class="col-sm-6 col-md-offset-3">
     <img class="img-responsive img-circle" ng-src="{{userInfo.avatarPath}}" style="width: auto" />
     <br>
-    <div class="row col-md-offset-1"><span ng-click="linkToConcern()">关注:<span style="color: #428bca;font-weight: bold">{{userInfo.followers}}</span ></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span ng-click="linkToFans()">粉丝:<span style="color:  #428bca;font-weight: bold">{{userInfo.fans}}</span></span></div>
+    <div class="row col-md-offset-1"><a ng-click="linkToConcern()">关注:<span style="color: #428bca;font-weight: bold">{{userInfo.followers}}</span ></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a ng-click="linkToFans()">粉丝:<span style="color:  #428bca;font-weight: bold">{{userInfo.fans}}</span></a></div>
     <div class="row col-md-offset-1"><span>{{userInfo.date|date:'yyyy-MM-dd'}}&nbsp;加入</span></div>
     <!--<div class="row"><span>{{userInfo.date|date:'yyyy-MM-dd hh:mm:ss'}}加入</span></div>-->
   </div>

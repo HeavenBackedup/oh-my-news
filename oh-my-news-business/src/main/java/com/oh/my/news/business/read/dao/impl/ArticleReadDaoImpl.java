@@ -68,12 +68,11 @@ public class ArticleReadDaoImpl implements ArticleReadDao {
         List<Transaction> transactions = transactionReadDao.donated(userId);
         float donation = 0;
         for (Transaction transaction:transactions){
-            if (articleId == transaction.getArticleId()){
+            if (articleId.equals(transaction.getArticleId())){
                 donation += transaction.getAmount();
             }
         }
         articleReader.setDonation(donation);
-
         return articleReader;
     }
 

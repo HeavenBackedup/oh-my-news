@@ -85,7 +85,7 @@
                                     <div class="meta">
                                         <h3><a ng-click="gotoPersonalHomepage(x.comments[0].replier.userId)">{{x.comments[0].replier.name}}</a></h3>
                                         <span class="date">
-                                        {{x.comments[0].date}}
+                                        {{x.comments[0].date|date:'yyyy-MM-dd'}}
                                     </span>
                                         <span class="separator">
                                          -
@@ -123,7 +123,7 @@
                                             <!--<div><span>{{x.comments[0].id}} aa</span>&nbsp;<span>{{xx.formerComment.id}} bb</span>&nbsp;<span>{{xx.formerComment.replier.name}} cc</span></div>-->
                                             <span ng-show="(xx.formerComment.id!=x.comments[0].id)"> replied:<a href="#"> {{xx.formerComment.replier.name}} </a><br/></span>
                                             <span class="date">
-                                    {{xx.date}}
+                                    {{xx.date|date:'yyyy-MM-dd'}}
                                 </span>
                                             <span class="separator">
                                     -

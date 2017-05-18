@@ -19,6 +19,8 @@ import java.util.*;
 public class PrivateMsgReadManageImpl implements PrivateMsgReadManage {
     @Autowired
     private PrivateMsgReadDao privateMsgReadDao;
+
+
    public List<PrivateMessage> getPrivateMsg(int userId)throws Exception{
 //       return privateMsgReadDao.queryPrivateMessage(userId);
 
@@ -27,6 +29,7 @@ public class PrivateMsgReadManageImpl implements PrivateMsgReadManage {
        List<PrivateMessage> res = privateMsgReadDao.querySourceMessageByIds(distinctTargetId(privateMsgSnapshotSources));
        return res;
    }
+
    public List<PrivateMessage> getExMsg(int sourceUserId,int targetUserId)throws Exception{
        List<PrivateMessage> targetPrivateMsg = privateMsgReadDao.querySourceMsgBySourceIdAndTargetId(sourceUserId,targetUserId);
        List<PrivateMessage> sourcePrivateMsg = privateMsgReadDao.querySourceMsgBySourceIdAndTargetId(targetUserId,sourceUserId);
@@ -42,7 +45,7 @@ public class PrivateMsgReadManageImpl implements PrivateMsgReadManage {
        Collections.sort(res, new Comparator<PrivateMessage>() {
            @Override
            public int compare(PrivateMessage o1, PrivateMessage o2) {
-               return o1.getDate().compareTo(o2.getDate());
+               return o2.getDate().compareTo(o1.getDate());
            }
        });
        res.remove(0);
@@ -81,7 +84,7 @@ public class PrivateMsgReadManageImpl implements PrivateMsgReadManage {
         for(PrivateMsgSnapshot msgSnapshot:sourcePrivateMsgSnapshots){
             if(map.get(msgSnapshot.getTargetId())==null){
                 map.put(msgSnapshot.getTargetId(),msgSnapshot);
-            }else if(map.get(msgSnapshot.getTargetId()).getDate().getTime()>msgSnapshot.getDate().getTime()){
+            }else if(map.get(msgSnapshot.getTargetId()).getDate().getTime()<msgSnapshot.getDate().getTime()){
                 map.put(msgSnapshot.getTargetId(),msgSnapshot);
             }
         }
@@ -92,5 +95,21 @@ public class PrivateMsgReadManageImpl implements PrivateMsgReadManage {
         if(CollectionUtils.isEmpty(res))
             res.add(-1);
         return res;
+    }
+
+
+
+    public List<PrivateMessage> getExMsgALl(int sourceUserId, int targetUserId) throws Exception {
+
+        List<PrivateMessage> targetPrivateMsg = privateMsgReadDao.querySourceMsgBySourceIdAndTargetId(sourceUserId,targetUserId);
+        List<PrivateMessage> sourcePrivateMsg = privateMsgReadDao.querySourceMsgBySourceIdAndTargetId(targetUserId,sourceUserId);
+        targetPrivateMsg.addAll(sourcePrivateMsg);
+        Collections.sort(targetPrivateMsg, new Comparator<PrivateMessage>() {
+            @Override
+            public int compare(PrivateMessage o1, PrivateMessage o2) {
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        });
+        return targetPrivateMsg;
     }
 }

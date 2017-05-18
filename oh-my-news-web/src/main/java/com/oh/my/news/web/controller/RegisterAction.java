@@ -112,7 +112,6 @@ public class RegisterAction extends BaseAction {
             userWrite.setNickname(username);
             userWrite.setUsername(username);
             userWrite.setPassword(pwd);
-            userWrite.setDate(new Date());
 //        userWrite.setUsername(user.getUsername());
 //        userWrite.setEmail(user.getEmail());
 //        userWrite.setPassword(user.getPassword());

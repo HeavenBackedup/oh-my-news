@@ -24,8 +24,7 @@
             <ol>
                 <li  data-ng-repeat="item in searchItems">
                     <a ng-click="goToDetail(item.articleId)"><h4 style="color: #265a88;text-decoration: underline">{{item.topic}}</h4></a>
-                    <div style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;width: 700px">
-                        {{item.contentSnapshot}}
+                    <div ng-bind-html="item.contentSnapshot" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow:hidden;text-overflow: ellipsis;width: 700px">
 
                     </div>
                     <br>
